@@ -1,3 +1,6 @@
 [submodule "sdk"]
 	path = sdk
 	url = https://github.com/facebook/facebook-php-sdk.git
+[submodule "bootstrap"]
+	path = bootstrap
+	url = https://github.com/twitter/bootstrap.git
