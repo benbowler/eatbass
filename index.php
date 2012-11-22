@@ -2,6 +2,8 @@
 
 echo "Hello";
 
+die(getenv("MONGOHQ_URL"));
+
 /* mongodb */
 
 try {
