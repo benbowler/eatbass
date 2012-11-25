@@ -7,3 +7,6 @@
 [submodule "gdata"]
 	path = gdata
 	url = https://github.com/zendframework/ZendGData
+[submodule "tubeplayer"]
+	path = tubeplayer
+	url = https://github.com/nirvanatikku/jQuery-TubePlayer-Plugin
