@@ -56,11 +56,13 @@ echo 'Schedule';
           //$col->insert($video);
 
           $video->_id = $video->id->{'$t'};
+          $video->id_hash = md5($video->id->{'$t'});
 
           try {
               $col->insert($video, true);
+              echo "Added {$video->id->{'$t'}}<br />";
           } catch(MongoCursorException $e) {
-              echo "Can't save the same person twice!\n";
+              echo "Can't save the same person twice!<br />";
           }
       }
   }
@@ -69,10 +71,12 @@ echo 'Schedule';
 
 
   # print all existing documents
+  /*
   $data = $col->find();
   foreach($data as $video) {
     echo "<li>" . $video['title']['$t'] . "</li>";
   }
+  */
 
   # disconnect
   $m->close();
