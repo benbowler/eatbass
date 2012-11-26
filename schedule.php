@@ -60,7 +60,7 @@ echo 'Schedule';
           $video->unixdate = date('U', strtotime($video->published->{'$t'}));
 
           try {
-              //$col->insert($video, true);
+              $col->insert($video, true);
               echo "Added {$video->id->{'$t'}}<br />";
           } catch(MongoCursorException $e) {
               echo "Can't save the same person twice!<br />";
