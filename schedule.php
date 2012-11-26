@@ -56,7 +56,7 @@ echo 'Schedule';
           //$col->insert($video);
 
           $video->_id = $video->id->{'$t'};
-          $video->id_hash = md5($video->id->{'$t'});
+          $video->video_id = intval($video->id->{'$t'}, 36);
 
           try {
               $col->insert($video, true);
