@@ -56,10 +56,11 @@ echo 'Schedule';
           //$col->insert($video);
 
           $video->_id = $video->id->{'$t'};
-          $video->video_id = intval($video->id->{'$t'}, 36);
+          $video->slug = _to_ascii($video->title->{'$t'});
+          $video->unixdate = date('U', strtotime($video->published->{'$t'}));
 
           try {
-              $col->insert($video, true);
+              //$col->insert($video, true);
               echo "Added {$video->id->{'$t'}}<br />";
           } catch(MongoCursorException $e) {
               echo "Can't save the same person twice!<br />";
@@ -97,6 +98,20 @@ echo 'Schedule';
 
 function _api_request($url) {
     return json_decode(file_get_contents($url));
+}
+
+setlocale(LC_ALL, 'en_US.UTF8');
+function _to_ascii($str, $replace=array(), $delimiter='-') {
+  if( !empty($replace) ) {
+    $str = str_replace((array)$replace, ' ', $str);
+  }
+
+  $clean = iconv('UTF-8', 'ASCII//TRANSLIT', $str);
+  $clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
+  $clean = strtolower(trim($clean, '-'));
+  $clean = preg_replace("/[\/_|+ -]+/", $delimiter, $clean);
+
+  return $clean;
 }
 
 /*
