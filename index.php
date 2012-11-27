@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-responsive.min.css" type="text/css" />
 
     <script type='text/javascript' src='tubeplayer/jQuery.tubeplayer.min.js'></script>
+    <script type='text/javascript' src="history/scripts/bundled/html4+html5/jquery.history.js"></script>
 
     <!--<link rel="stylesheet" href="assets/stylesheets/screen.css" media="Screen" type="text/css" />-->
     <!--<link rel="stylesheet" href="assets/stylesheets/mobile.css" media="handheld, only screen and (max-width: 480px), only screen and (max-device-width: 480px)" type="text/css" />-->
@@ -26,7 +27,7 @@
     <!-- over facebook.  You should fill these tags in with      -->
     <!-- your data.  To learn more about Open Graph, visit       -->
     <!-- 'https://developers.facebook.com/docs/opengraph/'       -->
-    <meta property="og:title" content="<?php echo he($app_name); ?>" />
+    <meta property="og:title" content="<?php echo $video['title']['$t']; ?> - <?php echo he($app_name); ?>" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="<?php echo AppInfo::getUrl(); ?>" />
     <meta property="og:image" content="<?php echo AppInfo::getUrl('/logo.png'); ?>" />
@@ -174,24 +175,47 @@
       <?php } ?>
     </header>
 
-
     <section id="player">
-      Persistant player
+        <div id="player-yt"></div>
     </section>
 
-    <section id="interact">
-
     <?php if ($user_id): ?>
-      Chat box and share stuff
+
+      <section id="interact">
+        Chat box and share stuff
+      </section>
 
     <?php else: ?>
-      Login with Facebook to interact with live chat and friends
+      <!-- overlay looping muted video -->
+      <section id="login">
+        Login to get started...
+      </section>
 
     <?php endif; ?>
 
-      Streaming chat...
+<a href="#" class="heart">Heart</a>
+<a href="#" class="next">Next</a>
 
-    </section>
+
+<!--
+<a href="#" onClick='jQuery("#youtube-player-container").tubeplayer("play")'> 
+  Play video in player
+</a>
+<a href="#" onClick='jQuery("#youtube-player-container").tubeplayer("pause")'> 
+  Pause player 
+</a>
+<a href="#" onClick='jQuery("#youtube-player-container").tubeplayer("stop")'> 
+  Stop player 
+</a>
+<a href="#" onClick='jQuery("#youtube-player-container").tubeplayer("mute")'>   
+  Mute player 
+</a>
+<a href="#" onClick='jQuery("#youtube-player-container").tubeplayer("unmute")'> 
+  Unmute player
+</a>
+-->
+  
+
 <!--
     <section id="get-started">
       <p>Welcome to your Facebook app, running on <span>heroku</span>!</p>
@@ -328,22 +352,54 @@
 
   -->
 
+
 <script type="text/javascript">
 $(function() {
-  jQuery("#player").tubeplayer({
-    width: 600, // the width of the player
-    height: 450, // the height of the player
+  jQuery("#player-yt").tubeplayer({
+    width: 720, // the width of the player
+    height: 720, // the height of the player
     allowFullScreen: "true", // true by default, allow user to go full screen
-    initialVideo: "DkoeNLuMbcI", // the video that is loaded into the player
+    showControls: 0,
+    autoPlay: true,
+    showInfo: false,
+    modestbranding: true,
+    initialVideo: "<?php echo $video['media$group']['yt$videoid']['$t']; ?>", // the video that is loaded into the player
     preferredQuality: "default",// preferred quality: default, small, medium, large, hd720
     onPlay: function(id){}, // after the play method is called
     onPause: function(){}, // after the pause method is called
     onStop: function(){}, // after the player is stopped
     onSeek: function(time){}, // after the video has been seeked to a defined point
     onMute: function(){}, // after the player is muted
-    onUnMute: function(){} // after the player is unmuted
+    onUnMute: function(){}, // after the player is unmuted
+    onPlayerEnded: nextVideo
   });
-};
+
+  $(".next").click(function(e) {
+    e.preventDefault();
+    nextVideo();
+  });
+
+  $(".heart").click(function(e) {
+    e.preventDefault();
+    alert('love');
+    // nextVideo();
+  });
+
+  function nextVideo() {
+    console.log('loading next.');
+    $.ajax({
+    url: 'api/video.php',
+    success: function(data) {
+      var video = jQuery.parseJSON(data);
+      //alert(video['media$group']['yt$videoid']['$t']);  //media$group.yt$videoid.$t
+      jQuery("#player-yt").tubeplayer("play", video['media$group']['yt$videoid']['$t']);
+
+      History.pushState(data,video.title.$t + ' - <?php echo he($app_name); ?>',video.slug);
+
+    }
+  });
+}
+});
 </script>
 
 

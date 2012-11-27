@@ -10,3 +10,6 @@
 [submodule "tubeplayer"]
 	path = tubeplayer
 	url = https://github.com/nirvanatikku/jQuery-TubePlayer-Plugin
+[submodule "history"]
+	path = history
+	url = https://github.com/balupton/history.js.git
