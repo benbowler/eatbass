@@ -1,4 +1,3 @@
-<?php require_once('app/app.php'); ?>
 <!DOCTYPE html>
 <html xmlns:fb="http://ogp.me/ns/fb#" lang="en">
 	<head>

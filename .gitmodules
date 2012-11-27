@@ -1,15 +1,9 @@
-[submodule "sdk"]
-	path = sdk
+[submodule "app/modules/facebook-php-sdk"]
+	path = app/modules/facebook-php-sdk
 	url = https://github.com/facebook/facebook-php-sdk.git
-[submodule "bootstrap"]
-	path = bootstrap
-	url = https://github.com/twitter/bootstrap.git
-[submodule "gdata"]
-	path = gdata
-	url = https://github.com/zendframework/ZendGData
-[submodule "tubeplayer"]
-	path = tubeplayer
+[submodule "assets/javascript/tubeplayer"]
+	path = assets/javascript/tubeplayer
 	url = https://github.com/nirvanatikku/jQuery-TubePlayer-Plugin
-[submodule "history"]
-	path = history
+[submodule "assets/javascript/history.js"]
+	path = assets/javascript/history.js
 	url = https://github.com/balupton/history.js.git
