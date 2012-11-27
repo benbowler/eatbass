@@ -17,6 +17,12 @@
 		<script type='text/javascript' src='assets/javascript/tubeplayer/jQuery.tubeplayer.min.js'></script>
 		<script type='text/javascript' src="assets/javascript/history.js/scripts/bundled/html4+html5/jquery.history.js"></script>
 
+		<meta property="title" content="<?php echo $video['title']['$t']; ?> - <?php echo he($app_name); ?>" />
+		<meta property="description" content="
+			<?php echo $video['title']['$t']; ?> - <?php echo $site_title; ?> <?php echo $site_description; ?>
+
+			<?php echo $video['media$group']['media$description']['$t']; ?>
+		" />
 		<!-- These are Open Graph tags. -->
 		<meta property="og:title" content="<?php echo $video['title']['$t']; ?> - <?php echo he($app_name); ?>" />
 		<meta property="og:type" content="website" />
@@ -178,6 +184,10 @@
 	      jQuery("#player-yt").tubeplayer("play", video.media$group.yt$videoid.$t);
 
 	      History.pushState(data,video.title.$t + ' - <?php echo $site_title; ?>',video.slug);
+
+	      $('#video_title').html(video.title.$t);
+	      $('#video_author').html(video.author[0].name.$t);
+	      $('#video_description').html(video.media$group.media$description.$t);
 
 	    },
 	    error: function(data) {
