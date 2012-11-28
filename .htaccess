@@ -1,5 +1,10 @@
 # Multiple Environment config
 
+<IfModule mod_php5.c>
+	extension_dir = "/app/www/ext/"
+	extension=mongo.so
+</IfModule>
+
 <IfModule mod_rewrite.c>
 
     # Make sure directory listing is disabled
