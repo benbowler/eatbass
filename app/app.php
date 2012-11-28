@@ -95,9 +95,9 @@ $col = $db->videos;
 // App segments
 
 
-$segments = @explode('/', $_SERVER['PATH_INFO']);
+//$segments = @explode('/', $_SERVER['PATH_INFO']);
 
-$slug = ($segments[1]) ? $segments[1] : false ; 
+$slug = $_GET['slug']; 
 
 
 if($slug) {
