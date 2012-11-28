@@ -189,6 +189,8 @@
 	      $('#video_author').html(video.author[0].name.$t);
 	      $('#video_description').html(video.media$group.media$description.$t);
 
+	      _gaq.push(['_trackPageview','/' + video.slug]);
+
 	    },
 	    error: function(data) {
 	      // On error do a full refresh
