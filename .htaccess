@@ -2,6 +2,9 @@
 Options +FollowSymLinks -Indexes
 RewriteEngine on
 
+RewriteRule ^(.*)$ index.php/$1 [L]
+
+
 # Remove index.php from URL
 #RewriteCond %{HTTP:X-Requested-With}	!^XMLHttpRequest$
 #RewriteCond %{THE_REQUEST}				^[^/]*/index\.php [NC]
@@ -15,5 +18,5 @@ RewriteEngine on
 #RedirectMatch 403 ^/(app\/|\.git|\.hg).*$
 
 # Send request via index.php (again, not if its a real file or folder)
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
