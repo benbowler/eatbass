@@ -1,6 +1,10 @@
 <?php
 // Shedular to get channel subscriptions
 
+if(!preg_match('eatbass', $_SERVER['HTTP_HOST'])) {
+  die(file_get_contents('http://eatbass.com/app/schedule.php'));
+}
+
 // Config
 $userId = "eatbassnow";
 
@@ -46,9 +50,9 @@ foreach($subscriptions->feed->entry as $subscription) {
 
         try {
             $col->insert($video, true);
-            echo "Added {$video->id->{'$t'}}<br />";
+            echo "Added {$video->title->{'$t'}}<br />";
         } catch(MongoCursorException $e) {
-            echo "Can't save the same person twice!<br />";
+            echo "Can't save the same video twice!<br />";
         }
     }
 }

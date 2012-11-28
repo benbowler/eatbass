@@ -94,7 +94,6 @@ $col = $db->videos;
 
 // App segments
 
-
 //$segments = @explode('/', $_SERVER['PATH_INFO']);
 
 $slug = $_GET['slug']; 
