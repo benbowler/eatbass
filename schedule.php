@@ -1,10 +1,6 @@
 <?php
 // Shedular to get channel subscriptions
 
-if(!strstr('eatbass', $_SERVER['HTTP_HOST'])) {
-  die(file_get_contents('http://eatbass.com/app/schedule.php'));
-}
-
 // Config
 $userId = "eatbassnow";
 
