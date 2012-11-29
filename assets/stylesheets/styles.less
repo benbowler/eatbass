@@ -7,25 +7,53 @@
 
 @import url('http://fonts.googleapis.com/css?family=Droid+Sans:400,700');
 
+
+@import 'resets';
+
 body {
 	font-family: 'Droid Sans', Helvetica, sans-serif;
+	color: white;
+	margin: 0;
+	z-index: 0;
 }
 
+h1, h2, h3, h4 {
+	font-weight: 200;
+}
 
 
 // Layout
 body {
-	padding: 0 6%;
+	padding: 0;
+}
+
+#background {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: -100;
+
+	background-color: black;
+	background-repeat: both;
+	background-position: 0 200px;
+}
+
+#wrapper {
+	width: 720px;
+	margin: 20px auto;
 }
 
 #player {
 	overflow: hidden;
 	width: 720px;
 	height: 400px;
+	margin: 0 auto;
 	#player-yt {
 		height: 720px;
 		width: 720px;
-	position: relative;
+		position: relative;
 		bottom: 160px;
 	}
 }
@@ -34,6 +62,9 @@ body {
 
 /* Large desktop */
 @media (min-width: 1200px) {
+	#wrapper {
+		width: 1080px;
+	}
 	#player {
 		width: 1080px;
 		height: 600px;
@@ -47,6 +78,9 @@ body {
  
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 768px) and (max-width: 979px) {
+	#wrapper {
+		width: 720px;
+	}
 	#player {
 		width: 720px;
 		height: 400px;
@@ -60,6 +94,9 @@ body {
  
 /* Landscape phone to portrait tablet */
 @media (max-width: 767px) {
+	#wrapper {
+		width: 480px;
+	}
 	#player {
 		width: 480px;
 		height: 266px;
@@ -73,6 +110,9 @@ body {
  
 /* Landscape phones and down */
 @media (max-width: 480px) {
+	#wrapper {
+		width: 320px;
+	}
 	#player {
 		width: 320px;
 		height: 176px;

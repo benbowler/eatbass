@@ -1,4 +1,109 @@
 /*
   title: all-styles css
 */
-@import url('http://fonts.googleapis.com/css?family=Droid+Sans:400,700');body{font-family:'Droid Sans',Helvetica,sans-serif}#player{overflow:hidden;width:720px;height:400px}#player #player-yt{height:720px;width:720px;position:relative;bottom:160px}@media (min-width: 1200px){#player{ width:1080px;height:600px}#player #player-yt{height:1080px;width:1080px;bottom:240px}}@media (min-width: 768px) and (max-width: 979px){#player{ width:720px;height:400px}#player #player-yt{height:720px;width:720px;bottom:160px}}@media (max-width: 767px){#player{ width:480px;height:266px}#player #player-yt{height:480px;width:480px;bottom:107px}}@media (max-width: 480px){#player{ width:320px;height:176px}#player #player-yt{height:320px;width:320px;bottom:72px}}
+@import url('http://fonts.googleapis.com/css?family=Droid+Sans:400,700');
+/*
+  title: all-styles css
+*/
+body {
+  font-family: 'Droid Sans', Helvetica, sans-serif;
+  color: white;
+  margin: 0;
+  z-index: 0;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 200;
+}
+body {
+  padding: 0;
+}
+#background {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -100;
+  background-color: black;
+  background-repeat: both;
+  background-position: 0 200px;
+}
+#wrapper {
+  width: 720px;
+  margin: 20px auto;
+}
+#player {
+  overflow: hidden;
+  width: 720px;
+  height: 400px;
+  margin: 0 auto;
+}
+#player #player-yt {
+  height: 720px;
+  width: 720px;
+  position: relative;
+  bottom: 160px;
+}
+/* Large desktop */
+@media (min-width: 1200px) {
+  #wrapper {
+    width: 1080px;
+  }
+  #player {
+    width: 1080px;
+    height: 600px;
+  }
+  #player #player-yt {
+    height: 1080px;
+    width: 1080px;
+    bottom: 240px;
+  }
+}
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+  #wrapper {
+    width: 720px;
+  }
+  #player {
+    width: 720px;
+    height: 400px;
+  }
+  #player #player-yt {
+    height: 720px;
+    width: 720px;
+    bottom: 160px;
+  }
+}
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+  #wrapper {
+    width: 480px;
+  }
+  #player {
+    width: 480px;
+    height: 266px;
+  }
+  #player #player-yt {
+    height: 480px;
+    width: 480px;
+    bottom: 107px;
+  }
+}
+/* Landscape phones and down */
+@media (max-width: 480px) {
+  #wrapper {
+    width: 320px;
+  }
+  #player {
+    width: 320px;
+    height: 176px;
+  }
+  #player #player-yt {
+    height: 320px;
+    width: 320px;
+    bottom: 72px;
+  }
+}
