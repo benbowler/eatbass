@@ -11,6 +11,5 @@ $segments = $_GET['slug'];
 $route = 'index';
 //unset($segments[1]);
 
-
 $controller = new controller();
 $controller->$route($segments);

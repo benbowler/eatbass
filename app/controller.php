@@ -49,7 +49,7 @@ class controller
         if ($user_id) {
         try {
           // Fetch the viewer's basic information
-          $basic = $facebook->api('/me');
+          $data['basic'] = $facebook->api('/me');
         } catch (FacebookApiException $e) {
           // If the call fails we check if we still have a user. The user will be
           // cleared if the error is because of an invalid accesstoken
@@ -84,6 +84,8 @@ class controller
         // Fetch the basic info of the app that they are using
         $data['app_info'] = $facebook->api('/'. AppInfo::appID());
         $data['app_name'] = idx($data['app_info'], 'name', '');
+
+        $data['user_id'] = $user_id;
 
         $data['appID'] = AppInfo::appID();
         $data['getUrl'] = AppInfo::getUrl();

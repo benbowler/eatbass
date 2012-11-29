@@ -9,6 +9,7 @@ body {
   font-family: 'Droid Sans', Helvetica, sans-serif;
   color: white;
   margin: 0;
+  padding: 0;
   z-index: 0;
 }
 h1,
@@ -16,9 +17,6 @@ h2,
 h3,
 h4 {
   font-weight: 200;
-}
-body {
-  padding: 0;
 }
 #background {
   position: fixed;
@@ -35,6 +33,39 @@ body {
   width: 720px;
   margin: 20px auto;
 }
+header h3 {
+  display: inline;
+  float: left;
+}
+header #user {
+  width: 50%;
+  float: right;
+}
+header #user h4,
+header #user img,
+header #user a {
+  display: inline;
+  float: right;
+}
+header #user h4 {
+  margin-right: 3%;
+}
+header #user img {
+  height: 36px;
+  width: 36px;
+  padding: 10px;
+}
+header #user a {
+  font-size: 1.17em;
+  line-height: 2em;
+  padding: 0.65em 1em;
+}
+header #user .love {
+  color: #ff3300;
+}
+header #user .skip {
+  color: white;
+}
 #player {
   overflow: hidden;
   width: 720px;
@@ -46,6 +77,18 @@ body {
   width: 720px;
   position: relative;
   bottom: 160px;
+}
+#login {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+#login div {
+  width: 300px;
+  height: 300px;
+  margin: 20% auto;
 }
 /* Large desktop */
 @media (min-width: 1200px) {

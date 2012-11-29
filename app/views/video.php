@@ -88,188 +88,178 @@
 
 			<h3><strong><?php echo $site_title; ?></strong> <?php echo $site_description; ?></h3>
 
+
+			<section id="user">
+
+				<a href="#" class="love">Love</a>
+				<a href="#" class="skip">Skip</a>
+
+				<?php if (isset($basic)) { ?>
+					<h4>Hey, <strong><?php echo he(idx($basic, 'first_name')); ?></strong></h4>
+					<img id="picture" src="https://graph.facebook.com/<?php echo he($user_id); ?>/picture?type=square" />
+				<?php } ?>
+
+			</section>
+
 		</header>
 
 		<section id="player">
 				<div id="player-yt"></div>
 		</section>
 
+		<section>
 
-		<?php if (isset($basic)) { ?>
+			<h1 id="video_title"><?php echo $video['title']['$t']; ?></h1>
+			<h2 id="video_author"><?php echo $video['author'][0]['name']['$t']; ?></h2>
 
-		<section id="interact">
+			<div id="video_description"><?php echo $video['media$group']['media$description']['$t']; ?></div>
 
-			<h3>Welcome, <strong><?php echo he(idx($basic, 'name')); ?></strong></h3>
-			<p id="picture" style="background-image: url(https://graph.facebook.com/<?php echo he($user_id); ?>/picture?type=normal)"></p>
-
-				<a href="#" class="love">Love</a>
-				<a href="#" class="next">Next</a>
-
-				<div id="share-app">
-					<ul>
-						<li>
-							<a href="#" class="facebook-button" id="postToWall" data-url="<?php echo $getUrl; ?>">
-								<span class="plus">Post to Wall</span>
-							</a>
-						</li>
-						<li>
-							<a href="#" class="facebook-button speech-bubble" id="sendToFriends" data-url="<?php echo $getUrl; ?>">
-								<span class="speech-bubble">Send To Friends</span>
-							</a>
-						</li>
-						<li>
-							<a href="#" class="facebook-button apprequests" id="sendRequest" data-message="Test this awesome app">
-								<span class="apprequests">Invite Friends</span>
-							</a>
-						</li>
-					</ul>
-				</div>
-
-			</section>
-
-		<?php } else { ?>
-
-			<section id="login">
-				<h3>Welcome</h3>
-				<strong>Login to skip, love and share.</strong>
-				<div class="fb-login-button" data-scope="user_likes,user_photos"></div>
-			</section>
-
-		<?php } ?>
-
-
-		<h1 id="video_title"><?php echo $video['title']['$t']; ?></h1>
-		<h2 id="video_author"><?php echo $video['author'][0]['name']['$t']; ?></h2>
-
-		<div id="video_description"><?php echo $video['media$group']['media$description']['$t']; ?></div>
+		</section>
 
 	</div>
 
+	<?php if (!isset($basic)) { ?>
 
+		<section id="login">
+			<div>
+				<h3>Welcome</h3>
+				<strong>Login to list, skip and love.</strong>
+				<div class="fb-login-button" data-scope="user_likes,user_photos"></div>
+
+				<!-- Facepile -->
+			</div>
+		</section>
+
+	<?php } ?>
 
 	
 	<script type="text/javascript">
-	$(function() {
-		jQuery("#player-yt").tubeplayer({
-			width: '100%', // the width of the player
-			height: '100%', // the height of the player
-			allowFullScreen: "true", // true by default, allow user to go full screen
-			showControls: 0,
-			autoPlay: true,
-			showInfo: false,
-			modestbranding: true,
-			initialVideo: "<?php echo $video['media$group']['yt$videoid']['$t']; ?>", // the video that is loaded into the player
-			preferredQuality: "default",// preferred quality: default, small, medium, large, hd720
-			onPlay: function(id){}, // after the play method is called
-			onPause: function(){}, // after the pause method is called
-			onStop: function(){}, // after the player is stopped
-			onSeek: function(time){}, // after the video has been seeked to a defined point
-			onMute: function(){}, // after the player is muted
-			onUnMute: function(){}, // after the player is unmuted
-			onPlayerEnded: nextVideo
-		});
+	$(function () {
+	    jQuery("#player-yt").tubeplayer({
+	        width: '100%', // the width of the player
+	        height: '100%', // the height of the player
+	        allowFullScreen: "true", // true by default, allow user to go full screen
+	        showControls: 0,
+	        autoPlay: true,
+	        showInfo: false,
+	        modestbranding: true,
+	        initialVideo: "<?php echo $video['media$group']['yt$videoid']['$t']; ?>", // the video that is loaded into the player
+	        preferredQuality: "default", // preferred quality: default, small, medium, large, hd720
+	        onPlay: function (id) {}, // after the play method is called
+	        onPause: function () {}, // after the pause method is called
+	        onStop: function () {}, // after the player is stopped
+	        onSeek: function (time) {}, // after the video has been seeked to a defined point
+	        onMute: function () {}, // after the player is muted
+	        onUnMute: function () {}, // after the player is unmuted
+	        onPlayerEnded: nextVideo
+	    });
 
-	  $(".next").click(function(e) {
-	    e.preventDefault();
-	    nextVideo();
-	  });
+	    $(".skip").click(function (e) {
+	        e.preventDefault();
+	        nextVideo();
+	    });
 
-	  $(".love").click(function(e) {
-	    e.preventDefault();
-	    alert('love');
-	    // nextVideo();
-	  });
+	    $(".love").click(function (e) {
+	        e.preventDefault();
+	        alert('love');
+	        // nextVideo();
+	    });
 
-	  function nextVideo() {
-	    console.log('loading next virtual page.');
-	    $.ajax({
-	    url: 'api/video.php',
-	    success: function(data) {
-	      var video = jQuery.parseJSON(data);
-	      //alert(video['media$group']['yt$videoid']['$t']);  //media$group.yt$videoid.$t
-	      jQuery("#player-yt").tubeplayer("play", video.media$group.yt$videoid.$t);
+	    function nextVideo() {
+	        console.log('loading next virtual page.');
+	        $.ajax({
+	            url: 'api/video.php',
+	            success: function (data) {
+	                var video = jQuery.parseJSON(data);
+	                //alert(video['media$group']['yt$videoid']['$t']);  //media$group.yt$videoid.$t
+	                jQuery("#player-yt").tubeplayer("play", video.media$group.yt$videoid.$t);
 
-	      History.pushState('&#9658; ' + data,video.title.$t + ' - <?php echo $site_title; ?>',video.slug);
+	                History.pushState('&#9658; ' + data, video.title.$t + ' - <?php echo $site_title; ?>', video.slug);
 
-	      $('#video_title').html(video.title.$t);
-	      $('#video_author').html(video.author[0].name.$t);
-	      $('#video_description').html(video.media$group.media$description.$t);
+	                $('#video_title').html(video.title.$t);
+	                $('#video_author').html(video.author[0].name.$t);
+	                $('#video_description').html(video.media$group.media$description.$t);
 
-	      $('#background').css('background-image', 'url(' + video.media$group.media$thumbnail[1].url + ')');
+	                $('#background').css('background-image', 'url(' + video.media$group.media$thumbnail[1].url + ')');
 
-	      _gaq.push(['_trackPageview','/' + video.slug]);
+	                _gaq.push(['_trackPageview', '/' + video.slug]);
 
-	    },
-	    error: function(data) {
-	      // On error do a full refresh
-	      window.location = '/';
+	            },
+	            error: function (data) {
+	                // On error do a full refresh
+	                window.location = '/';
+	            }
+	        });
 	    }
-	  });
-		}
 
-		$('#background').blurjs({
-			source: 'body',
-			radius: 20,
-			overlay: 'rgba(255,255,255,0.4)'
-		});
+	    $('#background').blurjs({
+	        source: 'body',
+	        radius: 20,
+	        overlay: 'rgba(255,255,255,0.4)'
+	    });
+
+
+	<?php if (!isset($basic)) { ?>
+	    $('#wrapper').blurjs();
+
+		 jQuery("#player-yt").tubeplayer("mute");
+	<?php } ?>
+
 	});
 
 
 	// Facebook
 
-	      function logResponse(response) {
-	        if (console && console.log) {
-	          console.log('The response was', response);
-	        }
-	      }
+	function logResponse(response) {
+	    if (console && console.log) {
+	        console.log('The response was', response);
+	    }
+	}
 
-	      $(function(){
-	        // Set up so we handle click on the buttons
-	        $('#postToWall').click(function() {
-	          FB.ui(
-	            {
-	              method : 'feed',
-	              link   : $(this).attr('data-url')
-	            },
-	            function (response) {
-	              // If response is null the user canceled the dialog
-	              if (response !== null) {
-	                logResponse(response);
-	              }
-	            }
-	          );
-	        });
+	$(function () {
+	    // Set up so we handle click on the buttons
+	    $('#postToWall').click(function () {
+	        FB.ui({
+	            method: 'feed',
+	            link: $(this).attr('data-url')
+	        },
 
-	        $('#sendToFriends').click(function() {
-	          FB.ui(
-	            {
-	              method : 'send',
-	              link   : $(this).attr('data-url')
-	            },
-	            function (response) {
-	              // If response is null the user canceled the dialog
-	              if (response !== null) {
+	        function (response) {
+	            // If response is null the user canceled the dialog
+	            if (response !== null) {
 	                logResponse(response);
-	              }
 	            }
-	          );
 	        });
+	    });
 
-	        $('#sendRequest').click(function() {
-	          FB.ui(
-	            {
-	              method  : 'apprequests',
-	              message : $(this).attr('data-message')
-	            },
-	            function (response) {
-	              // If response is null the user canceled the dialog
-	              if (response !== null) {
+	    $('#sendToFriends').click(function () {
+	        FB.ui({
+	            method: 'send',
+	            link: $(this).attr('data-url')
+	        },
+
+	        function (response) {
+	            // If response is null the user canceled the dialog
+	            if (response !== null) {
 	                logResponse(response);
-	              }
 	            }
-	          );
 	        });
-	      });
+	    });
+
+	    $('#sendRequest').click(function () {
+	        FB.ui({
+	            method: 'apprequests',
+	            message: $(this).attr('data-message')
+	        },
+
+	        function (response) {
+	            // If response is null the user canceled the dialog
+	            if (response !== null) {
+	                logResponse(response);
+	            }
+	        });
+	    });
+	});
 	</script>
 	<script type="text/javascript">
 
