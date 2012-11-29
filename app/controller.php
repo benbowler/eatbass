@@ -85,7 +85,7 @@ class controller
         $data['app_info'] = $facebook->api('/'. AppInfo::appID());
         $data['app_name'] = idx($data['app_info'], 'name', '');
 
-        $data['app_id'] = AppInfo::appID();
+        $data['appID'] = AppInfo::appID();
         $data['getUrl'] = AppInfo::getUrl();
 
         $data['slug'] = $slug;

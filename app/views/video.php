@@ -26,7 +26,7 @@
 		<!-- These are Open Graph tags. -->
 		<meta property="og:title" content="<?php echo $video['title']['$t']; ?> - <?php echo he($app_name); ?>" />
 		<meta property="og:type" content="website" />
-		<meta property="og:url" content="<?php echo AppInfo::getUrl(); ?>" />
+		<meta property="og:url" content="<?php echo $getUrl; ?>" />
 		<meta property="og:image" content="<?php //$image = (isset($video['media$group']['media$thumbnail'][0]['url'])) ? $video['media$group']['media$thumbnail'][0]['url'] : AppInfo::getUrl('/logo.png'); ?>" />
 		<meta property="og:site_name" content="<?php echo he($app_name); ?>" />
 		<meta property="og:description" content="
@@ -34,7 +34,7 @@
 
 			<?php echo $video['media$group']['media$description']['$t']; ?>
 		" />
-		<meta property="fb:app_id" content="<?php echo AppInfo::appID(); ?>" />
+		<meta property="fb:app_id" content="<?php echo $appID; ?>" />
 
 		<!--[if IE]>
 			<script type="text/javascript">
@@ -49,7 +49,7 @@
 		<script type="text/javascript">
       window.fbAsyncInit = function() {
         FB.init({
-          appId      : '<?php echo AppInfo::appID(); ?>', // App ID
+          appId      : '<?php echo $appID; ?>', // App ID
           channelUrl : '//<?php echo $_SERVER["HTTP_HOST"]; ?>/assets/channel.html', // Channel File
           status     : true, // check login status
           cookie     : true, // enable cookies to allow the server to access the session
@@ -108,12 +108,12 @@
 				<div id="share-app">
 					<ul>
 						<li>
-							<a href="#" class="facebook-button" id="postToWall" data-url="<?php echo AppInfo::getUrl(); ?>">
+							<a href="#" class="facebook-button" id="postToWall" data-url="<?php echo $getUrl; ?>">
 								<span class="plus">Post to Wall</span>
 							</a>
 						</li>
 						<li>
-							<a href="#" class="facebook-button speech-bubble" id="sendToFriends" data-url="<?php echo AppInfo::getUrl(); ?>">
+							<a href="#" class="facebook-button speech-bubble" id="sendToFriends" data-url="<?php echo $getUrl; ?>">
 								<span class="speech-bubble">Send To Friends</span>
 							</a>
 						</li>
