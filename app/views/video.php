@@ -207,14 +207,12 @@
 	  });
 		}
 
-
-
-	   // Blur
-	   $('#background').blurjs({
+		$('#background').blurjs({
 			source: 'body',
-			radius: 7,
+			radius: 20,
 			overlay: 'rgba(255,255,255,0.4)'
 		});
+	});
 
 
 	// Facebook
@@ -272,8 +270,6 @@
 	          );
 	        });
 	      });
-
-	});
 	</script>
 	<script type="text/javascript">
 
