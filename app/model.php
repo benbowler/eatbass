@@ -27,6 +27,40 @@ class Model
 
         $this->_close();
     }
+    public function user($user = false)
+    {
+        $this->_connect();
+        $this->col = $this->db->users;
+
+        if(!$user) {
+            return false;
+        }
+
+        $user['_id'] = $user['username'];
+
+        try {
+            $this->col->insert((object) $user, true);
+
+            return (object) $user;
+            //echo "Added {$video->title->{'$t'}}<br />";
+        } catch(MongoCursorException $e) {
+            //echo "Can't save the same video twice!<br />";
+
+            return $this->col->findOne(array('_id' => $user['username']));
+        }
+/*
+          return $this->col->findOne(array('slug' => $slug)); // ->limit(1)->skip(rand(-1, $col->count()-1))->getNext();
+
+          $video = $this->col->find()->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
+
+          // @todo: redirect if logged in... else ... show video in the backgound (Muted) with login button over
+          header("Location: http://" . $_SERVER['SERVER_NAME'] . "/" . $video['slug']); /* Redirect browser 
+            exit;
+
+        }
+*/
+        $this->_close();
+    }
     public function test()
     {
     }

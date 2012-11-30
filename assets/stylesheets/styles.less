@@ -5,13 +5,18 @@
 
 // Fonts
 
-@import url('http://fonts.googleapis.com/css?family=Droid+Sans:400,700');
+//@import url('http://fonts.googleapis.com/css?family=Droid+Sans:400,700');
 
 
 @import 'resets';
 
+.reset();
+.normalize();
+
 body {
-	font-family: 'Droid Sans', Helvetica, sans-serif;
+	// font-family: 'Droid Sans', Helvetica, sans-serif;
+	font-family: 'Open Sans', sans-serif;
+
 	color: white;
 	margin: 0;
 	padding: 0;
@@ -19,13 +24,33 @@ body {
 }
 
 h1, h2, h3, h4 {
-	font-weight: 200;
+	padding: 0;
+	margin: 0;
+	font-size: 1.5em;
+
+	line-height: 2em;
+
+	font-weight: 300;
+	strong {
+		font-weight: 600;
+	}
+}
+
+strong {
+	font-weight: 600;
+}
+
+a, a:link, a:hover, a:visited {
+	color: white;
 }
 
 
 // Layout
 
-#background {
+#page-blur {
+}
+
+#background-blur {
 	position: fixed;
 	top: -30px;
 	right: -30px;
@@ -43,29 +68,36 @@ h1, h2, h3, h4 {
 	margin: 20px auto;
 }
 header {
+	height: 4em;
 	h3 {
 		display: inline;
 		float: left;
+		strong {
+		}
 	}	
 	#user {
 		width: 50%;
+		height: 4em;
 		float: right;
 		h4, img, a {
 			display: inline;
 			float: right;
 		}
-		h4 {
-			margin-right: 3%;
-		}
 		img {
 			height: 36px;
 			width: 36px;
-			padding: 10px;
+			padding: 5px;
 		}
-		a {
+		a, h4{		
 			font-size: 1.17em;
 			line-height: 2em;
-			padding: 0.65em 1em;
+			padding: 5px 1em;
+		}
+		h4 > a {
+			font-size: 1.17em;
+			padding: 0;
+			float: none;
+			line-height: 0;
 		}
 		.love {
 			color: #ff3300;
@@ -75,7 +107,46 @@ header {
 		}
 	}
 }
+#text {
+	#video_title {
+		display: inline;
+		float: left;
+	}
+	#video_author {
+		display: inline;
+		float: right;
+	}
+	#video_description {
+		clear: both;
+		display: block;
+	}
+}
 
+
+#login {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	> div {
+		width: 400px;
+		height: 400px;
+		margin: 20% auto;
+		h3 {
+			font-size: 3em;
+		}
+		strong {
+			font-size: 2em;
+		}
+		.fb-login-button {
+			display: block;
+			margin-top: 2em;
+		}
+	}
+}
+
+// Player and responsiveness
 
 #player {
 	overflow: hidden;
@@ -87,19 +158,6 @@ header {
 		width: 720px;
 		position: relative;
 		bottom: 160px;
-	}
-}
-
-#login {
-	position: fixed;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	div {
-		width: 300px;
-		height: 300px;
-		margin: 20% auto;
 	}
 }
 
@@ -149,6 +207,20 @@ header {
 			height: 480px;
 			width: 480px;
 			bottom: 107px;
+		}
+	}
+	header {
+		h3 {
+			display: inline;
+			float: none;
+		}	
+		#user {
+			width: 100%;
+			height: 4em;
+			float: none;
+			img {
+				display: none;
+			}
 		}
 	}
 }

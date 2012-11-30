@@ -39,10 +39,10 @@ class controller
         require_once('modules/facebook-php-sdk/src/facebook.php');
 
         $facebook = new Facebook(array(
-        'appId'  => AppInfo::appID(),
-        'secret' => AppInfo::appSecret(),
-        'sharedSession' => true,
-        'trustForwarded' => true,
+            'appId'  => AppInfo::appID(),
+            'secret' => AppInfo::appSecret(),
+            'sharedSession' => true,
+            'trustForwarded' => true,
         ));
 
         $user_id = $facebook->getUser();
@@ -50,6 +50,10 @@ class controller
         try {
           // Fetch the viewer's basic information
           $data['basic'] = $facebook->api('/me');
+
+          if($data['basic']) {
+            $data['user'] = $this->model->user($data['basic']);
+          }
         } catch (FacebookApiException $e) {
           // If the call fails we check if we still have a user. The user will be
           // cleared if the error is because of an invalid accesstoken
