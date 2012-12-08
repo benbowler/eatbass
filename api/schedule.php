@@ -33,13 +33,7 @@ foreach($subscriptions->feed->entry as $subscription) {
     //http://gdata.youtube.com/feeds/api/users/nba/uploads/-/sports/playoffs?v=2&alt=json
 
     foreach($videos->feed->entry as $video) {
-        //var_dump($video);
-        //echo $video->title->{'$t'} . "<br />";
-
-        //die(_mongo_insert('videos', (array) $video));
-        //$col->insert($video);
-
-        if($video->{'yt$duration'}->seconds <= 300) {
+        if($video->{'media$group'}->{'yt$duration'}->seconds <= 600) {
 
           $video->_id = $video->id->{'$t'};
           $video->slug = _to_ascii($video->title->{'$t'});
@@ -55,7 +49,7 @@ foreach($subscriptions->feed->entry as $subscription) {
               echo "Added {$video->title->{'$t'}}<br />";
           } catch(MongoCursorException $e) {
               $col->update(array('_id' => $video->_id), $video);
-              echo "Can't save the same video twice!<br />";
+              echo "Updated {$video->title->{'$t'}}<br />";
           }
         } else {
           echo "Skipped {$video->title->{'$t'}} (Too long)<br />";

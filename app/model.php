@@ -27,6 +27,15 @@ class Model
 
         $this->_close();
     }
+    public function get_top_videos_by($by = 'ytPlays', $limit = 10)
+    {
+        $this->_connect();
+        $this->col = $this->db->videos;
+
+        return $this->col->sort(array('by' => 1))->limit($limit);
+
+        $this->_close();
+    }
     public function user($user = false)
     {
         $this->_connect();

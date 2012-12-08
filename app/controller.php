@@ -25,8 +25,8 @@ class controller
         $this->data['slug'] = $slug;
         $this->data['video'] = $this->model->get_video($slug);
 
-        //$this->data['videos_top_50'] = $this->model->get_video($slug);
-        //$this->data['videos_most_loved'] = $this->model->get_video($slug);
+        $this->data['videos_top_50'] = $this->model->get_video($slug);
+        $this->data['videos_most_loved'] = $this->model->get_video($slug);
 
         $this->view('video', $this->data); //$this->model->get());
     }
@@ -35,6 +35,13 @@ class controller
     public function u($slug)
     {
         $this->view('profile', $this->data); //$this->model->get());
+    }
+
+    /* User Controller */
+    public function stats($slug)
+    {
+        echo 'stats';
+        //$this->view('profile', $this->data); //$this->model->get());
     }
 
     private function _fb()
