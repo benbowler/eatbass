@@ -38,7 +38,7 @@ $m->close();
 	<description>#eatbass top track today</description>
 	<link><?php echo 'http://' . $_SERVER['SERVER_NAME'] . '/api/rss/daily.php'; ?></link>
 	<lastBuildDate><?php echo date("r"); ?></lastBuildDate>
-	<pubDate><?php echo date("r", 0); ?></pubDate>
+	<pubDate><?php echo date("r"); ?></pubDate>
 
 	<?php foreach ($videos as $video) { ?>
 	<item>
