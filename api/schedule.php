@@ -39,18 +39,26 @@ foreach($subscriptions->feed->entry as $subscription) {
         //die(_mongo_insert('videos', (array) $video));
         //$col->insert($video);
 
-        $video->_id = $video->id->{'$t'};
-        $video->slug = _to_ascii($video->title->{'$t'});
-        $video->unixdate = date('U', strtotime($video->published->{'$t'}));
+        if($video->{'yt$duration'}->seconds <= 300) {
 
-        $video->ytFavorites = $video->{'yt$statistics'}->favoriteCount;
-        $video->ytViews = $video->{'yt$statistics'}->viewCount;
+          $video->_id = $video->id->{'$t'};
+          $video->slug = _to_ascii($video->title->{'$t'});
+          $video->unixdate = date('U', strtotime($video->published->{'$t'}));
 
-        try {
-            $col->insert($video, true);
-            echo "Added {$video->title->{'$t'}}<br />";
-        } catch(MongoCursorException $e) {
-            echo "Can't save the same video twice!<br />";
+          $video->ytFavorites = $video->{'yt$statistics'}->favoriteCount;
+          $video->ytViews = $video->{'yt$statistics'}->viewCount;
+          $video->ytLikes = $video->{'yt$rating'}->numLikes;
+          $video->ytDislikes = $video->{'yt$rating'}->numDislikes;
+
+          try {
+              $col->insert($video, true);
+              echo "Added {$video->title->{'$t'}}<br />";
+          } catch(MongoCursorException $e) {
+              $col->update(array('_id' => $video->_id), $video);
+              echo "Can't save the same video twice!<br />";
+          }
+        } else {
+          echo "Skipped {$video->title->{'$t'}} (Too long)<br />";
         }
     }
 }
