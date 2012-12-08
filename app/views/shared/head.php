@@ -19,16 +19,24 @@
 		<script type='text/javascript' src="assets/javascript/history.js/scripts/bundled/html4+html5/jquery.history.js"></script>
 		<script type='text/javascript' src="assets/javascript/blur.min.js"></script>
 
-		<?php /* foreach ($meta_tags as $meta) { ?>
+		<?php 
+		$meta_tags = array(
+			'title' => $video['title']['$t'] . ' - ' . $site_title,
+		);
+
+		?>
+
+		<?php /* foreach ($meta_tags as $propery => $content) { ?>
 			<meta property="<?php ?>" content="" />
 		<?php } */ ?>
 
-		<meta property="title" content="<?php echo $video['title']['$t']; ?> - <?php echo $site_title; ?>" />
+		<meta property="title" content="" />
 		<meta property="description" content="
 			<?php echo $video['title']['$t']; ?> - <?php echo $site_title; ?> <?php echo $site_description; ?>
 
 			<?php echo $video['media$group']['media$description']['$t']; ?>
 		" />
+
 		<!-- These are Open Graph tags. -->
 		<meta property="og:title" content="<?php echo $video['title']['$t']; ?> - <?php echo $site_title; ?>" />
 		<meta property="og:type" content="website" />

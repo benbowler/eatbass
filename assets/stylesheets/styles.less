@@ -47,6 +47,10 @@ a, a:link, a:hover, a:visited {
 
 // Layout
 
+body > svg {
+	height: 0;
+}
+
 #page-blur {
 }
 
@@ -65,19 +69,24 @@ a, a:link, a:hover, a:visited {
 
 #wrapper {
 	width: 720px;
-	margin: 20px auto;
+	margin: 0.6em auto;
 }
 header {
 	height: 4em;
 	h3 {
 		display: inline;
 		float: left;
-		strong {
+
+		font-size: 2em;
+		font-weight: 600;
+		em {
+			font-weight: 300;
 		}
-	}	
+	}
 	#user {
 		width: 50%;
-		height: 4em;
+		height: 3.4em;
+		padding-top: 0.6em;
 		float: right;
 		h4, img, a {
 			display: inline;
@@ -134,14 +143,18 @@ header {
 		height: 400px;
 		margin: 20% auto;
 		h3 {
-			font-size: 3em;
-		}
-		strong {
 			font-size: 2em;
+			font-weight: 600;
+			em {
+				font-weight: 300;
+			}
 		}
-		.fb-login-button {
-			display: block;
-			margin-top: 2em;
+		> strong {
+			.fb-login-button {
+				display: inline;
+				margin: 0 0.2em; 
+			}
+			font-size: 1.2em;
 		}
 	}
 }
@@ -227,6 +240,11 @@ header {
  
 /* Landscape phones and down */
 @media (max-width: 480px) {
+	header {
+		h3 > em {
+			display: none;
+		}
+	}
 	#wrapper {
 		width: 320px;
 	}

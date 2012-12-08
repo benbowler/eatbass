@@ -59,8 +59,10 @@
 						slug : video.slug
 					}; 
 
-					History.pushState(data, '\u25BA ' + video.title.$t + ' - <?php echo $site_title; ?>', video.slug);
-
+					<?php if (isset($basic)) { ?>
+						History.pushState(data, '\u25BA ' + video.title.$t + ' - <?php echo $site_title; ?>', video.slug);
+					<?php } ?>
+					
 					$('#video_title').html(video.title.$t);
 					$('#video_author').html(video.author[0].name.$t);
 					$('#video_description').html(video.media$group.media$description.$t);

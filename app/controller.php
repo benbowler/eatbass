@@ -25,8 +25,14 @@ class controller
         $this->data['slug'] = $slug;
         $this->data['video'] = $this->model->get_video($slug);
 
-        $this->data['videos_top_50'] = $this->model->get_video($slug);
-        $this->data['videos_most_loved'] = $this->model->get_video($slug);
+        if($this->data['basic'] && !$slug) {
+            // @todo: redirect if logged in... else ... show video in the backgound (Muted) with login button over
+            header("Location: http://" . $_SERVER['SERVER_NAME'] . "/" . $this->data['video']['slug']); /* Redirect browser */
+            exit;
+        }
+
+        $this->data['top_50_plays'] = $this->model->get_video($slug);
+        $this->data['top_50_likes'] = $this->model->get_video($slug);
 
         $this->view('video', $this->data); //$this->model->get());
     }
@@ -41,6 +47,17 @@ class controller
     public function stats($slug)
     {
         echo 'stats';
+
+        $stats = explode(":", $slug);
+
+        if(!$stats[0]) {
+            die('Stat details not specified.');
+        }
+
+
+
+        //$stats = $this->model->
+
         //$this->view('profile', $this->data); //$this->model->get());
     }
 
@@ -81,7 +98,21 @@ class controller
           $this->data['basic'] = $facebook->api('/me');
 
           if($this->data['basic']) {
-            $this->data['user'] = $this->model->user($this->data['basic']);
+            $email = $facebook->api('/me?fields=email');
+
+            //Create Query
+            $params = array(
+                'method' => 'fql.query',
+                'query' => "SELECT name FROM page WHERE page_id IN (SELECT uid, page_id, type FROM page_fan WHERE uid=me()) AND type='musician/band'",
+            );
+            //Run Query
+            $results = $facebook->api($params);
+            $music = array();
+            foreach ($results as $result) {
+                array_push($music, $result['name']);
+            }
+
+            $this->data['user'] = $this->model->user($email, $music, $this->data['basic']);
           }
         } catch (FacebookApiException $e) {
           // If the call fails we check if we still have a user. The user will be

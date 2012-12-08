@@ -17,11 +17,7 @@ class Model
 
         } else {
 
-          $video = $this->col->find()->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
-
-          // @todo: redirect if logged in... else ... show video in the backgound (Muted) with login button over
-          header("Location: http://" . $_SERVER['SERVER_NAME'] . "/" . $video['slug']); /* Redirect browser */
-            exit;
+          return $this->col->find()->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
 
         }
 
@@ -36,22 +32,42 @@ class Model
 
         $this->_close();
     }
-    public function user($user = false)
+    public function user($email, $user = false)
     {
         $this->_connect();
         $this->col = $this->db->users;
 
-        if(!$user) {
+        if(!$email || !$user) {
             return false;
         }
 
+        require_once 'modules/mailchimp-api-class/examples/inc/config.inc.php'; //contains apikey
+        require_once 'modules/mailchimp-api-class/examples/inc/MCAPI.class.php';
+
+        $api = new MCAPI($apikey);
+
+        $merge_vars = array('FNAME'=>$user['first_name'], 'LNAME'=>$user['last_name'], 
+                          'GROUPINGS'=>array(
+                                array('name'=>'Music:', 'groups'=>implode(',', $music)),
+                                //array('id'=>22, 'groups'=>'Trains'),
+                                )
+                            );
+
+        // By default this sends a confirmation email - you will not see new members
+        // until the link contained in it is clicked!
+        $retval = $api->listSubscribe('0f213b0888', $user['email'], $merge_vars, $email_type='html', $double_optin=true, $update_existing=true, $replace_interests=true, $send_welcome=true);
+
+        /*
+        if ($api->errorCode){
+            echo "Unable to load listSubscribe()!\n";
+            echo "\tCode=".$api->errorCode."\n";
+            echo "\tMsg=".$api->errorMessage."\n";
+        } else {
+            echo "Subscribed - look for the confirmation email!\n";
+        }
+        */
+
         $user['_id'] = $user['username'];
-
-
-        require_once('modules/mailchimp-api-class/MCAPI.class.php');
-
-        MCAPI::listSubscribe($user['username'], $user['email'], $merge_vars=NULL, $email_type='html', $double_optin=true, $update_existing=false, $replace_interests=true, $send_welcome=false);
-
 
         try {
             $this->col->insert((object) $user, true);

@@ -42,10 +42,9 @@
 
 			<header class="clearfix">
 
-				<h3><strong><?php echo $site_title; ?></strong> <?php echo $site_description; ?></h3>
+				<h3><?php echo $site_title; ?><em> <?php echo $site_description; ?></em></h3>
 
-				<div class="fb-like"></div>
-
+				<!-- <div class="fb-like"></div> -->
 
 				<section id="user">
 
@@ -73,7 +72,7 @@
 
 				<div id="video_description"><?php echo $video['media$group']['media$description']['$t']; ?></div>
 
-				<div class="fb-comments" data-href="" data-width="470" data-num-posts="2"></div>
+				<!-- <div class="fb-comments" data-href="" data-width="470" data-num-posts="2"></div> -->
 
 			</section>
 
@@ -84,15 +83,21 @@
 
 		<section id="login">
 			<div>
-				<h3>Welcome</h3>
-				<strong>Login to watch EatBass.</strong>
-
-				<div class="fb-login-button" data-scope="user_likes,user_photos"></div>
+				<h3><?php echo $site_title; ?><em> <?php echo $site_description; ?></em></h3>
+				<strong><div class="fb-login-button" data-scope="email,user_likes">Log In</div> to watch</strong>
 
 				<fb:facepile href="http://eatbass.com" width="300" max_rows="1"></fb:facepile>
 
 				<!-- Facepile -->
 			</div>
+		</section>
+
+		<section>
+			<?php var_dump($top_50_plays); ?>
+		</section>
+
+		<section>
+			<?php var_dump($top_50_likes); ?>
 		</section>
 
 	<?php } ?>
