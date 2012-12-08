@@ -23,7 +23,7 @@ class Model
 
         $this->_close();
     }
-    public function get_top_videos_by($by = 'ytPlays', $limit = 10)
+    public function get_top_videos_by($by = 'ytPlays', $limit = 10, $time = false)
     {
         $this->_connect();
         $this->col = $this->db->videos;

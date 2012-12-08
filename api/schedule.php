@@ -37,7 +37,9 @@ foreach($subscriptions->feed->entry as $subscription) {
 
           $video->_id = $video->id->{'$t'};
           $video->slug = _to_ascii($video->title->{'$t'});
-          $video->unixdate = date('U', strtotime($video->published->{'$t'}));
+
+          $video->date = new MongoDate(strtotime($video->published->{'$t'}));
+          //$video->date = ISODate(date('U', strtotime($video->published->{'$t'}));
 
           $video->ytFavorites = $video->{'yt$statistics'}->favoriteCount;
           $video->ytViews = $video->{'yt$statistics'}->viewCount;

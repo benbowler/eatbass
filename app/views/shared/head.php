@@ -32,19 +32,19 @@
 
 		<meta property="title" content="" />
 		<meta property="description" content="
-			<?php echo $video['title']['$t']; ?> - <?php echo $site_title; ?> <?php echo $site_description; ?>
+			<?php echo $video['title']['$t']; ?> <?php echo $site_title; ?> <?php echo $site_description; ?>
 
 			<?php echo $video['media$group']['media$description']['$t']; ?>
 		" />
 
 		<!-- These are Open Graph tags. -->
-		<meta property="og:title" content="<?php echo $video['title']['$t']; ?> - <?php echo $site_title; ?>" />
+		<meta property="og:title" content="<?php echo $video['title']['$t']; ?> <?php echo $site_title; ?>" />
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content="<?php echo $getUrl; ?>" />
 		<meta property="og:image" content="<?php echo $video['media$group']['media$thumbnail'][1]['url']; ?>" />
 		<meta property="og:site_name" content="<?php echo $site_title; ?>" />
 		<meta property="og:description" content="
-			<?php echo $video['title']['$t']; ?> - <?php echo $site_title; ?> <?php echo $site_description; ?>
+			<?php echo $video['title']['$t']; ?> <?php echo $site_title; ?> <?php echo $site_description; ?>
 
 			<?php echo $video['media$group']['media$description']['$t']; ?>
 		" />
