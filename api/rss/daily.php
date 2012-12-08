@@ -36,7 +36,7 @@ $m->close();
 	<channel>
 	<title>#eatbass top track today</title>
 	<description>#eatbass top track today</description>
-	<link>http://www.domain.com/link.htm</link>
+	<link><?php echo 'http://' . $_SERVER['SERVER_NAME'] . '/api/rss/daily.php'; ?></link>
 	<lastBuildDate><?php echo date("r"); ?></lastBuildDate>
 	<pubDate><?php echo date("r", 0); ?></pubDate>
 
@@ -46,8 +46,8 @@ $m->close();
 		<description>
 			<?php echo utf8_encode(htmlentities($description,ENT_COMPAT,'utf-8')); ?>
 			</description>
-		<link><?php echo $_SERVER['SERVER_NAME'] . '/' . $video['slug']; ?></link>
-		<guid isPermaLink="true"><?php echo $_SERVER['SERVER_NAME'] . '/' . $video['slug']; ?></guid>
+		<link><?php echo 'http://' . $_SERVER['SERVER_NAME'] . '/' . $video['slug']; ?></link>
+		<guid isPermaLink="true"><?php echo 'http://' . $_SERVER['SERVER_NAME'] . '/' . $video['slug']; ?></guid>
 		<pubDate><?php echo date("r", $video['date']->sec); ?></pubDate>
 	</item>
 	<?php } ?>
