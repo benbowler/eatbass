@@ -7,9 +7,15 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/app/controller.php');
 ini_set('display_errors', 0);
 
 // routes
-$segments = $_GET['slug'];
-$route = 'index';
-//unset($segments[1]);
+$slug = $_GET['slug'];
+
+if(strstr($slug, ':')) {
+	$explode = explode(':', $slug);
+	$route = $explode[0];
+	$slug = $explode[1];
+} else {
+	$route = 'index';
+}
 
 $controller = new controller();
-$controller->$route($segments);
+$controller->$route($slug);

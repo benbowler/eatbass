@@ -7,16 +7,38 @@ class controller
     public function __construct()
     {
         $this->model = new model();
+
+        $this->data['site_title'] = 'EatBass'; //he($app_name);
+        $this->data['site_description'] = "Bass Music TV";
+
+        /* Do FB */
+        $this->_fb();
     }
     private function view($view, $data)
     {
-        extract($data);
+        extract($this->data);
         include("views/$view.php");
     }
     // controller
     public function index($slug)
     {
+        $this->data['slug'] = $slug;
+        $this->data['video'] = $this->model->get_video($slug);
 
+        //$this->data['videos_top_50'] = $this->model->get_video($slug);
+        //$this->data['videos_most_loved'] = $this->model->get_video($slug);
+
+        $this->view('video', $this->data); //$this->model->get());
+    }
+
+    /* User Controller */
+    public function u($slug)
+    {
+        $this->view('profile', $this->data); //$this->model->get());
+    }
+
+    private function _fb()
+    {
         /* FB */
 
         // Provides access to app specific values such as your app id and app secret.
@@ -49,10 +71,10 @@ class controller
         if ($user_id) {
         try {
           // Fetch the viewer's basic information
-          $data['basic'] = $facebook->api('/me');
+          $this->data['basic'] = $facebook->api('/me');
 
-          if($data['basic']) {
-            $data['user'] = $this->model->user($data['basic']);
+          if($this->data['basic']) {
+            $this->data['user'] = $this->model->user($this->data['basic']);
           }
         } catch (FacebookApiException $e) {
           // If the call fails we check if we still have a user. The user will be
@@ -86,27 +108,12 @@ class controller
         }
 
         // Fetch the basic info of the app that they are using
-        $data['app_info'] = $facebook->api('/'. AppInfo::appID());
-        $data['app_name'] = idx($data['app_info'], 'name', '');
+        $this->data['app_info'] = $facebook->api('/'. AppInfo::appID());
+        $this->data['app_name'] = idx($this->data['app_info'], 'name', '');
 
-        $data['user_id'] = $user_id;
+        $this->data['user_id'] = $user_id;
 
-        $data['appID'] = AppInfo::appID();
-        $data['getUrl'] = AppInfo::getUrl();
-
-        $data['slug'] = $slug;
-        $data['video'] = $this->model->get_video($slug);
-
-        $data['site_title'] = 'EatBass'; //he($app_name);
-        $data['site_description'] = "Bass Music TV";
-
-        $this->view('video', $data); //$this->model->get());
-    }
-
-    public function other()
-    {
-        echo "hello world admin";
-
-        //$this->view('view', $this->model->get());
+        $this->data['appID'] = AppInfo::appID();
+        $this->data['getUrl'] = AppInfo::getUrl();
     }
 }
