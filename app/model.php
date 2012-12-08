@@ -38,6 +38,12 @@ class Model
 
         $user['_id'] = $user['username'];
 
+
+        require_once('modules/mailchimp-api-class/MCAPI.class.php');
+
+        MCAPI::listSubscribe($user['username'], $user['email'], $merge_vars=NULL, $email_type='html', $double_optin=true, $update_existing=false, $replace_interests=true, $send_welcome=false);
+
+
         try {
             $this->col->insert((object) $user, true);
 

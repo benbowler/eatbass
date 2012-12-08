@@ -8,8 +8,8 @@ class controller
     {
         $this->model = new model();
 
-        $this->data['site_title'] = 'EatBass'; //he($app_name);
-        $this->data['site_description'] = "Bass Music TV";
+        $this->data['site_title'] = '#eatbass'; //he($app_name);
+        $this->data['site_description'] = "bass music tv";
 
         /* Do FB */
         $this->_fb();

@@ -1,6 +1,6 @@
 <?php
     //API Key - see http://admin.mailchimp.com/account/api
-    $apikey = 'YOUR MAILCHIMP APIKEY';
+    $apikey = 'de206486bb486da0822cbe0b732618aa-us6';
     
     // A List Id to run examples against. use lists() to view all
     // Also, login to MC account, go to List, then List Tools, and look for the List ID entry

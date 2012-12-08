@@ -43,6 +43,9 @@ foreach($subscriptions->feed->entry as $subscription) {
         $video->slug = _to_ascii($video->title->{'$t'});
         $video->unixdate = date('U', strtotime($video->published->{'$t'}));
 
+        $video->ytFavorites = $video->{'yt$statistics'}->favoriteCount;
+        $video->ytViews = $video->{'yt$statistics'}->viewCount;
+
         try {
             $col->insert($video, true);
             echo "Added {$video->title->{'$t'}}<br />";
