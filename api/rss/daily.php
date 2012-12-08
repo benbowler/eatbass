@@ -1,5 +1,5 @@
 <?php
-header('Content-Type: application/rss+xml; charset=ISO-8859-1');
+header('Content-Type: application/rss+xml; charset=UTF-8');
 date_default_timezone_set('UTC');
 
 // Mongo
@@ -28,8 +28,8 @@ $m->close();
 	<title>#eatbass top track today</title>
 	<description>#eatbass top track today</description>
 	<link>http://www.domain.com/link.htm</link>
-	<lastBuildDate><?php echo date("D, d M Y H:i:s T"); ?></lastBuildDate>
-	<pubDate><?php echo date("D, d M Y H:i:s T", 0); ?></pubDate>
+	<lastBuildDate><?php echo date("r"); ?></lastBuildDate>
+	<pubDate><?php echo date("r", 0); ?></pubDate>
 
 	<?php foreach ($videos as $video) { ?>
 	<item>
@@ -44,7 +44,7 @@ $m->close();
 			</description>
 		<link><?php echo $_SERVER['SERVER_NAME'] . '/' . $video['slug']; ?></link>
 		<guid isPermaLink="true"><?php echo $_SERVER['SERVER_NAME'] . '/' . $video['slug']; ?></guid>
-		<pubDate><?php echo date("D, d M Y H:i:s T", $video['date']->sec); ?></pubDate>
+		<pubDate><?php echo date("r", $video['date']->sec); ?></pubDate>
 	</item>
 	<?php } ?>
 
