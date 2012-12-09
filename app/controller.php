@@ -31,8 +31,12 @@ class controller
             exit;
         }
 
-        $this->data['top_50_plays'] = $this->model->get_video($slug);
-        $this->data['top_50_likes'] = $this->model->get_video($slug);
+        // Move to sitemap?
+        $this->data['top_plays_this_week'] = $this->model->get_top_videos_by('ytPlays', 10, (60 * 60 * 24 * 7));
+
+        die(var_dump($this->data['top_plays_this_week']));
+        //$this->data['top_plays'] = $this->model->get_top_videos_by('ytPlays',);
+        //$this->data['top_likes'] = $this->model->get_video($slug);
 
         $this->view('video', $this->data); //$this->model->get());
     }

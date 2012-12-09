@@ -93,11 +93,11 @@
 		</section>
 
 		<section>
-			<?php var_dump($top_50_plays); ?>
+			<?php var_dump($top_20_plays); ?>
 		</section>
 
 		<section>
-			<?php var_dump($top_50_likes); ?>
+			<?php var_dump($top_20_likes); ?>
 		</section>
 
 	<?php } ?>

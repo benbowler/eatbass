@@ -28,6 +28,10 @@ class Model
         $this->_connect();
         $this->col = $this->db->videos;
 
+        if($time) {
+
+        }
+
         return $this->col->sort(array('by' => 1))->limit($limit);
 
         $this->_close();
