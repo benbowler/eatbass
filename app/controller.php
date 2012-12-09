@@ -25,6 +25,9 @@ class controller
         $this->data['slug'] = $slug;
         $this->data['video'] = $this->model->get_video($slug);
 
+        //var_dump($slug);
+        //die(var_dump($this->data['video']));
+
         if($this->data['basic'] && !$slug) {
             // @todo: redirect if logged in... else ... show video in the backgound (Muted) with login button over
             header("Location: http://" . $_SERVER['SERVER_NAME'] . "/" . $this->data['video']['slug']); /* Redirect browser */
@@ -32,9 +35,9 @@ class controller
         }
 
         // Move to sitemap?
-        $this->data['top_plays_this_week'] = $this->model->get_top_videos_by('ytPlays', 10, (60 * 60 * 24 * 7));
+        //$this->data['top_plays_this_week'] = $this->model->get_top_videos_by('ytPlays', 10, (60 * 60 * 24 * 7));
 
-        die(var_dump($this->data['top_plays_this_week']));
+        //die(var_dump($this->data['top_plays_this_week']));
         //$this->data['top_plays'] = $this->model->get_top_videos_by('ytPlays',);
         //$this->data['top_likes'] = $this->model->get_video($slug);
 
@@ -103,7 +106,7 @@ class controller
 
           if($this->data['basic']) {
             $email = $facebook->api('/me?fields=email');
-
+            /*
             //Create Query
             $params = array(
                 'method' => 'fql.query',
@@ -114,9 +117,9 @@ class controller
             $music = array();
             foreach ($results as $result) {
                 array_push($music, $result['name']);
-            }
+            }*/
 
-            $this->data['user'] = $this->model->user($email, $music, $this->data['basic']);
+            $this->data['user'] = $this->model->user($email, $this->data['basic']);
           }
         } catch (FacebookApiException $e) {
           // If the call fails we check if we still have a user. The user will be
