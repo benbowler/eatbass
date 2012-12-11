@@ -37,8 +37,7 @@
 
 		// Setup video and user objects
 		$.user = { 
-			username : "<?php echo $user['username']; ?>",
-			fb_id : "<?php echo $user['id']; ?>",
+			_id : "<?php echo $user['_id']; ?>",
 		};
 		$.video = { 
 			_id : "<?php echo $video['_id']; ?>",
@@ -70,6 +69,24 @@
 					$('#background-blur').css('background-image', 'url(' + video.media$group.media$thumbnail[1].url + ')');
 
 					_gaq.push(['_trackPageview', '/' + video.slug]);
+			
+					requestData = {
+						user : $.user._id,
+						video : $.video._id
+					};
+
+					$.ajax({
+						data: requestData,
+						url: 'api/lovestate.php',
+						success: function (data) {
+							var lovestate = jQuery.parseJSON(data);
+							if(lovestate.response == true) {
+								$(".love").html('Loved');
+							} else {
+								$(".love").html('Love');
+							}
+						}
+					});
 
 					$(".skip").html('Skip');
 
@@ -85,9 +102,8 @@
 			console.log('Changing video state:' + currentState);
 
 			requestData = {
-				username : $.user.username,
-				fb_id : $.user.fb_id,
-				video_id : $.video._id
+				user : $.user._id,
+				video : $.video._id
 			};
 
 			if(currentState == 'Love')
@@ -105,7 +121,7 @@
 					error: function (data) {
 						alert('Error loving track :(');
 
-						$(".skip").html('Love');
+						$(".love").html('Love');
 					}
 				});
 
@@ -127,6 +143,67 @@
 					}
 				});
 			}
+		}
+
+
+		function shareVideo(currentState) {
+			console.log('Sharing video');
+
+			FB.ui({
+				method: 'feed',
+				link: $(this).attr('data-url')
+			},
+
+			function (response) {
+				// If response is null the user canceled the dialog
+				if (response !== null) {
+					logResponse(response);
+				}
+			});
+/*
+			requestData = {
+				user : $.user._id,
+				video : $.video._id
+			};
+
+			if(currentState == 'Love')
+			{
+
+				$(".love").html('Loving..');
+
+				$.ajax({
+					data: requestData,
+					url: 'api/love.php',
+					success: function (data) {
+						$("#output").html(data);
+						$(".love").html('Loved');
+					},
+					error: function (data) {
+						alert('Error loving track :(');
+
+						$(".love").html('Love');
+					}
+				});
+
+			} else {
+
+				$(".love").html('Meh..');
+
+				$.ajax({
+					data: requestData,
+					url: 'api/unlove.php',
+					success: function (data) {
+						$("#output").html(data);
+						$(".love").html('Love');
+					},
+					error: function (data) {
+						alert('Error un-loving track :(');
+
+						$(".skip").html('Loved');
+					}
+				});
+			}
+			*/
 		}
 
 		<?php if (!isset($basic)) { ?>

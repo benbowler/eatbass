@@ -47,7 +47,7 @@ class controller
     /* User Controller */
     public function u($slug)
     {
-        $this->view('profile', $this->data); //$this->model->get());
+        $this->view('video', $this->data); //$this->model->get());
     }
 
     /* User Controller */

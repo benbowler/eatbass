@@ -7,3 +7,6 @@
 [submodule "assets/javascript/history.js"]
 	path = assets/javascript/history.js
 	url = https://github.com/balupton/history.js.git
+[submodule "assets/spin.js"]
+	path = assets/spin.js
+	url = https://github.com/fgnass/spin.js.git

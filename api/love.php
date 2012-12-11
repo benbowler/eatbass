@@ -24,9 +24,9 @@ $col = $db->loves;
 //$col->insert(array("_id" => $_GET['username']), $user);
 
 $insert = array(
-	'_id' => $_GET['username'] . $_GET['video_id'],
-	'video' => $_GET['video_id'],
-	'user' => $_GET['username']
+	'_id' => $_GET['user'] . $_GET['video'],
+	'video' => $_GET['video'],
+	'user' => $_GET['user']
 );
 
 try {

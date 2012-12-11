@@ -12,9 +12,9 @@ $m   = new Mongo(getenv("MONGOHQ_URL"));
 $db  = $m->$dbname;
 $col = $db->videos;
 
-$query = array('date' => array( '$gte' => new MongoDate(time()-86400) ) );
+$query = array('date' => array( '$gte' => new MongoDate(time()-604800) ) );
 
-$videos = $col->find($query)->sort(array('ytLikes' => -1))->limit(1); //     skip(rand(-1, $col->count()-1))->getNext();
+$videos = $col->find($query)->sort(array('ytLikes' => -1))->limit(5); //     skip(rand(-1, $col->count()-1))->getNext();
 
 //die(var_dump($videos));
 //echo json_encode($video);
@@ -27,14 +27,14 @@ $m->close();
 	<channel>
 	<title>#eatbass top track today</title>
 	<description>#eatbass top track today</description>
-	<link><?php echo 'http://' . $_SERVER['SERVER_NAME'] . '/api/rss/daily.php'; ?></link>
+	<link><?php echo 'http://' . $_SERVER['SERVER_NAME'] . '/api/rss/weekly.php'; ?></link>
 	<lastBuildDate><?php echo date("r"); ?></lastBuildDate>
 	<pubDate><?php echo date("r"); ?></pubDate>
 
 	<?php foreach ($videos as $video) { ?>
 	<item>
 		<title><?php echo $video['title']['$t']; ?> #eatbass</title>
-		<description><![CDATA[[<?php echo utf8_encode($video['media$group']['media$description']['$t'],ENT_COMPAT,'utf-8'); ?>]]></description>
+		<description><?php echo utf8_encode(htmlentities($video['media$group']['media$description']['$t'],ENT_COMPAT,'utf-8')); ?></description>
 		<media:content url="<?php echo $video['media$group']['media$thumbnail'][0]['url']; ?>"
 			xmlns:media="http://search.yahoo.com/mrss/"
 			medium="image"

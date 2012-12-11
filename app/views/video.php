@@ -48,6 +48,7 @@
 
 				<section id="user">
 
+					<a href="#" class="share">Share</a>
 					<a href="#" class="love">Love</a>
 					<a href="#" class="skip">Skip</a>
 
@@ -78,6 +79,12 @@
 
 		</div>
 	</div>
+
+	<?php ?>
+		<section id="profile">
+			
+		</section>
+	<?php ?>
 
 	<?php if (!isset($basic)) { ?>
 

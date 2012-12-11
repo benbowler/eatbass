@@ -19,22 +19,25 @@ $col = $db->loves;
 //$user['loves'][$_GET['video_id']];
 
 //$newdata = array("loves" => array($_GET['video_id']));
-//$this->data = array_merge($user, $newdata);
+//$data = array_merge($user, $newdata);
 
 //$col->insert(array("_id" => $_GET['username']), $user);
 
-$insert = array(
+$query = array(
 	'_id' => $_GET['user'] . $_GET['video'],
-/*	'video' => $_GET['video_id'],
-	'user' => $_GET['username']*/
 );
 
 try {
-   $col->remove($insert, true);
-   echo json_encode(array('response' => true));
+   $count = $col->count($query);
 } catch(MongoCursorException $e) {
-	//$error = (strstr($e, 'duplicate')) ? 'duplicate' : 'other' ;
-   echo json_encode(array('response' => false, 'error' => $e));
+	$error = (strstr($e, 'duplicate')) ? 'duplicate' : 'other' ;
+   die(json_encode(array('response' => false, 'error' => $error)));
+}
+
+if($count == 1) {
+   echo json_encode(array('response' => true));
+} else {
+	echo json_encode(array('response' => false));
 }
 
 $m->close();
