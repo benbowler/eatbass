@@ -41,7 +41,7 @@ $m->close();
 			type="image/jpg"
 			height="<?php echo $video['media$group']['media$thumbnail'][0]['height']; ?>"
 			width="<?php echo $video['media$group']['media$thumbnail'][0]['width']; ?>" />
-			<media:title type="html"><?php echo $video['title']['$t']; ?></media:title>
+			<?php /* <media:title type="html"><?php echo $video['title']['$t']; ?></media:title> */ ?>
 		<link><?php echo 'http://' . $_SERVER['SERVER_NAME'] . '/' . $video['slug']; ?></link>
 		<guid isPermaLink="true"><?php echo 'http://' . $_SERVER['SERVER_NAME'] . '/' . $video['slug']; ?></guid>
 		<pubDate><?php echo date("r", $video['date']->sec); ?></pubDate>
