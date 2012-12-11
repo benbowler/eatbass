@@ -34,7 +34,7 @@ $m->close();
 	<?php foreach ($videos as $video) { ?>
 	<item>
 		<title><?php echo $video['title']['$t']; ?> #eatbass</title>
-		<description><![CDATA[[<?php echo $video['media$group']['media$description']['$t']; ?>]]></description>
+		<description><![CDATA[<?php echo $video['media$group']['media$description']['$t']; ?>]]></description>
 		<media:content url="<?php echo $video['media$group']['media$thumbnail'][3]['url']; ?>"
 			xmlns:media="http://search.yahoo.com/mrss/"
 			medium="image"
