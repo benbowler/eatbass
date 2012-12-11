@@ -35,12 +35,12 @@ $m->close();
 	<item>
 		<title><?php echo $video['title']['$t']; ?> #eatbass</title>
 		<description><![CDATA[[<?php echo $video['media$group']['media$description']['$t']; ?>]]></description>
-		<media:content url="<?php echo $video['media$group']['media$thumbnail'][1]['url']; ?>"
+		<media:content url="<?php echo $video['media$group']['media$thumbnail'][3]['url']; ?>"
 			xmlns:media="http://search.yahoo.com/mrss/"
 			medium="image"
 			type="image/jpg"
-			height="<?php echo $video['media$group']['media$thumbnail'][1]['height']; ?>"
-			width="<?php echo $video['media$group']['media$thumbnail'][1]['width']; ?>" />
+			height="<?php echo $video['media$group']['media$thumbnail'][3]['height']; ?>"
+			width="<?php echo $video['media$group']['media$thumbnail'][3]['width']; ?>" />
 			<?php /* <media:title type="html"><?php echo $video['title']['$t']; ?></media:title> */ ?>
 		<link><?php echo 'http://' . $_SERVER['SERVER_NAME'] . '/' . $video['slug']; ?></link>
 		<guid isPermaLink="true"><?php echo 'http://' . $_SERVER['SERVER_NAME'] . '/' . $video['slug']; ?></guid>
