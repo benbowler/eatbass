@@ -24,6 +24,7 @@ class controller
     {
         $this->data['slug'] = $slug;
         $this->data['video'] = $this->model->get_video($slug);
+        $video = $this->data['video'];
 
         //var_dump($slug);
         //die(var_dump($this->data['video']));
@@ -38,7 +39,7 @@ class controller
         //$this->data['top_plays_this_week'] = $this->model->get_top_videos_by('ytPlays', 10, (60 * 60 * 24 * 7));
 
         //die(var_dump($this->data['top_plays_this_week']));
-        //$this->data['top_plays'] = $this->model->get_top_videos_by('ytPlays',);
+        $this->data['top_plays'] = $this->model->get_top_videos_by('ytPlays');
         //$this->data['top_likes'] = $this->model->get_video($slug);
 
         if($slug) {
@@ -65,7 +66,7 @@ class controller
 
             watch, love and share for points
 
-            win downloads, tickets and merch every month
+            win music, tickets and merch every month
             ";
             
             $this->data['meta_tags'] = array(
@@ -80,7 +81,7 @@ class controller
                 'fb:app_id' => $appID,
             );
 
-            $this->data['title_tag'] = "&#9658; " . $video['title']['$t'] . ' ' . $site_title;
+            $this->data['title_tag'] = $site_title . ' ' . $site_description;
         }
 
         $this->view('video', $this->data); //$this->model->get());

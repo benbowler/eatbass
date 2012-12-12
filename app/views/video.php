@@ -92,10 +92,10 @@
 			<div>
 				<h3><?php echo $site_title; ?><em> <?php echo $site_description; ?></em></h3>
 
-				<p><strong>watch</strong>, <strong>love</strong> and <strong>share</strong> for points</p>
-				<p>win <strong>downloads</strong>, <strong>tickets</strong> and <strong>merch</strong></p>
-
 				<strong><div class="fb-login-button" data-scope="email,user_likes">Log In</div> to watch now</strong>
+
+				<p><strong>watch</strong>, <strong>love</strong> and <strong>share</strong> for points<br />
+					win <strong>music</strong>, <strong>tickets</strong> and <strong>merch</strong></p>
 
 				<fb:facepile href="http://eatbass.com" width="300" max_rows="1"></fb:facepile>
 
@@ -104,7 +104,7 @@
 		</section>
 
 		<section>
-			<?php var_dump($top_20_plays); ?>
+			<?php var_dump($top_plays); ?>
 		</section>
 
 		<section>
