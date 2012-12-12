@@ -41,6 +41,48 @@ class controller
         //$this->data['top_plays'] = $this->model->get_top_videos_by('ytPlays',);
         //$this->data['top_likes'] = $this->model->get_video($slug);
 
+        if($slug) {
+            $this->data['description'] = "{$video['title']['$t']} $site_title $site_description
+
+            {$video['media$group']['media$description']['$t']}
+            ";
+            
+            $this->data['meta_tags'] = array(
+                'title' => $video['title']['$t'] . ' ' . $site_title,
+                'description' => $description,
+                'og:title' => $video['title']['$t'] . ' ' . $site_title,
+                'og:type' => 'website',
+                'og:url' => $getUrl,
+                'og:image' => $video['media$group']['media$thumbnail'][2]['url'],
+                'og:site_name' => $site_title,
+                'og:description' =>  $description,
+                'fb:app_id' => $appID,
+            );
+
+            $this->data['title_tag'] = "&#9658; " . $video['title']['$t'] . ' ' . $site_title;
+        } else {
+            $this->data['description'] = "$site_title $site_description
+
+            watch, love and share for points
+
+            win downloads, tickets and merch every month
+            ";
+            
+            $this->data['meta_tags'] = array(
+                'title' => $site_title . $site_description,
+                'description' => $description,
+                'og:title' => $site_title . $site_description,
+                'og:type' => 'website',
+                'og:url' => $getUrl,
+                'og:image' => $video['media$group']['media$thumbnail'][2]['url'],
+                'og:site_name' => $site_title . $site_description,
+                'og:description' =>  $description,
+                'fb:app_id' => $appID,
+            );
+
+            $this->data['title_tag'] = "&#9658; " . $video['title']['$t'] . ' ' . $site_title;
+        }
+
         $this->view('video', $this->data); //$this->model->get());
     }
 
@@ -67,6 +109,31 @@ class controller
 
         //$this->view('profile', $this->data); //$this->model->get());
     }
+
+    // random logos
+    /*
+    public function logo($slug)
+    {
+        $this->data['slug'] = $slug;
+        $this->data['video'] = $this->model->get_video($slug);
+            
+        $this->data['meta_tags'] = array(
+            'title' => $video['title']['$t'] . ' ' . $site_title,
+            'description' => $description,
+            'og:title' => $video['title']['$t'] . ' ' . $site_title,
+            'og:type' => 'website',
+            'og:url' => $getUrl,
+            'og:image' => $video['media$group']['media$thumbnail'][2]['url'],
+            'og:site_name' => $site_title,
+            'og:description' =>  $description,
+            'fb:app_id' => $appID,
+        );
+
+        $this->data['title_tag'] = "&#9658; " . $video['title']['$t'] . ' ' . $site_title;
+
+        $this->view('logo', $this->data); //$this->model->get());
+    }
+    */
 
     private function _fb()
     {

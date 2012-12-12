@@ -35,6 +35,12 @@
 			loveVideoToggle(currentState);
 		});
 
+		$(".share").click(function (e) {
+			e.preventDefault();
+			// var currentState = $(".love").html();
+			shareVideo();
+		});
+
 		// Setup video and user objects
 		$.user = { 
 			_id : "<?php echo $user['_id']; ?>",

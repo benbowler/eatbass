@@ -4,7 +4,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes" />
 
-		<title>&#9658; <?php echo $video['title']['$t']; ?> - <?php echo $site_title; ?></title>
+		<title>$title_tag</title>
 
 		<!-- Bootstrap -->
 		<script type="text/javascript" src="assets/javascript/jquery-1.7.1.min.js"></script>
@@ -19,36 +19,9 @@
 		<script type='text/javascript' src="assets/javascript/history.js/scripts/bundled/html4+html5/jquery.history.js"></script>
 		<script type='text/javascript' src="assets/javascript/blur.min.js"></script>
 
-		<?php 
-		$meta_tags = array(
-			'title' => $video['title']['$t'] . ' - ' . $site_title,
-		);
-
-		?>
-
-		<?php /* foreach ($meta_tags as $propery => $content) { ?>
-			<meta property="<?php ?>" content="" />
-		<?php } */ ?>
-
-		<meta property="title" content="" />
-		<meta property="description" content="
-			<?php echo $video['title']['$t']; ?> <?php echo $site_title; ?> <?php echo $site_description; ?>
-
-			<?php echo $video['media$group']['media$description']['$t']; ?>
-		" />
-
-		<!-- These are Open Graph tags. -->
-		<meta property="og:title" content="<?php echo $video['title']['$t']; ?> <?php echo $site_title; ?>" />
-		<meta property="og:type" content="website" />
-		<meta property="og:url" content="<?php echo $getUrl; ?>" />
-		<meta property="og:image" content="<?php echo $video['media$group']['media$thumbnail'][1]['url']; ?>" />
-		<meta property="og:site_name" content="<?php echo $site_title; ?>" />
-		<meta property="og:description" content="
-			<?php echo $video['title']['$t']; ?> <?php echo $site_title; ?> <?php echo $site_description; ?>
-
-			<?php echo $video['media$group']['media$description']['$t']; ?>
-		" />
-		<meta property="fb:app_id" content="<?php echo $appID; ?>" />
+		<?php foreach ($meta_tags as $property => $content) { ?>
+			<meta property="<?php echo $property; ?>" content="<?php echo $content; ?>" />
+		<?php } ?>
 
 		<!--[if IE]>
 			<script type="text/javascript">

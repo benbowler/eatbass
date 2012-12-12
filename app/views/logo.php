@@ -34,83 +34,47 @@
 	  }(document, 'script', 'facebook-jssdk'));
 	  </script>
 
+	  <style type="text/css">
+	  #logo {
+	  	width: 316px;
+	  	margin-top: 25%;
+	  }
+	  #login > #logo > h3 {
+	  		font-size: 4.5em;
+	  		font-weight: 600;
+
+	  		text-shadow: none;
+	  }
+	  	#logo > em {
+	  		font-size: 3.22em;
+	  		font-weight: 300;
+	  		position: relative;
+	  		bottom: 0.5em;
+	  		
+	  		text-shadow: none;
+	  }
+	  </style>
 	<div id="page-blur">
 
 		<div id="background-blur" style="background-image: url('<?php echo $video['media$group']['media$thumbnail'][1]['url']; ?>');"></div>
 
-		<div id="wrapper">
-
-			<header class="clearfix">
-
-				<h3><?php echo $site_title; ?><em> <?php echo $site_description; ?></em></h3>
-
-				<!-- <div class="fb-like"></div> -->
-
-				<section id="user">
-
-					<a href="#" class="share">Share</a>
-					<a href="#" class="love">Love</a>
-					<a href="#" class="skip">Skip</a>
-
-					<?php if (isset($basic)) { ?>
-						<h4><a href="<?php echo "/u:" . $basic['username']; ?>" alt="<?php echo $basic['first_name']; ?> on <?php echo $site_title; ?>" class="profile"><?php echo $basic['first_name']; ?></a></h4>
-						<h5 id="score">10k</h5>
-						<img id="picture" src="https://graph.facebook.com/<?php echo $basic['username']; ?>/picture?type=square" />
-					<?php } ?>
-
-				</section>
-
-			</header>
-
-			<section id="player">
-					<div id="player-yt"></div>
-			</section>
-
-			<section id="text">
-
-				<h1 id="video_title"><?php echo $video['title']['$t']; ?></h1>
-				<h2 id="video_author"><?php echo $video['author'][0]['name']['$t']; ?></h2>
-
-				<div id="video_description"><?php echo $video['media$group']['media$description']['$t']; ?></div>
-
-				<!-- <div class="fb-comments" data-href="" data-width="470" data-num-posts="2"></div> -->
-
-			</section>
-
-		</div>
-	</div>
-
-	<?php ?>
-		<section id="profile">
-			
-		</section>
-	<?php ?>
-
-	<?php if (!isset($basic)) { ?>
-
 		<section id="login">
-			<div>
-				<h3><?php echo $site_title; ?><em> <?php echo $site_description; ?></em></h3>
-
+			<div id="logo">
+				<h3><?php echo $site_title; ?></h3>
+				<em><?php echo $site_description; ?></em>
+				<!--
 				<p><strong>watch</strong>, <strong>love</strong> and <strong>share</strong> for points</p>
 				<p>win <strong>downloads</strong>, <strong>tickets</strong> and <strong>merch</strong></p>
 
 				<strong><div class="fb-login-button" data-scope="email,user_likes">Log In</div> to watch now</strong>
 
 				<fb:facepile href="http://eatbass.com" width="300" max_rows="1"></fb:facepile>
+			-->
 
 				<!-- Facepile -->
 			</div>
 		</section>
 
-		<section>
-			<?php var_dump($top_20_plays); ?>
-		</section>
-
-		<section>
-			<?php var_dump($top_20_likes); ?>
-		</section>
-
-	<?php } ?>
+	</div>
 
 <?php include('shared/footer.php'); ?>

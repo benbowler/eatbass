@@ -10,3 +10,6 @@
 [submodule "assets/spin.js"]
 	path = assets/spin.js
 	url = https://github.com/fgnass/spin.js.git
+[submodule "assets/javascript/gritter"]
+	path = assets/javascript/gritter
+	url = https://github.com/jboesch/Gritter.git
