@@ -53,8 +53,8 @@
 					<a href="#" class="skip">Skip</a>
 
 					<?php if (isset($basic)) { ?>
-						<h4><a href="<?php echo "/u:" . $basic['username']; ?>" alt="<?php echo $basic['first_name']; ?> on <?php echo $site_title; ?>" class="profile"><?php echo $basic['first_name']; ?></a></h4>
-						<h5 id="score">10k</h5>
+						<a href="<?php echo "/u:" . $basic['username']; ?>" alt="<?php echo $basic['first_name']; ?> on <?php echo $site_title; ?>" class="profile"><em id="score">10k</em> <?php echo $basic['first_name']; ?></a>
+						
 						<img id="picture" src="https://graph.facebook.com/<?php echo $basic['username']; ?>/picture?type=square" />
 					<?php } ?>
 
@@ -68,7 +68,7 @@
 
 			<section id="text">
 
-				<h1 id="video_title"><?php echo $video['title']['$t']; ?></h1>
+				<a href="/channel:<?php echo $video['title']['$t']; ?>" class="channel"><h1 id="video_title"><?php echo $video['title']['$t']; ?></h1></a>
 				<h2 id="video_author"><?php echo $video['author'][0]['name']['$t']; ?></h2>
 
 				<div id="video_description"><?php echo $video['media$group']['media$description']['$t']; ?></div>
@@ -104,11 +104,14 @@
 		</section>
 
 		<section>
-			<?php var_dump($top_plays); ?>
+			<h1>top videos</h1>
+			<?php foreach ($top_plays as $video) { ?>
+				<a href="/<?php echo $video['slug']; ?>" alt="<?php echo $video['title']['$t']; ?>"><?php echo $video['title']['$t']; ?></a><br />
+			<?php } ?>
 		</section>
 
 		<section>
-			<?php var_dump($top_20_likes); ?>
+			<?php //var_dump($top_ikes); ?>
 		</section>
 
 	<?php } ?>

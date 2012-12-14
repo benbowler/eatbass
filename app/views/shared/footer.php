@@ -1,5 +1,17 @@
 	<script type="text/javascript">
+
 	$(function () {
+
+		// Setup video and user objects
+		$.user = { 
+			_id : "<?php echo $user['_id']; ?>",
+		};
+		$.video = { 
+			_id : "<?php echo $video['_id']; ?>",
+			slug : "<?php echo $video['slug']; ?>",
+			ytID : "<?php echo $video['media$group']['yt$videoid']['$t']; ?>"
+		}; 
+
 		jQuery("#player-yt").tubeplayer({
 			width: '100%', // the width of the player
 			height: '100%', // the height of the player
@@ -8,20 +20,37 @@
 			autoPlay: true,
 			showInfo: false,
 			modestbranding: true,
-			initialVideo: "<?php echo $video['media$group']['yt$videoid']['$t']; ?>", // the video that is loaded into the player
+			initialVideo: $.video.ytID, // the video that is loaded into the player
 			preferredQuality: "default", // preferred quality: default, small, medium, large, hd720
-			onPlay: function (id) {}, // after the play method is called
-			onPause: function () {}, // after the pause method is called
+			onPlay: setWatchVideo, // after the play method is called
+			onPause: stopWatchVideo, // after the pause method is called
 			onStop: function () {}, // after the player is stopped
 			onSeek: function (time) {}, // after the video has been seeked to a defined point
-			onMute: function () {}, // after the player is muted
-			onUnMute: function () {}, // after the player is unmuted
-			onPlayerEnded: nextVideo,
+			onMute: stopWatchVideo, // after the player is muted
+			onUnMute: setWatchVideo, // after the player is unmuted
+			//onPlayerEnded: nextVideo, Do this 3 seconds before the end of the video
 			onErrorNotFound: nextVideo, // if a video cant be found
 			onErrorNotEmbeddable: nextVideo, // if a video isnt embeddable
 			onErrorInvalidParameter: nextVideo, // if we've got an invalid param
 			mute: true,
 		});
+
+		function setWatchVideo() {
+			var interval = setInterval(watchVideo, 3000);
+		}
+
+		function stopWatchVideo() {
+			interval = window.clearInterval(interval);
+		}
+
+		function watchVideo() {
+			data = jQuery("#player-yt").tubeplayer("data");
+			console.log(data.duration-data.currentTime);
+			if(data.duration-data.currentTime < 6) {
+				stopWatchVideo();
+				nextVideo();
+			}
+		}
 
 		$(".skip").click(function (e) {
 			e.preventDefault();
@@ -40,15 +69,6 @@
 			// var currentState = $(".love").html();
 			shareVideo();
 		});
-
-		// Setup video and user objects
-		$.user = { 
-			_id : "<?php echo $user['_id']; ?>",
-		};
-		$.video = { 
-			_id : "<?php echo $video['_id']; ?>",
-			slug : "<?php echo $video['slug']; ?>"
-		}; 
 
 		function nextVideo() {
 			console.log('loading video + next virtual page.');
@@ -222,11 +242,45 @@
 
 		<?php } else { ?>
 
-			 $('#background-blur').blurjs({
+			$('#background-blur').blurjs({
 				source: 'body',
 				radius: 20,
 				overlay: 'rgba(255,255,255,0.4)'
 			});
+
+			function showAlert() {
+				$.gritter.add({
+					// (string | mandatory) the heading of the notification
+					title: 'This is a regular notice!',
+					// (string | mandatory) the text inside the notification
+					text: 'This will fade out after a certain amount of time.',
+					// (string | optional) the image to display on the left
+					image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',
+					// (bool | optional) if you want it to fade out on its own or just sit there
+					sticky: false, 
+					// (int | optional) the time you want it to be alive for before fading out (milliseconds)
+					time: 8000,
+					// (string | optional) the class name you want to apply directly to the notification for custom styling
+					class_name: 'gritter-light',
+				        // (function | optional) function called before it opens
+					before_open: function(){
+						//alert('I am a sticky called before it opens');
+					},
+					// (function | optional) function called after it opens
+					after_open: function(e){
+						//alert("I am a sticky called after it opens: \nI am passed the jQuery object for the created Gritter element...\n" + e);
+					},
+					// (function | optional) function called before it closes
+					before_close: function(e, manual_close){
+				                // the manual_close param determined if they closed it by clicking the "x"
+						//alert("I am a sticky called before it closes: I am passed the jQuery object for the Gritter element... \n" + e);
+					},
+					// (function | optional) function called after it closes
+					after_close: function(){
+						//alert('I am a sticky called after it closes');
+					}
+				});
+			}
 
 		<?php } ?>
 

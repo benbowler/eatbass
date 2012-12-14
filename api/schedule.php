@@ -18,7 +18,7 @@ $col = $db->videos;
 # insert a document
 //$visit = array( "ip" => 'blergy' );
 //$col->insert($visit);
-
+$total = 0;
 
 // Cycle through subscriptions and videos
 $subscriptions = _api_request("https://gdata.youtube.com/feeds/api/users/$userId/subscriptions?v=2&alt=json&limit=10");
@@ -30,7 +30,11 @@ foreach($subscriptions->feed->entry as $subscription) {
 
     $videos = _api_request("http://gdata.youtube.com/feeds/api/users/$channelId/uploads?v=2&alt=json");
 
+    echo "Begining " + $subscription->{'yt$username'}->{'$t'} + "<br />";
+
     //http://gdata.youtube.com/feeds/api/users/nba/uploads/-/sports/playoffs?v=2&alt=json
+
+    $i = 0;
 
     foreach($videos->feed->entry as $video) {
         if($video->{'media$group'}->{'yt$duration'}->seconds <= 600) {
@@ -48,16 +52,20 @@ foreach($subscriptions->feed->entry as $subscription) {
 
           try {
               $col->insert($video, true);
-              echo "Added {$video->title->{'$t'}}<br />";
+              echo "$i Added {$video->title->{'$t'}}<br />";
           } catch(MongoCursorException $e) {
               $col->update(array('_id' => $video->_id), $video);
-              echo "Updated {$video->title->{'$t'}}<br />";
+              echo "$i Updated {$video->title->{'$t'}}<br />";
           }
         } else {
-          echo "Skipped {$video->title->{'$t'}} (Too long)<br />";
+          echo "$i Skipped {$video->title->{'$t'}} (Too long)<br />";
         }
+        $i++;
+        $total++;
     }
 }
+
+echo "Total $total Imported";
 
 # disconnect
 $m->close();

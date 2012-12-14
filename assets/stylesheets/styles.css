@@ -416,7 +416,7 @@ header {
 header h3 {
   display: inline;
   float: left;
-  font-size: 2em;
+  font-size: 1.7em;
   font-weight: 600;
 }
 header h3 em {
@@ -428,26 +428,26 @@ header #user {
   padding-top: 0.6em;
   float: right;
 }
+header #user a {
+  text-decoration: none;
+}
+header #user a:hover {
+  text-decoration: underline;
+}
 header #user h4,
 header #user h5,
 header #user img,
 header #user a {
   display: inline;
   float: right;
-  font-size: 1.17em;
+  font-weight: 300;
+  font-size: 1.2em;
   line-height: 2em;
-  padding: 5px 1em;
+  padding-left: 1em;
 }
 header #user img {
   height: 36px;
   width: 36px;
-  padding: 5px;
-}
-header #user h4 > a {
-  font-size: 1.17em;
-  padding: 0;
-  float: none;
-  line-height: 0;
 }
 header #user .love {
   color: #ff3300;
@@ -476,9 +476,9 @@ header #user .skip {
   text-align: center;
 }
 #login > div {
-  width: 30em;
-  height: 30em;
-  margin: 18% auto;
+  width: 25em;
+  height: 25em;
+  margin: 16% auto;
 }
 #login > div h3 {
   font-size: 2em;
@@ -544,9 +544,6 @@ header #user .skip {
     width: 720px;
     bottom: 160px;
   }
-  header #user img {
-    display: none;
-  }
 }
 /* Landscape phone to portrait tablet */
 @media (max-width: 767px) {
@@ -562,21 +559,26 @@ header #user .skip {
     width: 480px;
     bottom: 107px;
   }
+  header {
+    height: 7.6em;
+  }
   header h3 {
-    display: inline;
+    display: block;
     float: none;
+    text-align: center;
   }
   header #user {
     width: 100%;
+    display: block;
     height: 4em;
     float: none;
+  }
+  header #user img {
+    float: left;
   }
 }
 /* Landscape phones and down */
 @media (max-width: 480px) {
-  header h3 > em {
-    display: none;
-  }
   #wrapper {
     width: 320px;
   }
@@ -588,5 +590,22 @@ header #user .skip {
     height: 320px;
     width: 320px;
     bottom: 72px;
+  }
+  header {
+    height: 7.6em;
+  }
+  header h3 {
+    display: block;
+    float: none;
+    text-align: center;
+  }
+  header #user {
+    width: 100%;
+    display: block;
+    height: 4em;
+    float: none;
+  }
+  header #user img {
+    display: none;
   }
 }

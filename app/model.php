@@ -23,7 +23,7 @@ class Model
 
         $this->_close();
     }
-    public function get_top_videos_by($by = 'ytPlays', $limit = 10, $time = false)
+    public function get_top_videos_by($by = 'ytPlays', $asc = 1, $limit = 10, $time = false)
     {
         $this->_connect();
         $this->col = $this->db->videos;
@@ -32,7 +32,7 @@ class Model
 
         }
 
-        return $this->col->find()->sort(array('by' => 1))->limit($limit);
+        return $this->col->find()->sort(array($by => 1))->limit($limit);
 
         $this->_close();
     }

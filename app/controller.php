@@ -29,11 +29,13 @@ class controller
         //var_dump($slug);
         //die(var_dump($this->data['video']));
 
+        /*
         if($this->data['basic'] && !$slug) {
             // @todo: redirect if logged in... else ... show video in the backgound (Muted) with login button over
-            header("Location: http://" . $_SERVER['SERVER_NAME'] . "/" . $this->data['video']['slug']); /* Redirect browser */
+            header("Location: http://" . $_SERVER['SERVER_NAME'] . "/" . $this->data['video']['slug']); /* Redirect browser 
             exit;
         }
+        */
 
         // Move to sitemap?
         //$this->data['top_plays_this_week'] = $this->model->get_top_videos_by('ytPlays', 10, (60 * 60 * 24 * 7));
@@ -43,26 +45,26 @@ class controller
         //$this->data['top_likes'] = $this->model->get_video($slug);
 
         if($slug) {
-            $this->data['description'] = "{$video['title']['$t']} $site_title $site_description
+            $description = "{$video['title']['$t']} {$this->data['site_title']} | {$this->data['site_description']}
 
             {$video['media$group']['media$description']['$t']}
             ";
             
             $this->data['meta_tags'] = array(
-                'title' => $video['title']['$t'] . ' ' . $site_title,
+                'title' => $video['title']['$t'] . ' ' . $this->data['site_title'],
                 'description' => $description,
-                'og:title' => $video['title']['$t'] . ' ' . $site_title,
+                'og:title' => $video['title']['$t'] . ' ' . $this->data['site_title'],
                 'og:type' => 'website',
                 'og:url' => $getUrl,
                 'og:image' => $video['media$group']['media$thumbnail'][2]['url'],
-                'og:site_name' => $site_title,
+                'og:site_name' => $this->data['site_title'],
                 'og:description' =>  $description,
                 'fb:app_id' => $appID,
             );
 
-            $this->data['title_tag'] = "&#9658; " . $video['title']['$t'] . ' ' . $site_title;
+            $this->data['title_tag'] = "&#9658; " . $video['title']['$t'] . ' ' . $this->data['site_title'];
         } else {
-            $this->data['description'] = "$site_title $site_description
+            $description = "{$this->data['site_title']} | {$this->data['site_description']}
 
             watch, love and share for points
 
@@ -70,18 +72,18 @@ class controller
             ";
             
             $this->data['meta_tags'] = array(
-                'title' => $site_title . $site_description,
+                'title' => $this->data['site_title'] . ' | ' . $this->data['site_description'],
                 'description' => $description,
-                'og:title' => $site_title . $site_description,
+                'og:title' => $this->data['site_title'] . ' | ' . $this->data['site_description'],
                 'og:type' => 'website',
                 'og:url' => $getUrl,
                 'og:image' => $video['media$group']['media$thumbnail'][2]['url'],
-                'og:site_name' => $site_title . $site_description,
+                'og:site_name' => $this->data['site_title'],
                 'og:description' =>  $description,
                 'fb:app_id' => $appID,
             );
 
-            $this->data['title_tag'] = $site_title . ' ' . $site_description;
+            $this->data['title_tag'] = $this->data['site_title'] . ' | ' . $this->data['site_description'];
         }
 
         $this->view('video', $this->data); //$this->model->get());

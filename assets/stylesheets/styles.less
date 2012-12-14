@@ -79,7 +79,7 @@ header {
 		display: inline;
 		float: left;
 
-		font-size: 2em;
+		font-size: 1.7em;
 		font-weight: 600;
 		em {
 			font-weight: 300;
@@ -90,24 +90,25 @@ header {
 		height: 3.4em;
 		padding-top: 0.6em;
 		float: right;
+		a {
+			text-decoration: none;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
 		h4, h5, img, a {
 			display: inline;
 			float: right;
 
-			font-size: 1.17em;
+			font-weight: 300;
+
+			font-size: 1.2em;
 			line-height: 2em;
-			padding: 5px 1em;
+			padding-left: 1em;
 		}
 		img {
 			height: 36px;
 			width: 36px;
-			padding: 5px;
-		}
-		h4 > a {
-			font-size: 1.17em;
-			padding: 0;
-			float: none;
-			line-height: 0;
 		}
 		.love {
 			color: #ff3300;
@@ -131,8 +132,6 @@ header {
 		display: block;
 	}
 }
-
-
 #login {
 	position: fixed;
 	top: 0;
@@ -141,9 +140,9 @@ header {
 	left: 0;
 	text-align: center;
 	> div {
-		width: 30em;
-		height: 30em;
-		margin: 18% auto;
+		width: 25em;
+		height: 25em;
+		margin: 16% auto;
 		h3 {
 			font-size: 2em;
 			font-weight: 600;
@@ -218,13 +217,6 @@ header {
 			bottom: 160px;
 		}
 	}
-	header {
-		#user {
-			img {
-				display: none;
-			}
-		}
-	}
 }
  
 /* Landscape phone to portrait tablet */
@@ -242,25 +234,27 @@ header {
 		}
 	}
 	header {
+		height: 7.6em;
 		h3 {
-			display: inline;
+			display: block;
 			float: none;
+
+			text-align: center;
 		}	
 		#user {
 			width: 100%;
+			display: block;
 			height: 4em;
 			float: none;
+			img {
+				float: left;
+			}
 		}
 	}
 }
  
 /* Landscape phones and down */
 @media (max-width: 480px) {
-	header {
-		h3 > em {
-			display: none;
-		}
-	}
 	#wrapper {
 		width: 320px;
 	}
@@ -271,6 +265,24 @@ header {
 			height: 320px;
 			width: 320px;
 			bottom: 72px;
+		}
+	}
+	header {
+		height: 7.6em;
+		h3 {
+			display: block;
+			float: none;
+
+			text-align: center;
+		}	
+		#user {
+			width: 100%;
+			display: block;
+			height: 4em;
+			float: none;
+			img {
+				display: none;
+			}
 		}
 	}
 }

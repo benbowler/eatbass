@@ -19,7 +19,7 @@
 		<script type='text/javascript' src="assets/javascript/history.js/scripts/bundled/html4+html5/jquery.history.js"></script>
 		<script type='text/javascript' src="assets/javascript/blur.min.js"></script>
 
-		<link rel="stylesheet" type="text/css" href="assets/javascript/gritter/css/gritter.css" />
+		<link rel="stylesheet" type="text/css" href="assets/javascript/gritter/css/jquery.gritter.css" />
 		<script type="text/javascript" src="assets/javascript/gritter/js/jquery.gritter.js"></script>
 
 		<?php foreach ($meta_tags as $property => $content) { ?>
