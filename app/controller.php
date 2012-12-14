@@ -41,7 +41,6 @@ class controller
         //$this->data['top_plays_this_week'] = $this->model->get_top_videos_by('ytPlays', 10, (60 * 60 * 24 * 7));
 
         //die(var_dump($this->data['top_plays_this_week']));
-        $this->data['top_plays'] = $this->model->get_top_videos_by('ytPlays');
         //$this->data['top_likes'] = $this->model->get_video($slug);
 
         if($slug) {
@@ -84,6 +83,8 @@ class controller
             );
 
             $this->data['title_tag'] = $this->data['site_title'] . ' | ' . $this->data['site_description'];
+
+            $this->data['top_plays'] = $this->model->get_top_videos_by('ytPlays');
         }
 
         $this->view('video', $this->data); //$this->model->get());
@@ -111,6 +112,13 @@ class controller
         //$stats = $this->model->
 
         //$this->view('profile', $this->data); //$this->model->get());
+    }
+
+    public function sitemap($format)
+    {
+        $this->data['top_plays'] = $this->model->get_top_videos_by('ytPlays');
+
+        $this->view("sitemap_{$format}", $this->data); //$this->model->get());
     }
 
     // random logos
