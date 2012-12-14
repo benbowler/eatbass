@@ -116,7 +116,7 @@ class controller
 
     public function sitemap($format)
     {
-        $this->data['top_plays'] = $this->model->get_top_videos_by('ytPlays');
+        $this->data['top_plays'] = $this->model->get_top_videos_by('ytPlays', 1, 100);
 
         $this->view("sitemap_{$format}", $this->data); //$this->model->get());
     }
