@@ -26,17 +26,19 @@
 			onPause: stopWatchVideo, // after the pause method is called
 			onStop: function () {}, // after the player is stopped
 			onSeek: function (time) {}, // after the video has been seeked to a defined point
-			onMute: stopWatchVideo, // after the player is muted
-			onUnMute: setWatchVideo, // after the player is unmuted
-			//onPlayerEnded: nextVideo, Do this 3 seconds before the end of the video
+			//onMute: stopWatchVideo, // after the player is muted
+			//onUnMute: setWatchVideo, // after the player is unmuted
+			//onPlayerEnded: nextVideo, // after the video completely finishes
 			onErrorNotFound: nextVideo, // if a video cant be found
 			onErrorNotEmbeddable: nextVideo, // if a video isnt embeddable
 			onErrorInvalidParameter: nextVideo, // if we've got an invalid param
 			mute: true,
 		});
 
+		var interval;
+
 		function setWatchVideo() {
-			var interval = setInterval(watchVideo, 3000);
+			interval = setInterval(watchVideo, 3000);
 		}
 
 		function stopWatchVideo() {
@@ -54,7 +56,7 @@
 
 		$(".skip").click(function (e) {
 			e.preventDefault();
-			$(".skip").html('Skipping..');
+			$(".skip").html('skipping..');
 			nextVideo();
 		});
 
@@ -85,7 +87,7 @@
 					}; 
 
 					<?php if (isset($basic)) { ?>
-						History.pushState(data, '\u25BA ' + video.title.$t + ' - <?php echo $site_title; ?>', video.slug);
+						History.pushState(data, '\u25BA ' + video.title.$t + ' | <?php echo $site_title; ?>', video.slug);
 					<?php } ?>
 					
 					$('#video_title').html(video.title.$t);
@@ -107,14 +109,14 @@
 						success: function (data) {
 							var lovestate = jQuery.parseJSON(data);
 							if(lovestate.response == true) {
-								$(".love").html('Loved');
+								$(".love").html('loved');
 							} else {
-								$(".love").html('Love');
+								$(".love").html('love');
 							}
 						}
 					});
 
-					$(".skip").html('Skip');
+					$(".skip").html('skip');
 
 				},
 				error: function (data) {
@@ -132,22 +134,22 @@
 				video : $.video._id
 			};
 
-			if(currentState == 'Love')
+			if(currentState == 'love')
 			{
 
-				$(".love").html('Loving..');
+				$(".love").html('loving..');
 
 				$.ajax({
 					data: requestData,
 					url: 'api/love.php',
 					success: function (data) {
 						$("#output").html(data);
-						$(".love").html('Loved');
+						$(".love").html('loved');
 					},
 					error: function (data) {
 						alert('Error loving track :(');
 
-						$(".love").html('Love');
+						$(".love").html('love');
 					}
 				});
 
@@ -160,12 +162,12 @@
 					url: 'api/unlove.php',
 					success: function (data) {
 						$("#output").html(data);
-						$(".love").html('Love');
+						$(".love").html('love');
 					},
 					error: function (data) {
 						alert('Error un-loving track :(');
 
-						$(".skip").html('Loved');
+						$(".skip").html('loved');
 					}
 				});
 			}

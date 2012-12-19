@@ -92,11 +92,12 @@ header {
 		float: right;
 		a {
 			text-decoration: none;
+			text-transform: lowercase;
 		}
 		a:hover {
 			text-decoration: underline;
 		}
-		h4, h5, img, a {
+		h4, h5, a {
 			display: inline;
 			float: right;
 
@@ -105,6 +106,10 @@ header {
 			font-size: 1.2em;
 			line-height: 2em;
 			padding-left: 1em;
+		}
+		em > img, em > em, em > p {
+			float: left;
+			vertical-align: middle;
 		}
 		img {
 			height: 36px;
@@ -140,8 +145,7 @@ header {
 	left: 0;
 	text-align: center;
 	> div {
-		width: 25em;
-		height: 25em;
+		width: 90%;
 		margin: 16% auto;
 		h3 {
 			font-size: 2em;

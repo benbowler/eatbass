@@ -96,6 +96,15 @@ class controller
         $this->view('video', $this->data); //$this->model->get());
     }
 
+    public function api($slug)
+    {
+        $route = explode(";", $slug);
+
+        require_once($_SERVER['DOCUMENT_ROOT'].'/app/api/api.php');
+        $api = new api();
+        $api->$route[0]($route[1]);
+    }
+
     /* User Controller */
     public function stats($slug)
     {
@@ -106,6 +115,19 @@ class controller
         if(!$stats[0]) {
             die('Stat details not specified.');
         }
+        //            0     1    2   3     4
+        //      stats:model:stat:asc:limit:time
+        // eg   stats:get_top_videos_by:ytPlays:asc:10
+
+        if($stats[3] > 100) {
+            die('Not allowed more than 100!');
+        }
+
+        $asc = ($stats[2] == 'asc') ? 1 : -1 ;
+
+        $videos = get_top_videos_by($stats[1], $asc, $stats[4], @$stats[4]);
+
+        var_dump($videos);
 
 
 
@@ -122,7 +144,6 @@ class controller
     }
 
     // random logos
-    /*
     public function logo($slug)
     {
         $this->data['slug'] = $slug;
@@ -144,7 +165,6 @@ class controller
 
         $this->view('logo', $this->data); //$this->model->get());
     }
-    */
 
     private function _fb()
     {

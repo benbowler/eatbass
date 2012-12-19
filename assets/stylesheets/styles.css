@@ -430,13 +430,13 @@ header #user {
 }
 header #user a {
   text-decoration: none;
+  text-transform: lowercase;
 }
 header #user a:hover {
   text-decoration: underline;
 }
 header #user h4,
 header #user h5,
-header #user img,
 header #user a {
   display: inline;
   float: right;
@@ -444,6 +444,12 @@ header #user a {
   font-size: 1.2em;
   line-height: 2em;
   padding-left: 1em;
+}
+header #user em > img,
+header #user em > em,
+header #user em > p {
+  float: left;
+  vertical-align: middle;
 }
 header #user img {
   height: 36px;
@@ -476,8 +482,7 @@ header #user .skip {
   text-align: center;
 }
 #login > div {
-  width: 25em;
-  height: 25em;
+  width: 90%;
   margin: 16% auto;
 }
 #login > div h3 {

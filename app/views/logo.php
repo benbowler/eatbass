@@ -57,7 +57,7 @@
 	<div id="page-blur">
 
 		<div id="background-blur" style="background-image: url('<?php echo $video['media$group']['media$thumbnail'][1]['url']; ?>');"></div>
-
+<!--
 		<section id="login">
 			<div id="logo">
 				<h3><?php echo $site_title; ?></h3>
@@ -69,11 +69,12 @@
 				<strong><div class="fb-login-button" data-scope="email,user_likes">Log In</div> to watch now</strong>
 
 				<fb:facepile href="http://eatbass.com" width="300" max_rows="1"></fb:facepile>
-			-->
+			--
 
-				<!-- Facepile -->
+				<!-- Facepile --
 			</div>
 		</section>
+	-->
 
 	</div>
 
