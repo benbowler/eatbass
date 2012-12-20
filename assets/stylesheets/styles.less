@@ -107,13 +107,18 @@ header {
 			line-height: 2em;
 			padding-left: 1em;
 		}
-		em > img, em > em, em > p {
-			float: left;
-			vertical-align: middle;
-		}
-		img {
-			height: 36px;
-			width: 36px;
+		.profile {
+			img {
+				height: 36px;
+				width: 36px;
+				margin-right: 0.4em;
+				vertical-align: middle;
+				position: relative;
+				bottom: 4px;
+			}
+			em {
+				display: inline;
+			}
 		}
 		.love {
 			color: #ff3300;
@@ -250,7 +255,8 @@ header {
 			display: block;
 			height: 4em;
 			float: none;
-			img {
+			.profile {
+				padding-left: 0;
 				float: left;
 			}
 		}
@@ -284,8 +290,9 @@ header {
 			display: block;
 			height: 4em;
 			float: none;
-			img {
-				display: none;
+			.profile {
+				padding-left: 0;
+				float: left;
 			}
 		}
 	}

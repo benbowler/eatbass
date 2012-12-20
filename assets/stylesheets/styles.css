@@ -445,15 +445,16 @@ header #user a {
   line-height: 2em;
   padding-left: 1em;
 }
-header #user em > img,
-header #user em > em,
-header #user em > p {
-  float: left;
-  vertical-align: middle;
-}
-header #user img {
+header #user .profile img {
   height: 36px;
   width: 36px;
+  margin-right: 0.4em;
+  vertical-align: middle;
+  position: relative;
+  bottom: 4px;
+}
+header #user .profile em {
+  display: inline;
 }
 header #user .love {
   color: #ff3300;
@@ -578,7 +579,8 @@ header #user .skip {
     height: 4em;
     float: none;
   }
-  header #user img {
+  header #user .profile {
+    padding-left: 0;
     float: left;
   }
 }
@@ -610,7 +612,8 @@ header #user .skip {
     height: 4em;
     float: none;
   }
-  header #user img {
-    display: none;
+  header #user .profile {
+    padding-left: 0;
+    float: left;
   }
 }

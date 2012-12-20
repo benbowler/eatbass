@@ -29,13 +29,11 @@ class controller
         //var_dump($slug);
         //die(var_dump($this->data['video']));
 
-        /*
         if($this->data['basic'] && !$slug) {
             // @todo: redirect if logged in... else ... show video in the backgound (Muted) with login button over
-            header("Location: http://" . $_SERVER['SERVER_NAME'] . "/" . $this->data['video']['slug']); /* Redirect browser 
+            header("Location: http://" . $_SERVER['SERVER_NAME'] . "/" . $this->data['video']['slug']); // Redirect browser
             exit;
         }
-        */
 
         // Move to sitemap?
         //$this->data['top_plays_this_week'] = $this->model->get_top_videos_by('ytPlays', 10, (60 * 60 * 24 * 7));
@@ -98,9 +96,9 @@ class controller
 
     public function api($slug)
     {
-        $route = explode(";", $slug);
+        $route = explode(":", $slug);
 
-        require_once($_SERVER['DOCUMENT_ROOT'].'/app/api/api.php');
+        require_once($_SERVER['DOCUMENT_ROOT'].'/app/api.php');
         $api = new api();
         $api->$route[0]($route[1]);
     }
@@ -138,7 +136,8 @@ class controller
 
     public function sitemap($format)
     {
-        $this->data['top_plays'] = $this->model->get_top_videos_by('ytPlays', 1, 100);
+        $this->data['top_loves'] = $this->model->get_top_videos_by('ytLoves', 1, 100);
+        $this->data['top_plays'] = $this->model->get_top_videos_by('ytPlays', 1, 1000);
 
         $this->view("sitemap_{$format}", $this->data); //$this->model->get());
     }

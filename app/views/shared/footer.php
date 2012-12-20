@@ -22,18 +22,20 @@
 			modestbranding: true,
 			initialVideo: $.video.ytID, // the video that is loaded into the player
 			preferredQuality: "default", // preferred quality: default, small, medium, large, hd720
-			onPlay: setWatchVideo, // after the play method is called
-			onPause: stopWatchVideo, // after the pause method is called
-			onStop: function () {}, // after the player is stopped
-			onSeek: function (time) {}, // after the video has been seeked to a defined point
+			//onPlay: setWatchVideo, // after the play method is called
+			//onPause: stopWatchVideo, // after the pause method is called
+			//onStop: function () {}, // after the player is stopped
+			//onSeek: function (time) {}, // after the video has been seeked to a defined point
 			//onMute: stopWatchVideo, // after the player is muted
 			//onUnMute: setWatchVideo, // after the player is unmuted
-			//onPlayerEnded: nextVideo, // after the video completely finishes
+			onPlayerEnded: nextVideo, // after the video completely finishes
 			onErrorNotFound: nextVideo, // if a video cant be found
 			onErrorNotEmbeddable: nextVideo, // if a video isnt embeddable
 			onErrorInvalidParameter: nextVideo, // if we've got an invalid param
 			mute: true,
 		});
+
+		/* Stick with complete end of video for simplicity
 
 		var interval;
 
@@ -53,6 +55,7 @@
 				nextVideo();
 			}
 		}
+		*/
 
 		$(".skip").click(function (e) {
 			e.preventDefault();
@@ -75,7 +78,7 @@
 		function nextVideo() {
 			console.log('loading video + next virtual page.');
 			$.ajax({
-				url: 'api/video.php',
+				url: '/api:video',
 				success: function (data) {
 					var video = jQuery.parseJSON(data);
 					//alert(video['media$group']['yt$videoid']['$t']);  //media$group.yt$videoid.$t
@@ -105,7 +108,7 @@
 
 					$.ajax({
 						data: requestData,
-						url: 'api/lovestate.php',
+						url: '/api:lovestate',
 						success: function (data) {
 							var lovestate = jQuery.parseJSON(data);
 							if(lovestate.response == true) {
@@ -141,7 +144,7 @@
 
 				$.ajax({
 					data: requestData,
-					url: 'api/love.php',
+					url: '/api:love',
 					success: function (data) {
 						$("#output").html(data);
 						$(".love").html('loved');
@@ -159,7 +162,7 @@
 
 				$.ajax({
 					data: requestData,
-					url: 'api/unlove.php',
+					url: '/api:unlove',
 					success: function (data) {
 						$("#output").html(data);
 						$(".love").html('love');
