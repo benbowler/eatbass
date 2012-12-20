@@ -38,6 +38,8 @@
 
 		<div id="background-blur" style="background-image: url('<?php echo $video['media$group']['media$thumbnail'][1]['url']; ?>');"></div>
 
+		<div id="notifications"></div>
+
 		<div id="wrapper">
 
 			<header class="clearfix">

@@ -26,14 +26,14 @@ class controller
         $this->data['video'] = $this->model->get_video($slug);
         $video = $this->data['video'];
 
-        //var_dump($slug);
-        //die(var_dump($this->data['video']));
-
         if($this->data['basic'] && !$slug) {
             // @todo: redirect if logged in... else ... show video in the backgound (Muted) with login button over
             header("Location: http://" . $_SERVER['SERVER_NAME'] . "/" . $this->data['video']['slug']); // Redirect browser
             exit;
         }
+
+        //var_dump($slug);
+        //var_dump($this->data['video']);
 
         // Move to sitemap?
         //$this->data['top_plays_this_week'] = $this->model->get_top_videos_by('ytPlays', 10, (60 * 60 * 24 * 7));

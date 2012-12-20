@@ -446,12 +446,12 @@ header #user a {
   padding-left: 1em;
 }
 header #user .profile img {
-  height: 36px;
-  width: 36px;
-  margin-right: 0.4em;
-  vertical-align: middle;
+  height: 32px;
+  width: 32px;
   position: relative;
   bottom: 4px;
+  margin-right: 0.4em;
+  vertical-align: middle;
 }
 header #user .profile em {
   display: inline;

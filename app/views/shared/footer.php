@@ -10,7 +10,7 @@
 			_id : "<?php echo $video['_id']; ?>",
 			slug : "<?php echo $video['slug']; ?>",
 			ytID : "<?php echo $video['media$group']['yt$videoid']['$t']; ?>"
-		}; 
+		};
 
 		jQuery("#player-yt").tubeplayer({
 			width: '100%', // the width of the player
@@ -35,28 +35,6 @@
 			mute: true,
 		});
 
-		/* Stick with complete end of video for simplicity
-
-		var interval;
-
-		function setWatchVideo() {
-			interval = setInterval(watchVideo, 3000);
-		}
-
-		function stopWatchVideo() {
-			interval = window.clearInterval(interval);
-		}
-
-		function watchVideo() {
-			data = jQuery("#player-yt").tubeplayer("data");
-			console.log(data.duration-data.currentTime);
-			if(data.duration-data.currentTime < 6) {
-				stopWatchVideo();
-				nextVideo();
-			}
-		}
-		*/
-
 		$(".skip").click(function (e) {
 			e.preventDefault();
 			$(".skip").html('skipping..');
@@ -78,10 +56,11 @@
 		function nextVideo() {
 			console.log('loading video + next virtual page.');
 			$.ajax({
+				type: 'POST',
 				url: '/api:video',
 				success: function (data) {
 					var video = jQuery.parseJSON(data);
-					//alert(video['media$group']['yt$videoid']['$t']);  //media$group.yt$videoid.$t
+
 					jQuery("#player-yt").tubeplayer("play", video.media$group.yt$videoid.$t);
 
 					$.video = { 
@@ -107,6 +86,7 @@
 					};
 
 					$.ajax({
+						type: 'POST',
 						data: requestData,
 						url: '/api:lovestate',
 						success: function (data) {
@@ -143,10 +123,12 @@
 				$(".love").html('loving..');
 
 				$.ajax({
+					type: 'POST',
 					data: requestData,
 					url: '/api:love',
 					success: function (data) {
-						$("#output").html(data);
+						//////// Points and notify
+
 						$(".love").html('loved');
 					},
 					error: function (data) {
@@ -158,9 +140,10 @@
 
 			} else {
 
-				$(".love").html('Meh..');
+				$(".love").html('meh..');
 
 				$.ajax({
+					type: 'POST',
 					data: requestData,
 					url: '/api:unlove',
 					success: function (data) {
@@ -168,7 +151,7 @@
 						$(".love").html('love');
 					},
 					error: function (data) {
-						alert('Error un-loving track :(');
+						alert('Error un-loving track :(');  /// @todo: custom alert
 
 						$(".skip").html('loved');
 					}
@@ -177,64 +160,20 @@
 		}
 
 
-		function shareVideo(currentState) {
+		function shareVideo() {
 			console.log('Sharing video');
 
 			FB.ui({
 				method: 'feed',
 				link: $(this).attr('data-url')
-			},
-
-			function (response) {
+			},function (response) {
 				// If response is null the user canceled the dialog
-				if (response !== null) {
-					logResponse(response);
+				if (response) {
+					console.log('Shared ' + response);
+				} else {
+					console.log('Share canceled');
 				}
 			});
-/*
-			requestData = {
-				user : $.user._id,
-				video : $.video._id
-			};
-
-			if(currentState == 'Love')
-			{
-
-				$(".love").html('Loving..');
-
-				$.ajax({
-					data: requestData,
-					url: 'api/love.php',
-					success: function (data) {
-						$("#output").html(data);
-						$(".love").html('Loved');
-					},
-					error: function (data) {
-						alert('Error loving track :(');
-
-						$(".love").html('Love');
-					}
-				});
-
-			} else {
-
-				$(".love").html('Meh..');
-
-				$.ajax({
-					data: requestData,
-					url: 'api/unlove.php',
-					success: function (data) {
-						$("#output").html(data);
-						$(".love").html('Love');
-					},
-					error: function (data) {
-						alert('Error un-loving track :(');
-
-						$(".skip").html('Loved');
-					}
-				});
-			}
-			*/
 		}
 
 		<?php if (!isset($basic)) { ?>
@@ -253,6 +192,14 @@
 				overlay: 'rgba(255,255,255,0.4)'
 			});
 
+			$.gritter.options = {
+				position: 'bottom-right',
+				class_name: '', // could be set to 'gritter-light' to use white notifications
+				fade_in_speed: 'medium', // how fast notifications fade in
+				fade_out_speed: 1000, // how fast the notices fade out
+				time: 5000 // hang on the screen for...
+			}
+
 			function showAlert() {
 				$.gritter.add({
 					// (string | mandatory) the heading of the notification
@@ -264,9 +211,9 @@
 					// (bool | optional) if you want it to fade out on its own or just sit there
 					sticky: false, 
 					// (int | optional) the time you want it to be alive for before fading out (milliseconds)
-					time: 8000,
+					time: 80000,
 					// (string | optional) the class name you want to apply directly to the notification for custom styling
-					class_name: 'gritter-light',
+					class_name: '',
 				        // (function | optional) function called before it opens
 					before_open: function(){
 						//alert('I am a sticky called before it opens');
@@ -286,6 +233,8 @@
 					}
 				});
 			}
+
+			showAlert();
 
 		<?php } ?>
 

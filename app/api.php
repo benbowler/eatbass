@@ -18,23 +18,10 @@ class api {
 	{
 		$this->col = $this->db->loves;
 
-		//$user = $this->col->findOne(array('_id' => $_GET['username'])); 
-
-		//$user = $this->col->find()->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
-
-		//echo $video['slug'];
-
-		//$user['loves'][$_GET['video_id']];
-
-		//$newdata = array("loves" => array($_GET['video_id']));
-		//$data = array_merge($user, $newdata);
-
-		//$this->col->insert(array("_id" => $_GET['username']), $user);
-
 		$insert = array(
-			'_id' => $_GET['user'] . $_GET['video'],
-			'video' => $_GET['video'],
-			'user' => $_GET['user']
+			'_id' => $_POST['user'] . $_POST['video'],
+			'video' => $_POST['video'],
+			'user' => $_POST['user']
 		);
 
 		try {
@@ -52,21 +39,8 @@ class api {
 	{
 		$this->col = $this->db->loves;
 
-		//$user = $this->col->findOne(array('_id' => $_GET['username'])); 
-
-		//$user = $this->col->find()->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
-
-		//echo $video['slug'];
-
-		//$user['loves'][$_GET['video_id']];
-
-		//$newdata = array("loves" => array($_GET['video_id']));
-		//$data = array_merge($user, $newdata);
-
-		//$this->col->insert(array("_id" => $_GET['username']), $user);
-
 		$query = array(
-			'_id' => $_GET['user'] . $_GET['video'],
+			'_id' => $_POST['user'] . $_POST['video'],
 		);
 
 		try {
@@ -89,23 +63,10 @@ class api {
 	{
 		$this->col = $this->db->loves;
 
-		//$user = $this->col->findOne(array('_id' => $_GET['username'])); 
-
-		//$user = $this->col->find()->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
-
-		//echo $video['slug'];
-
-		//$user['loves'][$_GET['video_id']];
-
-		//$newdata = array("loves" => array($_GET['video_id']));
-		//$this->data = array_merge($user, $newdata);
-
-		//$this->col->insert(array("_id" => $_GET['username']), $user);
-
 		$insert = array(
-			'_id' => $_GET['user'] . $_GET['video'],
-		/*	'video' => $_GET['video_id'],
-			'user' => $_GET['username']*/
+			'_id' => $_POST['user'] . $_POST['video'],
+		/*	'video' => $_POST['video_id'],
+			'user' => $_POST['username']*/
 		);
 
 		try {
@@ -145,7 +106,7 @@ class api {
 	{
 		$this->col = $this->db->loves;
 
-		$videos = $this->col->find(array('user' => $_GET['user'])); //->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
+		$videos = $this->col->find(array('user' => $_POST['user'])); //->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
 
 		foreach ($videos as $video) {
 			var_dump($video);
