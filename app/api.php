@@ -95,31 +95,34 @@ class api {
 	{
 		$this->col = $this->db->points;
 
+		//var_dump($_POST);
+
 		switch ($_POST['method']) {
 		    case 'play':
-		        $points = 10;
+		        $points = 1;
 		        break;
 		    case 'love':
-		        $points = 50;
+		        $points = 10;
 		        break;
 		    case 'share':
-		        $points = 100;
+		        $points = 50;
 		        break;
 		    default:
 		    	die(json_encode(array('response' => false)));
-		    	break;
 		}
+
+		var_dump($_POST);
 
 		$insert = array(
 			'_id' => $_POST['method'] . $_POST['user'] . $_POST['video'],
-			'action' => $_POST['method'],
+			'method' => $_POST['method'],
 			'points' => $points,
 		);
 
 		try {
 		    $this->col->insert($insert, true);
-		    echo json_encode(array('response' => true));
 		    $this->_give_points($_POST['user'], $points);
+		    echo json_encode(array('response' => true));
 		} catch(MongoCursorException $e) {
 		    $error = (strstr($e, 'duplicate')) ? 'duplicate' : 'other' ;
 		    echo json_encode(array('response' => false, 'error' => $e));
@@ -132,35 +135,37 @@ class api {
 	{
 		$this->col = $this->db->users;
 
-		$user = (array) $this->col->find(array('_id' => $user_id)); //$this->col->find()->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
+		$user = $this->col->findOne(array('_id' => $user_id)); //$this->col->find()->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
+
+		//die(var_dump($user));
 
 		if($user['points']) {
 			$total_points = $user['points'] + $points;
 		} else {
 			$total_points = $points;
 		}
+
+		$update = array('points' => $total_points);
 		
 		try {
-		   $this->col->update(array('_id' => $user_id), array('points' => $total_points));
+		   $this->col->update(array('_id' => $user_id), array('$set' => $update));
 		   return true;
 		} catch(MongoCursorException $e) {
 			return false;
 		}
-
-		$this->m->close();
 	}
 
 	public function userpoints()
 	{
 		$this->col = $this->db->users;
 
-		$user = (array) $this->col->find(array('_id' => $_POST['user_id'])); //$this->col->find()->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
+		$user = $this->col->findOne(array('_id' => $_POST['user'])); //$this->col->find()->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
 
 		if(!$user['points']) {
 			$user['points'] = 0;
 		}
 
-		echo json_encode(array('points' => $user['points']));
+		echo $user['points'];
 
 		$this->m->close();
 	}

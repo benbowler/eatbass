@@ -11,8 +11,8 @@
 		};
 		$.user = { 
 			_id : "<?php echo $user['_id']; ?>",
-			logged_in : <?php echo ($user) ? true : false ; ?>,
-			subscribed : <?php echo ($user['subscribed']) ? true : false ; ?>
+			logged_in : <?php echo ($user) ? 'true' : 'false' ; ?>,
+			subscribed : <?php echo ($user['subscribed']) ? 'true' : 'false' ; ?>
 
 		};
 		$.video = { 
@@ -194,7 +194,11 @@
 				success: function (data) {
 					$("#output").html(data);
 					//$(".love").html('love');
-					alertify.success('+10 points');
+					var data = jQuery.parseJSON(data);
+					if(data.response) {
+						alertify.success('+1 point for playing');
+						updatePoints();
+					}
 				},
 				error: function (data) {
 
@@ -204,6 +208,34 @@
 
 					//$(".skip").html('loved');
 				}
+			});
+		}
+
+		function updatePoints() {
+			console.log('updating user points');
+
+			requestData = {
+				user : $.user._id,
+			};
+
+			$.ajax({
+				type: 'POST',
+				data: requestData,
+				url: '/api:userpoints',
+				success: function (data) {
+					$("#points").html(data);
+					//$(".love").html('love');
+					//alertify.success('+10 points');
+				},
+				/* error updating points?
+				error: function (data) {
+
+					//alertify.error('error scoring points :(');
+
+					//alert('Error un-loving track :(');  /// @todo: custom alert
+
+					//$(".skip").html('loved');
+				}*/
 			});
 		}
 
