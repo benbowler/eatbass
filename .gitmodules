@@ -16,6 +16,6 @@
 [submodule "assets/javascript/spin.js"]
 	path = assets/javascript/spin.js
 	url = https://github.com/fgnass/spin.js.git
-[submodule "app/modules/youtube-api"]
-	path = app/modules/youtube-api
-	url = https://github.com/jimdoescode/Zendless-PHP-YouTube-API.git
+[submodule "assets/javascript/alertify.js"]
+	path = assets/javascript/alertify.js
+	url = https://github.com/fabien-d/alertify.js.git

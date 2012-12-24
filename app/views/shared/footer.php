@@ -2,9 +2,18 @@
 
 	$(function () {
 
+		alertify.log('starting #eatbass');
+
 		// Setup video and user objects
+		$.site = { 
+			title : "<?php echo $site_title; ?>",
+			description : "<?php echo $site_description; ?>",
+		};
 		$.user = { 
 			_id : "<?php echo $user['_id']; ?>",
+			logged_in : <?php echo ($user) ? true : false ; ?>,
+			subscribed : <?php echo ($user['subscribed']) ? true : false ; ?>
+
 		};
 		$.video = { 
 			_id : "<?php echo $video['_id']; ?>",
@@ -68,9 +77,10 @@
 						slug : video.slug
 					}; 
 
-					<?php if (isset($basic)) { ?>
+					// Update page
+					if($.user.logged_in) {
 						History.pushState(data, '\u25BA ' + video.title.$t + ' | <?php echo $site_title; ?>', video.slug);
-					<?php } ?>
+					}
 					
 					$('#video_title').html(video.title.$t);
 					$('#video_author').html(video.author[0].name.$t);
@@ -79,7 +89,8 @@
 					$('#background-blur').css('background-image', 'url(' + video.media$group.media$thumbnail[1].url + ')');
 
 					_gaq.push(['_trackPageview', '/' + video.slug]);
-			
+					
+					// Get current love state
 					requestData = {
 						user : $.user._id,
 						video : $.video._id
@@ -98,6 +109,9 @@
 							}
 						}
 					});
+
+					// Send points
+					scorePoints('play');
 
 					$(".skip").html('skip');
 
@@ -119,44 +133,32 @@
 
 			if(currentState == 'love')
 			{
-
 				$(".love").html('loving..');
-
-				$.ajax({
-					type: 'POST',
-					data: requestData,
-					url: '/api:love',
-					success: function (data) {
-						//////// Points and notify
-
-						$(".love").html('loved');
-					},
-					error: function (data) {
-						alert('Error loving track :(');
-
-						$(".love").html('love');
-					}
-				});
-
+				requestUrl = '/api:love';
 			} else {
-
 				$(".love").html('meh..');
-
-				$.ajax({
-					type: 'POST',
-					data: requestData,
-					url: '/api:unlove',
-					success: function (data) {
-						$("#output").html(data);
-						$(".love").html('love');
-					},
-					error: function (data) {
-						alert('Error un-loving track :(');  /// @todo: custom alert
-
-						$(".skip").html('loved');
-					}
-				});
+				requestUrl = '/api:unlove';
 			}
+
+			$.ajax({
+				type: 'POST',
+				data: requestData,
+				url: requestUrl,
+				success: function (data) {
+					//////// Points and notify
+					if(currentState == 'love')
+					{
+						$(".love").html('loved');
+					} else {
+						$(".love").html('love');
+					}
+				},
+				error: function (data) {
+					alertify.error('error lovering track :(');
+
+					$(".love").html('love');
+				}
+			});
 		}
 
 
@@ -176,6 +178,35 @@
 			});
 		}
 
+		function scorePoints(apiMethod) {
+			console.log('registerring points: ' + apiMethod);
+
+			requestData = {
+				method : apiMethod,
+				user : $.user._id,
+				video : $.video._id
+			};
+
+			$.ajax({
+				type: 'POST',
+				data: requestData,
+				url: '/api:points',
+				success: function (data) {
+					$("#output").html(data);
+					//$(".love").html('love');
+					alertify.success('+10 points');
+				},
+				error: function (data) {
+
+					alertify.error('error scoring points :(');
+
+					//alert('Error un-loving track :(');  /// @todo: custom alert
+
+					//$(".skip").html('loved');
+				}
+			});
+		}
+
 		<?php if (!isset($basic)) { ?>
 
 			$.tubeplayer.defaults.afterReady = function($player){
@@ -191,50 +222,6 @@
 				radius: 20,
 				overlay: 'rgba(255,255,255,0.4)'
 			});
-
-			$.gritter.options = {
-				position: 'bottom-right',
-				class_name: '', // could be set to 'gritter-light' to use white notifications
-				fade_in_speed: 'medium', // how fast notifications fade in
-				fade_out_speed: 1000, // how fast the notices fade out
-				time: 5000 // hang on the screen for...
-			}
-
-			function showAlert() {
-				$.gritter.add({
-					// (string | mandatory) the heading of the notification
-					title: 'This is a regular notice!',
-					// (string | mandatory) the text inside the notification
-					text: 'This will fade out after a certain amount of time.',
-					// (string | optional) the image to display on the left
-					image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',
-					// (bool | optional) if you want it to fade out on its own or just sit there
-					sticky: false, 
-					// (int | optional) the time you want it to be alive for before fading out (milliseconds)
-					time: 80000,
-					// (string | optional) the class name you want to apply directly to the notification for custom styling
-					class_name: '',
-				        // (function | optional) function called before it opens
-					before_open: function(){
-						//alert('I am a sticky called before it opens');
-					},
-					// (function | optional) function called after it opens
-					after_open: function(e){
-						//alert("I am a sticky called after it opens: \nI am passed the jQuery object for the created Gritter element...\n" + e);
-					},
-					// (function | optional) function called before it closes
-					before_close: function(e, manual_close){
-				                // the manual_close param determined if they closed it by clicking the "x"
-						//alert("I am a sticky called before it closes: I am passed the jQuery object for the Gritter element... \n" + e);
-					},
-					// (function | optional) function called after it closes
-					after_close: function(){
-						//alert('I am a sticky called after it closes');
-					}
-				});
-			}
-
-			showAlert();
 
 		<?php } ?>
 

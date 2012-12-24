@@ -91,6 +91,80 @@ class api {
 		$this->m->close();
 	}
 
+	public function points()
+	{
+		$this->col = $this->db->points;
+
+		switch ($_POST['method']) {
+		    case 'play':
+		        $points = 10;
+		        break;
+		    case 'love':
+		        $points = 50;
+		        break;
+		    case 'share':
+		        $points = 100;
+		        break;
+		    default:
+		    	die(json_encode(array('response' => false)));
+		    	break;
+		}
+
+		$insert = array(
+			'_id' => $_POST['method'] . $_POST['user'] . $_POST['video'],
+			'action' => $_POST['method'],
+			'points' => $points,
+		);
+
+		try {
+		    $this->col->insert($insert, true);
+		    echo json_encode(array('response' => true));
+		    $this->_give_points($_POST['user'], $points);
+		} catch(MongoCursorException $e) {
+		    $error = (strstr($e, 'duplicate')) ? 'duplicate' : 'other' ;
+		    echo json_encode(array('response' => false, 'error' => $e));
+		}
+
+		$this->m->close();
+	}
+
+	private function _give_points($user_id, $points)
+	{
+		$this->col = $this->db->users;
+
+		$user = (array) $this->col->find(array('_id' => $user_id)); //$this->col->find()->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
+
+		if($user['points']) {
+			$total_points = $user['points'] + $points;
+		} else {
+			$total_points = $points;
+		}
+		
+		try {
+		   $this->col->update(array('_id' => $user_id), array('points' => $total_points));
+		   return true;
+		} catch(MongoCursorException $e) {
+			return false;
+		}
+
+		$this->m->close();
+	}
+
+	public function userpoints()
+	{
+		$this->col = $this->db->users;
+
+		$user = (array) $this->col->find(array('_id' => $_POST['user_id'])); //$this->col->find()->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
+
+		if(!$user['points']) {
+			$user['points'] = 0;
+		}
+
+		echo json_encode(array('points' => $user['points']));
+
+		$this->m->close();
+	}
+
 	public function video()
 	{
 		$this->col = $this->db->videos;

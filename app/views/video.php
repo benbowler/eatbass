@@ -77,6 +77,10 @@
 
 				<!-- <div class="fb-comments" data-href="" data-width="470" data-num-posts="2"></div> -->
 
+				<div id="output">
+				</div>
+				<?php var_dump($user); ?>
+
 			</section>
 
 		</div>
