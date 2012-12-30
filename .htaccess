@@ -1,16 +1,24 @@
 RewriteEngine On
 
+RewriteCond %{HTTP_HOST} !local$
+RewriteCond %{HTTP_HOST} !^www\.eatbass\.com [NC]
+RewriteRule ^(.*)$ https://www.eatbass.com/$1 [R=301,L]
+
+RewriteCond %{HTTP_HOST} !local$
+RewriteCond %{SERVER_PORT} 80 
+RewriteRule ^(.*)$ https://www.eatbass.com/$1 [R=301,L]
+
 # Force the "www."
-RewriteCond %{HTTP_HOST} !^$
-RewriteCond %{HTTP_HOST} !^www\. [NC]
-RewriteCond %{HTTP_HOST} !local [NC]
-RewriteCond %{HTTPS}s ^on(s)|
-RewriteRule ^ https://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+#RewriteCond %{HTTP_HOST} !^$
+#RewriteCond %{HTTP_HOST} !^www\. [NC]
+#RewriteCond %{HTTP_HOST} !local [NC]
+#RewriteCond %{HTTPS}s ^on(s)|
+#RewriteRule ^ https://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
 # Force SSL
-RewriteCond %{HTTPS} off
-RewriteCond %{HTTP_HOST} !local [NC]
-RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+#RewriteCond %{HTTPS} off
+#RewriteCond %{HTTP_HOST} !local [NC]
+#RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
 
 # Pass slug as GET variable
 RewriteRule ^([^/\.]+)/?$ index.php?slug=$1 [L]
