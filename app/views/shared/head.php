@@ -11,7 +11,7 @@
 		<script type="text/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="assets/bootstrap/css/bootstrap-responsive.min.css" type="text/css" />
 
-		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
 
 		<link rel="stylesheet" href="assets/stylesheets/styles.css" type="text/css" />
 
