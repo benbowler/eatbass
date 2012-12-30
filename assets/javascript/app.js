@@ -10,6 +10,7 @@ function app()
 		showControls: 0,
 		autoPlay: true,
 		showInfo: false,
+		protocol: 'https',
 		modestbranding: true,
 		initialVideo: $.video.ytID, // the video that is loaded into the player
 		preferredQuality: "default", // preferred quality: default, small, medium, large, hd720
@@ -97,9 +98,7 @@ function app()
 				$(".skip").html('skip');
 
 				// Send points
-				if(scorePoints('play')) {
-					alertify.success('+1 point for playing');
-				}
+				scorePoints('love', '+10 point for playing');
 
 			},
 			error: function (data) {
@@ -135,13 +134,11 @@ function app()
 				if(currentState == 'love')
 				{
 					$(".love").html('loved');
-
-					// Send points
-					if(scorePoints('love')) {
-						alertify.success('+10 point for loving');
-					}
 				} else {
 					$(".love").html('love');
+
+					// Send points
+					scorePoints('love', '+10 point for loving');
 				}
 			},
 			error: function (data) {
@@ -165,9 +162,7 @@ function app()
 				console.log('Shared ' + response);
 
 				// Send points
-				if(scorePoints('share')) {
-					alertify.success('+50 point for sharing');
-				}
+				scorePoints('love', '+50 point for sharing');
 			} else {
 				console.log('Share canceled');
 			}
@@ -176,7 +171,7 @@ function app()
 
 	// Internal functions
 
-	function scorePoints(apiMethod) {
+	function scorePoints(apiMethod, successMessage) {
 		console.log('registerring points: ' + apiMethod);
 
 		requestData = {
@@ -194,8 +189,9 @@ function app()
 				//$(".love").html('love');
 				var json = jQuery.parseJSON(data);
 				if(json.response) {
+					alertify.log(successMessage);
+					alert(successMessage+ 'blah');
 					updatePoints();
-					return true;
 				}
 			},
 			error: function (data) {

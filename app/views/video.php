@@ -56,7 +56,7 @@
 
 					<?php if (isset($basic)) { ?>
 						<a href="<?php echo "/u:" . $basic['username']; ?>" alt="<?php echo $basic['first_name']; ?> on <?php echo $site_title; ?>" class="profile">
-							<img id="picture" src="https://graph.facebook.com/<?php echo $basic['username']; ?>/picture?type=square" /><em id="points"><?php echo $user['points']; ?></em> <?php echo $basic['first_name']; ?>
+							<img id="picture" src="https://graph.facebook.com/<?php echo $basic['username']; ?>/picture?type=square" /><?php echo $basic['first_name']; ?> <em id="points"><?php echo $user['points']; ?></em>
 						</a>
 					<?php } ?>
 
@@ -79,7 +79,7 @@
 
 				<div id="output">
 				</div>
-				<?php var_dump($user); ?>
+				<?php //var_dump($user); ?>
 
 			</section>
 
