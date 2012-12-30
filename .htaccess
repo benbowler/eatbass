@@ -3,13 +3,13 @@ RewriteEngine On
 # Force the "www."
 RewriteCond %{HTTP_HOST} !^$
 RewriteCond %{HTTP_HOST} !^www\. [NC]
-#RewriteCond %{HTTP_HOST} \.com$ [NC]
+RewriteCond %{HTTP_HOST} !local [NC]
 RewriteCond %{HTTPS}s ^on(s)|
 RewriteRule ^ https://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
-# Force SSL to public (For FB app)
+# Force SSL
 RewriteCond %{HTTPS} off
-RewriteCond %{HTTP_HOST} \.com$ [NC]
+RewriteCond %{HTTP_HOST} !local [NC]
 RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
 
 # Pass slug as GET variable

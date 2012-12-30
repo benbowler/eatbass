@@ -1,8 +1,8 @@
-// F'd
+// App!
 
 function app()
 {
-
+	// Prepair video
 	jQuery("#player-yt").tubeplayer({
 		width: '100%', // the width of the player
 		height: '100%', // the height of the player
@@ -26,6 +26,7 @@ function app()
 		mute: true
 	});
 
+	// Triggers
 	$(".skip").click(function (e) {
 		e.preventDefault();
 		$(".skip").html('skipping..');
@@ -44,6 +45,7 @@ function app()
 		shareVideo();
 	});
 
+	// Actions
 	function nextVideo() {
 		console.log('loading video + next virtual page.');
 		$.ajax({
@@ -172,6 +174,8 @@ function app()
 		});
 	}
 
+	// Internal functions
+
 	function scorePoints(apiMethod) {
 		console.log('registerring points: ' + apiMethod);
 
@@ -233,4 +237,57 @@ function app()
 			}*/
 		});
 	}
+
+
+	// Facebook
+
+	function logResponse(response) {
+		if (console && console.log) {
+			console.log('The response was', response);
+		}
+	}
+
+	/*
+	// Set up so we handle click on the buttons
+	$('#postToWall').click(function () {
+		FB.ui({
+			method: 'feed',
+			link: $(this).attr('data-url')
+		},
+
+		function (response) {
+			// If response is null the user canceled the dialog
+			if (response !== null) {
+				logResponse(response);
+			}
+		});
+	});
+
+	$('#sendToFriends').click(function () {
+		FB.ui({
+			method: 'send',
+			link: $(this).attr('data-url')
+		},
+
+		function (response) {
+			// If response is null the user canceled the dialog
+			if (response !== null) {
+				logResponse(response);
+			}
+		});
+	});
+	*/
+	$('.recommend').click(function () {
+		FB.ui({
+			method: 'apprequests',
+			message: $(this).attr('data-message')
+		},
+
+		function (response) {
+			// If response is null the user canceled the dialog
+			if (response !== null) {
+				logResponse(response);
+			}
+		});
+	});
 }
