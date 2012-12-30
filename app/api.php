@@ -107,11 +107,14 @@ class api {
 		    case 'share':
 		        $points = 50;
 		        break;
+		    case 'return':
+		        $points = 50;
+		        break;
 		    default:
 		    	die(json_encode(array('response' => false)));
 		}
 
-		var_dump($_POST);
+		//var_dump($_POST);
 
 		$insert = array(
 			'_id' => $_POST['method'] . $_POST['user'] . $_POST['video'],
