@@ -1,7 +1,7 @@
 RewriteEngine On
 
 RewriteCond %{HTTP_HOST} !local$
-RewriteCond %{HTTP_HOST} ^www\. [NC]
+#RewriteCond %{HTTP_HOST} ^www\. [NC]
 RewriteCond %{HTTPS} !=on
 RewriteRule ^(.*)$ https://www.eatbass.com/$1 [R=301,L]
 
