@@ -117,6 +117,7 @@ class api {
 			'_id' => $_POST['method'] . $_POST['user'] . $_POST['video'],
 			'method' => $_POST['method'],
 			'points' => $points,
+			'date' =>  new MongoDate()
 		);
 
 		try {

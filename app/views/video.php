@@ -36,7 +36,7 @@
 
 	<div id="page-blur">
 
-		<div id="background-blur" style="background-image: url('<?php echo $video['media$group']['media$thumbnail'][1]['url']; ?>');"></div>
+		<div id="background-blur" style="background-image: url('<?php echo str_replace('http', 'https', $video['media$group']['media$thumbnail'][1]['url']); ?>');"></div>
 
 		<div id="notifications"></div>
 

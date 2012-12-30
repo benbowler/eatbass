@@ -92,10 +92,12 @@ function app()
 					}
 				});
 
-				// Send points
-				scorePoints('play');
-
 				$(".skip").html('skip');
+
+				// Send points
+				if(scorePoints('play')) {
+					alertify.success('+1 point for playing');
+				}
 
 			},
 			error: function (data) {
@@ -131,6 +133,11 @@ function app()
 				if(currentState == 'love')
 				{
 					$(".love").html('loved');
+
+					// Send points
+					if(scorePoints('love')) {
+						alertify.success('+10 point for loving');
+					}
 				} else {
 					$(".love").html('love');
 				}
@@ -154,6 +161,11 @@ function app()
 			// If response is null the user canceled the dialog
 			if (response) {
 				console.log('Shared ' + response);
+
+				// Send points
+				if(scorePoints('share')) {
+					alertify.success('+50 point for sharing');
+				}
 			} else {
 				console.log('Share canceled');
 			}
@@ -178,13 +190,14 @@ function app()
 				//$(".love").html('love');
 				var json = jQuery.parseJSON(data);
 				if(json.response) {
-					alertify.success('+1 point for playing');
 					updatePoints();
+					return true;
 				}
 			},
 			error: function (data) {
 
-				alertify.error('error scoring points :(');
+				//alertify.error('error scoring points :(');
+				return false;
 
 				//alert('Error un-loving track :(');  /// @todo: custom alert
 
