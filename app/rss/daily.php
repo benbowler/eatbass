@@ -12,7 +12,14 @@ $m   = new Mongo(getenv("MONGOHQ_URL"));
 $db  = $m->$dbname;
 $col = $db->videos;
 
-$query = array('date' => array( '$gte' => new MongoDate(time()-86400) ) );
+$feed_update = date('U', strtotime("today 16:00"));
+$feed_published = $feed_update-86400;
+
+//die($feed_update . " akdhjfkjadh " . $feed_published);
+
+
+
+$query = array('date' => array( '$gte' => new MongoDate($feed_update) ) );
 
 $videos = $col->find($query)->sort(array('ytLikes' => -1))->limit(1); //     skip(rand(-1, $col->count()-1))->getNext();
 

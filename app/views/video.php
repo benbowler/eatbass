@@ -76,10 +76,10 @@
 
 				<div id="video_description"><?php echo $video['media$group']['media$description']['$t']; ?></div>
 
-				<!-- <div class="fb-comments" data-href="" data-width="470" data-num-posts="2"></div> -->
+				<!-- <div class="fb-comments" data-href="" data-width="470" data-num-posts="2"></div> 
 
 				<div id="output">
-				</div>
+				</div>-->
 				<?php //var_dump($video); ?>
 
 			</section>

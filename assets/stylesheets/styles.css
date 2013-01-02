@@ -523,11 +523,17 @@ header #user .skip {
   bottom: 160px;
 }
 footer {
-  margin-top: 1em;
+  margin-top: 3em;
+  text-align: right;
+}
+footer a {
   text-decoration: none;
 }
 footer a:after {
   content: ' | ';
+}
+footer a:last-child:after {
+  content: '';
 }
 /* Large desktop */
 @media (min-width: 1200px) {

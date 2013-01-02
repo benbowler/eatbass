@@ -180,7 +180,7 @@ header {
 	}
 }
 
-// Player and responsiveness
+// Player
 
 #player {
 	overflow: hidden;
@@ -196,10 +196,16 @@ header {
 }
 
 footer {
-	margin-top: 1em;
-	text-decoration: none;
+	margin-top: 3em;
+	text-align: right;
+	a {
+		text-decoration: none;
+	}
 	a:after {
 		content: ' | ';
+	}
+	a:last-child:after {
+		content: '';
 	}
 }
 

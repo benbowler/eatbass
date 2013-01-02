@@ -27,4 +27,22 @@
   <priority>0.5</priority>
 </url>
 <?php } ?>
+
+<url>
+  <loc>http://eatbass.com/info:privacy-policy</loc>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://eatbass.com/info:terms-and-conditions</loc>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://eatbass.com/info:winning</loc>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://eatbass.com/info:channels</loc>
+  <priority>0.2</priority>
+</url>
+
 </urlset>

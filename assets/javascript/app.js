@@ -2,27 +2,28 @@
 
 function app()
 {
-	
+
 	if($.user.logged_in) {
-
-		$.alertify.log('login with Facebook to watch');
-
+		// Do login dependant stuff
 		$.tubeplayer.defaults.afterReady = function($player){
-			jQuery("#player-yt").tubeplayer("mute");
+			jQuery("#player-yt").tubeplayer("unmute");
 		};
 
 		$('#page-blur').blurjs();
 
 	} else {
 
-		$.alertify.log('starting #eatbass');
+		$.tubeplayer.defaults.afterReady = function($player){
+			jQuery("#player-yt").tubeplayer("unmute");
+		};
+
+		$.alertify.log('+20 for logging in'); // @todo
 		
 		$('#background-blur').blurjs({
 			source: 'body',
 			radius: 20,
 			overlay: 'rgba(255,255,255,0.4)'
 		});
-
 	}
 
 
@@ -73,6 +74,8 @@ function app()
 	// Actions
 	function nextVideo() {
 		console.log('loading video + next virtual page.');
+		jQuery("#player-yt").tubeplayer("pause");
+
 		$.ajax({
 			type: 'POST',
 			url: '/api:video',
@@ -88,13 +91,13 @@ function app()
 
 				// Update page
 				if($.user.logged_in) {
-					History.pushState(data, '\u25BA ' + video.title.$t + ' | <?php echo $site_title; ?>', video.slug);
+					History.pushState(data, '\u25BA ' + video.title.$t + ' | ' + $.site.title, video.slug);
 				}
 				
 				$('#video_title').html(video.title.$t);
 				$('#video_author').html(video.author[0].name.$t);
 				$('#video_description').html(video.media$group.media$description.$t);
-				$('.channel').attr('href', 'http://youtube.com/user/'+'video.media$group.media$description.$t');
+				$('.channel').attr('href', 'http://youtube.com/user/'+video.media$group.media$description.$t);
 
 				$('#background-blur').css('background-image', 'url(' + video.media$group.media$thumbnail[1].url + ')');
 
@@ -158,12 +161,13 @@ function app()
 				//////// Points and notify
 				if(currentState == 'love')
 				{
-					$(".love").html('loved');
-				} else {
-					$(".love").html('love');
-
 					// Send points
 					scorePoints('love', '+10 point for loving');
+
+					$(".love").html('loved');
+				} else {
+
+					$(".love").html('love');
 				}
 			},
 			error: function (data) {
@@ -184,10 +188,10 @@ function app()
 		},function (response) {
 			// If response is null the user canceled the dialog
 			if (response) {
-				console.log('Shared ' + response);
-
 				// Send points
-				scorePoints('love', '+50 point for sharing');
+				scorePoints('share', '+50 point for sharing');
+
+				console.log('Shared ' + response);
 			} else {
 				console.log('Share canceled');
 			}
@@ -210,13 +214,14 @@ function app()
 			data: requestData,
 			url: '/api:points',
 			success: function (data) {
-				$("#output").html(data);
+				//$("#output").html(data);
 				//$(".love").html('love');
+				
 				var json = jQuery.parseJSON(data);
 				if(json.response) {
-					$.alertify.log(successMessage);
-					
+					$.alertify.log(successMessage); //json.successMessage
 					//alert(successMessage+ 'blah');
+
 					updatePoints();
 				}
 			},

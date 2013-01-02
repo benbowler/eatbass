@@ -44,7 +44,7 @@
 
 			<header class="clearfix">
 
-				<h3><?php echo $site_title; ?><em> <?php echo $site_description; ?></em></h3>
+				<a href="/"><h3><?php echo $site_title; ?><em> <?php echo $site_description; ?></em></h3></a>
 
 				<!-- <div class="fb-like"></div> -->
 
