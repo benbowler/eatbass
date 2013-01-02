@@ -361,6 +361,7 @@ table {
 body {
   font-family: 'Open Sans', sans-serif;
   color: white;
+  background-color: black;
   margin: 0;
   padding: 0;
   z-index: 0;
@@ -520,6 +521,13 @@ header #user .skip {
   width: 720px;
   position: relative;
   bottom: 160px;
+}
+footer {
+  margin-top: 1em;
+  text-decoration: none;
+}
+footer a:after {
+  content: ' | ';
 }
 /* Large desktop */
 @media (min-width: 1200px) {

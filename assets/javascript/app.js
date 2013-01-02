@@ -2,6 +2,30 @@
 
 function app()
 {
+	
+	if($.user.logged_in) {
+
+		$.alertify.log('login with Facebook to watch');
+
+		$.tubeplayer.defaults.afterReady = function($player){
+			jQuery("#player-yt").tubeplayer("mute");
+		};
+
+		$('#page-blur').blurjs();
+
+	} else {
+
+		$.alertify.log('starting #eatbass');
+		
+		$('#background-blur').blurjs({
+			source: 'body',
+			radius: 20,
+			overlay: 'rgba(255,255,255,0.4)'
+		});
+
+	}
+
+
 	// Prepair video
 	jQuery("#player-yt").tubeplayer({
 		width: '100%', // the width of the player
@@ -70,6 +94,7 @@ function app()
 				$('#video_title').html(video.title.$t);
 				$('#video_author').html(video.author[0].name.$t);
 				$('#video_description').html(video.media$group.media$description.$t);
+				$('.channel').attr('href', 'http://youtube.com/user/'+'video.media$group.media$description.$t');
 
 				$('#background-blur').css('background-image', 'url(' + video.media$group.media$thumbnail[1].url + ')');
 
@@ -98,7 +123,7 @@ function app()
 				$(".skip").html('skip');
 
 				// Send points
-				scorePoints('love', '+10 point for playing');
+				scorePoints('play', '+1 point for playing');
 
 			},
 			error: function (data) {
@@ -142,7 +167,7 @@ function app()
 				}
 			},
 			error: function (data) {
-				alertify.error('error lovering track :(');
+				$.alertify.error('error lovering track :(');
 
 				$(".love").html('love');
 			}
@@ -189,14 +214,15 @@ function app()
 				//$(".love").html('love');
 				var json = jQuery.parseJSON(data);
 				if(json.response) {
-					alertify.log(successMessage);
-					alert(successMessage+ 'blah');
+					$.alertify.log(successMessage);
+					
+					//alert(successMessage+ 'blah');
 					updatePoints();
 				}
 			},
 			error: function (data) {
 
-				//alertify.error('error scoring points :(');
+				//$.alertify.error('error scoring points :(');
 				return false;
 
 				//alert('Error un-loving track :(');  /// @todo: custom alert
@@ -220,12 +246,12 @@ function app()
 			success: function (data) {
 				$("#points").html(data);
 				//$(".love").html('love');
-				//alertify.success('+10 points');
+				//$.alertify.success('+10 points');
 			}
 			/* error updating points?
 			error: function (data) {
 
-				//alertify.error('error scoring points :(');
+				//$.alertify.error('error scoring points :(');
 
 				//alert('Error un-loving track :(');  /// @todo: custom alert
 

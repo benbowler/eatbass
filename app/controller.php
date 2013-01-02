@@ -142,7 +142,19 @@ class controller
         $this->view("sitemap_{$format}", $this->data); //$this->model->get());
     }
 
+    public function info($file)
+    {
+        $this->data['info'] = false;
+        
+        if(file_exists("assets/info/$file.html")) {
+            $this->data['info'] = file_get_contents("assets/info/$file.html");
+        }
+        $this->view('info', $this->data); //$this->model->get());
+    }
+
+
     // random logos
+    /*
     public function logo($slug)
     {
         $this->data['slug'] = $slug;
@@ -164,6 +176,7 @@ class controller
 
         $this->view('logo', $this->data); //$this->model->get());
     }
+    */
 
     private function _fb()
     {

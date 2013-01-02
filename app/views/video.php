@@ -69,9 +69,10 @@
 			</section>
 
 			<section id="text">
-
-				<a href="/channel:<?php echo $video['title']['$t']; ?>" class="channel"><h1 id="video_title"><?php echo $video['title']['$t']; ?></h1></a>
-				<h2 id="video_author"><?php echo $video['author'][0]['name']['$t']; ?></h2>
+				
+				<h1 id="video_title"><?php echo $video['title']['$t']; ?></h1>
+				<?php /* @todo: channel pages   <a href="/channel:<?php echo $video['title']['$t']; ?>" class="channel"><h1 id="video_title"><?php echo $video['title']['$t']; ?></h1></a>  */ ?>
+				<a href="http://youtube.com/user/<?php echo $video['author'][0]['name']['$t']; ?>" class="channel" target="_blank"><h2 id="video_author"><?php echo $video['author'][0]['name']['$t']; ?></h2></a>
 
 				<div id="video_description"><?php echo $video['media$group']['media$description']['$t']; ?></div>
 
@@ -79,9 +80,11 @@
 
 				<div id="output">
 				</div>
-				<?php //var_dump($user); ?>
+				<?php //var_dump($video); ?>
 
 			</section>
+
+			<?php include('shared/footer.php'); ?>
 
 		</div>
 	</div>
@@ -122,4 +125,4 @@
 
 	<?php } ?>
 
-<?php include('shared/footer.php'); ?>
+<?php include('shared/foot.php'); ?>
