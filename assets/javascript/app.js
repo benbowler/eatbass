@@ -3,10 +3,10 @@
 function app()
 {
 
-	if($.user.logged_in) {
+	if(!$.user.logged_in) {
 		// Do login dependant stuff
 		$.tubeplayer.defaults.afterReady = function($player){
-			jQuery("#player-yt").tubeplayer("unmute");
+			jQuery("#player-yt").tubeplayer("mute");
 		};
 
 		$('#page-blur').blurjs();
@@ -17,7 +17,12 @@ function app()
 			jQuery("#player-yt").tubeplayer("unmute");
 		};
 
-		$.alertify.log('+20 for logging in'); // @todo
+		if(!scorePoints('return', '+100 for logging in today')) {
+			$.alertify.log('log in again tomorrow for +100 points');
+		} else {
+			$.alertify.log('log in tomorrow for +100 points');
+		}
+
 		
 		$('#background-blur').blurjs({
 			source: 'body',
@@ -69,6 +74,12 @@ function app()
 		e.preventDefault();
 		// var currentState = $(".love").html();
 		shareVideo();
+	});
+
+	$(".profile").click(function (e) {
+		e.preventDefault();
+		// var currentState = $(".love").html();
+		viewProfile();
 	});
 
 	// Actions
@@ -234,7 +245,7 @@ function app()
 			},
 			error: function (data) {
 
-				//$.alertify.error('error scoring points :(');
+				console.log(data);
 				return false;
 
 				//alert('Error un-loving track :(');  /// @todo: custom alert
@@ -270,6 +281,48 @@ function app()
 
 				//$(".skip").html('loved');
 			}*/
+		});
+	}
+
+	// Page stuff
+
+	// Profile
+
+	// hide with js if not profile
+	$("#profile").hide();
+
+	function viewProfile() {
+		console.log('loading profile');
+
+		$('#page-blur').blurjs();
+		$("#profile").fadeIn();
+
+		// @todo: load userdata?
+
+		requestData = {
+			user : $.user._id
+		};
+
+		$.ajax({
+			type: 'POST',
+			data: requestData,
+			url: '/api:profile',
+			success: function (data) {
+
+				$("#profile_videos").html(data);
+
+				//$("#points").fadeOut(100).fadeIn(500);
+				//$(".love").html('love');
+				//$.alertify.success('+10 points');
+			},
+			error: function (data) {
+
+				$.alertify.error('error loading profile :(');
+
+				//alert('Error un-loving track :(');  /// @todo: custom alert
+
+				//$(".skip").html('loved');
+			}
 		});
 	}
 
