@@ -66,7 +66,7 @@ class Model
 
             $api = new MCAPI($apikey);
 
-            $merge_vars = array('FNAME'=>$user['first_name'], 'LNAME'=>$user['last_name'], 'FREQ'=>'Daily' 
+            $merge_vars = array('FNAME'=>$user['first_name'], 'LNAME'=>$user['last_name'], 'FREQ'=>'Weekly' 
                              /* 'GROUPINGS'=>array(
                                     //array('name'=>'Music:', 'groups'=>implode(',', $music)),
                                     //array('id'=>22, 'groups'=>'Trains'),
