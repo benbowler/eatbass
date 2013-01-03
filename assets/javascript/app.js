@@ -71,6 +71,12 @@ function app()
 		shareVideo();
 	});
 
+	$(".profile").click(function (e) {
+		e.preventDefault();
+		// var currentState = $(".love").html();
+		viewProfile();
+	});
+
 	// Actions
 	function nextVideo() {
 		console.log('loading video + next virtual page.');
@@ -270,6 +276,48 @@ function app()
 
 				//$(".skip").html('loved');
 			}*/
+		});
+	}
+
+	// Page stuff
+
+	// Profile
+
+	// hide with js if not profile
+	$("#profile").hide();
+
+	function viewProfile() {
+		console.log('loading profile');
+
+		$('#page-blur').blurjs();
+		$("#profile").fadeIn();
+
+		// @todo: load userdata?
+
+		requestData = {
+			user : $.user._id
+		};
+
+		$.ajax({
+			type: 'POST',
+			data: requestData,
+			url: '/api:profile',
+			success: function (data) {
+
+				$("#profile_videos").html(data);
+
+				//$("#points").fadeOut(100).fadeIn(500);
+				//$(".love").html('love');
+				//$.alertify.success('+10 points');
+			},
+			error: function (data) {
+
+				$.alertify.error('error loading profile :(');
+
+				//alert('Error un-loving track :(');  /// @todo: custom alert
+
+				//$(".skip").html('loved');
+			}
 		});
 	}
 

@@ -475,7 +475,8 @@ header #user .skip {
   clear: both;
   display: block;
 }
-#login {
+#login,
+#profile {
   position: fixed;
   top: 0;
   right: 0;
@@ -483,7 +484,8 @@ header #user .skip {
   left: 0;
   text-align: center;
 }
-#login > div {
+#login > div,
+#profile > div {
   width: 90%;
   margin: 16% auto;
 }
