@@ -17,6 +17,8 @@
 		$.video = { 
 			_id : "<?php echo $video['_id']; ?>",
 			slug : "<?php echo $video['slug']; ?>",
+			title : "<?php echo $video['title']['$t']; ?>",
+			picture : "<?php echo str_replace('http', 'https', $video['media$group']['media$thumbnail'][1]['url']); ?>",
 			ytID : "<?php echo $video['media$group']['yt$videoid']['$t']; ?>"
 		};
 		$.alertify = alertify;

@@ -86,7 +86,9 @@ function app()
 
 				$.video = {
 					_id : video._id,
-					slug : video.slug
+					slug : video.slug,
+					title : video.title.$t,
+					picture : video.media$group.media$thumbnail[1].url
 				};
 
 				// Update page
@@ -180,11 +182,16 @@ function app()
 
 
 	function shareVideo() {
-		console.log('Sharing video');
+		console.log('Sharing video ' + document.URL);
 
 		FB.ui({
 			method: 'feed',
-			link: $(this).attr('data-url')
+            name: $.video.title + ' ' + $.site.title,
+            picture: $.video.picture,
+            link: document.URL,
+            caption: 'dicover more like ' + $.video.title + ' on #eatbass and win music, merch and tickets.'
+            //message: 'message',
+            //description: 'Deskriptions'
 		},function (response) {
 			// If response is null the user canceled the dialog
 			if (response) {
