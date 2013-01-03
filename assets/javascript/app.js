@@ -257,6 +257,7 @@ function app()
 			url: '/api:userpoints',
 			success: function (data) {
 				$("#points").html(data);
+				$("#points").fadeOut(100).fadeIn(500);
 				//$(".love").html('love');
 				//$.alertify.success('+10 points');
 			}
