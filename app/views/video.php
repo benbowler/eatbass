@@ -89,11 +89,10 @@
 		</div>
 	</div>
 
-	<?php ?>
-		<section id="profile">
-			
-		</section>
-	<?php ?>
+	<?php
+		// Include profile view
+		include('views/shared/profile.php');
+	?>
 
 	<?php if (!isset($basic)) { ?>
 

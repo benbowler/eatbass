@@ -326,22 +326,6 @@ function app()
 		});
 	}
 
-	// Formatting
-	/*
-
-	function htmlFormat (str, is_xhtml) {
-
-		alert('formatting');
-		var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
-		toReturn = (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
-
-		console.log(toReturn);
-		return toReturn;
-	}
-
-	*/
-
-
 	// Facebook
 
 	function logResponse(response) {
