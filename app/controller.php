@@ -29,7 +29,7 @@ class controller
         if($this->data['basic'] && !$slug) {
             // @todo: redirect if logged in... else ... show video in the backgound (Muted) with login button over
             header("Location: http://" . $_SERVER['SERVER_NAME'] . "/" . $this->data['video']['slug']); // Redirect browser
-            exit;
+            die();
         }
 
         //var_dump($slug);

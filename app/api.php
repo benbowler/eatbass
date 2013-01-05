@@ -263,6 +263,9 @@ class api {
 				  $video->date = new MongoDate(strtotime($video->published->{'$t'}));
 				  //$video->date = ISODate(date('U', strtotime($video->published->{'$t'}));
 
+				  include_once('modules/lib_autlink/lib_autolink.php');
+				  $video->html_description = nl2br(autolink(($video->{'media$group'}->{'media$description'}->{'$t'})));
+
 				  $video->ytFavorites = $video->{'yt$statistics'}->favoriteCount;
 				  $video->ytViews = $video->{'yt$statistics'}->viewCount;
 				  $video->ytLikes = $video->{'yt$rating'}->numLikes;

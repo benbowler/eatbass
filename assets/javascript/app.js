@@ -109,7 +109,7 @@ function app()
 				
 				$('#video_title').html(video.title.$t);
 				$('#video_author').html(video.author[0].name.$t);
-				$('#video_description').html(video.media$group.media$description.$t);
+				$('#video_description').html(htmlFormat(video.media$group.media$description.$t));
 				$('.channel').attr('href', 'http://youtube.com/user/'+video.media$group.media$description.$t);
 
 				$('#background-blur').css('background-image', 'url(' + video.media$group.media$thumbnail[1].url + ')');
@@ -197,12 +197,12 @@ function app()
 
 		FB.ui({
 			method: 'feed',
-            name: $.video.title + ' ' + $.site.title,
-            picture: $.video.picture,
-            link: document.URL,
-            caption: 'dicover more like ' + $.video.title + ' on #eatbass and win music, merch and tickets.'
-            //message: 'message',
-            //description: 'Deskriptions'
+			name: $.video.title + ' ' + $.site.title,
+			picture: $.video.picture,
+			link: document.URL,
+			caption: 'dicover more like ' + $.video.title + ' on #eatbass and win music, merch and tickets.'
+			//message: 'message',
+			//description: 'Deskriptions'
 		},function (response) {
 			// If response is null the user canceled the dialog
 			if (response) {
@@ -325,6 +325,21 @@ function app()
 			}
 		});
 	}
+
+	// Formatting
+	/*
+
+	function htmlFormat (str, is_xhtml) {
+
+		alert('formatting');
+		var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
+		toReturn = (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
+
+		console.log(toReturn);
+		return toReturn;
+	}
+
+	*/
 
 
 	// Facebook

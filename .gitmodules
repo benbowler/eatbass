@@ -19,3 +19,6 @@
 [submodule "assets/javascript/alertify.js"]
 	path = assets/javascript/alertify.js
 	url = https://github.com/fabien-d/alertify.js.git
+[submodule "app/modules/lib_autlink"]
+	path = app/modules/lib_autlink
+	url = https://github.com/iamcal/lib_autolink.git
