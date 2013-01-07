@@ -1,4 +1,4 @@
-	<script type="text/javascript" src="assets/javascript/app.js"></script>
+	<script type="text/javascript" src="assets/javascript/app.js?cache=<?php echo filemtime('assets/javascript/app.js') ?>"></script>
 	<script type="text/javascript">
 
 	$(function () {

@@ -50,9 +50,9 @@
 
 				<section id="user">
 
-					<a href="#" class="share">share<em class="sup">+50</em></a>
-					<a href="#" class="love">love<em class="sup">+10</em></a>
-					<a href="#" class="skip">skip</a>
+					<em class="sup">+50</em><a href="#" class="share">share</a>
+					<em class="sup">+10</em><a href="#" class="love">love</a>
+											<a href="#" class="skip">skip</a>
 
 					<?php if (isset($basic)) { ?>
 						<a href="<?php echo "/u:" . $basic['username']; ?>" alt="<?php echo $basic['first_name']; ?> on <?php echo $site_title; ?>" class="profile">
@@ -91,7 +91,7 @@
 	<?php
 	if (isset($basic)) {
 		// Include profile view
-		include('shared/profile.php');
+		//include('shared/profile.php');
 	}
 	?>
 

@@ -76,7 +76,7 @@ function app()
 	$(".profile").click(function (e) {
 		e.preventDefault();
 		// var currentState = $(".love").html();
-		viewProfile();
+		//viewProfile();
 	});
 
 	// Actions

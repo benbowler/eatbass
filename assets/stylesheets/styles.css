@@ -437,9 +437,11 @@ header #user a:hover {
   text-decoration: underline;
 }
 header #user em.sup {
+  display: inline;
+  float: right;
   font-size: 0.5em;
   position: relative;
-  bottom: 0.8em;
+  top: 1em;
 }
 header #user h4,
 header #user h5,
@@ -493,6 +495,29 @@ header #user .skip {
 #profile > div {
   width: 90%;
   margin: 16% auto;
+}
+#login .exit,
+#profile .exit {
+  float: right;
+  text-align: right;
+}
+#login .profile,
+#profile .profile {
+  width: 70%;
+  float: left;
+}
+#login .profile img,
+#profile .profile img {
+  height: 32px;
+  width: 32px;
+  position: relative;
+  bottom: 4px;
+  margin-right: 0.4em;
+  vertical-align: middle;
+}
+#login .profile em,
+#profile .profile em {
+  display: inline;
 }
 #login > div h3 {
   font-size: 2em;

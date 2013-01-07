@@ -12,14 +12,14 @@ $m   = new Mongo(getenv("MONGOHQ_URL"));
 $db  = $m->$dbname;
 $col = $db->videos;
 
-$feed_update = date('U', strtotime("today 12:00"));
-$feed_published = $feed_update-86400;
+$feed_published = date('U', strtotime("today 12:00"));
+$feed_begin = $feed_published-86400;
 
 //die($feed_update . " akdhjfkjadh " . $feed_published);
 
 
 
-$query = array('date' => array( '$gte' => new MongoDate($feed_update) ) );
+$query = array('date' => array( '$gt' => new MongoDate($feed_begin), '$lt' => new MongoDate($feed_published) ) );
 
 $videos = $col->find($query)->sort(array('ytLikes' => -1))->limit(1); //     skip(rand(-1, $col->count()-1))->getNext();
 
@@ -34,14 +34,14 @@ $m->close();
 	<channel>
 	<title><?php echo date("l"); ?>s hot video #eatbass</title>
 	<description>#eatbass top track today</description>
-	<link><?php echo 'http://' . $_SERVER['SERVER_NAME'] . '/api/rss/daily.php'; ?></link>
+	<link><?php echo 'https://' . $_SERVER['SERVER_NAME'] . '/api/rss/daily.php'; ?></link>
 	<lastBuildDate><?php echo date("r"); ?></lastBuildDate>
 	<pubDate><?php echo date("r"); ?></pubDate>
 
 	<?php foreach ($videos as $video) { ?>
 	<item>
 		<title><?php echo $video['title']['$t']; ?> #eatbass</title>
-		<description><![CDATA[<?php echo $video['media$group']['media$description']['$t']; ?>]]></description>
+		<description><![CDATA[<?php echo $video['media$group']['media$description']['$t']; ?> .. updated <?php echo $feed_update; ?> .. published <?php echo $feed_published; ?> ]]></description>
 		<media:content url="<?php echo $video['media$group']['media$thumbnail'][3]['url']; ?>"
 			xmlns:media="http://search.yahoo.com/mrss/"
 			medium="image"
