@@ -18,7 +18,7 @@
 		  // window.location.reload() because if this is in a canvas there was a
 		  // post made to this page and a reload will trigger a message to the
 		  // user asking if they want to send data again.
-		  window.location = window.location; // +'/<?php echo $video['slug']; ?>';
+		  window.location = window.location; //+'/<?php echo $video['slug']; ?>';
 		});
 
 		FB.Canvas.setAutoGrow();
@@ -50,8 +50,8 @@
 
 				<section id="user">
 
-					<a href="#" class="share">share</a>
-					<a href="#" class="love">love</a>
+					<a href="#" class="share">share<em class="sup">+50</em></a>
+					<a href="#" class="love">love<em class="sup">+10</em></a>
 					<a href="#" class="skip">skip</a>
 
 					<?php if (isset($basic)) { ?>
@@ -76,10 +76,9 @@
 
 				<div id="video_description"><?php echo $video['media$group']['media$description']['$t']; ?></div>
 
-				<!-- <div class="fb-comments" data-href="" data-width="470" data-num-posts="2"></div> 
+				<!-- <div class="fb-comments" data-href="" data-width="470" data-num-posts="2"></div>-->
 
-				<div id="output">
-				</div>-->
+				<!--<div id="output"></div>-->
 				<?php //var_dump($video); ?>
 
 			</section>
@@ -90,8 +89,10 @@
 	</div>
 
 	<?php
+	if (isset($basic)) {
 		// Include profile view
-		include('views/shared/profile.php');
+		include('shared/profile.php');
+	}
 	?>
 
 	<?php if (!isset($basic)) { ?>
@@ -100,10 +101,10 @@
 			<div>
 				<h3><?php echo $site_title; ?><em> <?php echo $site_description; ?></em></h3>
 
-				<strong><div class="fb-login-button" data-scope="email,user_likes">Log In</div> to watch now</strong>
+				<strong><div class="fb-login-button" data-scope="email,user_likes">Log In</div> to win</strong>
 
-				<p><strong>watch</strong>, <strong>love</strong> and <strong>share</strong> for points<br />
-					win <strong>music</strong>, <strong>tickets</strong> and <strong>merch</strong></p>
+				<p>win <strong>music</strong>, <strong>tickets</strong> and <strong>merch</strong><br />
+					by listening to the music you love</p>
 
 				<fb:facepile href="http://eatbass.com" width="300" max_rows="1"></fb:facepile>
 

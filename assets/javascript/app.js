@@ -17,13 +17,10 @@ function app()
 			jQuery("#player-yt").tubeplayer("unmute");
 		};
 
-		if(!scorePoints('return', '+100 for logging in today')) {
-			$.alertify.log('log in again tomorrow for +100 points');
-		} else {
-			$.alertify.log('log in tomorrow for +100 points');
-		}
+		$.alertify.log('welcome to #eatbass');
 
-		
+		scorePoints('return', '+100 for logging in today', 'come back again tomorrow for +100');
+
 		$('#background-blur').blurjs({
 			source: 'body',
 			radius: 20,
@@ -218,7 +215,7 @@ function app()
 
 	// Internal functions
 
-	function scorePoints(apiMethod, successMessage) {
+	function scorePoints(apiMethod, successMessage, failMessage) {
 		console.log('registerring points: ' + apiMethod);
 
 		requestData = {
@@ -229,28 +226,24 @@ function app()
 
 		$.ajax({
 			type: 'POST',
+			dataType: "json",
 			data: requestData,
 			url: '/api:points',
 			success: function (data) {
-				//$("#output").html(data);
-				//$(".love").html('love');
-				
-				var json = jQuery.parseJSON(data);
-				if(json.response) {
-					$.alertify.log(successMessage); //json.successMessage
-					//alert(successMessage+ 'blah');
+				console.log('connected to api');
+
+				if(data.response === true) {
+					$.alertify.log(successMessage);
 
 					updatePoints();
+				} else {
+					$.alertify.log(failMessage);
 				}
 			},
 			error: function (data) {
+				console.log('failed connecting to api');
 
-				console.log(data);
-				return false;
-
-				//alert('Error un-loving track :(');  /// @todo: custom alert
-
-				//$(".skip").html('loved');
+				$.alertify.log('error connecting to #eatbass');
 			}
 		});
 	}
@@ -269,6 +262,7 @@ function app()
 			success: function (data) {
 				$("#points").html(data);
 				$("#points").fadeOut(100).fadeIn(500);
+				//$("#points").stop().css("background-color", "#FFFF9C").animate({ backgroundColor: "#FFFFFF"}, 1500);
 				//$(".love").html('love');
 				//$.alertify.success('+10 points');
 			}

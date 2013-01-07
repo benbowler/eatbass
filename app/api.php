@@ -95,10 +95,9 @@ class api {
 	{
 		$this->col = $this->db->points;
 
-		//var_dump($_POST);
 		$method = $_POST['method'];
 
-		switch ($method) {
+		switch ($_POST['method']) {
 		    case 'play':
 		        $points = 1;
 		        break;
@@ -116,8 +115,6 @@ class api {
 		    	die(json_encode(array('response' => false)));
 		}
 
-		//var_dump($_POST);
-
 		$insert = array(
 			'_id' => $method . $_POST['user'] . $_POST['video'],
 			'method' => $method,
@@ -131,7 +128,7 @@ class api {
 		    echo json_encode(array('response' => true));
 		} catch(MongoCursorException $e) {
 		    $error = (strstr($e, 'duplicate')) ? 'duplicate' : 'other' ;
-		    echo json_encode(array('response' => false, 'error' => $e));
+		    echo json_encode(array('response' => false, 'error' => $error));
 		}
 
 		$this->m->close();
@@ -142,8 +139,6 @@ class api {
 		$this->col = $this->db->users;
 
 		$user = $this->col->findOne(array('_id' => $user_id)); //$this->col->find()->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
-
-		//die(var_dump($user));
 
 		if($user['points']) {
 			$total_points = $user['points'] + $points;
@@ -157,7 +152,7 @@ class api {
 		   $this->col->update(array('_id' => $user_id), array('$set' => $update));
 		   return true;
 		} catch(MongoCursorException $e) {
-			return false;
+		   return false;
 		}
 	}
 
@@ -261,6 +256,7 @@ class api {
 				  $video->slug = $this->_to_ascii($video->title->{'$t'});
 
 				  $video->date = new MongoDate(strtotime($video->published->{'$t'}));
+				  $video->updated = new MongoDate(date('U'));
 				  //$video->date = ISODate(date('U', strtotime($video->published->{'$t'}));
 
 				  include_once('modules/lib_autlink/lib_autolink.php');

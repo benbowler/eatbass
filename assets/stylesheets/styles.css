@@ -436,6 +436,11 @@ header #user a {
 header #user a:hover {
   text-decoration: underline;
 }
+header #user em.sup {
+  font-size: 0.5em;
+  position: relative;
+  bottom: 0.8em;
+}
 header #user h4,
 header #user h5,
 header #user a {
