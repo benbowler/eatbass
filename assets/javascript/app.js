@@ -88,8 +88,7 @@ function app()
 			type: 'POST',
 			dataType: "json",
 			url: '/api:video',
-			success: function (data) {
-				var video = data;
+			success: function (video) {
 				console.log(video);
 
 				jQuery("#player-yt").tubeplayer("play", video.media$group.yt$videoid.$t);
@@ -101,17 +100,21 @@ function app()
 					picture : video.media$group.media$thumbnail[1].url
 				};
 
+				//if (video.html_description) { video.html_description } else { video.media$group.media$thumbnail[1].url }
+
 				// Update page
 				if($.user.logged_in) {
-					History.pushState(data, '\u25BA ' + video.title.$t + ' | ' + $.site.title, video.slug);
+					History.pushState(video, '\u25BA ' + video.title.$t + ' | ' + $.site.title, video.slug);
 				}
 				
 				$('#video_title').html(video.title.$t);
 				$('#video_author').html(video.author[0].name.$t);
-				$('#video_description').html(htmlFormat(video.media$group.media$description.$t));
+				$('#video_description').html(video.media$group.media$description.$t);
 				$('.channel').attr('href', 'http://youtube.com/user/'+video.media$group.media$description.$t);
 
-				$('#background-blur').css('background-image', 'url(' + video.media$group.media$thumbnail[1].url + ')');
+				var picture = video.media$group.media$thumbnail[1].url.replace('http', 'https');
+				console.log(picture);
+				$('#background-blur').css('background-image', 'url(' + picture + ')');
 
 				_gaq.push(['_trackPageview', '/' + video.slug]);
 				
@@ -123,11 +126,11 @@ function app()
 
 				$.ajax({
 					type: 'POST',
+					dataType: "json",
 					data: requestData,
 					url: '/api:lovestate',
 					success: function (data) {
-						var lovestate = jQuery.parseJSON(data);
-						if(lovestate.response === true) {
+						if(data.response === true) {
 							$(".love").html('loved');
 						} else {
 							$(".love").html('love');
@@ -242,7 +245,9 @@ function app()
 
 					updatePoints();
 				} else {
-					$.alertify.log(failMessage);
+					if(failMessage) {
+						$.alertify.log(failMessage);
+					}
 				}
 			},
 			error: function (data) {
