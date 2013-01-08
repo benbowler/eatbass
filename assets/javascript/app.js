@@ -86,9 +86,11 @@ function app()
 
 		$.ajax({
 			type: 'POST',
+			dataType: "json",
 			url: '/api:video',
 			success: function (data) {
-				var video = jQuery.parseJSON(data);
+				var video = data;
+				console.log(video);
 
 				jQuery("#player-yt").tubeplayer("play", video.media$group.yt$videoid.$t);
 
@@ -140,6 +142,9 @@ function app()
 
 			},
 			error: function (data) {
+
+				console.log('error'+data);
+
 				// On error do a full refresh
 				window.location = '/';
 			}
