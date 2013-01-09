@@ -57,7 +57,7 @@ function app()
 	// Triggers
 	$(".skip").click(function (e) {
 		e.preventDefault();
-		$(".skip").html('skipping..');
+		$(".skip").html('skip\'n..');
 		nextVideo();
 	});
 
