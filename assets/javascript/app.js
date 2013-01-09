@@ -148,8 +148,10 @@ function app()
 
 				console.log('error'+data);
 
+				$.alertify.error('error loading video :(');
+
 				// On error do a full refresh
-				window.location = '/';
+				//window.location = '/';
 			}
 		});
 	}
@@ -338,6 +340,15 @@ function app()
 		}
 	}
 
+	// Set up so we handle click on the buttons
+	$('#fb-login-ad').click(function (e) {
+		e.preventDefault();
+
+		FB.login(function(response) {
+			window.location = '/';
+		}, {scope: 'email,user_likes'});
+	});
+
 	/*
 	// Set up so we handle click on the buttons
 	$('#postToWall').click(function () {
@@ -353,6 +364,7 @@ function app()
 			}
 		});
 	});
+
 
 	$('#sendToFriends').click(function () {
 		FB.ui({

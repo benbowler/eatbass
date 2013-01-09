@@ -103,6 +103,19 @@
 
 				<strong><div class="fb-login-button" data-scope="email,user_likes">Log In</div> to win</strong>
 
+				<?php /*
+					$params = array(
+					  'scope' => 'email,user_likes',
+					  'redirect_uri' => 'https://www.eatbass.com'
+					);
+
+					$loginUrl = $facebook->getLoginUrl($params); */
+				?>
+
+				<a href="#" id="fb-login-ad" style="width: 500px; margin: 4em auto 0; display: block">
+					<img src="/assets/info/winning_ad_jan.jpg" />
+				</a>
+
 				<p>win <strong>music</strong>, <strong>tickets</strong> and <strong>merch</strong><br />
 					by listening to the music you love</p>
 

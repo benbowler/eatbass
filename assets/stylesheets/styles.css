@@ -424,7 +424,7 @@ header h3 em {
   font-weight: 300;
 }
 header #user {
-  width: 50%;
+  width: 58%;
   height: 3.4em;
   padding-top: 0.6em;
   float: right;
@@ -494,7 +494,7 @@ header #user .skip {
 #login > div,
 #profile > div {
   width: 90%;
-  margin: 16% auto;
+  margin: 10% auto;
 }
 #login .exit,
 #profile .exit {
