@@ -184,6 +184,7 @@ class api {
 
 	public function profile()
 	{
+		die('your loved videos are being saved and will show up here sooooon ;)');
 		$this->col = $this->db->loves;
 
 		$videos = $this->col->find(array('user' => $_POST['user'])); //->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();

@@ -12,7 +12,14 @@ $m   = new Mongo(getenv("MONGOHQ_URL"));
 $db  = $m->$dbname;
 $col = $db->videos;
 
-$query = array('date' => array( '$gte' => new MongoDate(time()-604800) ) );
+$feed_published = strtotime("today");
+$feed_begin = $feed_published-604800;
+
+//die($feed_update . " akdhjfkjadh " . $feed_published);
+
+
+
+$query = array('date' => array( '$gt' => new MongoDate($feed_begin), '$lt' => new MongoDate($feed_published) ) );
 
 $videos = $col->find($query)->sort(array('ytLikes' => -1))->limit(5); //     skip(rand(-1, $col->count()-1))->getNext();
 
@@ -25,24 +32,24 @@ $m->close();
 <rss version="2.0">
 
 	<channel>
-	<title>#eatbass top track today</title>
+	<title><?php echo date("l"); ?>s hot video #eatbass</title>
 	<description>#eatbass top track today</description>
-	<link><?php echo 'http://' . $_SERVER['SERVER_NAME'] . '/api/rss/weekly.php'; ?></link>
+	<link><?php echo 'https://' . $_SERVER['SERVER_NAME'] . '/api/rss/daily.php'; ?></link>
 	<lastBuildDate><?php echo date("r"); ?></lastBuildDate>
 	<pubDate><?php echo date("r"); ?></pubDate>
 
 	<?php foreach ($videos as $video) { ?>
 	<item>
 		<title><?php echo $video['title']['$t']; ?> #eatbass</title>
-		<description><?php echo utf8_encode(htmlentities($video['media$group']['media$description']['$t'],ENT_COMPAT,'utf-8')); ?></description>
-		<media:content url="<?php echo $video['media$group']['media$thumbnail'][0]['url']; ?>"
+		<description><![CDATA[<?php echo $video['media$group']['media$description']['$t']; ?>]]></description>
+		<media:content url="<?php echo $video['media$group']['media$thumbnail'][3]['url']; ?>"
 			xmlns:media="http://search.yahoo.com/mrss/"
 			medium="image"
 			type="image/jpg"
-			height="<?php echo $video['media$group']['media$thumbnail'][0]['height']; ?>"
-			width="<?php echo $video['media$group']['media$thumbnail'][0]['width']; ?>" />
-			<media:title type="html"><?php echo $video['title']['$t']; ?></media:title>
-		<link><?php echo 'http://' . $_SERVER['SERVER_NAME'] . '/' . $video['slug']; ?></link>
+			height="<?php echo $video['media$group']['media$thumbnail'][3]['height']; ?>"
+			width="<?php echo $video['media$group']['media$thumbnail'][3]['width']; ?>" />
+			<?php /* <media:title type="html"><?php echo $video['title']['$t']; ?></media:title> */ ?>
+		<link><?php echo 'https://' . $_SERVER['SERVER_NAME'] . '/' . $video['slug']; ?></link>
 		<guid isPermaLink="true"><?php echo 'http://' . $_SERVER['SERVER_NAME'] . '/' . $video['slug']; ?></guid>
 		<pubDate><?php echo date("r", $video['date']->sec); ?></pubDate>
 	</item>

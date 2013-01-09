@@ -57,7 +57,7 @@ function app()
 	// Triggers
 	$(".skip").click(function (e) {
 		e.preventDefault();
-		$(".skip").html('skip\'n..');
+		$(".skip").html('skipping');
 		nextVideo();
 	});
 
@@ -164,10 +164,10 @@ function app()
 
 		if(currentState == 'love')
 		{
-			$(".love").html('loving..');
+			$(".love").html('loving');
 			requestUrl = '/api:love';
 		} else {
-			$(".love").html('meh..');
+			$(".love").html('meh');
 			requestUrl = '/api:unlove';
 		}
 
