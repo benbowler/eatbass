@@ -542,6 +542,14 @@ header #user .skip {
 #login > div > p em {
   font-weight: 300;
 }
+#login > div #loginad {
+  width: 500px;
+  margin: 4em auto 0;
+  display: block;
+}
+#login > div #loginad img {
+  width: 100%;
+}
 #player {
   overflow: hidden;
   width: 720px;
@@ -661,5 +669,11 @@ footer a:last-child:after {
   header #user .profile {
     padding-left: 0;
     float: left;
+  }
+  #login > div #loginad {
+    width: 100%;
+  }
+  #login > div #loginad img {
+    width: 360px;
   }
 }

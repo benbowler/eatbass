@@ -103,7 +103,7 @@
 
 				<strong><div class="fb-login-button" data-scope="email,user_likes">Log In</div> to win</strong>
 
-				<a href="#" id="fb-login-ad" style="width: 500px; margin: 4em auto 0; display: block">
+				<a href="#" id="loginad">
 					<img src="/assets/info/winning_ad_jan.jpg" />
 				</a>
 
