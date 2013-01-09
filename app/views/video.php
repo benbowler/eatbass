@@ -78,7 +78,7 @@
 
 				<!-- <div class="fb-comments" data-href="" data-width="470" data-num-posts="2"></div>-->
 
-				<!--<div id="output"></div>-->
+				<div id="output"></div>
 				<?php //var_dump($video); ?>
 
 			</section>
@@ -102,15 +102,6 @@
 				<h3><?php echo $site_title; ?><em> <?php echo $site_description; ?></em></h3>
 
 				<strong><div class="fb-login-button" data-scope="email,user_likes">Log In</div> to win</strong>
-
-				<?php /*
-					$params = array(
-					  'scope' => 'email,user_likes',
-					  'redirect_uri' => 'https://www.eatbass.com'
-					);
-
-					$loginUrl = $facebook->getLoginUrl($params); */
-				?>
 
 				<a href="#" id="fb-login-ad" style="width: 500px; margin: 4em auto 0; display: block">
 					<img src="/assets/info/winning_ad_jan.jpg" />

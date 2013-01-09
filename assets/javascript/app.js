@@ -15,11 +15,11 @@ function app()
 
 		$.tubeplayer.defaults.afterReady = function($player){
 			jQuery("#player-yt").tubeplayer("unmute");
+
+			scorePoints('return', '+100 for logging in today', 'come back again tomorrow for +100');
 		};
 
 		$.alertify.log('welcome to #eatbass');
-
-		scorePoints('return', '+100 for logging in today', 'come back again tomorrow for +100');
 
 		$('#background-blur').blurjs({
 			source: 'body',
@@ -86,7 +86,7 @@ function app()
 
 		$.ajax({
 			type: 'POST',
-			dataType: "json",
+			dataType: 'json',
 			url: '/api:video',
 			success: function (video) {
 				console.log(video);
@@ -234,12 +234,16 @@ function app()
 			video : $.video._id
 		};
 
+		console.log(requestData);
+
 		$.ajax({
 			type: 'POST',
-			dataType: "json",
+			dataType: 'json',
 			data: requestData,
 			url: '/api:points',
 			success: function (data) {
+				//$('#output').html(data);
+
 				console.log('connected to api');
 
 				if(data.response === true) {

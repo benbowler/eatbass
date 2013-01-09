@@ -96,8 +96,12 @@ class api {
 		$this->col = $this->db->points;
 
 		$method = $_POST['method'];
+		$user = $_POST['user'];
+		$video = $_POST['video'];
 
-		switch ($_POST['method']) {
+		$id = $method . $user . $video;
+
+		switch ($method) {
 		    case 'play':
 		        $points = 1;
 		        break;
@@ -108,15 +112,15 @@ class api {
 		        $points = 50;
 		        break;
 		    case 'return':
+				$id = $method . date('-d-m-Y-') . $user;
 		        $points = 100;
-		        $method = 'return'.date('dmY');
 		        break;
 		    default:
 		    	die(json_encode(array('response' => false)));
 		}
 
 		$insert = array(
-			'_id' => $method . $_POST['user'] . $_POST['video'],
+			'_id' => $id,
 			'method' => $method,
 			'points' => $points,
 			'date' =>  new MongoDate()

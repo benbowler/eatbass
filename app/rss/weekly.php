@@ -32,8 +32,8 @@ $m->close();
 <rss version="2.0">
 
 	<channel>
-	<title><?php echo date("l"); ?>s hot video #eatbass</title>
-	<description>#eatbass top track today</description>
+	<title>this weeks hot video #eatbass</title>
+	<description>#eatbass top tracks this week</description>
 	<link><?php echo 'https://' . $_SERVER['SERVER_NAME'] . '/api/rss/daily.php'; ?></link>
 	<lastBuildDate><?php echo date("r"); ?></lastBuildDate>
 	<pubDate><?php echo date("r"); ?></pubDate>
