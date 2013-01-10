@@ -103,14 +103,14 @@
 
 				<strong><div class="fb-login-button" data-scope="email,user_likes">Log In</div> to win</strong>
 
+				<div class="fb-facepile" data-href="https://apps.facebook.com/eatbass" data-max-rows="1" data-width="300"></div>
+
 				<a href="#" id="loginad">
 					<img src="/assets/info/winning_ad_jan.jpg" />
 				</a>
 
 				<p>win <strong>music</strong>, <strong>tickets</strong> and <strong>merch</strong><br />
 					by listening to the music you love</p>
-
-				<fb:facepile href="http://eatbass.com" width="300" max_rows="1"></fb:facepile>
 
 				<!-- Facepile -->
 			</div>

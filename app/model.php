@@ -75,7 +75,7 @@ class Model
 
             // By default this sends a confirmation email - you will not see new members
             // until the link contained in it is clicked!
-            $retval = $api->listSubscribe('0f213b0888', $user['email'], $merge_vars, $email_type='html', $double_optin=true, $update_existing=true, $replace_interests=true, $send_welcome=true);
+            $retval = $api->listSubscribe('0f213b0888', $user['email'], $merge_vars, $email_type='html', $double_optin=false, $update_existing=true, $replace_interests=true, $send_welcome=true);
             /*
             if ($api->errorCode){
                 echo "Unable to load listSubscribe()!\n";

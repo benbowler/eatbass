@@ -552,15 +552,14 @@ header #user .skip {
 }
 #player {
   overflow: hidden;
-  width: 720px;
   height: 400px;
+  width: 720px;
   margin: 0 auto;
 }
 #player #player-yt {
-  height: 720px;
-  width: 720px;
+  height: 400px
+		width: 720px;
   position: relative;
-  bottom: 160px;
 }
 footer {
   margin-top: 3em;
@@ -581,13 +580,12 @@ footer a:last-child:after {
     width: 1080px;
   }
   #player {
-    width: 1080px;
     height: 600px;
+    width: 1080px;
   }
   #player #player-yt {
-    height: 1080px;
+    height: 600px;
     width: 1080px;
-    bottom: 240px;
   }
 }
 /* Portrait tablet to landscape and desktop */
@@ -596,13 +594,12 @@ footer a:last-child:after {
     width: 720px;
   }
   #player {
-    width: 720px;
     height: 400px;
+    width: 720px;
   }
   #player #player-yt {
-    height: 720px;
+    height: 400px;
     width: 720px;
-    bottom: 160px;
   }
 }
 /* Landscape phone to portrait tablet */
@@ -611,46 +608,12 @@ footer a:last-child:after {
     width: 480px;
   }
   #player {
-    width: 480px;
     height: 266px;
-  }
-  #player #player-yt {
-    height: 480px;
     width: 480px;
-    bottom: 107px;
-  }
-  header {
-    height: 7.6em;
-  }
-  header h3 {
-    display: block;
-    float: none;
-    text-align: center;
-  }
-  header #user {
-    width: 100%;
-    display: block;
-    height: 4em;
-    float: none;
-  }
-  header #user .profile {
-    padding-left: 0;
-    float: left;
-  }
-}
-/* Landscape phones and down */
-@media (max-width: 480px) {
-  #wrapper {
-    width: 320px;
-  }
-  #player {
-    width: 320px;
-    height: 176px;
   }
   #player #player-yt {
-    height: 320px;
-    width: 320px;
-    bottom: 72px;
+    height: 266px;
+    width: 480px;
   }
   header {
     height: 7.6em;
@@ -674,6 +637,44 @@ footer a:last-child:after {
     width: 100%;
   }
   #login > div #loginad img {
-    width: 360px;
+    width: 80%;
+  }
+}
+/* Landscape phones and down */
+@media (max-width: 480px) {
+  #wrapper {
+    width: 320px;
+  }
+  #player {
+    height: 176px;
+    width: 320px;
+  }
+  #player #player-yt {
+    height: 176px;
+    width: 320px;
+  }
+  header {
+    height: 7.6em;
+  }
+  header h3 {
+    display: block;
+    float: none;
+    text-align: center;
+  }
+  header #user {
+    width: 100%;
+    display: block;
+    height: 4em;
+    float: none;
+  }
+  header #user .profile {
+    padding-left: 0;
+    float: left;
+  }
+  #login > div #loginad {
+    width: 100%;
+  }
+  #login > div #loginad img {
+    width: 70%;
   }
 }
