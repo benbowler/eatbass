@@ -117,6 +117,18 @@ class Model
         $this->m->close();
     }
 
+    public function get_top_users($limit = 10)
+    { 
+        $this->_connect();
+        $this->col = $this->db->users;
+
+        $users = $this->col->find()->sort(array('points' => -1))->limit($limit); //->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
+
+        return $users;
+
+        $this->m->close();
+    }
+
     public function test()
     {
     }

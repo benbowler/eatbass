@@ -113,9 +113,20 @@ class controller
     /* User Controller */
     public function stats($slug)
     {
-        echo 'stats';
+        //echo 'stats<br />';
 
         $stats = explode(":", $slug);
+
+        if($stats[0] == 'leaderboard') {
+            //echo 'leaderboard';
+
+            $this->data['users'] = $this->model->get_top_users();
+            //var_dump($users);
+
+            $this->view('stats', $this->data); //$this->model->get());
+        }
+
+        /*
 
         if(!$stats[0]) {
             die('Stat details not specified.');
@@ -133,6 +144,7 @@ class controller
         $videos = get_top_videos_by($stats[1], $asc, $stats[4], @$stats[4]);
 
         var_dump($videos);
+        */
 
 
 
