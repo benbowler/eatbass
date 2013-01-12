@@ -12,7 +12,6 @@
 
 		// Listen to the auth.login which will be called when the user logs in
 		// using the Login button
-		/*
 		FB.Event.subscribe('auth.login', function(response) {
 		  // We want to reload the page now so PHP can read the cookie that the
 		  // Javascript SDK sat. But we don't want to use
@@ -21,32 +20,6 @@
 		  // user asking if they want to send data again.
 		  window.location = window.location; //+'/<?php echo $video['slug']; ?>';
 		});
-*/
-
-		// JS Login Code
-		FB.getLoginStatus(function(response) {
-		    if (response.status === 'connected') {
-		        // connected
-		    } else if (response.status === 'not_authorized') {
-		        // not_authorized
-		        login();
-		    } else {
-		        // not_logged_in
-		        login();
-		    }
-		});
-
-		function login() {
-		    FB.login(function(response) {
-		        if (response.authResponse) {
-		            // connected
-		            console.log('fb connected');
-		        } else {
-		            // cancelled
-		            console.log('fb cancelled');
-		        }
-		    }, {scope: 'email,user_likes,publish_actions'});
-		}
 
 		FB.Canvas.setAutoGrow();
 	  };

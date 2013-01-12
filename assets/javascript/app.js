@@ -6,7 +6,7 @@ function app()
     if(!$.user.logged_in) {
         // Do login dependant stuff
         $.tubeplayer.defaults.afterReady = function($player){
-            jQuery("#player-yt").tubeplayer("mute");
+            //jQuery("#player-yt").tubeplayer("mute");
         };
 
         $('#page-blur').blurjs();
@@ -14,7 +14,7 @@ function app()
     } else {
 
         $.tubeplayer.defaults.afterReady = function($player){
-            jQuery("#player-yt").tubeplayer("unmute");
+            //jQuery("#player-yt").tubeplayer("unmute");
 
             scorePoints('return', '+20 for logging in today', 'come back again tomorrow for +20');
             /*
@@ -161,6 +161,7 @@ function app()
 
                 // Send points
                 scorePoints('play', '+1 point for playing');
+                doOpenGraph('video.watches');
 
             },
             error: function (data) {
@@ -203,28 +204,7 @@ function app()
                     // Send points
                     scorePoints('love', '+10 point for loving');
 
-                    openGraphRecipe = {
-                        recipe : document.URL,
-                        title : $.video.title,
-                        author : $.video.autho,
-                        description : $.video.description,
-                        other : false
-                    };
-                    console.log(openGraphRecipe);
-
-                    // FB Open Graph Action
-                    FB.api('/me/eatbass:like', 'post',
-                        openGraphRecipe,
-                        function(response) {
-                            console.log(response);
-                            if (!response || response.error) {
-                                alert('Error occured');
-                                //fbJsLogin();
-                            }
-                            else {
-                                alert('Action was successful! Action ID: ' + response.id);
-                            }
-                        });
+                    //doOpenGraph('like');
 
                     $(".love").html('loved');
                 } else {
@@ -289,6 +269,59 @@ function app()
 
     }
 
+    function doOpenGraph(recipe) {
+
+        openGraphRecipe = {
+            video : document.URL
+            /*
+            recipe : document.URL,
+            title : $.video.title,
+            author : $.video.autho,
+            description : $.video.description,
+            other : false
+            */
+        };
+        console.log(openGraphRecipe);
+
+        // FB Open Graph Action
+        FB.api('/me/video.watches', 'post',
+            openGraphRecipe,
+            function(response) {
+                console.log(response);
+                if (!response || response.error) {
+                    //alert('Error occured');
+                    //fbJsLogin();
+                }
+                else {
+                    //alert('Action was successful! Action ID: ' + response.id);
+                }
+            });
+                    /*
+        openGraphRecipe = {
+            recipe : document.URL,
+            title : $.video.title,
+            author : $.video.autho,
+            description : $.video.description,
+            other : false
+        };
+        console.log(openGraphRecipe);
+
+        // FB Open Graph Action
+        FB.api('/me/eatbass:like', 'post',
+            openGraphRecipe,
+            function(response) {
+                console.log(response);
+                if (!response || response.error) {
+                    alert('Error occured');
+                    //fbJsLogin();
+                }
+                else {
+                    alert('Action was successful! Action ID: ' + response.id);
+                }
+            });
+*/
+    }
+
     // Internal functions
 
     function scorePoints(apiMethod, successMessage, failMessage) {
@@ -304,11 +337,11 @@ function app()
 
         $.ajax({
             type: 'POST',
-            //dataType: 'json',
+            dataType: 'json',
             data: requestData,
             url: '/api:points',
             success: function (data) {
-                $('#output').html(data);
+                //$('#output').html(data);
 
                 console.log('scored points '+data);
 

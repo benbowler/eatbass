@@ -54,7 +54,7 @@ class controller
                 'title' => $video['title']['$t'] . ' ' . $this->data['site_title'],
                 'description' => $description,
                 'og:title' => $video['title']['$t'] . ' ' . $this->data['site_title'],
-                'og:type' => 'website',
+                'og:type' => 'video.other',
                 'og:url' => $getUrl,
                 'og:image' => $video['media$group']['media$thumbnail'][2]['url'],
                 'og:site_name' => $this->data['site_title'],
