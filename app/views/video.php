@@ -91,7 +91,7 @@
 	<?php
 	if (isset($basic)) {
 		// Include profile view
-		include('shared/profile.php');
+		//include('shared/profile.php');
 	}
 	?>
 
