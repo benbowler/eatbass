@@ -17,10 +17,14 @@
 		$.video = { 
 			_id : "<?php echo $video['_id']; ?>",
 			slug : "<?php echo $video['slug']; ?>",
-			title : "<?php echo $video['title']['$t']; ?>",
+			title : <?php echo json_encode($video['title']['$t']); ?>,
+	        author : "<?php echo $video['author'][0]['name']['$t']; ?>",
+            description : <?php echo json_encode($video['media$group']['media$description']['$t']); ?>,
+            html_description : <?php echo json_encode($video['html_description']); ?>,
 			picture : "<?php echo str_replace('http', 'https', $video['media$group']['media$thumbnail'][1]['url']); ?>",
 			ytID : "<?php echo $video['media$group']['yt$videoid']['$t']; ?>"
 		};
+
 		$.alertify = alertify;
 
 		app();

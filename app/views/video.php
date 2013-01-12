@@ -12,6 +12,7 @@
 
 		// Listen to the auth.login which will be called when the user logs in
 		// using the Login button
+		/*
 		FB.Event.subscribe('auth.login', function(response) {
 		  // We want to reload the page now so PHP can read the cookie that the
 		  // Javascript SDK sat. But we don't want to use
@@ -20,6 +21,32 @@
 		  // user asking if they want to send data again.
 		  window.location = window.location; //+'/<?php echo $video['slug']; ?>';
 		});
+*/
+
+		// JS Login Code
+		FB.getLoginStatus(function(response) {
+		    if (response.status === 'connected') {
+		        // connected
+		    } else if (response.status === 'not_authorized') {
+		        // not_authorized
+		        login();
+		    } else {
+		        // not_logged_in
+		        login();
+		    }
+		});
+
+		function login() {
+		    FB.login(function(response) {
+		        if (response.authResponse) {
+		            // connected
+		            console.log('fb connected');
+		        } else {
+		            // cancelled
+		            console.log('fb cancelled');
+		        }
+		    }, {scope: 'email,user_likes,publish_actions'});
+		}
 
 		FB.Canvas.setAutoGrow();
 	  };
@@ -74,7 +101,7 @@
 				<?php /* @todo: channel pages   <a href="/channel:<?php echo $video['title']['$t']; ?>" class="channel"><h1 id="video_title"><?php echo $video['title']['$t']; ?></h1></a>  */ ?>
 				<a href="http://youtube.com/user/<?php echo $video['author'][0]['name']['$t']; ?>" class="channel" target="_blank"><h2 id="video_author"><?php echo $video['author'][0]['name']['$t']; ?></h2></a>
 
-				<div id="video_description"><?php echo $video['media$group']['media$description']['$t']; ?></div>
+				<div id="video_description"><?php echo $video['html_description']; ?></div>
 
 				<!-- <div class="fb-comments" data-href="" data-width="470" data-num-posts="2"></div>-->
 
@@ -101,13 +128,13 @@
 			<div>
 				<h3><?php echo $site_title; ?><em> <?php echo $site_description; ?></em></h3>
 
-				<strong><div class="fb-login-button" data-scope="email,user_likes">Log In</div> to win</strong>
+				<strong><div class="fb-login-button" data-scope="email,user_likes,publish_actions">Log In</div> to win</strong>
 
-				<div class="fb-facepile" data-href="https://apps.facebook.com/eatbass" data-max-rows="1" data-width="300"></div>
-
-				<a href="#" id="loginad">
+				<a href="#" id="fb-js-login">
 					<img src="/assets/info/winning_ad_jan.jpg" />
 				</a>
+
+				<div class="fb-facepile" data-href="https://apps.facebook.com/eatbass" data-max-rows="1" data-width="250" data-colorscheme="dark"></div>
 
 				<p>win <strong>music</strong>, <strong>tickets</strong> and <strong>merch</strong><br />
 					by listening to the music you love</p>
@@ -118,9 +145,9 @@
 
 		<section>
 			<h1>top videos</h1>
-			<?php foreach ($top_plays as $video) { ?>
+			<?php /*  foreach ($top_plays as $video) { ?>
 				<a href="/<?php echo $video['slug']; ?>" alt="<?php echo $video['title']['$t']; ?>"><?php echo $video['title']['$t']; ?></a><br />
-			<?php } ?>
+			<?php } */ ?>
 		</section>
 
 		<section>

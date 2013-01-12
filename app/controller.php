@@ -32,6 +32,9 @@ class controller
             die();
         }
 
+
+        //$this->data['profile'] = $this->model->get_profile($this->data['user']->_id, $limit);
+        
         //var_dump($slug);
         //var_dump($this->data['video']);
 
@@ -136,8 +139,8 @@ class controller
 
     public function sitemap($format)
     {
-        $this->data['top_loves'] = $this->model->get_top_videos_by('ytLoves', 1, 100);
-        $this->data['top_plays'] = $this->model->get_top_videos_by('ytPlays', 1, 1000);
+        $this->data['top_loves'] = $this->model->get_top_videos_by('ytLoves', 1, 1000);
+        $this->data['top_plays'] = $this->model->get_top_videos_by('ytPlays', 1, 4000);
 
         $this->view("sitemap_{$format}", $this->data); //$this->model->get());
     }

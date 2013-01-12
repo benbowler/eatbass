@@ -113,10 +113,14 @@ class api {
 		        break;
 		    case 'return':
 				$id = $method . date('-d-m-Y-') . $user;
-		        $points = 100;
+		        $points = 20;
+		        break;
+		    case 'invite':
+				$id = $method . date('-d-m-Y-') . $user;
+		        $points = 50;
 		        break;
 		    default:
-		    	die(json_encode(array('response' => false)));
+		    	die(json_encode(array('response' => false, 'error' => 'Invalid method')));
 		}
 
 		$insert = array(

@@ -89,12 +89,33 @@ class Model
 
             $this->col->update(array('_id' => $user['id']), $user);
 
+            // pass first visit value
+            $user['first_visit'] = true;
+
         }
 
         return $user;
 
         $this->_close();
     }
+
+    public function get_profile($user, $limit = 5)
+    {
+        $this->col = $this->db->loves;
+
+        $videos = $this->col->find(array('user' => $user))->limit($limit); //->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
+
+        foreach ($videos as $video) {
+            var_dump($video);
+            //$this->col_videos = $this->db->videos;
+
+            //var_dump($this->col_videos->find(array('_id' => $video->video)));
+        }
+        //echo json_encode($video);
+
+        $this->m->close();
+    }
+
     public function test()
     {
     }
