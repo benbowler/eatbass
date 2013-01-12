@@ -105,13 +105,14 @@ class Model
 
         $videos = $this->col->find(array('user' => $user))->limit($limit); //->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
 
-        foreach ($videos as $video) {
-            var_dump($video);
-            //$this->col_videos = $this->db->videos;
+        $return = array();
 
-            //var_dump($this->col_videos->find(array('_id' => $video->video)));
+        foreach ($videos as $key => $video) {
+            $this->col_videos = $this->db->videos;
+
+            $return[$key] = $this->col_videos->findOne(array('_id' => $video['video']));
         }
-        //echo json_encode($video);
+        return $return;
 
         $this->m->close();
     }

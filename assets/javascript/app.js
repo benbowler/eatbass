@@ -95,6 +95,15 @@ function app()
         //viewProfile();
     });
 
+    $(".profile-exit").click(function (e) {
+        e.preventDefault();
+        // var currentState = $(".love").html();
+        // viewProfile();
+
+        //$('#page-blur').hide();
+        $("#profile").fadeOut();
+    });
+
     // Actions
     function nextVideo() {
         console.log('loading video + next virtual page.');
@@ -398,12 +407,12 @@ function app()
     // Profile
 
     // hide with js if not profile
-    $("#profile").hide();
+    //$("#profile").hide();
 
     function viewProfile() {
         console.log('loading profile');
 
-        $('#page-blur').blurjs();
+        //$('#page-blur').blurjs();
         $("#profile").fadeIn();
 
         // @todo: load userdata?

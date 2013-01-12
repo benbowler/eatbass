@@ -91,7 +91,7 @@
 	<?php
 	if (isset($basic)) {
 		// Include profile view
-		//include('shared/profile.php');
+		include('shared/profile.php');
 	}
 	?>
 
@@ -101,7 +101,7 @@
 			<div>
 				<h3><?php echo $site_title; ?><em> <?php echo $site_description; ?></em></h3>
 
-				<strong><div class="fb-login-button" data-scope="email,user_likes,publish_actions">Log In</div> to win</strong>
+				<strong><div class="fb-login-button" data-scope="email,user_likes,publish_actions">Log In</div> to watch</strong>
 
 				<a href="#" id="fb-js-login">
 					<img src="/assets/info/winning_ad_jan.jpg" />

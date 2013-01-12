@@ -6,4 +6,6 @@
 	<a href="/info:support" tartget="_blank">support</a>
 	<a href="https://facebook.com/eatbassnow" target="_blank">facebook</a>
 	<a href="https://twitter.com/eatbassnow" target="_blank">twitter</a>
+
+	<!--<div class="fb-like" data-href="https://www.facebook.com/eatbassnow" data-send="true" data-width="450" data-show-faces="false" data-colorscheme="dark"></div>-->
 </footer>

@@ -55,7 +55,7 @@ class controller
                 'description' => $description,
                 'og:title' => $video['title']['$t'] . ' ' . $this->data['site_title'],
                 'og:type' => 'video.other',
-                'og:url' => $getUrl,
+                'og:url' => "https://" . $_SERVER['SERVER_NAME'] . "/" . $slug,
                 'og:image' => $video['media$group']['media$thumbnail'][2]['url'],
                 'og:site_name' => $this->data['site_title'],
                 'og:description' =>  $description,
@@ -76,7 +76,7 @@ class controller
                 'description' => $description,
                 'og:title' => $this->data['site_title'] . ' | ' . $this->data['site_description'],
                 'og:type' => 'website',
-                'og:url' => $getUrl,
+                'og:url' => "https://" . $_SERVER['SERVER_NAME'] . "/",
                 'og:image' => $video['media$group']['media$thumbnail'][2]['url'],
                 'og:site_name' => $this->data['site_title'],
                 'og:description' =>  $description,
@@ -87,6 +87,10 @@ class controller
 
             $this->data['top_plays'] = $this->model->get_top_videos_by('ytPlays');
         }
+
+        //$this->data['profile'] = $this->model->get_profile($this->data['basic']['id']);
+
+        //die(var_dump($this->data['user']));
 
         $this->view('video', $this->data); //$this->model->get());
     }

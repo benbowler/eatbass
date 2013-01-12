@@ -482,8 +482,7 @@ header #user .skip {
   clear: both;
   display: block;
 }
-#login,
-#profile {
+#login {
   position: fixed;
   top: 0;
   right: 0;
@@ -491,33 +490,9 @@ header #user .skip {
   left: 0;
   text-align: center;
 }
-#login > div,
-#profile > div {
-  width: 90%;
+#login > div {
+  width: 50%;
   margin: 10% auto;
-}
-#login .exit,
-#profile .exit {
-  float: right;
-  text-align: right;
-}
-#login .profile,
-#profile .profile {
-  width: 70%;
-  float: left;
-}
-#login .profile img,
-#profile .profile img {
-  height: 32px;
-  width: 32px;
-  position: relative;
-  bottom: 4px;
-  margin-right: 0.4em;
-  vertical-align: middle;
-}
-#login .profile em,
-#profile .profile em {
-  display: inline;
 }
 #login > div h3 {
   font-size: 2em;
@@ -557,6 +532,59 @@ header #user .skip {
 }
 #login > div #fb-js-login img {
   width: 100%;
+}
+#profile {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+}
+#profile > div {
+  width: 50%;
+  margin: 10% auto;
+  background-color: black;
+  padding: 2em 0;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+}
+#profile .profile-exit {
+  width: 40%;
+  padding: 0 5%;
+  float: right;
+  text-align: right;
+  display: block;
+  line-height: 1em;
+  font-size: 2em;
+}
+#profile .profile {
+  width: 40%;
+  padding: 0 5%;
+  font-size: 2em;
+  float: left;
+  text-align: left;
+  text-transform: lowercase;
+}
+#profile .profile img {
+  height: 42px;
+  width: 42px;
+  position: relative;
+  bottom: 4px;
+  margin-right: 0.4em;
+  vertical-align: middle;
+}
+#profile .profile em {
+  display: inline;
+}
+#profile #profile_videos {
+  width: 100%;
+  height: 20em;
+  overflow: scroll;
+  margin-top: 1em;
+  display: block;
+  clear: both;
 }
 .alertify {
   top: 100px !important;

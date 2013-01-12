@@ -152,7 +152,7 @@ header {
 	}
 }
 
-#login, #profile {
+#login {
 	position: fixed;
 	top: 0;
 	right: 0;
@@ -160,34 +160,8 @@ header {
 	left: 0;
 	text-align: center;
 	> div {
-		width: 90%;
+		width: 50%;
 		margin: 10% auto;
-	}
-	.exit {
-
-		float: right;
-		text-align: right;
-	}
-	.profile {
-		width: 70%;
-		float: left;
-		img {
-			height: 32px;
-			width: 32px;
-			position: relative;
-			bottom: 4px;
-			margin-right: 0.4em;
-			vertical-align: middle;
-		}
-		em {
-			display: inline;
-		}
-
-	}
-}
-
-#login {
-	> div {
 		h3 {
 			font-size: 2em;
 			font-weight: 600;
@@ -232,15 +206,74 @@ header {
 	}
 }
 
+#profile {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	text-align: center;
+	> div {
+		width: 50%;
+		margin: 10% auto;
+		background-color: black;
+
+		padding: 2em 0;
+
+		-webkit-border-radius: 8px;
+		-moz-border-radius: 8px;
+		border-radius: 8px;
+	}
+	.profile-exit {
+		width: 40%;
+		padding: 0 5%;
+
+		float: right;
+		text-align: right;
+
+		display: block;
+		line-height: 1em;
+
+		font-size: 2em;
+	}
+	.profile {
+		width: 40%;
+		padding: 0 5%;
+
+		font-size: 2em;
+
+		float: left;
+		text-align: left;
+		
+		text-transform: lowercase;
+		img {
+			height: 42px;
+			width: 42px;
+			position: relative;
+			bottom: 4px;
+			margin-right: 0.4em;
+			vertical-align: middle;
+		}
+		em {
+			display: inline;
+		}
+	}
+	#profile_videos {
+		width: 100%;
+		height: 20em;
+
+		overflow: scroll;
+
+		margin-top: 1em;
+		display: block;
+		clear: both;
+	}
+}
+
 .alertify {
 	top: 100px !important;
 	background: #000000 !important;
 }
-
-#profile {
-}
-
-
 
 // Player
 
