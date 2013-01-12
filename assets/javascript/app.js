@@ -170,7 +170,7 @@ function app()
 
                 // Send points
                 scorePoints('play', '+1 point for playing');
-                doOpenGraph('video.watches');
+                doOpenGraph('video.watch');
 
             },
             error: function (data) {
@@ -212,8 +212,7 @@ function app()
                 {
                     // Send points
                     scorePoints('love', '+10 point for loving');
-
-                    //doOpenGraph('like');
+                    doOpenGraph('eatbass:like');
 
                     $(".love").html('loved');
                 } else {
@@ -278,41 +277,48 @@ function app()
 
     }
 
-    function doOpenGraph(recipe) {
+    function doOpenGraph(apiMethod) {
 
-        openGraphRecipe = {
-            video : document.URL
-            /*
-            recipe : document.URL,
-            title : $.video.title,
-            author : $.video.autho,
-            description : $.video.description,
-            other : false
-            */
-        };
+        if(apiMethod == 'video.watch') {
+            openGraphRecipe = {
+                video : document.URL
+                /*
+                recipe : document.URL,
+                title : $.video.title,
+                author : $.video.autho,
+                description : $.video.description,
+                other : false
+                */
+            };
+        }
+        if(apiMethod == 'eatbass:like'); {
+            openGraphRecipe = {
+                recipe : document.URL,
+                title : $.video.title,
+                author : $.video.autho,
+                description : $.video.description,
+                other : document.URL
+            };
+        }
+
+
         console.log(openGraphRecipe);
 
         // FB Open Graph Action
-        FB.api('/me/video.watches', 'post',
+        FB.api('/me/'+apiMethod, 'post',
             openGraphRecipe,
             function(response) {
                 console.log(response);
                 if (!response || response.error) {
-                    //alert('Error occured');
+                    console.log('Open Graph error occured');
                     //fbJsLogin();
                 }
                 else {
-                    //alert('Action was successful! Action ID: ' + response.id);
+                    console.log('Action was successful! Action ID: ' + response.id);
                 }
             });
                     /*
-        openGraphRecipe = {
-            recipe : document.URL,
-            title : $.video.title,
-            author : $.video.autho,
-            description : $.video.description,
-            other : false
-        };
+
         console.log(openGraphRecipe);
 
         // FB Open Graph Action
