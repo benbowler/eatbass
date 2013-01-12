@@ -53,10 +53,10 @@ class controller
             $this->data['meta_tags'] = array(
                 'title' => $video['title']['$t'] . ' ' . $this->data['site_title'],
                 'description' => $description,
-                'og:title' => $video['title']['$t'] . ' ' . $this->data['site_title'],
                 'og:type' => 'video.other',
                 'og:url' => "https://" . $_SERVER['SERVER_NAME'] . "/" . $slug,
                 'og:image' => $video['media$group']['media$thumbnail'][2]['url'],
+                'og:title' => $video['title']['$t'] . ' ' . $this->data['site_title'],
                 'og:site_name' => $this->data['site_title'],
                 'og:description' =>  $description,
                 'fb:app_id' => $this->data['appID'],
@@ -74,11 +74,11 @@ class controller
             $this->data['meta_tags'] = array(
                 'title' => $this->data['site_title'] . ' | ' . $this->data['site_description'],
                 'description' => $description,
-                'og:title' => $this->data['site_title'] . ' | ' . $this->data['site_description'],
                 'og:type' => 'website',
                 'og:url' => "https://" . $_SERVER['SERVER_NAME'] . "/",
                 'og:image' => $video['media$group']['media$thumbnail'][2]['url'],
                 'og:site_name' => $this->data['site_title'],
+                'og:title' => $this->data['site_title'] . ' | ' . $this->data['site_description'],
                 'og:description' =>  $description,
                 'fb:app_id' => $this->data['appID'],
             );
