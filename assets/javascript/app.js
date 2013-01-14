@@ -170,7 +170,7 @@ function app()
 
                 // Send points
                 scorePoints('play', '+1 point for playing');
-                doOpenGraph('video.watch');
+                doOpenGraph('video.watches');
 
             },
             error: function (data) {
@@ -212,7 +212,7 @@ function app()
                 {
                     // Send points
                     scorePoints('love', '+10 point for loving');
-                    doOpenGraph('eatbass:like');
+                    doOpenGraph('eatbass:love');
 
                     $(".love").html('loved');
                 } else {
@@ -279,29 +279,18 @@ function app()
 
     function doOpenGraph(apiMethod) {
 
-        if(apiMethod == 'video.watch') {
+        if(apiMethod == 'video.watches') {
             openGraphRecipe = {
                 video : document.URL
-                /*
-                recipe : document.URL,
-                title : $.video.title,
-                author : $.video.autho,
-                description : $.video.description,
-                other : false
-                */
             };
         }
-        if(apiMethod == 'eatbass:like'); {
+        if(apiMethod == 'eatbass:love') {
             openGraphRecipe = {
-                recipe : document.URL,
-                title : $.video.title,
-                author : $.video.autho,
-                description : $.video.description,
                 other : document.URL
             };
         }
 
-
+        console.log(apiMethod);
         console.log(openGraphRecipe);
 
         // FB Open Graph Action
@@ -363,7 +352,8 @@ function app()
                 if(data.response === true) {
                     $.alertify.log(successMessage);
 
-                    updatePoints();
+                    // @todo: Fix points update after daily login?
+                    //updatePoints();
                 } else {
                     if(failMessage) {
                         $.alertify.log(failMessage);
