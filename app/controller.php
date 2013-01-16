@@ -25,12 +25,13 @@ class controller
         $this->data['slug'] = $slug;
         $this->data['video'] = $this->model->get_video($slug);
         $video = $this->data['video'];
-
+        /*
         if($this->data['basic'] && !$slug) {
             // @todo: redirect if logged in... else ... show video in the backgound (Muted) with login button over
             header("Location: http://" . $_SERVER['SERVER_NAME'] . "/" . $this->data['video']['slug']); // Redirect browser
             die();
         }
+        */
 
 
         //$this->data['profile'] = $this->model->get_profile($this->data['user']->_id, $limit);

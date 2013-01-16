@@ -465,7 +465,8 @@ function app()
     function fbJsLogin()
      {
             FB.login(function(response) {
-                window.location = window.location+$.video.slug;
+                var url = [location.protocol, '//', location.host, '/', $.video.slug].join(''); // , location.pathname
+                window.location = url;
             }, {scope: 'email,user_likes,publish_actions'});
      }
     /*
