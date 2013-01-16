@@ -50,7 +50,7 @@ $m->close();
 			width="<?php echo $video['media$group']['media$thumbnail'][3]['width']; ?>" />
 			<?php /* <media:title type="html"><?php echo $video['title']['$t']; ?></media:title> */ ?>
 		<link><?php echo 'https://' . $_SERVER['SERVER_NAME'] . '/' . $video['slug']; ?></link>
-		<guid isPermaLink="true"><?php echo 'http://' . $_SERVER['SERVER_NAME'] . '/' . $video['slug']; ?></guid>
+		<guid isPermaLink="true"><?php echo 'https://' . $_SERVER['SERVER_NAME'] . '/' . $video['slug']; ?></guid>
 		<pubDate><?php echo date("r", $video['date']->sec); ?></pubDate>
 	</item>
 	<?php } ?>

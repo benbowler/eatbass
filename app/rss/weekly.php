@@ -34,7 +34,7 @@ $m->close();
 	<channel>
 	<title>this weeks hot video #eatbass</title>
 	<description>#eatbass top tracks this week</description>
-	<link><?php echo 'https://' . $_SERVER['SERVER_NAME'] . '/api/rss/daily.php'; ?></link>
+	<link><?php echo 'https://' . $_SERVER['SERVER_NAME'] . '/api/rss/weekly.php'; ?></link>
 	<lastBuildDate><?php echo date("r"); ?></lastBuildDate>
 	<pubDate><?php echo date("r"); ?></pubDate>
 
@@ -42,15 +42,15 @@ $m->close();
 	<item>
 		<title><?php echo htmlspecialchars($video['title']['$t']); ?> #eatbass</title>
 		<description><![CDATA[<?php echo $video['media$group']['media$description']['$t']; ?>]]></description>
-		<media:content url="<?php echo $video['media$group']['media$thumbnail'][3]['url']; ?>"
+		<media:content url="<?php echo $video['media$group']['media$thumbnail'][2]['url']; ?>"
 			xmlns:media="http://search.yahoo.com/mrss/"
 			medium="image"
 			type="image/jpg"
-			height="<?php echo $video['media$group']['media$thumbnail'][3]['height']; ?>"
-			width="<?php echo $video['media$group']['media$thumbnail'][3]['width']; ?>" />
+			height="<?php echo $video['media$group']['media$thumbnail'][2]['height']; ?>"
+			width="<?php echo $video['media$group']['media$thumbnail'][2]['width']; ?>" />
 			<?php /* <media:title type="html"><?php echo $video['title']['$t']; ?></media:title> */ ?>
 		<link><?php echo 'https://' . $_SERVER['SERVER_NAME'] . '/' . $video['slug']; ?></link>
-		<guid isPermaLink="true"><?php echo 'http://' . $_SERVER['SERVER_NAME'] . '/' . $video['slug']; ?></guid>
+		<guid isPermaLink="true"><?php echo 'https://' . $_SERVER['SERVER_NAME'] . '/' . $video['slug']; ?></guid>
 		<pubDate><?php echo date("r", $video['date']->sec); ?></pubDate>
 	</item>
 	<?php } ?>
