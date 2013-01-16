@@ -112,7 +112,16 @@ class controller
     {
         $route = explode(":", $slug);
 
-        require_once($_SERVER['DOCUMENT_ROOT'].'/app/api.php');
+        require_once($_SERVER['DOCUMENT_ROOT'].'/contollers/api.php');
+        $api = new api();
+        $api->$route[0]($route[1]);
+    }
+
+    public function rss($slug)
+    {
+        $route = explode(":", $slug);
+
+        require_once($_SERVER['DOCUMENT_ROOT'].'/controllers/rss.php');
         $api = new api();
         $api->$route[0]($route[1]);
     }
@@ -203,15 +212,13 @@ class controller
         $this->view('logo', $this->data); //$this->model->get());
     }
     */
-    /*
 
     public function admin()
     {
         foreach ($this->model->get_users(1000) as $user) {
-            echo "{$user['email']},{$user['first_name']}<br />";
+            echo "{$user['points']},{$user['first_name']}<br />";
         }
     }
-    */
 
     private function _fb()
     {

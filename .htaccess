@@ -1,6 +1,7 @@
 RewriteEngine On
 
 RewriteCond %{HTTP_HOST} !local$
+RewriteCond %{HTTP_HOST} !spire$
 #RewriteCond %{HTTP_HOST} ^www\. [NC]
 #RewriteCond %{HTTPS} !=on
 RewriteCond %{HTTP:X-Forwarded-Proto} !https
