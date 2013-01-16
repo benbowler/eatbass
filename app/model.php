@@ -23,6 +23,15 @@ class Model
 
         $this->_close();
     }
+    public function get_videos_by_channel($channel, $limit = 10)
+    {
+        $this->_connect();
+        $this->col = $this->db->videos;
+
+        return $this->col->find()->sort(array($by => 1))->limit($limit);
+
+        $this->_close();
+    }
     public function get_top_videos_by($by = 'ytPlays', $asc = 1, $limit = 10, $time = false)
     {
         $this->_connect();

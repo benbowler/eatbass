@@ -6,7 +6,8 @@ function app()
     if(!$.user.logged_in) {
         // Do login dependant stuff
         $.tubeplayer.defaults.afterReady = function($player){
-            //jQuery("#player-yt").tubeplayer("mute");
+            jQuery("#player-yt").tubeplayer("mute");
+
         };
 
         $('#page-blur').blurjs();
@@ -14,9 +15,13 @@ function app()
     } else {
 
         $.tubeplayer.defaults.afterReady = function($player){
-            //jQuery("#player-yt").tubeplayer("unmute");
+            jQuery("#player-yt").tubeplayer("unmute");
 
-            scorePoints('return', '+20 for logging in today', 'come back again tomorrow for +20');
+            doPoints('return', '+20 for logging in today', 'come back again tomorrow for +20');
+
+            $("#login").fadeOut();
+
+            //setTimeout(updatePoints, 1000);
             /*
             alertify.confirm( 'invite your friends for +50 points', function (e) {
                 if (e) {
@@ -168,9 +173,7 @@ function app()
 
                 $(".skip").html('skip');
 
-                // Send points
-                scorePoints('play', '+1 point for playing');
-                doOpenGraph('video.watches');
+                setTimeout(doActions('video.watches', 'play'), 1000);
 
             },
             error: function (data) {
@@ -211,7 +214,7 @@ function app()
                 if(currentState == 'love')
                 {
                     // Send points
-                    scorePoints('love', '+10 point for loving');
+                    doPoints('love', '+10 point for loving');
                     doOpenGraph('eatbass:love');
 
                     $(".love").html('loved');
@@ -244,7 +247,7 @@ function app()
             // If response is null the user canceled the dialog
             if (response) {
                 // Send points
-                scorePoints('share', '+50 point for sharing');
+                doPoints('share', '+50 point for sharing');
 
                 console.log('Shared ' + response);
             } else {
@@ -267,7 +270,7 @@ function app()
                 //How many people did the user invited?
                 var $howManyInvites = String(requests).split(',').length;
 
-                scorePoints('invite', '+50 for inviting friends', 'thanks for inviting friends');
+                doPoints('invite', '+50 for inviting friends', 'thanks for inviting friends');
             } else {
                 //  alert('canceled');
                 return false;
@@ -277,6 +280,17 @@ function app()
 
     }
 
+    // Handle open graph and points
+    function doActions(openGraphMethod, pointsMethod) {
+        //, '+1 point for playing'));
+
+        // Send points
+        doPoints('play', '+1 point for watching');
+        $('facebook-status').html('posting watch to Facebook..');
+        doOpenGraph('video.watches');
+    }
+
+    // Internal functions
     function doOpenGraph(apiMethod) {
 
         if(apiMethod == 'video.watches') {
@@ -304,31 +318,17 @@ function app()
                 }
                 else {
                     console.log('Action was successful! Action ID: ' + response.id);
+                    $('facebook-status').html('watch posted to your facebook timeline <a href="#" onclick="deleteOpenGraph('+response.id+')">delete</a>');
                 }
             });
-                    /*
-
-        console.log(openGraphRecipe);
-
-        // FB Open Graph Action
-        FB.api('/me/eatbass:like', 'post',
-            openGraphRecipe,
-            function(response) {
-                console.log(response);
-                if (!response || response.error) {
-                    alert('Error occured');
-                    //fbJsLogin();
-                }
-                else {
-                    alert('Action was successful! Action ID: ' + response.id);
-                }
-            });
-*/
     }
 
-    // Internal functions
+    function deleteOpenGraph(actionId) {
 
-    function scorePoints(apiMethod, successMessage, failMessage) {
+        $('facebook-status').html('watch action deleted');
+    }
+
+    function doPoints(apiMethod, successMessage, failMessage) {
         console.log('registerring points: ' + apiMethod);
 
         requestData = {
@@ -353,7 +353,7 @@ function app()
                     $.alertify.log(successMessage);
 
                     // @todo: Fix points update after daily login?
-                    //updatePoints();
+                    updatePoints();
                 } else {
                     if(failMessage) {
                         $.alertify.log(failMessage);
@@ -375,16 +375,23 @@ function app()
             user : $.user._id
         };
 
+        console.log('updating user points'+requestData);
+
         $.ajax({
             type: 'POST',
             data: requestData,
             url: '/api:userpoints',
             success: function (data) {
-                $("#points").html(data);
-                $("#points").fadeOut(100).fadeIn(500);
-                //$("#points").stop().css("background-color", "#FFFF9C").animate({ backgroundColor: "#FFFFFF"}, 1500);
-                //$(".love").html('love');
-                //$.alertify.success('+10 points');
+                console.log(data);
+                if(data === 0) {
+                    setTimeout(updatePoints(), 1000);
+                } else {
+                    $("#points").html(data);
+                    $("#points").fadeOut(100).fadeIn(500);
+                    //$("#points").stop().css("background-color", "#FFFF9C").animate({ backgroundColor: "#FFFFFF"}, 1500);
+                    //$(".love").html('love');
+                    //$.alertify.success('+10 points');
+                }
             }
             /* error updating points?
             error: function (data) {
@@ -449,7 +456,7 @@ function app()
     }
 
     // Set up so we handle click on the buttons
-    $('#fb-js-login').click(function (e) {
+    $('.fb-js-login').click(function (e) {
         e.preventDefault();
 
         fbJsLogin();

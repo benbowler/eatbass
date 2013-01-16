@@ -79,6 +79,24 @@ class api {
 
 		$this->m->close();
 	}
+/*
+	public function delete_open_graph()
+	{
+
+$ch = curl_init("https://graph.facebook.com/"$_POST['action']);
+//$fp = fopen("example_homepage.txt", "w");
+
+//curl_setopt($ch, CURLOPT_FILE, $fp);
+curl_setopt($ch, CURLOPT_HEADER, 0);
+
+curl_exec($ch);
+curl_close($ch);
+fclose($fp);
+curl -X DELETE \
+     -F 'access_token=AAAB3O3MNjeEBACqQGavKZBEKdbN1zxfHBrsVljWeqDeTPZCvcN8LPdHQJhM2BjPdZBy2EAZBFFtdWB5DJHy4W1zYf16itDbsELjxkE8vpDLy1qkWMv0Y' \
+        'https://graph.facebook.com/{'{id_from_create_call}'}'
+	}
+	*/
 
 	public function next()
 	{

@@ -96,9 +96,15 @@ class controller
     }
 
     /* User Controller */
-    public function u($slug)
+    public function user($slug)
     {
         $this->view('video', $this->data); //$this->model->get());
+    }
+
+    /* User Controller */
+    public function channel($slug)
+    {
+        $this->view('channel', $this->data); //$this->model->get());
     }
 
     public function api($slug)
