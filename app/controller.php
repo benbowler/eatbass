@@ -203,6 +203,15 @@ class controller
         $this->view('logo', $this->data); //$this->model->get());
     }
     */
+    /*
+
+    public function admin()
+    {
+        foreach ($this->model->get_users(1000) as $user) {
+            echo "{$user['email']},{$user['first_name']}<br />";
+        }
+    }
+    */
 
     private function _fb()
     {
