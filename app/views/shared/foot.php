@@ -39,6 +39,9 @@
 
 		<?php } else { ?>
 
+			// Make description links external @todo: move after video load
+			$("#video_description a[href^='http://']").attr("target","_blank");
+
 			$('#background-blur').blurjs({
 				source: 'body',
 				radius: 20,

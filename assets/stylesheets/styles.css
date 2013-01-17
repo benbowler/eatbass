@@ -470,6 +470,13 @@ header #user .love {
 header #user .skip {
   color: white;
 }
+#text #fb-status {
+  display: block;
+  width: 100%;
+  text-align: center;
+  line-height: 2em;
+  height: 2em;
+}
 #text #video_title {
   display: inline;
   float: left;
@@ -575,7 +582,7 @@ header #user .skip {
 }
 #login > div #fb-facepile-wrapper {
   width: 200px;
-  height: 75px;
+  height: 45px;
   margin: 0 auto;
 }
 #login > div #fb-js-login-ad {

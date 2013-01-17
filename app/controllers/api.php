@@ -79,24 +79,6 @@ class api {
 
 		$this->m->close();
 	}
-/*
-	public function delete_open_graph()
-	{
-
-$ch = curl_init("https://graph.facebook.com/"$_POST['action']);
-//$fp = fopen("example_homepage.txt", "w");
-
-//curl_setopt($ch, CURLOPT_FILE, $fp);
-curl_setopt($ch, CURLOPT_HEADER, 0);
-
-curl_exec($ch);
-curl_close($ch);
-fclose($fp);
-curl -X DELETE \
-     -F 'access_token=AAAB3O3MNjeEBACqQGavKZBEKdbN1zxfHBrsVljWeqDeTPZCvcN8LPdHQJhM2BjPdZBy2EAZBFFtdWB5DJHy4W1zYf16itDbsELjxkE8vpDLy1qkWMv0Y' \
-        'https://graph.facebook.com/{'{id_from_create_call}'}'
-	}
-	*/
 
 	public function next()
 	{
@@ -226,6 +208,22 @@ curl -X DELETE \
 		$this->m->close();
 	}
 
+	public function deleteopengraph()
+	{
+
+       $data ='access_token=AAAB3O3MNjeEBACqQGavKZBEKdbN1zxfHBrsVljWeqDeTPZCvcN8LPdHQJhM2BjPdZBy2EAZBFFtdWB5DJHy4W1zYf16itDbsELjxkE8vpDLy1qkWMv0Y';
+
+
+
+        $ch=curl_init();
+		curl_setopt($ch, CURLOPT_URL, "https://graph.facebook.com/" . $_POST['object']);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+		$reply=curl_exec($ch);
+		curl_close($ch);
+	}
+
 	public function schedule() 
 	{
 		// Config
@@ -289,45 +287,6 @@ curl -X DELETE \
 
 		// Close connection
 		$this->m->close();
-	}
-
-	function _store_channel($channel) {
-		/*
-		// @todo: channel pages
-
-		die(var_dump($channel);
-			
-		if($video->{'media$group'}->{'yt$duration'}->seconds <= 600) {
-
-		  $video->_id = $video->id->{'$t'};
-		  $video->slug = $this->_to_ascii($video->title->{'$t'});
-
-		  $video->date = new MongoDate(strtotime($video->published->{'$t'}));
-		  $video->updated = new MongoDate(date('U'));
-		  //$video->date = ISODate(date('U', strtotime($video->published->{'$t'}));
-
-		  include_once('modules/lib_autlink/lib_autolink.php');
-		  $video->html_description = nl2br(autolink(($video->{'media$group'}->{'media$description'}->{'$t'})));
-
-		  $video->ytFavorites = $video->{'yt$statistics'}->favoriteCount;
-		  $video->ytViews = $video->{'yt$statistics'}->viewCount;
-		  $video->ytLikes = $video->{'yt$rating'}->numLikes;
-		  $video->ytDislikes = $video->{'yt$rating'}->numDislikes;
-
-		  try {
-			  $this->col->insert($video, true);
-			  echo "$this->count Added {$video->title->{'$t'}}<br />";
-		  } catch(MongoCursorException $e) {
-			  $this->col->update(array('_id' => $video->_id), $video);
-			  echo "$this->count Updated {$video->title->{'$t'}}<br />";
-		  }
-		} else {
-		  echo "$this->count Skipped {$video->title->{'$t'}} (Too long)<br />";
-		}
-		$this->count++;
-		$this->total++;
-		*/
-
 	}
 
 	function _store_videos($videos) {

@@ -173,7 +173,10 @@ function app()
 
                 $(".skip").html('skip');
 
-                setTimeout(doActions('video.watches', 'play'), 1000);
+                console.log('wait 12 seconds');
+                setTimeout(function() {
+                    doActions('watch.video', 'play');
+                }, 12000);
 
             },
             error: function (data) {
@@ -283,51 +286,16 @@ function app()
     // Handle open graph and points
     function doActions(openGraphMethod, pointsMethod) {
         //, '+1 point for playing'));
+        console.log('doActions triggered');
 
         // Send points
+        //
         doPoints('play', '+1 point for watching');
-        $('facebook-status').html('posting watch to Facebook..');
+        $('#fb-status').html('posting watch action to facebook..');
         doOpenGraph('video.watches');
     }
 
     // Internal functions
-    function doOpenGraph(apiMethod) {
-
-        if(apiMethod == 'video.watches') {
-            openGraphRecipe = {
-                video : document.URL
-            };
-        }
-        if(apiMethod == 'eatbass:love') {
-            openGraphRecipe = {
-                other : document.URL
-            };
-        }
-
-        console.log(apiMethod);
-        console.log(openGraphRecipe);
-
-        // FB Open Graph Action
-        FB.api('/me/'+apiMethod, 'post',
-            openGraphRecipe,
-            function(response) {
-                console.log(response);
-                if (!response || response.error) {
-                    console.log('Open Graph error occured');
-                    //fbJsLogin();
-                }
-                else {
-                    console.log('Action was successful! Action ID: ' + response.id);
-                    $('facebook-status').html('watch posted to your facebook timeline <a href="#" onclick="deleteOpenGraph('+response.id+')">delete</a>');
-                }
-            });
-    }
-
-    function deleteOpenGraph(actionId) {
-
-        $('facebook-status').html('watch action deleted');
-    }
-
     function doPoints(apiMethod, successMessage, failMessage) {
         console.log('registerring points: ' + apiMethod);
 
@@ -402,6 +370,63 @@ function app()
 
                 //$(".skip").html('loved');
             }*/
+        });
+    }
+
+    // Open Graph
+    function doOpenGraph(apiMethod) {
+
+        if(apiMethod == 'video.watches') {
+            openGraphRecipe = {
+                video : document.URL
+            };
+        }
+        if(apiMethod == 'eatbass:love') {
+            openGraphRecipe = {
+                other : document.URL
+            };
+        }
+
+        console.log(apiMethod);
+        console.log(openGraphRecipe);
+
+        // FB Open Graph Action
+        FB.api('/me/'+apiMethod, 'post',
+            openGraphRecipe,
+            function(response) {
+                console.log(response);
+                if (!response || response.error) {
+                    console.log('Open Graph error occured');
+                    //fbJsLogin();
+                    $('#fb-status').show().html('');
+                }
+                else {
+                    console.log('Action was successful! Action ID: ' + response.id);
+                    $('facebook-status').html('watch action posted to facebook. <a href="#" onclick="deleteOpenGraph('+response.id+')">delete</a>');
+                }
+            });
+    }
+
+    function deleteOpenGraph(actionId) {
+
+        requestData = {
+            object : actionId
+        };
+
+        $.ajax({
+            type: 'POST',
+            data: requestData,
+            url: '/api:deleteopengraph',
+            success: function (data) {
+
+                $('facebook-status').html('watch action deleted');
+
+            },
+            error: function (data) {
+
+                //$('facebook-status').html('watch action deleted');
+
+            }
         });
     }
 

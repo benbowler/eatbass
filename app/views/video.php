@@ -15,6 +15,14 @@
 		  window.location = window.location; //+'/<?php echo $video['slug']; ?>';
 		});
 
+	    FB.getLoginStatus(function(response) {
+          if (response.session) {
+            console.log('I am logged in');
+          } else {
+            console.log('I am logged out');
+          }
+        });
+
 		FB.Canvas.setAutoGrow();
 	  };
 
@@ -64,7 +72,7 @@
 
 			<section id="text">
 
-				<strong id="facebook-status"></strong>
+				<strong id="fb-status">fb requests</strong>
 				
 				<h1 id="video_title"><?php echo $video['title']['$t']; ?></h1>
 				<?php /* @todo: channel pages   <a href="/channel:<?php echo $video['title']['$t']; ?>" class="channel"><h1 id="video_title"><?php echo $video['title']['$t']; ?></h1></a>  */ ?>

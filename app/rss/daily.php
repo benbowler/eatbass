@@ -12,7 +12,7 @@ $m   = new Mongo(getenv("MONGOHQ_URL"));
 $db  = $m->$dbname;
 $col = $db->videos;
 
-$feed_published = date('U', strtotime("today 12:00"));
+$feed_published = date('U');
 $feed_begin = $feed_published-86400;
 
 //die($feed_update . " akdhjfkjadh " . $feed_published);
