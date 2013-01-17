@@ -112,7 +112,7 @@ class controller
     {
         $route = explode(":", $slug);
 
-        require_once($_SERVER['DOCUMENT_ROOT'].'/contollers/api.php');
+        require_once($_SERVER['DOCUMENT_ROOT'].'/controllers/api.php');
         $api = new api();
         $api->$route[0]($route[1]);
     }
