@@ -112,7 +112,7 @@ class controller
     {
         $route = explode(":", $slug);
 
-        require_once($_SERVER['DOCUMENT_ROOT'].'/controllers/api.php');
+        require_once($_SERVER['DOCUMENT_ROOT'].'/app/controllers/api.php');
         $api = new api();
         $api->$route[0]($route[1]);
     }
@@ -121,7 +121,7 @@ class controller
     {
         $route = explode(":", $slug);
 
-        require_once($_SERVER['DOCUMENT_ROOT'].'/controllers/rss.php');
+        require_once($_SERVER['DOCUMENT_ROOT'].'/app/controllers/rss.php');
         $api = new api();
         $api->$route[0]($route[1]);
     }
