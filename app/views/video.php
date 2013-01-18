@@ -70,7 +70,7 @@
 
 			<section id="text">
 
-				<strong id="fb-status"></strong>
+				<strong id="fb-status"><a href="#" data-actionid="4714763300118" class="delete_opengraph">delete</a></strong>
 				
 				<h1 id="video_title"><?php echo $video['title']['$t']; ?></h1>
 				<?php /* @todo: channel pages   <a href="/channel:<?php echo $video['title']['$t']; ?>" class="channel"><h1 id="video_title"><?php echo $video['title']['$t']; ?></h1></a>  */ ?>

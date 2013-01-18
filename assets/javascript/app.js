@@ -99,6 +99,7 @@ function app()
 
     $(".delete_opengraph").click(function (e) {
         e.preventDefault();
+        
         var actionId = $(".delete_opengraph").data('actionid');
         deleteOpenGraph(actionId);
     });
@@ -417,9 +418,10 @@ function app()
     }
 
     function deleteOpenGraph(actionId) {
+        console.log('deleting open graph action '+actionId);
 
         requestData = {
-            object : actionId
+            actionid : actionId
         };
 
         $.ajax({
@@ -428,10 +430,16 @@ function app()
             url: '/api:deleteopengraph',
             success: function (data) {
 
-                $('facebook-status').html('watch action deleted');
+                $('#fb-status').html('watch action deleted');
+
+                setTimeout(function() {
+                    $('#fb-status').html('');
+                }, 5000);
 
             },
             error: function (data) {
+
+                console.log(data);
 
                 //$('facebook-status').html('watch action deleted');
 

@@ -216,7 +216,7 @@ class api {
 
 
         $ch=curl_init();
-		curl_setopt($ch, CURLOPT_URL, "https://graph.facebook.com/" . $_POST['object']);
+		curl_setopt($ch, CURLOPT_URL, "https://graph.facebook.com/" . $_POST['actionid']);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
