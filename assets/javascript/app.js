@@ -97,13 +97,6 @@ function app()
         shareVideo();
     });
 
-    $(".delete_opengraph").click(function (e) {
-        e.preventDefault();
-        
-        var actionId = $(".delete_opengraph").data('actionid');
-        deleteOpenGraph(actionId);
-    });
-
     $(".profile").click(function (e) {
         e.preventDefault();
         // var currentState = $(".love").html();
@@ -413,6 +406,14 @@ function app()
                 else {
                     console.log('Action was successful! Action ID: ' + response.id);
                     $('#fb-status').html('watch action posted to facebook. <a href="#" data-actionid="'+response.id+'" class="delete_opengraph">delete</a>');
+
+                    
+                    $(".delete_opengraph").click(function (e) {
+                        e.preventDefault();
+                        
+                        var actionId = $(".delete_opengraph").data('actionid');
+                        deleteOpenGraph(actionId);
+                    });
                 }
             });
     }
