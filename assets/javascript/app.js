@@ -116,6 +116,8 @@ function app()
     function nextVideo() {
         console.log('loading video + next virtual page.');
         jQuery("#player-yt").tubeplayer("pause");
+        // Clear fb delete option
+        $('#fb-status').html('');
 
         $.ajax({
             type: 'POST',
@@ -407,7 +409,7 @@ function app()
                     console.log('Action was successful! Action ID: ' + response.id);
                     $('#fb-status').html('watch action posted to facebook. <a href="#" data-actionid="'+response.id+'" class="delete_opengraph">delete</a>');
 
-                    
+
                     $(".delete_opengraph").click(function (e) {
                         e.preventDefault();
                         

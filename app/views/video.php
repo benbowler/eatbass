@@ -15,13 +15,25 @@
 		  window.location = window.location; //+'/<?php echo $video['slug']; ?>';
 		});
 
-	    FB.getLoginStatus(function(response) {
-          if (response.session) {
-            console.log('I am logged in');
-          } else {
-            console.log('I am logged out');
-          }
-        });
+        FB.getLoginStatus(function(response) {
+		  if (response.status === 'connected') {
+		    // the user is logged in and has authenticated your
+		    // app, and response.authResponse supplies
+		    // the user's ID, a valid access token, a signed
+		    // request, and the time the access token 
+		    // and signed request each expire
+		    var uid = response.authResponse.userID;
+		    var accessToken = response.authResponse.accessToken;
+		    console.log('I am logged in and connected');
+		  } else if (response.status === 'not_authorized') {
+		    // the user is logged in to Facebook, 
+		    // but has not authenticated your app
+		    console.log('I am logged in but not authorised');
+		  } else {
+		    // the user isn't logged in to Facebook.
+		    console.log('I am logged out completely');
+		  }
+ 		});
 
 		FB.Canvas.setAutoGrow();
 	  };
