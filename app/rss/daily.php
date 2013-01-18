@@ -12,8 +12,8 @@ $m   = new Mongo(getenv("MONGOHQ_URL"));
 $db  = $m->$dbname;
 $col = $db->videos;
 
-$feed_published = date('U');
-$feed_begin = $feed_published-86400;
+$feed_published = strtotime("today");
+$feed_begin = $feed_published-604800;
 
 //die($feed_update . " akdhjfkjadh " . $feed_published);
 
@@ -32,9 +32,9 @@ $m->close();
 <rss version="2.0">
 
 	<channel>
-	<title><?php echo date("l"); ?>s hot video #eatbass</title>
-	<description>#eatbass top track today</description>
-	<link><?php echo 'https://' . $_SERVER['SERVER_NAME'] . '/api/rss/daily.php'; ?></link>
+	<title><?php echo date('l'); ?>s top track #eatbass</title>
+	<description>#eatbass top track today.</description>
+	<link><?php echo 'https://' . $_SERVER['SERVER_NAME'] . '/api/rss/weekly.php'; ?></link>
 	<lastBuildDate><?php echo date("r"); ?></lastBuildDate>
 	<pubDate><?php echo date("r"); ?></pubDate>
 
@@ -42,12 +42,12 @@ $m->close();
 	<item>
 		<title><?php echo htmlspecialchars($video['title']['$t']); ?> #eatbass</title>
 		<description><![CDATA[<?php echo $video['media$group']['media$description']['$t']; ?>]]></description>
-		<media:content url="<?php echo $video['media$group']['media$thumbnail'][3]['url']; ?>"
+		<media:content url="<?php echo $video['media$group']['media$thumbnail'][2]['url']; ?>"
 			xmlns:media="http://search.yahoo.com/mrss/"
 			medium="image"
 			type="image/jpg"
-			height="<?php echo $video['media$group']['media$thumbnail'][3]['height']; ?>"
-			width="<?php echo $video['media$group']['media$thumbnail'][3]['width']; ?>" />
+			height="<?php echo $video['media$group']['media$thumbnail'][2]['height']; ?>"
+			width="<?php echo $video['media$group']['media$thumbnail'][2]['width']; ?>" />
 			<?php /* <media:title type="html"><?php echo $video['title']['$t']; ?></media:title> */ ?>
 		<link><?php echo 'https://' . $_SERVER['SERVER_NAME'] . '/' . $video['slug']; ?></link>
 		<guid isPermaLink="true"><?php echo 'https://' . $_SERVER['SERVER_NAME'] . '/' . $video['slug']; ?></guid>
