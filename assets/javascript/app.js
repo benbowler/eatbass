@@ -398,7 +398,7 @@ function app()
                 if (!response || response.error) {
                     console.log('Open Graph error occured');
                     //fbJsLogin();
-                    $('#fb-status').show().html('');
+                    $('#fb-status').html('');
                 }
                 else {
                     console.log('Action was successful! Action ID: ' + response.id);

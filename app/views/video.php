@@ -48,8 +48,6 @@
 
 				<h3><?php echo $site_title; ?><em> <?php echo $site_description; ?></em></h3>
 
-				<!-- <div class="fb-like"></div> -->
-
 				<section id="user">
 
 					<em class="sup">+50</em><a href="#" class="share">share</a>
@@ -72,7 +70,7 @@
 
 			<section id="text">
 
-				<strong id="fb-status">fb requests</strong>
+				<strong id="fb-status"></strong>
 				
 				<h1 id="video_title"><?php echo $video['title']['$t']; ?></h1>
 				<?php /* @todo: channel pages   <a href="/channel:<?php echo $video['title']['$t']; ?>" class="channel"><h1 id="video_title"><?php echo $video['title']['$t']; ?></h1></a>  */ ?>
