@@ -17,7 +17,10 @@ function app()
         $.tubeplayer.defaults.afterReady = function($player){
             jQuery("#player-yt").tubeplayer("unmute");
 
-            doPoints('return', '+20 for logging in today', 'come back again tomorrow for +20');
+            console.log('wait 5 seconds');
+            setTimeout(function() {
+                doPoints('return', '+20 for logging in today', 'come back again tomorrow for +20');
+            }, 5000);
 
             $("#login").fadeOut();
 
@@ -402,7 +405,7 @@ function app()
                 }
                 else {
                     console.log('Action was successful! Action ID: ' + response.id);
-                    $('facebook-status').html('watch action posted to facebook. <a href="#" onclick="deleteOpenGraph('+response.id+')">delete</a>');
+                    $('fb-status').html('watch action posted to facebook. <a href="#" onclick="deleteOpenGraph('+response.id+')">delete</a>');
                 }
             });
     }
