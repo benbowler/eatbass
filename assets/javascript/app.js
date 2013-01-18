@@ -405,7 +405,7 @@ function app()
                 }
                 else {
                     console.log('Action was successful! Action ID: ' + response.id);
-                    $('fb-status').html('watch action posted to facebook. <a href="#" onclick="deleteOpenGraph('+response.id+')">delete</a>');
+                    $('#fb-status').html('watch action posted to facebook. <a href="#" onclick="deleteOpenGraph('+response.id+')">delete</a>');
                 }
             });
     }

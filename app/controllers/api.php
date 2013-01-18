@@ -222,6 +222,8 @@ class api {
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 		$reply=curl_exec($ch);
 		curl_close($ch);
+
+		return json_encode(array('response' => true));
 	}
 
 	public function schedule() 
