@@ -81,8 +81,7 @@
 			</section>
 
 			<section id="text">
-
-				<strong id="fb-status"></strong>
+				<strong id="fb-status">your watch actions are published to facebook</strong>
 				
 				<h1 id="video_title"><?php echo $video['title']['$t']; ?></h1>
 				<?php /* @todo: channel pages   <a href="/channel:<?php echo $video['title']['$t']; ?>" class="channel"><h1 id="video_title"><?php echo $video['title']['$t']; ?></h1></a>  */ ?>
