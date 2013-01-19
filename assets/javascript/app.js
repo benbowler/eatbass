@@ -17,10 +17,7 @@ function app()
         $.tubeplayer.defaults.afterReady = function($player){
             jQuery("#player-yt").tubeplayer("unmute");
 
-            console.log('wait 5 seconds');
-            setTimeout(function() {
-                doPoints('return', '+20 for logging in today', 'come back again tomorrow for +20');
-            }, 5000);
+            doPoints('return', '+20 for logging in today', 'come back again tomorrow for +20');
 
             $("#login").fadeOut();
 
@@ -203,10 +200,7 @@ function app()
 
                 $(".skip").html('skip');
 
-                console.log('wait 15 seconds');
-                setTimeout(function() {
-                    doWatchActions('watch.video', 'play');
-                }, 15000);
+                doWatchActions('watch.video', 'play');
 
             },
             error: function (data) {
@@ -321,8 +315,11 @@ function app()
         doPoints('play', '+1 point for watching');
 
         if($.user.opengraph) {
-            $('#fb-status').html('posting watch to facebook.');
-            doOpenGraph('video.watches');
+            console.log('wait 15 seconds');
+            setTimeout(function() {
+                $('#fb-status').html('posting watch to facebook.');
+                doOpenGraph('video.watches');
+            }, 15000);
         }
     }
 
@@ -366,7 +363,9 @@ function app()
                     $.alertify.log(successMessage);
 
                     // @todo: Fix points update after daily login?
-                    updatePoints();
+                    if(apiMethod != 'return') {
+                        updatePoints();
+                    }
                 } else {
                     if(failMessage) {
                         $.alertify.log(failMessage);
