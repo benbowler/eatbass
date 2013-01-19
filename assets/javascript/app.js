@@ -30,6 +30,7 @@ function app()
                     if (e) {
                         console.log('opting in to open graph ' + e);
 
+                        $(".toggleopengraph").html('turn facebook sharing off');
                         setOpenGraph(true);
                     } else {
                         console.log('opted out of open graph');
