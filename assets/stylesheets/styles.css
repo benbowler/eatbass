@@ -470,12 +470,23 @@ header #user .love {
 header #user .skip {
   color: white;
 }
-#text #fb-status {
+#social {
   display: block;
   width: 100%;
-  text-align: center;
-  line-height: 2em;
-  height: 2em;
+  text-align: right;
+  line-height: 1em;
+  margin-bottom: 1em;
+}
+#player {
+  overflow: hidden;
+  height: 405px;
+  width: 720px;
+  margin: 0 auto;
+}
+#player #player-yt {
+  height: 405px;
+  width: 720px;
+  position: relative;
 }
 #text #video_title {
   display: inline;
@@ -657,17 +668,6 @@ header #user .skip {
 .alertify {
   top: 100px !important;
   background: #000000 !important;
-}
-#player {
-  overflow: hidden;
-  height: 405px;
-  width: 720px;
-  margin: 0 auto;
-}
-#player #player-yt {
-  height: 405px;
-  width: 720px;
-  position: relative;
 }
 footer {
   margin-top: 3em;

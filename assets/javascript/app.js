@@ -24,6 +24,24 @@ function app()
 
             $("#login").fadeOut();
 
+            if($.user.fb_opengraph == 'first') {
+
+                alertify.confirm( '<h3>facebook sharing in on</h3><br /><br />this means you are sharing the videos you watch with your friends. you can turn this off now, or anytime with the controls above.', function (e) {
+                    if (e) {
+                        console.log('opting in to open graph ' + e);
+
+                        setOpenGraph(true);
+                    } else {
+                        console.log('opted out of open graph');
+                        //after clicking Cancel
+
+                        $(".toggleopengraph").html('turn facebook sharing on');
+                        setOpenGraph(false);
+                    }
+                });
+
+            }
+
             //setTimeout(updatePoints, 1000);
             /*
             alertify.confirm( 'invite your friends for +50 points', function (e) {
@@ -88,13 +106,19 @@ function app()
     $(".love").click(function (e) {
         e.preventDefault();
         var currentState = $(".love").html();
-        loveVideoToggle(currentState);
+        toggleLove(currentState);
     });
 
     $(".share").click(function (e) {
         e.preventDefault();
         // var currentState = $(".love").html();
         shareVideo();
+    });
+
+    $(".toggleopengraph").click(function (e) {
+        e.preventDefault();
+        var currentState = $(".toggleopengraph").html();
+        toggleOpenGraph(currentState);
     });
 
     $(".profile").click(function (e) {
@@ -178,10 +202,10 @@ function app()
 
                 $(".skip").html('skip');
 
-                console.log('wait 12 seconds');
+                console.log('wait 15 seconds');
                 setTimeout(function() {
-                    doActions('watch.video', 'play');
-                }, 12000);
+                    doWatchActions('watch.video', 'play');
+                }, 15000);
 
             },
             error: function (data) {
@@ -196,7 +220,7 @@ function app()
         });
     }
 
-    function loveVideoToggle(currentState) {
+    function toggleLove(currentState) {
         console.log('Changing video state:' + currentState);
 
         requestData = {
@@ -221,10 +245,7 @@ function app()
                 //////// Points and notify
                 if(currentState == 'love')
                 {
-                    // Send points
-                    doPoints('love', '+10 point for loving');
-                    doOpenGraph('eatbass:love');
-
+                    doLoveActions('love', 'eatbass:love');
                     $(".love").html('loved');
                 } else {
 
@@ -264,6 +285,7 @@ function app()
         });
     }
 
+    /*
     function inviteUsers() {
 
         FB.ui({
@@ -285,19 +307,36 @@ function app()
             }
         });
         return false;
-
     }
+    */
 
     // Handle open graph and points
-    function doActions(openGraphMethod, pointsMethod) {
+    function doWatchActions(openGraphMethod, pointsMethod) {
         //, '+1 point for playing'));
-        console.log('doActions triggered');
+        console.log('doWatchActions triggered');
 
         // Send points
         //
         doPoints('play', '+1 point for watching');
-        $('#fb-status').html('posting watch action to facebook.');
-        doOpenGraph('video.watches');
+
+        if($.user.opengraph) {
+            $('#fb-status').html('posting watch to facebook.');
+            doOpenGraph('video.watches');
+        }
+    }
+
+    // Handle open graph and points
+    function doLoveActions(openGraphMethod, pointsMethod) {
+        //, '+1 point for playing'));
+        console.log('doLoveActions triggered');
+
+        // Send points
+        doPoints('love', '+10 point for loving');
+
+        if($.user.opengraph) {
+            $('#fb-status').html('posting love to facebook.');
+            doOpenGraph('eatbass:love');
+        }
     }
 
     // Internal functions
@@ -379,17 +418,70 @@ function app()
     }
 
     // Open Graph
+    function toggleOpenGraph(currentState) {
+
+        if(currentState == 'turn facebook sharing off')
+        {
+            $(".toggleopengraph").html('turn facebook sharing on');
+            setOpenGraph(false);
+        } else {
+            $(".toggleopengraph").html('turn facebook sharing off');
+            setOpenGraph(true);
+        }
+    }
+
+    function setOpenGraph(setValue) {
+        console.log('setting open graph preference to '+setValue);
+
+        requestData = {
+            user : $.user._id,
+            opengraph : setValue
+        };
+
+        console.log(requestData);
+
+        $.ajax({
+            type: 'POST',
+            dataType : 'json',
+            data: requestData,
+            url: '/api:setopengraph',
+            success: function (data) {
+
+                $.user.opengraph = setValue;
+
+                console.log(data);
+
+                
+                //$(".toggleopengraph").html('turn sharing off');
+
+                //setTimeout(function() {
+                //    $('#fb-status').html('');
+                //}, 5000);
+
+            },
+            error: function (data) {
+
+                console.log(data);
+
+                //$('facebook-status').html('watch action deleted');
+
+            }
+        });
+    }
+
     function doOpenGraph(apiMethod) {
 
         if(apiMethod == 'video.watches') {
             openGraphRecipe = {
                 video : document.URL
             };
+            actionName = "watch";
         }
         if(apiMethod == 'eatbass:love') {
             openGraphRecipe = {
                 other : document.URL
             };
+            actionName = "love";
         }
 
         console.log(apiMethod);
@@ -407,9 +499,9 @@ function app()
                 }
                 else {
                     console.log('Action was successful! Action ID: ' + response.id);
-                    $('#fb-status').html('watch action posted to facebook. <a href="#" data-actionid="'+response.id+'" class="delete_opengraph">delete</a>');
+                    $('#fb-status').html(actionName+' posted to facebook. <a href="#" data-actionid="'+response.id+'" class="delete_opengraph">delete</a>');
 
-
+                    // Allow delete open graph
                     $(".delete_opengraph").click(function (e) {
                         e.preventDefault();
                         

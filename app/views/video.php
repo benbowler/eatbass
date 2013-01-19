@@ -24,7 +24,9 @@
 		    // and signed request each expire
 		    var uid = response.authResponse.userID;
 		    var accessToken = response.authResponse.accessToken;
-		    console.log('I am logged in and connected');
+		    getUser(uid);
+
+		    console.log('I am logged in and connected '+uid);
 		  } else if (response.status === 'not_authorized') {
 		    // the user is logged in to Facebook, 
 		    // but has not authenticated your app
@@ -34,6 +36,42 @@
 		    console.log('I am logged out completely');
 		  }
  		});
+
+ 		function getUser(id) {
+ 			/*
+ 		    requestData = {
+	            user : id
+	        };
+
+        	$.ajax({
+	            type: 'POST',
+	            dataType : 'json',
+	            data: requestData,
+	            url: '/api:user',
+	            success: function (data) {
+	                console.log(data);
+
+	                //
+	                if(data === 0) {
+	                    setTimeout(updatePoints(), 1000);
+	                } else {
+	                    $("#points").html(data);
+	                    $("#points").fadeOut(100).fadeIn(500);
+	                    //$("#points").stop().css("background-color", "#FFFF9C").animate({ backgroundColor: "#FFFFFF"}, 1500);
+	                    //$(".love").html('love');
+	                    //$.alertify.success('+10 points');
+	                }
+	            }
+	            error: function (data) {
+
+	                //$.alertify.error('error scoring points :(');
+
+	                //alert('Error un-loving track :(');  /// @todo: custom alert
+
+	                //$(".skip").html('loved');
+	            }
+	        });*/
+ 		}
 
 		FB.Canvas.setAutoGrow();
 	  };
@@ -76,12 +114,16 @@
 
 			</header>
 
+			<section id="social">
+				<strong id="fb-status"></strong>
+				<a href="#" class="toggleopengraph"><?php echo ($user['opengraph']) ? 'turn facebook sharing off' : 'turn facebook sharing on' ; ?></a>
+			</section>
+
 			<section id="player">
 					<div id="player-yt"></div>
 			</section>
 
 			<section id="text">
-				<strong id="fb-status">your watch actions will be published to facebook</strong>
 				
 				<h1 id="video_title"><?php echo $video['title']['$t']; ?></h1>
 				<?php /* @todo: channel pages   <a href="/channel:<?php echo $video['title']['$t']; ?>" class="channel"><h1 id="video_title"><?php echo $video['title']['$t']; ?></h1></a>  */ ?>
@@ -92,7 +134,7 @@
 				<!-- <div class="fb-comments" data-href="" data-width="470" data-num-posts="2"></div>-->
 
 				<div id="output"></div>
-				<?php //var_dump($video); ?>
+				<?php var_dump($user); ?>
 
 			</section>
 

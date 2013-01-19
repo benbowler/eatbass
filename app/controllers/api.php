@@ -164,6 +164,17 @@ class api {
 		}
 	}
 
+    public function user()
+    {
+        $this->col = $this->db->users;
+
+        $user = $this->col->findOne(array('_id' => $_POST['user']));
+
+        return json_encode($user);
+
+        $this->_close();
+    }
+
 	public function userpoints()
 	{
 		$this->col = $this->db->users;
@@ -208,12 +219,26 @@ class api {
 		$this->m->close();
 	}
 
+	public function setopengraph()
+	{
+		$this->col = $this->db->users;
+
+		$update = array('opengraph' => $_POST['opengraph']);
+		
+		try {
+		   $this->col->update(array('_id' => $_POST['user']), array('$set' => $update));
+		   echo json_encode(array('response' => true));
+		} catch(MongoCursorException $e) {
+		   echo json_encode(array('response' => false));
+		}
+
+		$this->m->close();
+	}
+
 	public function deleteopengraph()
 	{
 
-       $data ='access_token=AAAB3O3MNjeEBACqQGavKZBEKdbN1zxfHBrsVljWeqDeTPZCvcN8LPdHQJhM2BjPdZBy2EAZBFFtdWB5DJHy4W1zYf16itDbsELjxkE8vpDLy1qkWMv0Y';
-
-
+        $data ='access_token=AAAB3O3MNjeEBACqQGavKZBEKdbN1zxfHBrsVljWeqDeTPZCvcN8LPdHQJhM2BjPdZBy2EAZBFFtdWB5DJHy4W1zYf16itDbsELjxkE8vpDLy1qkWMv0Y';
 
         $ch=curl_init();
 		curl_setopt($ch, CURLOPT_URL, "https://graph.facebook.com/" . $_POST['actionid']);
@@ -223,7 +248,7 @@ class api {
 		$reply=curl_exec($ch);
 		curl_close($ch);
 
-		return json_encode(array('response' => true));
+		echo json_encode(array('response' => true));
 	}
 
 	public function schedule() 

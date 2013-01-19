@@ -58,6 +58,7 @@ class Model
         $user['_id'] = $user['id'];
         $user['email'] = ($email['email']) ? $email['email'] : false ;
         $user['subscribed'] = false;
+        //$user['fb_opengraph'] = false;
 
         try {
             // Insert if unique
