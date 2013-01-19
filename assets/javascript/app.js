@@ -22,8 +22,8 @@ function app()
             $("#login").fadeOut();
 
             if($.user.opengraph == 'first') {
-
-                alertify.confirm( '<h3>facebook sharing in on</h3><br /><br />this means you are sharing the videos you watch with your friends. you can turn this off now, or anytime with the controls above.', function (e) {
+                alertify.set({ labels: { ok: "ON", cancel: "OFF" } });
+                alertify.confirm( '<h3>turn facebook sharing on</h3><br /><br />this means you are sharing the videos you watch with your friends. you can turn this off now, or anytime with the controls above.', function (e) {
                     if (e) {
                         console.log('opting in to open graph ' + e);
 
