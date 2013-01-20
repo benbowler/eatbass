@@ -15,7 +15,7 @@
 		  window.location = window.location; //+'/<?php echo $video['slug']; ?>';
 		});
 
-        FB.getLoginStatus(function(response) {
+		FB.getLoginStatus(function(response) {
 		  if (response.status === 'connected') {
 		    // the user is logged in and has authenticated your
 		    // app, and response.authResponse supplies
@@ -24,7 +24,14 @@
 		    // and signed request each expire
 		    var uid = response.authResponse.userID;
 		    var accessToken = response.authResponse.accessToken;
-		    getUser(uid);
+
+		    if(!$.user.logged_in) {
+			    FB.login(function(response) {
+	                var url = [location.protocol, '//', location.host, '/', $.video.slug].join(''); // , location.pathname
+	                window.location = url;
+	            }, {scope: 'email,user_likes,publish_actions'});
+		    }
+		    //doAutoLogin(uid);
 
 		    console.log('I am logged in and connected '+uid);
 		  } else if (response.status === 'not_authorized') {
@@ -36,42 +43,6 @@
 		    console.log('I am logged out completely');
 		  }
  		});
-
- 		function getUser(id) {
- 			/*
- 		    requestData = {
-	            user : id
-	        };
-
-        	$.ajax({
-	            type: 'POST',
-	            dataType : 'json',
-	            data: requestData,
-	            url: '/api:user',
-	            success: function (data) {
-	                console.log(data);
-
-	                //
-	                if(data === 0) {
-	                    setTimeout(updatePoints(), 1000);
-	                } else {
-	                    $("#points").html(data);
-	                    $("#points").fadeOut(100).fadeIn(500);
-	                    //$("#points").stop().css("background-color", "#FFFF9C").animate({ backgroundColor: "#FFFFFF"}, 1500);
-	                    //$(".love").html('love');
-	                    //$.alertify.success('+10 points');
-	                }
-	            }
-	            error: function (data) {
-
-	                //$.alertify.error('error scoring points :(');
-
-	                //alert('Error un-loving track :(');  /// @todo: custom alert
-
-	                //$(".skip").html('loved');
-	            }
-	        });*/
- 		}
 
 		FB.Canvas.setAutoGrow();
 	  };

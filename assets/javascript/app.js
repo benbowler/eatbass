@@ -15,9 +15,13 @@ function app()
     } else {
 
         $.tubeplayer.defaults.afterReady = function($player){
+
             jQuery("#player-yt").tubeplayer("unmute");
 
             doPoints('return', '+20 for logging in today', 'come back again tomorrow for +20');
+
+            // Make description links external @todo: move after video load
+            $("#video_description a[href^='http://']").attr("target","_blank");
 
             $("#login").fadeOut();
 
@@ -81,7 +85,7 @@ function app()
         modestbranding: false,
         initialVideo: $.video.ytID, // the video that is loaded into the player
         preferredQuality: "default", // preferred quality: default, small, medium, large, hd720
-        //onPlay: setWatchVideo, // after the play method is called
+        onPlay: onVideoPlay, // after the play method is called
         //onPause: stopWatchVideo, // after the pause method is called
         //onStop: function () {}, // after the player is stopped
         //onSeek: function (time) {}, // after the video has been seeked to a defined point
@@ -133,6 +137,11 @@ function app()
         //$('#page-blur').hide();
         $("#profile").fadeOut();
     });
+
+    function onVideoPlay() {
+        // Make description links external @todo: move after video load
+        $("#video_description a[href^='http://']").attr("target","_blank");
+    }
 
     // Actions
     function nextVideo() {
@@ -601,10 +610,10 @@ function app()
 
     function fbJsLogin()
      {
-            FB.login(function(response) {
-                var url = [location.protocol, '//', location.host, '/', $.video.slug].join(''); // , location.pathname
-                window.location = url;
-            }, {scope: 'email,user_likes,publish_actions'});
+        FB.login(function(response) {
+            var url = [location.protocol, '//', location.host, '/', $.video.slug].join(''); // , location.pathname
+            window.location = url;
+        }, {scope: 'email,user_likes,publish_actions'});
      }
     /*
     // Set up so we handle click on the buttons

@@ -25,30 +25,11 @@
 			ytID : "<?php echo $video['media$group']['yt$videoid']['$t']; ?>"
 		};
 
+		// @todo: Check if this is needed?
 		$.alertify = alertify;
 
+		// Start app!!
 		app();
-
-		<?php if (!isset($basic)) { ?>
-
-			$.tubeplayer.defaults.afterReady = function($player){
-				jQuery("#player-yt").tubeplayer("mute");
-			}	
-
-			$('#page-blur').blurjs();
-
-		<?php } else { ?>
-
-			// Make description links external @todo: move after video load
-			$("#video_description a[href^='http://']").attr("target","_blank");
-
-			$('#background-blur').blurjs({
-				source: 'body',
-				radius: 20,
-				overlay: 'rgba(255,255,255,0.4)'
-			});
-
-		<?php } ?>
 
 	});
 
