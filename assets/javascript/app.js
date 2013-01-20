@@ -6,7 +6,7 @@ function app()
     if(!$.user.logged_in) {
         // Do login dependant stuff
         $.tubeplayer.defaults.afterReady = function($player){
-            jQuery("#player-yt").tubeplayer("mute");
+            //jQuery("#player-yt").tubeplayer("mute");
 
         };
 
@@ -16,7 +16,7 @@ function app()
 
         $.tubeplayer.defaults.afterReady = function($player){
 
-            jQuery("#player-yt").tubeplayer("unmute");
+            //jQuery("#player-yt").tubeplayer("unmute");
 
             doPoints('return', '+20 for logging in today', 'come back again tomorrow for +20');
 
