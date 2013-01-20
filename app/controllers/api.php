@@ -127,6 +127,7 @@ class api {
 			'_id' => $id,
 			'method' => $method,
 			'points' => $points,
+			'user' => $user,
 			'date' =>  new MongoDate()
 		);
 
@@ -177,6 +178,10 @@ class api {
 
 	public function userpoints()
 	{
+		if(!$_POST['user']) {
+			die(json_encode(array('response' => 'unspecified user')));
+		}
+
 		$this->col = $this->db->users;
 
 		$user = $this->col->findOne(array('_id' => $_POST['user'])); //$this->col->find()->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
