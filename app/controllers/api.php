@@ -284,7 +284,7 @@ class api {
 
 			foreach($subscriptions->feed->entry as $subscription) {
 
-				$this->_store_channel($subscription);
+				//$this->_store_channel($subscription);
 
 				$channelId = $subscription->{'yt$username'}->{'$t'};
 				echo "Begining $channelId <br />";
@@ -316,7 +316,13 @@ class api {
 		$this->m->close();
 	}
 
-	function _store_videos($videos) {
+	function _store_channel($channel)
+	{
+
+	}
+
+	function _store_videos($videos)
+	{
 			
 			foreach($videos->feed->entry as $video) {
 				if($video->{'media$group'}->{'yt$duration'}->seconds <= 600) {
@@ -328,7 +334,7 @@ class api {
 				  $video->updated = new MongoDate(date('U'));
 				  //$video->date = ISODate(date('U', strtotime($video->published->{'$t'}));
 
-				  include_once('modules/lib_autlink/lib_autolink.php');
+				  include_once($_SERVER['DOCUMENT_ROOT'].'/app/modules/lib_autlink/lib_autolink.php');
 				  $video->html_description = nl2br(autolink(($video->{'media$group'}->{'media$description'}->{'$t'})));
 
 				  $video->ytFavorites = $video->{'yt$statistics'}->favoriteCount;
