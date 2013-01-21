@@ -526,11 +526,12 @@ function app()
 
         requestData = {
             actionid : actionId,
-            accesstoken : $.user.accessToken
+            accesstoken : $.user.accesstoken
         };
 
         $.ajax({
             type: 'POST',
+            dataType : 'json',
             data: requestData,
             url: '/api:deleteopengraph',
             success: function (data) {

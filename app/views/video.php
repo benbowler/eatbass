@@ -1,60 +1,105 @@
 <?php include('shared/head.php'); ?>
+		<script type="text/javascript" src="assets/javascript/app.js?cache=<?php echo filemtime('assets/javascript/app.js') ?>"></script>
+
 		<div id="fb-root"></div>
 		<script type="text/javascript">
-	  window.fbAsyncInit = function() {
-		FB.init({
-		  appId      : '<?php echo $appID; ?>', // App ID
-		  channelUrl : '//<?php echo $_SERVER["HTTP_HOST"]; ?>/assets/channel.html', // Channel File
-		  status     : true, // check login status
-		  cookie     : true, // enable cookies to allow the server to access the session
-		  xfbml      : true // parse XFBML
+		$(function () {
+		    window.fbAsyncInit = function() {
+			FB.init({
+			  appId      : '<?php echo $appID; ?>', // App ID
+			  channelUrl : '//<?php echo $_SERVER["HTTP_HOST"]; ?>/assets/channel.html', // Channel File
+			  status     : true, // check login status
+			  cookie     : true, // enable cookies to allow the server to access the session
+			  xfbml      : true // parse XFBML
+			});
+
+			// @todo: remove this??
+			FB.Event.subscribe('auth.login', function(response) {
+			  window.location = window.location; //+'/<?php echo $video['slug']; ?>';
+			});
+
+			FB.getLoginStatus(function(response) {
+
+				// Setup video and user objects
+				$.site = { 
+					title : "<?php echo $site_title; ?>",
+					description : "<?php echo $site_description; ?>",
+				};
+/*
+				FB.login(function(response) {
+				    if (response.authResponse) {
+				        var accessToken = response.authResponse.accessToken;
+				    }
+				});*/
+
+				// @todo: Check if this is needed?
+				$.alertify = alertify;
+
+				$.user = { 
+					_id : "<?php echo $user['_id']; ?>",
+					logged_in : <?php echo ($user) ? 'true' : 'false' ; ?>,
+					subscribed : <?php echo ($user['subscribed']) ? 'true' : 'false' ; ?>,
+					opengraph : <?php echo ($user['opengraph'] == '') ? "'first'" : $user['opengraph'] ; ?>
+				};
+				$.video = { 
+					_id : "<?php echo $video['_id']; ?>",
+					slug : "<?php echo $video['slug']; ?>",
+					title : <?php echo json_encode($video['title']['$t']); ?>,
+			        author : "<?php echo $video['author'][0]['name']['$t']; ?>",
+		            description : <?php echo json_encode($video['media$group']['media$description']['$t']); ?>,
+		            html_description : <?php echo json_encode($video['html_description']); ?>,
+					picture : "<?php echo str_replace('http', 'https', $video['media$group']['media$thumbnail'][1]['url']); ?>",
+					ytID : "<?php echo $video['media$group']['yt$videoid']['$t']; ?>"
+				};
+
+				if (response.status === 'connected') {
+				    // the user is logged in and has authenticated your
+				    // app, and response.authResponse supplies
+				    // the user's ID, a valid access token, a signed
+				    // request, and the time the access token 
+				    // and signed request each expire
+				    var uid = response.authResponse.userID;
+				    var accessToken = response.authResponse.accessToken;
+
+				    $.user.accesstoken = accessToken;
+
+					if(!$.user.logged_in) {
+						// @todo: need to double up??
+					    FB.login(function(response) {
+			                var url = [location.protocol, '//', location.host, '/', $.video.slug].join(''); // , location.pathname
+			                window.location = url;
+			            }, {scope: 'email,user_likes,publish_actions'});
+					}
+
+				    //console.log('I am logged in and connected '+uid);
+				} else if (response.status === 'not_authorized') {
+				    // the user is logged in to Facebook, 
+				    // but has not authenticated your app
+				    console.log('I am logged in but not authorised');
+				} else {
+				    // the user isn't logged in to Facebook.
+				    console.log('I am logged out completely');
+				}
+
+				// Start app
+				app();
+
+	 		});
+
+			FB.Canvas.setAutoGrow();
+		  
+		};
+
+		// Load the SDK Asynchronously
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/en_US/all.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+
 		});
-
-		// @todo: remove this??
-		FB.Event.subscribe('auth.login', function(response) {
-		  window.location = window.location; //+'/<?php echo $video['slug']; ?>';
-		});
-
-		FB.getLoginStatus(function(response) {
-		  if (response.status === 'connected') {
-		    // the user is logged in and has authenticated your
-		    // app, and response.authResponse supplies
-		    // the user's ID, a valid access token, a signed
-		    // request, and the time the access token 
-		    // and signed request each expire
-		    var $.user.uid = response.authResponse.userID;
-		    var $.user.accessToken = response.authResponse.accessToken;
-
-		    if(!$.user.logged_in) {
-			    FB.login(function(response) {
-	                var url = [location.protocol, '//', location.host, '/', $.video.slug].join(''); // , location.pathname
-	                window.location = url;
-	            }, {scope: 'email,user_likes,publish_actions'});
-		    }
-		    //doAutoLogin(uid);
-
-		    console.log('I am logged in and connected '+uid);
-		  } else if (response.status === 'not_authorized') {
-		    // the user is logged in to Facebook, 
-		    // but has not authenticated your app
-		    console.log('I am logged in but not authorised');
-		  } else {
-		    // the user isn't logged in to Facebook.
-		    console.log('I am logged out completely');
-		  }
- 		});
-
-		FB.Canvas.setAutoGrow();
-	  };
-
-	  // Load the SDK Asynchronously
-	  (function(d, s, id) {
-		var js, fjs = d.getElementsByTagName(s)[0];
-		if (d.getElementById(id)) return;
-		js = d.createElement(s); js.id = id;
-		js.src = "//connect.facebook.net/en_US/all.js";
-		fjs.parentNode.insertBefore(js, fjs);
-	  }(document, 'script', 'facebook-jssdk'));
 	  </script>
 
 	<div id="page-blur">
@@ -129,7 +174,7 @@
 
 				<div id="fb-login-wrapper">
 					<div id="facebook-login-btb">
-						<a href="#" class="fb-js-login">login with <span>facebook</span></a>
+						<a href="#" class="fb-js-login">watch with <span>facebook</span></a>
 					</div>
 				</div>
 				
