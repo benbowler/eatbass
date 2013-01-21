@@ -256,7 +256,7 @@ class api {
 		$reply=curl_exec($ch);
 		curl_close($ch);
 
-		echo json_encode(array('response' => true));
+		echo json_encode(array('response' => $reply));
 	}
 
 	public function schedule() 

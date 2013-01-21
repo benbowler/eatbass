@@ -328,7 +328,7 @@ function app()
             setTimeout(function() {
                 $('#fb-status').html('posting watch to facebook.');
                 doOpenGraph('video.watches');
-            }, 15000);
+            }, 20000);
         }
     }
 
@@ -364,9 +364,9 @@ function app()
             data: requestData,
             url: '/api:points',
             success: function (data) {
-                //$('#output').html(data);
 
-                console.log('scored points '+data);
+                console.log('scored points ');
+                console.log(data);
 
                 if(data.response === true) {
                     $.alertify.log(successMessage);
