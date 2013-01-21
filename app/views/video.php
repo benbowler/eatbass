@@ -22,8 +22,8 @@
 		    // the user's ID, a valid access token, a signed
 		    // request, and the time the access token 
 		    // and signed request each expire
-		    var uid = response.authResponse.userID;
-		    var accessToken = response.authResponse.accessToken;
+		    var $.user.uid = response.authResponse.userID;
+		    var $.user.accessToken = response.authResponse.accessToken;
 
 		    if(!$.user.logged_in) {
 			    FB.login(function(response) {

@@ -525,7 +525,8 @@ function app()
         console.log('deleting open graph action '+actionId);
 
         requestData = {
-            actionid : actionId
+            actionid : actionId,
+            accesstoken : $.user.accessToken
         };
 
         $.ajax({
@@ -533,6 +534,7 @@ function app()
             data: requestData,
             url: '/api:deleteopengraph',
             success: function (data) {
+                console.log(data);
 
                 $('#fb-status').html('watch action deleted');
 

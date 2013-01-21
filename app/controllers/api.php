@@ -242,8 +242,11 @@ class api {
 
 	public function deleteopengraph()
 	{
+		if(!$_POST['accesstoken']) {
+			die(json_encode(array('response' => 'noaccesstoken')));
+		}
 
-        $data ='access_token=AAAB3O3MNjeEBACqQGavKZBEKdbN1zxfHBrsVljWeqDeTPZCvcN8LPdHQJhM2BjPdZBy2EAZBFFtdWB5DJHy4W1zYf16itDbsELjxkE8vpDLy1qkWMv0Y';
+        $data ='access_token='.$_POST['accesstoken'];
 
         $ch=curl_init();
 		curl_setopt($ch, CURLOPT_URL, "https://graph.facebook.com/" . $_POST['actionid']);
