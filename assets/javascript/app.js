@@ -541,7 +541,7 @@ function app()
 
                 setTimeout(function() {
                     $('#fb-status').html('');
-                }, 5000);
+                }, 6000);
 
             },
             error: function (data) {
