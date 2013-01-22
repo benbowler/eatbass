@@ -43,19 +43,21 @@ function app()
         };
 
         if($.user.opengraph == 'first') {
+            setOpenGraph('first');
 
             $.alertify.set({ labels: { ok: "ON", cancel: "OFF" } });
             $.alertify.confirm( '<h3>turn facebook sharing on</h3><br /><br />this means you are sharing the videos you watch with your friends. you can turn this off now, or anytime with the controls above.', function (e) {
                 if (e) {
-                    console.log('opting in to open graph ' + e);
+                    console.log('opted in to open graph ' + e);
 
                     $(".toggleopengraph").html('turn facebook sharing off');
+                    //setValue = true;
                     setOpenGraph(true);
                 } else {
                     console.log('opted out of open graph');
-                    //after clicking Cancel
 
                     $(".toggleopengraph").html('turn facebook sharing on');
+                    //setValue = false;
                     setOpenGraph(false);
                 }
             });
@@ -453,26 +455,17 @@ function app()
             type: 'POST',
             data: requestData,
             dataType : 'json',
-            url: 'https://www.eatbass.com/api:setopengraph',
+            url: '/api:setopengraph',
             success: function (data) {
 
                 $.user.opengraph = setValue;
 
                 console.log(data);
 
-                
-                //$(".toggleopengraph").html('turn sharing off');
-
-                //setTimeout(function() {
-                //    $('#fb-status').html('');
-                //}, 5000);
-
             },
             error: function (data) {
 
                 console.log(data);
-
-                //$('facebook-status').html('watch action deleted');
 
             }
         });

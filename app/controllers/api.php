@@ -227,7 +227,7 @@ class api {
 	public function setopengraph()
 	{
 		if(!$_POST['user'] || !$_POST['opengraph']) {
-			die(json_encode($_POST));
+			die(json_encode(array('response' => 'nopostdata')));
 		}
 
 		$this->col = $this->db->users;

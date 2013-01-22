@@ -39,7 +39,7 @@
 					_id : "<?php echo $user['_id']; ?>",
 					logged_in : <?php echo ($user) ? 'true' : 'false' ; ?>,
 					subscribed : <?php echo ($user['subscribed']) ? 'true' : 'false' ; ?>,
-					opengraph : <?php echo ($user['opengraph'] == '') ? "'first'" : $user['opengraph'] ; ?>
+					opengraph : <?php echo ($user['opengraph'] == '' || $user['opengraph'] == 'first') ? "'first'" : $user['opengraph'] ; ?>
 				};
 				$.video = { 
 					_id : "<?php echo $video['_id']; ?>",
