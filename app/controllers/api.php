@@ -226,6 +226,10 @@ class api {
 
 	public function setopengraph()
 	{
+		if(!$_POST['user'] || !$_POST['opengraph']) {
+			die(json_encode($_POST));
+		}
+
 		$this->col = $this->db->users;
 
 		$update = array('opengraph' => $_POST['opengraph']);

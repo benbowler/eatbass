@@ -25,25 +25,6 @@ function app()
 
             $("#login").fadeOut();
 
-            if($.user.opengraph == 'first') {
-                alertify.set({ labels: { ok: "ON", cancel: "OFF" } });
-                alertify.confirm( '<h3>turn facebook sharing on</h3><br /><br />this means you are sharing the videos you watch with your friends. you can turn this off now, or anytime with the controls above.', function (e) {
-                    if (e) {
-                        console.log('opting in to open graph ' + e);
-
-                        $(".toggleopengraph").html('turn facebook sharing off');
-                        setOpenGraph(true);
-                    } else {
-                        console.log('opted out of open graph');
-                        //after clicking Cancel
-
-                        $(".toggleopengraph").html('turn facebook sharing on');
-                        setOpenGraph(false);
-                    }
-                });
-
-            }
-
             //setTimeout(updatePoints, 1000);
             /*
             alertify.confirm( 'invite your friends for +50 points', function (e) {
@@ -60,6 +41,25 @@ function app()
 
             // <div class="fb-like" data-href="http://facebook.com/eatbassnow" data-send="true" data-width="450" data-show-faces="true"></div>
         };
+
+        if($.user.opengraph == 'first') {
+
+            $.alertify.set({ labels: { ok: "ON", cancel: "OFF" } });
+            $.alertify.confirm( '<h3>turn facebook sharing on</h3><br /><br />this means you are sharing the videos you watch with your friends. you can turn this off now, or anytime with the controls above.', function (e) {
+                if (e) {
+                    console.log('opting in to open graph ' + e);
+
+                    $(".toggleopengraph").html('turn facebook sharing off');
+                    setOpenGraph(true);
+                } else {
+                    console.log('opted out of open graph');
+                    //after clicking Cancel
+
+                    $(".toggleopengraph").html('turn facebook sharing on');
+                    setOpenGraph(false);
+                }
+            });
+        }
 
         $.alertify.log('welcome to #eatbass');
 
@@ -451,9 +451,9 @@ function app()
 
         $.ajax({
             type: 'POST',
-            dataType : 'json',
             data: requestData,
-            url: '/api:setopengraph',
+            dataType : 'json',
+            url: 'https://www.eatbass.com/api:setopengraph',
             success: function (data) {
 
                 $.user.opengraph = setValue;
