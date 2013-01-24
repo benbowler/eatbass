@@ -326,7 +326,7 @@ function app()
         doPoints('play', '+1 point for watching');
 
         if($.user.opengraph) {
-            console.log('wait 15 seconds');
+            console.log('wait 20 seconds');
             setTimeout(function() {
                 $('#fb-status').html('posting watch to facebook.');
                 doOpenGraph('video.watches');
@@ -498,8 +498,8 @@ function app()
                     console.log('Open Graph error occured');
                     //fbJsLogin();
                     $('#fb-status').html('');
-                }
-                else {
+                } else {
+                    condole.log(response);
                     console.log('Action was successful! Action ID: ' + response.id);
                     $('#fb-status').html(actionName+' posted to facebook. <a href="#" data-actionid="'+response.id+'" class="delete_opengraph">delete</a>');
 
