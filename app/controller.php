@@ -57,9 +57,9 @@ class controller
                 'og:type' => 'video.other',
                 'og:url' => "https://" . $_SERVER['SERVER_NAME'] . "/" . $slug,
                 'og:image' => $video['media$group']['media$thumbnail'][2]['url'],
-                'og:title' => $video['title']['$t'] . ' ' . $this->data['site_title'],
+                //'og:title' => $video['title']['$t'] . ' ' . $this->data['site_title'],
                 'og:site_name' => $this->data['site_title'],
-                'og:description' =>  $description,
+                //'og:description' =>  $description,
                 'fb:app_id' => $this->data['appID'],
             );
 
