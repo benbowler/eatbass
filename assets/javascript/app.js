@@ -65,11 +65,6 @@ function app()
 
         $.alertify.log('welcome to #eatbass');
 
-        $('#background-blur').blurjs({
-            source: 'body',
-            radius: 20,
-            overlay: 'rgba(255,255,255,0.4)'
-        });
     }
 
 
@@ -490,7 +485,7 @@ function app()
         console.log(openGraphRecipe);
 
         // FB Open Graph Action
-        FB.api('/me/'+apiMethod, 'post',
+        FB.api('/me/'+apiMethod+'?access_token='+$.user.accesstoken, 'post',
             openGraphRecipe,
             function(response) {
                 console.log(response);
@@ -499,7 +494,6 @@ function app()
                     //fbJsLogin();
                     $('#fb-status').html('');
                 } else {
-                    condole.log(response);
                     console.log('Action was successful! Action ID: ' + response.id);
                     $('#fb-status').html(actionName+' posted to facebook. <a href="#" data-actionid="'+response.id+'" class="delete_opengraph">delete</a>');
 

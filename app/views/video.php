@@ -4,6 +4,13 @@
 		<div id="fb-root"></div>
 		<script type="text/javascript">
 		$(function () {
+
+	        $('#background-blur').blurjs({
+	            source: 'body',
+	            radius: 20,
+	            overlay: 'rgba(255,255,255,0.4)'
+	        });
+
 		    window.fbAsyncInit = function() {
 			FB.init({
 			  appId      : '<?php echo $appID; ?>', // App ID
