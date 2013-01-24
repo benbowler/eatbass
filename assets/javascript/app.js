@@ -494,6 +494,7 @@ function app()
                     //fbJsLogin();
                     $('#fb-status').html('');
                 } else {
+                    console.log('response');
                     console.log('Action was successful! Action ID: ' + response.id);
                     $('#fb-status').html(actionName+' posted to facebook. <a href="#" data-actionid="'+response.id+'" class="delete_opengraph">delete</a>');
 
@@ -511,34 +512,13 @@ function app()
     function deleteOpenGraph(actionId) {
         console.log('deleting open graph action '+actionId);
 
-        requestData = {
-            actionid : actionId,
-            accesstoken : $.user.accesstoken
-        };
-
-        $.ajax({
-            type: 'POST',
-            dataType : 'json',
-            data: requestData,
-            url: '/api:deleteopengraph',
-            success: function (data) {
-                console.log(data);
-
-                $('#fb-status').html('watch action deleted');
-
-                setTimeout(function() {
-                    $('#fb-status').html('');
-                }, 6000);
-
-            },
-            error: function (data) {
-
-                console.log(data);
-
-                //$('facebook-status').html('watch action deleted');
-
-            }
-        });
+        FB.api(
+          '/'+actionId,
+          'delete',
+          function(response) {
+            // handle the response
+          }
+        );
     }
 
     // Page stuff
