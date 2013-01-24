@@ -485,7 +485,7 @@ function app()
         console.log(openGraphRecipe);
 
         // FB Open Graph Action
-        FB.api('/me/'+apiMethod+'?access_token='+$.user.accesstoken, 'post',
+        FB.api('/me/'+apiMethod, 'post',
             openGraphRecipe,
             function(response) {
                 console.log(response);
