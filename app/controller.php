@@ -52,15 +52,15 @@ class controller
             ";
             
             $this->data['meta_tags'] = array(
-                //'title' => $video['title']['$t'] . ' ' . $this->data['site_title'],
-                //'description' => $description,
                 'og:type' => 'video.other',
                 'og:url' => "https://" . $_SERVER['SERVER_NAME'] . "/" . $slug,
                 'og:image' => $video['media$group']['media$thumbnail'][2]['url'],
-                //'og:title' => $video['title']['$t'] . ' ' . $this->data['site_title'],
+                'og:title' => $video['title']['$t'] . ' ' . $this->data['site_title'],
                 'og:site_name' => $this->data['site_title'],
                 //'og:description' =>  $description,
                 'fb:app_id' => $this->data['appID'],
+                'title' => $video['title']['$t'] . ' ' . $this->data['site_title'],
+                'description' => $description,
             );
 
             $this->data['title_tag'] = "&#9658; " . $video['title']['$t'] . ' ' . $this->data['site_title'];
