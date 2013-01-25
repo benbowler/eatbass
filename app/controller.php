@@ -52,8 +52,8 @@ class controller
             ";
             
             $this->data['meta_tags'] = array(
-                'title' => $video['title']['$t'] . ' ' . $this->data['site_title'],
-                'description' => $description,
+                //'title' => $video['title']['$t'] . ' ' . $this->data['site_title'],
+                //'description' => $description,
                 'og:type' => 'video.other',
                 'og:url' => "https://" . $_SERVER['SERVER_NAME'] . "/" . $slug,
                 'og:image' => $video['media$group']['media$thumbnail'][2]['url'],
