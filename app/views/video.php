@@ -69,7 +69,6 @@
 				    var accessToken = response.authResponse.accessToken;
 
 				    $.user.accesstoken = accessToken;
-				    console.log($.user.accesstoken);
 
 					if(!$.user.logged_in) {
 						// @todo: need to double up??
@@ -138,13 +137,13 @@
 
 			</header>
 
+			<section id="player">
+					<div id="player-yt"></div>
+			</section>
+
 			<section id="social">
 				<strong id="fb-status"></strong>
 				<a href="#" class="toggleopengraph"><?php echo ($user['opengraph']) ? 'turn facebook sharing off' : 'turn facebook sharing on' ; ?></a>
-			</section>
-
-			<section id="player">
-					<div id="player-yt"></div>
 			</section>
 
 			<section id="text">

@@ -18,6 +18,8 @@
 		<script type='text/javascript' src='assets/javascript/tubeplayer/jQuery.tubeplayer.min.js'></script>
 		<script type='text/javascript' src="assets/javascript/history.js/scripts/bundled/html4+html5/jquery.history.js"></script>
 		<script type='text/javascript' src="assets/javascript/blur.min.js"></script>
+		<script type='text/javascript' src="assets/javascript/spin.js/spin.js"></script>
+		<script type='text/javascript' src="assets/javascript/jquery.spin.js"></script>
 
 		<link rel="stylesheet" type="text/css" href="assets/javascript/alertify.js/themes/alertify.core.css" />
 		<link rel="stylesheet" type="text/css" href="assets/javascript/alertify.js/themes/alertify.default.css" />

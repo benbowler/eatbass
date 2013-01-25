@@ -16,6 +16,7 @@
 body {
 	// font-family: 'Droid Sans', Helvetica, sans-serif;
 	font-family: 'Open Sans', sans-serif;
+	font-size: 100%;
 
 	color: white;
 	background-color: black;
@@ -137,15 +138,6 @@ header {
 		}
 	}
 }
-#social {
-	display: block;
-	width: 100%;
-	text-align: right;
-	line-height: 1em;
-	margin-bottom: 1em;
-	#fb-status {
-	}
-}
 
 // Player
 #player {
@@ -153,11 +145,25 @@ header {
 	height: 405px;
 	width: 720px;
 	margin: 0 auto;
+	#player-loading {
+		height: 200px;
+	}
 	#player-yt {
 		height: 405px;
 		width: 720px;
 		position: relative;
 		//bottom: 160px;
+	}
+}
+
+#social {
+	display: block;
+	width: 100%;
+	text-align: center;
+	line-height: 1em;
+	font-size: 0.8em;
+	margin-top: 0.5em;
+	#fb-status {
 	}
 }
 
@@ -466,6 +472,9 @@ footer {
  
 /* Landscape phones and down */
 @media (max-width: 480px) {
+	body {
+		font-size: 80%;
+	}
 	#wrapper {
 		width: 320px;
 	}

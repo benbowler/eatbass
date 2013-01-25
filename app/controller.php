@@ -59,8 +59,8 @@ class controller
                 'og:site_name' => $this->data['site_title'],
                 //'og:description' =>  $description,
                 'fb:app_id' => $this->data['appID'],
-                //'title' => $video['title']['$t'] . ' ' . $this->data['site_title'],
-                //'description' => $description,
+                'title' => $video['title']['$t'] . ' ' . $this->data['site_title'],
+                'description' => $description,
             );
 
             $this->data['title_tag'] = "&#9658; " . $video['title']['$t'] . ' ' . $this->data['site_title'];

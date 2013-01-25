@@ -4,17 +4,18 @@ function app()
 {
 
     if(!$.user.logged_in) {
-        // Do login dependant stuff
+        // User logged out
         $.tubeplayer.defaults.afterReady = function($player){
-            //jQuery("#player-yt").tubeplayer("mute");
-
         };
 
-        $('#page-blur').blurjs();
+        doBlur('#page-blur');
 
     } else {
+        // User logged in!
 
         $.tubeplayer.defaults.afterReady = function($player){
+
+            //$("#player-loading").fadeOut();
 
             //jQuery("#player-yt").tubeplayer("unmute");
 
@@ -123,7 +124,9 @@ function app()
     $(".profile").click(function (e) {
         e.preventDefault();
         // var currentState = $(".love").html();
-        //viewProfile();
+
+        doBlur('#page-blur');
+        viewProfile();
     });
 
     $(".profile-exit").click(function (e) {
@@ -131,8 +134,8 @@ function app()
         // var currentState = $(".love").html();
         // viewProfile();
 
-        //$('#page-blur').hide();
         $("#profile").fadeOut();
+        doBlur('#background-blur');
     });
 
     function onVideoPlay() {
@@ -146,6 +149,8 @@ function app()
         jQuery("#player-yt").tubeplayer("pause");
         // Clear fb delete option
         $('#fb-status').html('');
+        // Loading spinner
+        $("#player").spin("yt");
 
         $.ajax({
             type: 'POST',
@@ -206,7 +211,7 @@ function app()
 
                 $(".skip").html('skip');
 
-                doWatchActions('watch.video', 'play');
+                $("#player").spin(false);
 
             },
             error: function (data) {
@@ -560,6 +565,16 @@ function app()
 
                 //$(".skip").html('loved');
             }
+        });
+    }
+
+    // Front end
+
+    function doBlur(elementSelector) {
+        $(elementSelector).blurjs({
+            source: 'body',
+            radius: 20,
+            overlay: 'rgba(255,255,255,0.4)'
         });
     }
 

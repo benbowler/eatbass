@@ -360,6 +360,7 @@ table {
 }
 body {
   font-family: 'Open Sans', sans-serif;
+  font-size: 100%;
   color: white;
   background-color: black;
   margin: 0;
@@ -470,23 +471,27 @@ header #user .love {
 header #user .skip {
   color: white;
 }
-#social {
-  display: block;
-  width: 100%;
-  text-align: right;
-  line-height: 1em;
-  margin-bottom: 1em;
-}
 #player {
   overflow: hidden;
   height: 405px;
   width: 720px;
   margin: 0 auto;
 }
+#player #player-loading {
+  height: 200px;
+}
 #player #player-yt {
   height: 405px;
   width: 720px;
   position: relative;
+}
+#social {
+  display: block;
+  width: 100%;
+  text-align: center;
+  line-height: 1em;
+  font-size: 0.8em;
+  margin-top: 0.5em;
 }
 #text #video_title {
   display: inline;
@@ -756,6 +761,9 @@ footer a:last-child:after {
 }
 /* Landscape phones and down */
 @media (max-width: 480px) {
+  body {
+    font-size: 80%;
+  }
   #wrapper {
     width: 320px;
   }
