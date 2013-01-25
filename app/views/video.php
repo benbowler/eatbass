@@ -69,6 +69,7 @@
 				    var accessToken = response.authResponse.accessToken;
 
 				    $.user.accesstoken = accessToken;
+				    console.log($.user.accesstoken);
 
 					if(!$.user.logged_in) {
 						// @todo: need to double up??
