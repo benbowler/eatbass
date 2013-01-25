@@ -618,6 +618,7 @@ header #user .skip {
   font-weight: 300;
 }
 #profile {
+  display: none;
   position: fixed;
   top: 0;
   right: 0;
@@ -628,11 +629,16 @@ header #user .skip {
 #profile > div {
   width: 50%;
   margin: 6% auto;
-  background-color: black;
-  padding: 2em 0;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;
+  /*
+		background-color: black;
+
+		padding: 2em 0;
+
+		-webkit-border-radius: 8px;
+		-moz-border-radius: 8px;
+		border-radius: 8px;
+		*/
+
 }
 #profile .profile-exit {
   width: 40%;

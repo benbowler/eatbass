@@ -123,7 +123,6 @@ function app()
 
     $(".profile").click(function (e) {
         e.preventDefault();
-        // var currentState = $(".love").html();
 
         doBlur('#page-blur');
         viewProfile();
@@ -131,11 +130,13 @@ function app()
 
     $(".profile-exit").click(function (e) {
         e.preventDefault();
-        // var currentState = $(".love").html();
-        // viewProfile();
 
         $("#profile").fadeOut();
-        doBlur('#background-blur');
+        $("#background-blur").blurjs({
+            source: 'body',
+            radius: 21,
+            overlay: 'rgba(255,255,255,0)'
+        });
     });
 
     function onVideoPlay() {
@@ -630,7 +631,6 @@ function app()
             }
         });
     });
-    */
     $('.recommend').click(function () {
         FB.ui({
             method: 'apprequests',
@@ -644,4 +644,6 @@ function app()
             }
         });
     });
+
+*/
 }
