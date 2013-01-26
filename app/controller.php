@@ -77,7 +77,7 @@ class controller
                 'description' => $description,
                 'og:type' => 'website',
                 'og:url' => "https://" . $_SERVER['SERVER_NAME'] . "/",
-                'og:image' => $video['media$group']['media$thumbnail'][2]['url'],
+                'og:image' => "https://" . $_SERVER['SERVER_NAME'] . "/assets/images/share.jpg",
                 'og:site_name' => $this->data['site_title'],
                 'og:title' => $this->data['site_title'] . ' | ' . $this->data['site_description'],
                 'og:description' =>  $description,

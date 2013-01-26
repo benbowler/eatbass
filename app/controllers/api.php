@@ -324,9 +324,6 @@ class api {
 		// Config
 		$userId = "eatbassnow";
 
-		// Select collection
-		$this->col = $this->db->videos;
-
 		echo 'Schedule<br />';
 
 		# insert a document
@@ -352,7 +349,7 @@ class api {
 
 			foreach($subscriptions->feed->entry as $subscription) {
 
-				//$this->_store_channel($subscription);
+				die($this->_store_channel($subscription));
 
 				$channelId = $subscription->{'yt$username'}->{'$t'};
 				echo "Begining $channelId <br />";
@@ -370,7 +367,8 @@ class api {
 					$startIndex_v = $startIndex_v + 50;
 					$totalResults_v = $videos->feed->{'openSearch$totalResults'}->{'$t'};
 
-					$this->_store_videos($videos);
+					//////////////////////////// REENABLE VIDEOS UPDATING
+					//$this->_store_videos($videos);
 				}
 			}
 
@@ -387,36 +385,52 @@ class api {
 	function _store_channel($channel)
 	{
 
+		// Select collection
+		$this->col = $this->db->channels;
+		/*
+			try {
+			  $this->col->insert($channel, true);
+			  echo "$this->total_channels Added {$video->title->{'$t'}}<br />";
+			} catch(MongoCursorException $e) {
+			  $this->col->update(array('_id' => $video->_id), $video);
+			  echo "$this->total_channels Updated {$video->title->{'$t'}}<br />";
+			}
+
+			$this->total_channels++;
+			*/
 	}
 
 	function _store_videos($videos)
 	{
+
+		// Select collection
+		$this->col = $this->db->videos;
 			
 			foreach($videos->feed->entry as $video) {
 				if($video->{'media$group'}->{'yt$duration'}->seconds <= 600) {
 
-				  $video->_id = $video->id->{'$t'};
-				  $video->slug = $this->_to_ascii($video->title->{'$t'});
+					$video->_id = $video->id->{'$t'};
+					$video->slug = $this->_to_ascii($video->title->{'$t'});
 
-				  $video->date = new MongoDate(strtotime($video->published->{'$t'}));
-				  $video->updated = new MongoDate(date('U'));
-				  //$video->date = ISODate(date('U', strtotime($video->published->{'$t'}));
+					$video->date = new MongoDate(strtotime($video->published->{'$t'}));
+					$video->updated = new MongoDate(date('U'));
+					//$video->date = ISODate(date('U', strtotime($video->published->{'$t'}));
 
-				  include_once($_SERVER['DOCUMENT_ROOT'].'/app/modules/lib_autlink/lib_autolink.php');
-				  $video->html_description = nl2br(autolink(($video->{'media$group'}->{'media$description'}->{'$t'})));
+					include_once($_SERVER['DOCUMENT_ROOT'].'/app/modules/lib_autlink/lib_autolink.php');
+					$video->html_description = nl2br(autolink(($video->{'media$group'}->{'media$description'}->{'$t'})));
 
-				  $video->ytFavorites = $video->{'yt$statistics'}->favoriteCount;
-				  $video->ytViews = $video->{'yt$statistics'}->viewCount;
-				  $video->ytLikes = $video->{'yt$rating'}->numLikes;
-				  $video->ytDislikes = $video->{'yt$rating'}->numDislikes;
+					$video->ytFavorites = $video->{'yt$statistics'}->favoriteCount;
+					$video->ytViews = $video->{'yt$statistics'}->viewCount;
+					$video->ytLikes = $video->{'yt$rating'}->numLikes;
+					$video->ytDislikes = $video->{'yt$rating'}->numDislikes;
 
-				  try {
+					try {
 					  $this->col->insert($video, true);
 					  echo "$this->count Added {$video->title->{'$t'}}<br />";
-				  } catch(MongoCursorException $e) {
+					} catch(MongoCursorException $e) {
 					  $this->col->update(array('_id' => $video->_id), $video);
 					  echo "$this->count Updated {$video->title->{'$t'}}<br />";
-				  }
+					}
 				} else {
 				  echo "$this->count Skipped {$video->title->{'$t'}} (Too long)<br />";
 				}
