@@ -14,6 +14,7 @@ function app()
         // User logged in!
 
         makeLinksExternal();
+        //viewProfile();
 
         $.tubeplayer.defaults.afterReady = function($player){
 
@@ -407,7 +408,7 @@ function app()
             url: '/api:userpoints',
             success: function (data) {
                 console.log(data);
-                if(data === 0) {
+                if(data === 0 || isNaN(data)) {
                     setTimeout(updatePoints(), 1000);
                 } else {
                     $("#points").html(data);
@@ -539,8 +540,7 @@ function app()
 
         //$('#page-blur').blurjs();
         $("#profile").fadeIn();
-
-        // @todo: load userdata?
+        $("#profile_videos").spin("yt");
 
         requestData = {
             user : $.user._id
@@ -555,16 +555,29 @@ function app()
 
                 console.log(data);
 
+                $("#profile_videos").spin(false);
                 $("#profile_videos").html(data);
-
                 /*
-                data.forEach(function (video) {
-                    console.log(video);
+
+                data.forEach(function (videoId) {
+                    console.log(videoId);
+
+                    requestData = {
+                        video : videoId
+                    };
+
+                    $.ajax({
+                        type: 'POST',
+                        data: requestData,
+                        dataType : 'json',
+                        url: '/api:video',
+                        success: function (videoData) {
+
+                            $("#profile_videos").append(videoData);
+                        }
+                    });
                 });
                 */
-                //$("#points").fadeOut(100).fadeIn(500);
-                //$(".love").html('love');
-                //$.alertify.success('+10 points');
             },
             error: function (data) {
 

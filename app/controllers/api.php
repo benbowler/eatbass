@@ -199,7 +199,11 @@ class api {
 	{
 		$this->col = $this->db->videos;
 
-		$video = $this->col->find()->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
+		if($_POST['video']) {
+			$video = $this->col->findOne(array('video' => $_POST['video']));
+		} else {
+			$video = $this->col->find()->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
+		}
 
 		echo json_encode($video);
 
@@ -208,29 +212,67 @@ class api {
 
 	// @todo: Profile data response..
 
-	public function profilehtml()
+	public function profile()
 	{
 		//die('your loved videos are being saved and will show up here sooooon ;)');
 		$this->col = $this->db->loves;
 
-		$videos = $this->col->find(array('user' => $_POST['user']))->limit(10); //->skip(rand(-1, $this->col->count()-1))->getNext();
+		$videos = $this->col->find(array('user' => $_POST['user'])); //->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
 
-		//die(var_dump($_POST['user']));
+		$return = array();
 
 		foreach ($videos as $video) {
-			var_dump($video);
-			//$this->col = $this->db->videos;
+			//var_dump($video['video']);
+			array_push($return, $video['video']); 
+			//echo json_encode($video);
+			//$this->col_videos = $this->db->videos;
 
-			//echo $this->_video_view($this->col->findOne(array('_id' => $video->_id)));
+			//var_dump($this->col_videos->find(array('_id' => $video->video)));
 		}
-		//echo json_encode($video);
+		echo json_encode($return);
 
 		$this->m->close();
 	}
 
-	private function _video_view($video)
+	public function profilehtml()
 	{
-		return var_dump($video);
+		$this->col = $this->db->loves;
+
+		$videos = $this->col->find(array('user' => $_POST['user'])); //->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
+
+		foreach ($videos as $video) {
+
+			echo $this->_video_view($video['video']);
+		}
+
+		$this->m->close();
+	}
+
+	private function _video_view($video_id)
+	{
+		$this->col_video = $this->db->videos;
+		$video = $this->col_video->findOne(array('video' => $video_id));
+
+		$data = array(
+					'slug' => $video['slug'],
+					'title' => $video['title']['$t'],
+			        'author' => $video['author'][0]['name']['$t'],
+		            'description' => substr($video['media$group']['media$description']['$t'], 0, 25),
+		            'html_description' => $video['html_description'],
+					'picture' => str_replace('http', 'https', $video['media$group']['media$thumbnail'][0]['url']),
+					'ytID' => $video['media$group']['yt$videoid']['$t']
+					);
+
+		$return = "
+		<div>
+			<img src='{$data['picture']}' />
+			<h4><a href='/{$data['slug']}'>{$data['title']}</a></h4>
+			<p>{$data['description']}</p>
+			<a href='#'>{$data['author']}</a>
+		</div>
+		";
+
+		return $return;
 	}
 
 	public function setopengraph()
