@@ -206,22 +206,31 @@ class api {
 		$this->m->close();
 	}
 
-	public function profile()
+	// @todo: Profile data response..
+
+	public function profilehtml()
 	{
-		die('your loved videos are being saved and will show up here sooooon ;)');
+		//die('your loved videos are being saved and will show up here sooooon ;)');
 		$this->col = $this->db->loves;
 
-		$videos = $this->col->find(array('user' => $_POST['user'])); //->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
+		$videos = $this->col->find(array('user' => $_POST['user']))->limit(10); //->skip(rand(-1, $this->col->count()-1))->getNext();
+
+		//die(var_dump($_POST['user']));
 
 		foreach ($videos as $video) {
 			var_dump($video);
-			//$this->col_videos = $this->db->videos;
+			//$this->col = $this->db->videos;
 
-			//var_dump($this->col_videos->find(array('_id' => $video->video)));
+			//echo $this->_video_view($this->col->findOne(array('_id' => $video->_id)));
 		}
 		//echo json_encode($video);
 
 		$this->m->close();
+	}
+
+	private function _video_view($video)
+	{
+		return var_dump($video);
 	}
 
 	public function setopengraph()

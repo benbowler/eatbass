@@ -17,10 +17,10 @@ $("#el").spin(false); // Kills the spinner.
 			"small": { lines: 8, length: 4, width: 3, radius: 5 },
 			"large": { lines: 10, length: 8, width: 4, radius: 8 },
 			"yt" : {
-					lines: 9, // The number of lines to draw
+					lines: 8, // The number of lines to draw
 					length: 0, // The length of each line
 					width: 8, // The line thickness
-					radius: 10, // The radius of the inner circle
+					radius: 8, // The radius of the inner circle
 					corners: 1, // Corner roundness (0..1)
 					rotate: 0, // The rotation offset
 					color: '#FFFFFF', // #rgb or #rrggbb

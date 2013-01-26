@@ -13,6 +13,8 @@ function app()
     } else {
         // User logged in!
 
+        makeLinksExternal();
+
         $.tubeplayer.defaults.afterReady = function($player){
 
             //$("#player-loading").fadeOut();
@@ -20,9 +22,6 @@ function app()
             //jQuery("#player-yt").tubeplayer("unmute");
 
             doPoints('return', '+20 for logging in today', 'come back again tomorrow for +20');
-
-            // Make description links external @todo: move after video load
-            $("#video_description a[href^='http://']").attr("target","_blank");
 
             $("#login").fadeOut();
 
@@ -182,10 +181,11 @@ function app()
                 $('#video_title').html(video.title.$t);
                 $('#video_author').html(video.author[0].name.$t);
                 $('#video_description').html(video.html_description);
+                makeLinksExternal();
                 $('.channel').attr('href', 'http://youtube.com/user/'+video.author[0].name.$t);
 
                 var picture = video.media$group.media$thumbnail[1].url.replace('http', 'https');
-                console.log(picture);
+                // console.log(picture);
                 $('#background-blur').css('background-image', 'url(' + picture + ')');
 
                 _gaq.push(['_trackPageview', '/' + video.slug]);
@@ -549,11 +549,19 @@ function app()
         $.ajax({
             type: 'POST',
             data: requestData,
-            url: '/api:profile',
+            //dataType : 'json',
+            url: '/api:profilehtml',
             success: function (data) {
+
+                console.log(data);
 
                 $("#profile_videos").html(data);
 
+                /*
+                data.forEach(function (video) {
+                    console.log(video);
+                });
+                */
                 //$("#points").fadeOut(100).fadeIn(500);
                 //$(".love").html('love');
                 //$.alertify.success('+10 points');
@@ -562,9 +570,12 @@ function app()
 
                 $.alertify.error('error loading profile :(');
 
-                //alert('Error un-loving track :(');  /// @todo: custom alert
-
-                //$(".skip").html('loved');
+                $("#profile").fadeOut();
+                $("#background-blur").blurjs({
+                    source: 'body',
+                    radius: 21,
+                    overlay: 'rgba(255,255,255,0)'
+                });
             }
         });
     }
@@ -577,6 +588,11 @@ function app()
             radius: 20,
             overlay: 'rgba(255,255,255,0.4)'
         });
+    }
+
+    function makeLinksExternal() {
+        // Make description links external
+        $("#video_description a[href^='http://']").attr("target","_blank");
     }
 
     // Facebook
