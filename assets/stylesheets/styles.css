@@ -553,7 +553,6 @@ header #user .skip {
   font-weight: 300;
 }
 #login > div #fb-login-wrapper {
-  width: 250px;
   height: 36px;
   margin: 0 auto;
   position: relative;
@@ -782,6 +781,9 @@ footer a:last-child:after {
     padding-left: 0;
     float: left;
   }
+  #login h3 em {
+    display: block;
+  }
   #login > div #fb-js-login-ad {
     width: 100%;
   }
@@ -825,6 +827,9 @@ footer a:last-child:after {
   header #user .profile {
     padding-left: 0;
     float: left;
+  }
+  #login h3 em {
+    display: block;
   }
   #login > div #fb-js-login-ad {
     width: 100%;
