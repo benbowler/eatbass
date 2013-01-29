@@ -340,7 +340,7 @@ header {
 	}
 	.profile {
 		width: 40%;
-		padding: 0 5%;
+		padding: 0 5% 1em;
 
 		font-size: 2em;
 
@@ -362,13 +362,38 @@ header {
 	}
 	#profile_videos {
 		width: 100%;
+		padding: 0 5%;
+
 		height: 20em;
 
 		overflow: scroll;
 
-		margin-top: 1em;
 		display: block;
 		clear: both;
+		> div {
+			display: block;
+			height: 100px;
+			img {
+				float: left;
+				margin-right: 0.6em;
+			}
+			h4 {
+				font-size: 1em;
+				text-align: left;
+				a:first-child {
+					width: 47%;
+					text-overflow: ellipsis;
+					display: inline-block;
+					overflow: hidden;
+					height: 2em;
+					line-height: 2em;
+				}
+			}
+			p {
+				font-size: 0.8em;
+				text-align: left;
+			}
+		}
 	}
 }
 
@@ -465,10 +490,14 @@ footer {
 			}
 		}
 	}
-	#login > div #fb-js-login {
-		width: 100%;
-		img {
-			width: 90%;
+
+	#login {
+		#facebook-login-btb {}
+		> div #fb-js-login-ad {
+			width: 100%;
+			img {
+				width: 100%;
+			}
 		}
 	}
 }
@@ -497,6 +526,10 @@ footer {
 			float: none;
 
 			text-align: center;
+
+			em {
+				display: block;
+			}
 		}	
 		#user {
 			width: 100%;
@@ -509,12 +542,14 @@ footer {
 			}
 		}
 	}
-	/*
-	#login > div #fb-js-login {
-		width: 100%;
-		img {
-			width: 70%;
+
+	#login {
+		#facebook-login-btb {}
+		> div #fb-js-login-ad {
+			width: 100%;
+			img {
+				width: 100%;
+			}
 		}
 	}
-	*/
 }

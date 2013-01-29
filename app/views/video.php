@@ -5,9 +5,9 @@
 		<script type="text/javascript">
 		$(function () {
 
-	        $('#background-blur').blurjs({
+	        $('#page-blur').blurjs({
 	            source: 'body',
-	            radius: 20,
+	            radius: 19,
 	            overlay: 'rgba(255,255,255,0.4)'
 	        });
 
@@ -32,12 +32,6 @@
 					title : "<?php echo $site_title; ?>",
 					description : "<?php echo $site_description; ?>",
 				};
-/*
-				FB.login(function(response) {
-				    if (response.authResponse) {
-				        var accessToken = response.authResponse.accessToken;
-				    }
-				});*/
 
 				// @todo: Check if this is needed?
 				$.alertify = alertify;

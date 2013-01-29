@@ -651,7 +651,7 @@ header #user .skip {
 }
 #profile .profile {
   width: 40%;
-  padding: 0 5%;
+  padding: 0 5% 1em;
   font-size: 2em;
   float: left;
   text-align: left;
@@ -670,11 +670,35 @@ header #user .skip {
 }
 #profile #profile_videos {
   width: 100%;
+  padding: 0 5%;
   height: 20em;
   overflow: scroll;
-  margin-top: 1em;
   display: block;
   clear: both;
+}
+#profile #profile_videos > div {
+  display: block;
+  height: 100px;
+}
+#profile #profile_videos > div img {
+  float: left;
+  margin-right: 0.6em;
+}
+#profile #profile_videos > div h4 {
+  font-size: 1em;
+  text-align: left;
+}
+#profile #profile_videos > div h4 a:first-child {
+  width: 47%;
+  text-overflow: ellipsis;
+  display: inline-block;
+  overflow: hidden;
+  height: 2em;
+  line-height: 2em;
+}
+#profile #profile_videos > div p {
+  font-size: 0.8em;
+  text-align: left;
 }
 .alertify {
   top: 100px !important;
@@ -758,11 +782,11 @@ footer a:last-child:after {
     padding-left: 0;
     float: left;
   }
-  #login > div #fb-js-login {
+  #login > div #fb-js-login-ad {
     width: 100%;
   }
-  #login > div #fb-js-login img {
-    width: 90%;
+  #login > div #fb-js-login-ad img {
+    width: 100%;
   }
 }
 /* Landscape phones and down */
@@ -789,6 +813,9 @@ footer a:last-child:after {
     float: none;
     text-align: center;
   }
+  header h3 em {
+    display: block;
+  }
   header #user {
     width: 100%;
     display: block;
@@ -799,12 +826,10 @@ footer a:last-child:after {
     padding-left: 0;
     float: left;
   }
-  /*
-  	#login > div #fb-js-login {
-  		width: 100%;
-  		img {
-  			width: 70%;
-  		}
-  	}
-  	*/
+  #login > div #fb-js-login-ad {
+    width: 100%;
+  }
+  #login > div #fb-js-login-ad img {
+    width: 100%;
+  }
 }

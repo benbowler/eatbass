@@ -236,6 +236,10 @@ class api {
 
 	public function profilehtml()
 	{
+		if(!$_POST['user']) {
+			die('false'); //json_encode(array('response' => 'unspecified user')));
+		}
+
 		$this->col = $this->db->loves;
 
 		$videos = $this->col->find(array('user' => $_POST['user'])); //->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
@@ -250,29 +254,41 @@ class api {
 
 	private function _video_view($video_id)
 	{
+		//var_dump($video_id);
+
 		$this->col_video = $this->db->videos;
-		$video = $this->col_video->findOne(array('video' => $video_id));
+		$video = $this->col_video->findOne(array('_id' => $video_id));
 
-		$data = array(
-					'slug' => $video['slug'],
-					'title' => $video['title']['$t'],
-			        'author' => $video['author'][0]['name']['$t'],
-		            'description' => substr($video['media$group']['media$description']['$t'], 0, 25),
-		            'html_description' => $video['html_description'],
-					'picture' => str_replace('http', 'https', $video['media$group']['media$thumbnail'][0]['url']),
-					'ytID' => $video['media$group']['yt$videoid']['$t']
-					);
+		//var_dump($video);
+		if($video) {
 
-		$return = "
-		<div>
-			<img src='{$data['picture']}' />
-			<h4><a href='/{$data['slug']}'>{$data['title']}</a></h4>
-			<p>{$data['description']}</p>
-			<a href='#'>{$data['author']}</a>
-		</div>
-		";
+			$data = array(
+						'slug' => $video['slug'],
+						'title' => $video['title']['$t'],
+				        'author' => $video['author'][0]['name']['$t'],
+			            'description' => substr($video['media$group']['media$description']['$t'], 0, 50),
+			            'html_description' => $video['html_description'],
+						'picture' => str_replace('http', 'https', $video['media$group']['media$thumbnail'][0]['url']),
+						'ytID' => $video['media$group']['yt$videoid']['$t']
+						);
 
-		return $return;
+			$return = "
+			<div>
+				<img src='{$data['picture']}' />
+				<h4>
+					<a href='/{$data['slug']}'>{$data['title']}</a>
+					<a href='#'>{$data['author']}</a>
+				</h4>
+				<p>{$data['description']}</p>
+			</div>
+			";
+
+			return $return;
+
+		}
+
+		return false;
+
 	}
 
 	public function setopengraph()
@@ -387,6 +403,11 @@ class api {
 
 		// Select collection
 		$this->col = $this->db->channels;
+		
+		die(var_dump($channel));
+
+		die(var_dump($this->_api_request("https://www.googleapis.com/youtube/v3/channels?part=snippet&id=EKpCRLLRd27Xex06grNGEA&key=AIzaSyDuMSI5Hv5hRdpsDUEmN8q1U2RlOy23RB4")));
+
 		/*
 			try {
 			  $this->col->insert($channel, true);
@@ -395,8 +416,6 @@ class api {
 			  $this->col->update(array('_id' => $video->_id), $video);
 			  echo "$this->total_channels Updated {$video->title->{'$t'}}<br />";
 			}
-
-			$this->total_channels++;
 			*/
 	}
 

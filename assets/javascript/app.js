@@ -5,13 +5,16 @@ function app()
 
     if(!$.user.logged_in) {
         // User logged out
+
+        //doBlur('#page-blur');
+
         $.tubeplayer.defaults.afterReady = function($player){
         };
 
-        doBlur('#page-blur');
-
     } else {
         // User logged in!
+
+        doBlur('#background-blur');
 
         makeLinksExternal();
         //viewProfile();
@@ -137,6 +140,16 @@ function app()
             radius: 21,
             overlay: 'rgba(255,255,255,0)'
         });
+    });
+
+    $(".add-to-page").click(function (e) {
+        // calling the API ...
+        var obj = {
+          method: 'pagetab',
+          redirect_uri: window.location
+        };
+
+        FB.ui(obj);
     });
 
     function onVideoPlay() {
@@ -540,7 +553,7 @@ function app()
 
         //$('#page-blur').blurjs();
         $("#profile").fadeIn();
-        $("#profile_videos").spin("yt");
+        $("#profile").spin("yt");
 
         requestData = {
             user : $.user._id
@@ -555,7 +568,14 @@ function app()
 
                 console.log(data);
 
-                $("#profile_videos").spin(false);
+                if(data === 'false') {
+                    setTimeout(function () {
+                        viewProfile();
+                    }, 2000);
+                    return;
+                }
+
+                $("#profile").spin(false);
                 $("#profile_videos").html(data);
                 /*
 
