@@ -365,7 +365,7 @@ class api {
 
 			foreach($subscriptions->feed->entry as $subscription) {
 
-				die($this->_store_channel($subscription));
+				//$this->_store_channel($subscription);
 
 				$channelId = $subscription->{'yt$username'}->{'$t'};
 				echo "Begining $channelId <br />";
@@ -384,7 +384,7 @@ class api {
 					$totalResults_v = $videos->feed->{'openSearch$totalResults'}->{'$t'};
 
 					//////////////////////////// REENABLE VIDEOS UPDATING
-					//$this->_store_videos($videos);
+					$this->_store_videos($videos);
 				}
 			}
 
@@ -398,25 +398,26 @@ class api {
 		$this->m->close();
 	}
 
-	function _store_channel($channel)
+	function _store_channel($channel_id)
 	{
 
 		// Select collection
-		$this->col = $this->db->channels;
+		//$this->col = $this->db->channels;
 		
-		die(var_dump($channel));
+		//die(var_dump($channel_id));
 
-		die(var_dump($this->_api_request("https://www.googleapis.com/youtube/v3/channels?part=snippet&id=EKpCRLLRd27Xex06grNGEA&key=AIzaSyDuMSI5Hv5hRdpsDUEmN8q1U2RlOy23RB4")));
+		//$channel['_id'] = $channel;
 
+		die(var_dump($this->_api_request("https://www.googleapis.com/youtube/v3/channels?part=snippet&id={$channel_id}&key=AIzaSyDuMSI5Hv5hRdpsDUEmN8q1U2RlOy23RB4")));
 		/*
-			try {
-			  $this->col->insert($channel, true);
-			  echo "$this->total_channels Added {$video->title->{'$t'}}<br />";
-			} catch(MongoCursorException $e) {
-			  $this->col->update(array('_id' => $video->_id), $video);
-			  echo "$this->total_channels Updated {$video->title->{'$t'}}<br />";
-			}
-			*/
+		try {
+		  $this->col->insert($channel, true);
+		  echo "$this->total_channels Added {$video->title->{'$t'}}<br />";
+		} catch(MongoCursorException $e) {
+		  $this->col->update(array('_id' => $channel->_id), $video);
+		  echo "$this->total_channels Updated {$video->title->{'$t'}}<br />";
+		}
+		*/
 	}
 
 	function _store_videos($videos)
