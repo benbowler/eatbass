@@ -784,6 +784,9 @@ footer a:last-child:after {
   #login h3 em {
     display: block;
   }
+  #login > div #fb-login-wrapper #facebook-login-btb {
+    font-size: 95%;
+  }
   #login > div #fb-js-login-ad {
     width: 100%;
   }
@@ -828,8 +831,14 @@ footer a:last-child:after {
     padding-left: 0;
     float: left;
   }
+  #login > div > p {
+    font-size: 10px;
+  }
   #login h3 em {
     display: block;
+  }
+  #login > div #fb-login-wrapper #facebook-login-btb {
+    font-size: 95%;
   }
   #login > div #fb-js-login-ad {
     width: 100%;
