@@ -178,10 +178,11 @@
 						<a href="#" class="fb-js-login">watch with <span>facebook</span></a>
 					</div>
 				</div>
-				
+				<!--
 				<div id="fb-facepile-wrapper">
 					<iframe src="//www.facebook.com/plugins/facepile.php?href=https%3A%2F%2Fapps.facebook.com%2Featbass&amp;action&amp;size=medium&amp;max_rows=1&amp;width=300&amp;colorscheme=light&amp;appId=131097217043937" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:300px;" allowTransparency="true"></iframe>
 				</div>
+				-->
 
 				<a href="#" id="fb-js-login-ad" class="fb-js-login">
 					<img src="/assets/info/winning_ad_jan.jpg" />
@@ -201,6 +202,10 @@
 
 		<section>
 			<?php //var_dump($top_ikes); ?>
+		</section>
+
+		<section>
+			<?php echo $site_about; ?>
 		</section>
 
 	<?php } ?>
