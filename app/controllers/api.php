@@ -80,11 +80,41 @@ class api {
 		$this->m->close();
 	}
 
+	public function featured()
+	{
+		$this->col = $this->db->videos;
+
+		if($_POST['video']) {
+			$video = $this->col->findOne(array('video' => $_POST['video']));
+		} else {
+			$video = $this->col->find()->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
+		}
+
+		echo json_encode($video);
+
+		$this->m->close();
+	}
+
+	public function video()
+	{
+		$this->col = $this->db->videos;
+
+		if($_POST['video']) {
+			$video = $this->col->findOne(array('video' => $_POST['video']));
+		} else {
+			$video = $this->col->find()->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
+		}
+
+		echo json_encode($video);
+
+		$this->m->close();
+	}
+
 	public function next()
 	{
 		$this->col = $this->db->videos;
 
-		$video = $this->col->find()->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
+		$video = $this->col->find(array('_id' => $_POST['video']))->limit(1)->getNext();
 
 		echo $video['slug'];
 
@@ -191,21 +221,6 @@ class api {
 		}
 
 		echo $user['points'];
-
-		$this->m->close();
-	}
-
-	public function video()
-	{
-		$this->col = $this->db->videos;
-
-		if($_POST['video']) {
-			$video = $this->col->findOne(array('video' => $_POST['video']));
-		} else {
-			$video = $this->col->find()->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
-		}
-
-		echo json_encode($video);
 
 		$this->m->close();
 	}
@@ -339,6 +354,36 @@ class api {
 	{
 		// Config
 		$userId = "eatbassnow";
+/*
+		//echo file_get_contents('https://gdata.youtube.com/feeds/api/users/eatbassnow/playlists?v=2');
+		$featured = $this->_api_request('https://gdata.youtube.com/feeds/api/playlists/PL8euV8agVxcfI3I-h9thKkkVbzXky-GvS?v=2&alt=json');
+
+		foreach($featured->feed->entry as $feature) {
+
+			//$this->_store_channel($subscription);
+
+			$channelId = $subscription->{'yt$username'}->{'$t'};
+			echo "Begining $channelId <br />";
+
+			$startIndex_v = 1;
+			$totalResults_v = 2;
+
+			$this->count_videos = 0;
+
+			while($startIndex_v < $totalResults_v) {
+				echo $startIndex_v . '<' . $totalResults_v;
+
+				$videos = $this->_api_request("http://gdata.youtube.com/feeds/api/users/$channelId/uploads?v=2&alt=json&start-index=$startIndex_v&max-results=50");
+
+				$startIndex_v = $startIndex_v + 50;
+				$totalResults_v = $videos->feed->{'openSearch$totalResults'}->{'$t'};
+
+				//////////////////////////// REENABLE VIDEOS UPDATING
+				$this->_store_featured($videos);
+			}
+		}
+
+		die();*/
 
 		echo 'Schedule<br />';
 
