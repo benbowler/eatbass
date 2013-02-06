@@ -80,15 +80,38 @@ class api {
 		$this->m->close();
 	}
 
+	public function comment()
+	{
+		if(!$_POST['video'] || !$_POST['video'] || !$_POST['comment']) {
+			die(json_encode(array('response' => false, 'error' => 'nodata')));
+		}
+
+		$this->col = $this->db->comments;
+
+		$insert = array(
+			'_id' => $_POST['video'] . date('-d-m-Y-') . $_POST['user'],
+			'video' => $_POST['video'],
+			'user' => $_POST['user'],
+			'comment' => $_POST['comment'],
+			'date' =>  new MongoDate()
+		);
+
+		try {
+		   $this->col->insert($insert, true);
+		   echo json_encode(array('response' => true));
+		} catch(MongoCursorException $e) {
+			$error = (strstr($e, 'duplicate')) ? 'duplicate' : 'other' ;
+		   echo json_encode(array('response' => false, 'error' => $error));
+		}
+
+		$this->m->close();
+	}
+
 	public function featured()
 	{
 		$this->col = $this->db->videos;
 
-		if($_POST['video']) {
-			$video = $this->col->findOne(array('video' => $_POST['video']));
-		} else {
-			$video = $this->col->find()->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
-		}
+		$video = $this->col->findOne(array('featured' => true));
 
 		echo json_encode($video);
 
@@ -106,6 +129,17 @@ class api {
 		}
 
 		echo json_encode($video);
+
+		$this->m->close();
+	}
+
+	public function videos()
+	{
+		$this->col = $this->db->videos;
+
+		$videos = $this->col->find()->limit(10)->skip(rand(-1, $this->col->count()-11));
+
+		echo json_encode(iterator_to_array($videos));
 
 		$this->m->close();
 	}
@@ -354,36 +388,6 @@ class api {
 	{
 		// Config
 		$userId = "eatbassnow";
-/*
-		//echo file_get_contents('https://gdata.youtube.com/feeds/api/users/eatbassnow/playlists?v=2');
-		$featured = $this->_api_request('https://gdata.youtube.com/feeds/api/playlists/PL8euV8agVxcfI3I-h9thKkkVbzXky-GvS?v=2&alt=json');
-
-		foreach($featured->feed->entry as $feature) {
-
-			//$this->_store_channel($subscription);
-
-			$channelId = $subscription->{'yt$username'}->{'$t'};
-			echo "Begining $channelId <br />";
-
-			$startIndex_v = 1;
-			$totalResults_v = 2;
-
-			$this->count_videos = 0;
-
-			while($startIndex_v < $totalResults_v) {
-				echo $startIndex_v . '<' . $totalResults_v;
-
-				$videos = $this->_api_request("http://gdata.youtube.com/feeds/api/users/$channelId/uploads?v=2&alt=json&start-index=$startIndex_v&max-results=50");
-
-				$startIndex_v = $startIndex_v + 50;
-				$totalResults_v = $videos->feed->{'openSearch$totalResults'}->{'$t'};
-
-				//////////////////////////// REENABLE VIDEOS UPDATING
-				$this->_store_featured($videos);
-			}
-		}
-
-		die();*/
 
 		echo 'Schedule<br />';
 
@@ -437,7 +441,14 @@ class api {
 
 		}
 
-		echo "Total {$this->total} imported from {$this->total_channels} channels.";
+		echo "Total {$this->total} imported from {$this->total_channels} channels.<br />";
+
+		echo "Featured videos<br />";
+
+		//echo file_get_contents('https://gdata.youtube.com/feeds/api/users/eatbassnow/playlists?v=2');
+		$featured = $this->_api_request('https://gdata.youtube.com/feeds/api/playlists/PL8euV8agVxcfI3I-h9thKkkVbzXky-GvS?v=2&alt=json');
+
+		$this->_store_featured($featured);
 
 		// Close connection
 		$this->m->close();
@@ -503,6 +514,50 @@ class api {
 				$this->total++;
 			}
 	}
+
+	function _store_featured($videos)
+	{
+
+		// Select collection
+		$this->col = $this->db->videos;
+			
+			foreach($videos->feed->entry as $video) {
+				if($video->{'media$group'}->{'yt$duration'}->seconds <= 600) {
+
+					$video->_id = $video->id->{'$t'};
+					$video->slug = $this->_to_ascii($video->title->{'$t'});
+
+					$video->date = new MongoDate(strtotime($video->published->{'$t'}));
+					$video->updated = new MongoDate(date('U'));
+					//$video->date = ISODate(date('U', strtotime($video->published->{'$t'}));
+
+					include_once($_SERVER['DOCUMENT_ROOT'].'/app/modules/lib_autlink/lib_autolink.php');
+					$video->html_description = nl2br(autolink(($video->{'media$group'}->{'media$description'}->{'$t'})));
+
+					$video->ytFavorites = $video->{'yt$statistics'}->favoriteCount;
+					$video->ytViews = $video->{'yt$statistics'}->viewCount;
+					$video->ytLikes = $video->{'yt$rating'}->numLikes;
+					$video->ytDislikes = $video->{'yt$rating'}->numDislikes;
+
+					$video->featured = true;
+
+					try {
+					  $this->col->insert($video, true);
+					  echo "$this->count Feature Added {$video->title->{'$t'}}<br />";
+					} catch(MongoCursorException $e) {
+					  $this->col->update(array('_id' => $video->_id), $video);
+					  echo "$this->count Feature Updated {$video->title->{'$t'}}<br />";
+					}
+				} else {
+				  echo "$this->count Skipped {$video->title->{'$t'}} (Too long)<br />";
+				}
+				$this->count++;
+				$this->total++;
+			}
+	}
+
+
+
 	// Functions
 	function _api_request($url) {
 		return json_decode(file_get_contents($url));
