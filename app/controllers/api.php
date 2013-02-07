@@ -137,7 +137,7 @@ class api {
 	{
 		$this->col = $this->db->videos;
 
-		$videos = $this->col->find()->limit(10)->skip(rand(-1, $this->col->count()-11));
+		$videos = $this->col->find()->limit(10)->sort(array('random' => 1))->skip($_POST['skip']);
 
 		echo json_encode(iterator_to_array($videos));
 
@@ -486,6 +486,7 @@ class api {
 				if($video->{'media$group'}->{'yt$duration'}->seconds <= 600) {
 
 					$video->_id = $video->id->{'$t'};
+					$video->random = rand(0,1000);
 					$video->slug = $this->_to_ascii($video->title->{'$t'});
 
 					$video->date = new MongoDate(strtotime($video->published->{'$t'}));
