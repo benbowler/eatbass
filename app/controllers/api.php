@@ -504,7 +504,7 @@ class api {
 					$video->updated = new MongoDate(date('U'));
 					//$video->date = ISODate(date('U', strtotime($video->published->{'$t'}));
 
-					include_once($_SERVER['DOCUMENT_ROOT'].'/app/modules/lib_autlink/lib_autolink.php');
+					include_once($_SERVER['DOCUMENT_ROOT'].'/app/modules/lib_autolink/lib_autolink.php');
 					$video->html_description = nl2br(autolink(($video->{'media$group'}->{'media$description'}->{'$t'})));
 
 					$video->ytFavorites = $video->{'yt$statistics'}->favoriteCount;
@@ -543,7 +543,7 @@ class api {
 					$video->updated = new MongoDate(date('U'));
 					//$video->date = ISODate(date('U', strtotime($video->published->{'$t'}));
 
-					include_once($_SERVER['DOCUMENT_ROOT'].'/app/modules/lib_autlink/lib_autolink.php');
+					include_once($_SERVER['DOCUMENT_ROOT'].'/app/modules/lib_autolink/lib_autolink.php');
 					$video->html_description = nl2br(autolink(($video->{'media$group'}->{'media$description'}->{'$t'})));
 
 					$video->ytFavorites = $video->{'yt$statistics'}->favoriteCount;
