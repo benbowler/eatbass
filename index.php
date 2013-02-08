@@ -1,5 +1,7 @@
 <?php // index
 
+die($_SERVER['PARAM1']);
+
 require_once($_SERVER['DOCUMENT_ROOT'].'/app/model.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/app/controller.php');
 //require_once('app/config.php');
