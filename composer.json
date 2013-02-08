@@ -1,6 +1,0 @@
-{
-    "require": {
-        "facebook/facebook-php-sdk": "3.2.*",
-        "facebook/php-sdk": "v3.2.0"
-    }
-}
