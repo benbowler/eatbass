@@ -158,11 +158,11 @@ class Model
     {
         // Mongo
         # get the mongo db name out of the env
-        $mongo_url = parse_url(getenv("MONGOHQ_URL"));
+        $mongo_url = parse_url(getenv("PARAM3"));
         $dbname = str_replace("/", "", $mongo_url["path"]);
 
         # connect
-        $this->m   = new Mongo(getenv("MONGOHQ_URL"));
+        $this->m   = new Mongo(getenv("PARAM3"));
         $this->db  = $this->m->$dbname;
     }
     private function _close()

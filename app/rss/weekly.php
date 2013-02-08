@@ -4,11 +4,11 @@ date_default_timezone_set('UTC');
 
 // Mongo
 # get the mongo db name out of the env
-$mongo_url = parse_url(getenv("MONGOHQ_URL"));
+$mongo_url = parse_url(getenv("PARAM3"));
 $dbname = str_replace("/", "", $mongo_url["path"]);
 
 # connect
-$m   = new Mongo(getenv("MONGOHQ_URL"));
+$m   = new Mongo(getenv("PARAM3"));
 $db  = $m->$dbname;
 $col = $db->videos;
 
