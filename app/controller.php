@@ -242,7 +242,7 @@ class controller
         *
         ****************************************************************************/
 
-        require_once($_SERVER['DOCUMENT_ROOT'].'/app/modules/facebook-php-sdk/src/facebook.php');
+        require_once($_SERVER['DOCUMENT_ROOT'].'/app/modules/facebook/src/facebook.php');
 
         $facebook = new Facebook(array(
             'appId'  => AppInfo::appID(),
