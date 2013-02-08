@@ -1,6 +1,5 @@
 <?php // index
-
-die(var_dump(pathinfo(__FILE__, PATHINFO_BASENAME)));
+die($_SERVER['DOCUMENT_ROOT']);
 
 require_once($_SERVER['DOCUMENT_ROOT'].'/app/model.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/app/controller.php');
