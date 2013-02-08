@@ -131,6 +131,17 @@ class api {
 		echo json_encode($video);
 
 		$this->m->close();
+
+
+		/*
+		$diff = 60 * 60 * 3; //3 hours in seconds
+
+		$mongotime = New Mongodate(time()-$diff);
+
+		$condition = array('time' => array('$lt'=>$mongotime) );
+
+		$result = $db->collection->find( $condition );
+		*/
 	}
 
 	public function videos()
