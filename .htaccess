@@ -1,11 +1,11 @@
 RewriteEngine On
 
-RewriteCond %{HTTP_HOST} !local$
-RewriteCond %{HTTP_HOST} !elasticbeanstalk.com$
+#RewriteCond %{HTTP_HOST} !local$
+#RewriteCond %{HTTP_HOST} !elasticbeanstalk.com$
 #RewriteCond %{HTTP_HOST} ^www\. [NC]
 #RewriteCond %{HTTPS} !=on
-RewriteCond %{HTTP:X-Forwarded-Proto} !https
-RewriteRule ^(.*)$ https://www.eatbass.com/$1 [R=301,L]
+#RewriteCond %{HTTP:X-Forwarded-Proto} !https
+#RewriteRule ^(.*)$ https://www.eatbass.com/$1 [R=301,L]
 
 # Pass slug as GET variable
 RewriteRule ^([^/\.]+)/?$ index.php?slug=$1 [L]
