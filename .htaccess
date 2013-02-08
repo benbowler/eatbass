@@ -95,7 +95,7 @@ FileETag None
     RewriteBase /
 
     # Keep people out of codeigniter directory and Git/Mercurial data
-    RedirectMatch 403 ^/(system\/cms\/cache|system\/codeigniter|\.git|\.hg).*$
+    RedirectMatch 403 ^/(app|system\/cms\/cache|system\/codeigniter|\.git|\.hg).*$
 
     ###
     # For non local sites (.com) force www.ukflive.com
