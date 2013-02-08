@@ -227,10 +227,10 @@ class controller
 
         // Provides access to app specific values such as your app id and app secret.
         // Defined in 'AppInfo.php'
-        require_once($_SERVER['DOCUMENT_ROOT'].'app/AppInfo.php');
+        require_once($_SERVER['DOCUMENT_ROOT'].'/app/AppInfo.php');
 
         // This provides access to helper functions defined in 'utils.php'
-        require_once($_SERVER['DOCUMENT_ROOT'].'app/utils.php');
+        require_once($_SERVER['DOCUMENT_ROOT'].'/app/utils.php');
 
 
         /*****************************************************************************
@@ -242,7 +242,7 @@ class controller
         *
         ****************************************************************************/
 
-        require_once($_SERVER['DOCUMENT_ROOT'].'app/modules/facebook-php-sdk/src/facebook.php');
+        require_once($_SERVER['DOCUMENT_ROOT'].'/app/modules/facebook-php-sdk/src/facebook.php');
 
         $facebook = new Facebook(array(
             'appId'  => AppInfo::appID(),
