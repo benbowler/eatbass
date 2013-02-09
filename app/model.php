@@ -62,7 +62,7 @@ class Model
 
         try {
             // Insert if unique
-            $this->col->insert((object) $user, true);
+            $this->col->insert((object) $user);
         } catch(MongoCursorException $e) {
             // Else get current user
             $user = $this->col->findOne(array('_id' => $user['id']));
