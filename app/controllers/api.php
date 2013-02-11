@@ -25,7 +25,7 @@ class api {
 		);
 
 		try {
-		   $this->col->insert($insert, true);
+		   $this->col->insert($insert);
 		   echo json_encode(array('response' => true));
 		} catch(MongoCursorException $e) {
 			$error = (strstr($e, 'duplicate')) ? 'duplicate' : 'other' ;
@@ -70,7 +70,7 @@ class api {
 		);
 
 		try {
-		   $this->col->remove($insert, true);
+		   $this->col->remove($insert);
 		   echo json_encode(array('response' => true));
 		} catch(MongoCursorException $e) {
 			//$error = (strstr($e, 'duplicate')) ? 'duplicate' : 'other' ;
@@ -97,7 +97,7 @@ class api {
 		);
 
 		try {
-		   $this->col->insert($insert, true);
+		   $this->col->insert($insert);
 		   echo json_encode(array('response' => true));
 		} catch(MongoCursorException $e) {
 			$error = (strstr($e, 'duplicate')) ? 'duplicate' : 'other' ;
@@ -207,7 +207,7 @@ class api {
 		);
 
 		try {
-		    $this->col->insert($insert, true);
+		    $this->col->insert($insert);
 		    $this->_give_points($_POST['user'], $points);
 		    echo json_encode(array('response' => true));
 		} catch(MongoCursorException $e) {
@@ -478,7 +478,7 @@ class api {
 		die(var_dump($this->_api_request("https://www.googleapis.com/youtube/v3/channels?part=snippet&id={$channel_id}&key=AIzaSyDuMSI5Hv5hRdpsDUEmN8q1U2RlOy23RB4")));
 		/*
 		try {
-		  $this->col->insert($channel, true);
+		  $this->col->insert($channel);
 		  echo "$this->total_channels Added {$video->title->{'$t'}}<br />";
 		} catch(MongoCursorException $e) {
 		  $this->col->update(array('_id' => $channel->_id), $video);
@@ -513,7 +513,7 @@ class api {
 					$video->ytDislikes = $video->{'yt$rating'}->numDislikes;
 
 					try {
-					  $this->col->insert($video, true);
+					  $this->col->insert($video);
 					  echo "$this->count Added {$video->title->{'$t'}}<br />";
 					} catch(MongoCursorException $e) {
 					  $this->col->update(array('_id' => $video->_id), $video);
@@ -554,7 +554,7 @@ class api {
 					$video->featured = true;
 
 					try {
-					  $this->col->insert($video, true);
+					  $this->col->insert($video);
 					  echo "$this->count Feature Added {$video->title->{'$t'}}<br />";
 					} catch(MongoCursorException $e) {
 					  $this->col->update(array('_id' => $video->_id), $video);
