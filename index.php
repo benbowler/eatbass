@@ -8,7 +8,7 @@ date_default_timezone_set('UTC');
 ini_set('display_errors', 0);
 
 // routes
-$slug = $_GET['slug'];
+@$slug = $_GET['slug'];
 
 if(strstr($slug, ':')) {
 	$explode = explode(':', $slug);
@@ -16,6 +16,7 @@ if(strstr($slug, ':')) {
 	$slug = $explode[1];
 } else {
 	$route = 'index';
+	$slug = false;
 }
 
 $controller = new controller();

@@ -17,7 +17,8 @@ class Model
 
         } else {
 
-          return $this->col->find()->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
+            return $this->col->findOne(array('featured' => true));
+          //return $this->col->find()->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
 
         }
 

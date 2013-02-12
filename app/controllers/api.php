@@ -400,7 +400,16 @@ class api {
 		// Config
 		$userId = "eatbassnow";
 
+
+
 		echo 'Schedule<br />';
+
+		echo "Featured videos<br />";
+
+		//echo file_get_contents('https://gdata.youtube.com/feeds/api/users/eatbassnow/playlists?v=2');
+		$featured = $this->_api_request('https://gdata.youtube.com/feeds/api/playlists/PL8euV8agVxcfI3I-h9thKkkVbzXky-GvS?v=2&alt=json');
+
+		$this->_store_featured($featured);
 
 		# insert a document
 		//$visit = array( "ip" => 'blergy' );
@@ -454,13 +463,6 @@ class api {
 
 		echo "Total {$this->total} imported from {$this->total_channels} channels.<br />";
 
-		echo "Featured videos<br />";
-
-		//echo file_get_contents('https://gdata.youtube.com/feeds/api/users/eatbassnow/playlists?v=2');
-		$featured = $this->_api_request('https://gdata.youtube.com/feeds/api/playlists/PL8euV8agVxcfI3I-h9thKkkVbzXky-GvS?v=2&alt=json');
-
-		$this->_store_featured($featured);
-
 		// Close connection
 		$this->m->close();
 	}
@@ -513,11 +515,11 @@ class api {
 					$video->ytDislikes = $video->{'yt$rating'}->numDislikes;
 
 					try {
-					  $this->col->insert($video);
-					  echo "$this->count Added {$video->title->{'$t'}}<br />";
+					  $this->col->insert($video, array("upsert" => true));
+					  echo "$this->count Added/Updated {$video->title->{'$t'}}<br />";
 					} catch(MongoCursorException $e) {
 					  $this->col->update(array('_id' => $video->_id), $video);
-					  echo "$this->count Updated {$video->title->{'$t'}}<br />";
+					  echo "$this->count Error {$video->title->{'$t'}} $e<br />";
 					}
 				} else {
 				  echo "$this->count Skipped {$video->title->{'$t'}} (Too long)<br />";
@@ -532,9 +534,11 @@ class api {
 
 		// Select collection
 		$this->col = $this->db->videos;
+
+		$this->col->remove(array('featured' => true)); // , array("justOne" => true));
 			
 			foreach($videos->feed->entry as $video) {
-				if($video->{'media$group'}->{'yt$duration'}->seconds <= 600) {
+				//if($video->{'media$group'}->{'yt$duration'}->seconds <= 600) {
 
 					$video->_id = $video->id->{'$t'};
 					$video->slug = $this->_to_ascii($video->title->{'$t'});
@@ -560,9 +564,9 @@ class api {
 					  $this->col->update(array('_id' => $video->_id), $video);
 					  echo "$this->count Feature Updated {$video->title->{'$t'}}<br />";
 					}
-				} else {
-				  echo "$this->count Skipped {$video->title->{'$t'}} (Too long)<br />";
-				}
+				//} else {
+				//  echo "$this->count Skipped {$video->title->{'$t'}} (Too long)<br />";
+				//}
 				$this->count++;
 				$this->total++;
 			}

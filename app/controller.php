@@ -10,7 +10,7 @@ class controller
 
         $this->data['site_title'] = '#eatbass'; //he($app_name);
         $this->data['site_description'] = "bass music tv";
-        $this->data['site_about'] = "Watch the latest bass music news, reviews, interviews and listen to the latest tracks. Just login to watch, love and share videos with friends. Every month we offer up some music, merch or tickets to our users. Ever play, love and share enters you to win so what are you waiting for? Login to watch now.";
+        $this->data['site_about'] = "Watch the latest bass music news, reviews, interviews and listen to the latest tracks. Just login to watch, love and share videos with friends. Every month we offer up some music, merch or tickets and every play, love and share enters you to win so what are you waiting for? Login to watch now.";
 
         /* Do FB */
         $this->_fb();
@@ -25,6 +25,10 @@ class controller
     {
         $this->data['slug'] = $slug;
         $this->data['video'] = $this->model->get_video($slug);
+        if($this->data['video'] == false) {
+            //die('404');?
+        }
+
         $video = $this->data['video'];
         /*
         if($this->data['basic'] && !$slug) {
@@ -61,7 +65,7 @@ class controller
                 //'og:description' =>  $description,
                 'fb:app_id' => $this->data['appID'],
                 'title' => $video['title']['$t'] . ' ' . $this->data['site_title'],
-                'description' => $description,
+                'description' => $this->data['site_about'],
             );
 
             $this->data['title_tag'] = "&#9658; " . $video['title']['$t'] . ' ' . $this->data['site_title'];
