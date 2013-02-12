@@ -231,15 +231,15 @@ class api {
 		}
 
 		$update = array('points' => $total_points);
-		
+
 		try {
-		   $this->col->update(array('_id' => $user_id), array('$set' => $update));
+		   $this->col->update(array('_id' => $user_id), array('$inc' => $update), array('upsert' => true));
 		   return true;
 		} catch(MongoCursorException $e) {
 		   return false;
 		}
 	}
-
+	/* Super unsafe without auth!
     public function user()
     {
         $this->col = $this->db->users;
@@ -249,7 +249,7 @@ class api {
         return json_encode($user);
 
         $this->_close();
-    }
+    }*/
 
 	public function userpoints()
 	{
@@ -515,8 +515,14 @@ class api {
 					$video->ytDislikes = $video->{'yt$rating'}->numDislikes;
 
 					try {
-					  $this->col->update($video, array("upsert" => true));
-					  echo "$this->count Added/Updated {$video->title->{'$t'}}<br />";
+					  $this->col->update(array('_id' => $video->_id), $video, array("upsert" => true));
+						$response = $this->db->lastError();
+
+						if($response['updatedExisting'] === true) {
+					  		echo "$this->count Updated {$video->title->{'$t'}}<br />";
+						} else {
+					  		echo "$this->count Added {$video->title->{'$t'}}<br />";
+						}
 					} catch(MongoCursorException $e) {
 					  $this->col->update(array('_id' => $video->_id), $video);
 					  echo "$this->count Error {$video->title->{'$t'}} $e<br />";

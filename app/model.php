@@ -48,13 +48,12 @@ class Model
     }
     public function user($email, $user = false)
     {
-        $this->_connect();
-        $this->col = $this->db->users;
-
         if(!$user) {
             return false;
         }
 
+        $this->_connect();
+        $this->col = $this->db->users;
 
         $user['_id'] = $user['id'];
         $user['email'] = ($email['email']) ? $email['email'] : false ;
