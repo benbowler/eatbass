@@ -61,11 +61,10 @@ class Model
         $user['subscribed'] = false;
         //$user['fb_opengraph'] = false;
 
-        try {
-            // Insert if unique
-            $this->col->insert((object) $user);
-        } catch(MongoCursorException $e) {
-            // Else get current user
+        $this->col->update(array('_id' => $user['_id']), $user, array('upsert' => true));
+        $response = $this->db->lastError();
+
+        if($response['updatedExisting'] === true) {
             $user = $this->col->findOne(array('_id' => $user['id']));
         }
 

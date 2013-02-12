@@ -515,7 +515,7 @@ class api {
 					$video->ytDislikes = $video->{'yt$rating'}->numDislikes;
 
 					try {
-					  $this->col->insert($video, array("upsert" => true));
+					  $this->col->update($video, array("upsert" => true));
 					  echo "$this->count Added/Updated {$video->title->{'$t'}}<br />";
 					} catch(MongoCursorException $e) {
 					  $this->col->update(array('_id' => $video->_id), $video);
