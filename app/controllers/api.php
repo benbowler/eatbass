@@ -9,6 +9,11 @@ class api {
 		$this->mongo_url = parse_url(getenv("PARAM3"));
 		$this->dbname = str_replace("/", "", $this->mongo_url["path"]);
 
+		$this->_connect();
+	}
+
+	private function _connect()
+	{
 		# connect
 		$this->m   = new Mongo(getenv("PARAM3"));
 		$this->db  = $this->m->{$this->dbname};
@@ -168,6 +173,10 @@ class api {
 
 	public function points()
 	{
+		if(!$_POST['method'] || !$_POST['user'] || !$_POST['video']) {
+			die(json_encode(array('response' => false, 'error' => 'Missing data')));
+		}
+
 		$this->col = $this->db->points;
 
 		$method = $_POST['method'];
@@ -206,50 +215,80 @@ class api {
 			'date' =>  new MongoDate()
 		);
 
-		try {
-		    $this->col->insert($insert);
-		    $this->_give_points($_POST['user'], $points);
+	    $this->col->insert($insert);
+
+	    //$c->insert(array("_id" => 1));
+		//$c->insert(array("_id" => 1));
+
+        $response = $this->db->lastError();
+
+        if(is_null($response['err'])) {
 		    echo json_encode(array('response' => true));
-		} catch(MongoCursorException $e) {
-		    $error = (strstr($e, 'duplicate')) ? 'duplicate' : 'other' ;
+		} else {
+		    $error = (strstr($response['err'], 'duplicate')) ? 'duplicate' : 'other' ;
 		    echo json_encode(array('response' => false, 'error' => $error));
 		}
 
 		$this->m->close();
+		//$this->_give_points($_POST['user'], $points);
 	}
-
+	/* @tod: calc points on a backend process an update in js only
 	private function _give_points($user_id, $points)
 	{
+		$this->_connect();
 		$this->col = $this->db->users;
 
-		$user = $this->col->findOne(array('_id' => $user_id)); //$this->col->find()->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
 
-		if($user['points']) {
+		$user = $this->col->findOne(array('id' => $user_id));
+		$user['points'] = 10;
+
+		$this->col->update(array('id' => $user_id), $user); //, array('upsert' => true));
+		
+		$response = $this->db->lastError();
+		echo json_encode($response);
+		/*
+
+
+		//die(json_encode($user));
+
+		//$user['points'] = (!$user['points']) ? 0 : $user['points'];
+
+		if(is_numeric($user['points'])) {
 			$total_points = $user['points'] + $points;
+			die('totpoints');
 		} else {
 			$total_points = $points;
 		}
 
-		$update = array('points' => $total_points);
+		//$user['points'] = $total_points;
 
-		try {
-		   $this->col->update(array('_id' => $user_id), array('$inc' => $update), array('upsert' => true));
-		   return true;
-		} catch(MongoCursorException $e) {
-		   return false;
-		}
+        ////$this->col->update(array('_id' => $user['_id']), $user, array('upsert' => true));
+        //$response = $this->db->lastError();
+
+		$update = array('$set' => array('points' => "$total_points"));
+
+		$this->col->update(array('_id' => $user_id), $update); //, array('upsert' => true));
+
+		$response = $this->db->lastError();
+
+		$user_after = (array) $this->col->findOne(array('_id' => $user_id));
+		echo(json_encode(array($user,$total_points,$user_after,$response)));
+
+		$this->m->close();
 	}
-	/* Super unsafe without auth!
+	*/
+	/* Super unsafe without auth! 
     public function user()
     {
-        $this->col = $this->db->users;
+		$this->col = $this->db->users;
 
-        $user = $this->col->findOne(array('_id' => $_POST['user']));
+		$user = $this->col->findOne(array('_id' => $_POST['user']));
 
-        return json_encode($user);
-
-        $this->_close();
-    }*/
+        echo json_encode($user);
+        
+		$this->m->close();
+    }
+    */
 
 	public function userpoints()
 	{
@@ -577,6 +616,18 @@ class api {
 				$this->total++;
 			}
 	}
+/*
+	function _ifttt() {
+		$to      = 'trip@example.com';
+$subject = 'the subject';
+$message = 'hello';
+$headers = 'From: webmaster@example.com' . "\r\n" .
+    'Reply-To: webmaster@example.com' . "\r\n" .
+    'X-Mailer: PHP/' . phpversion();
+
+mail($to, $subject, $message, $headers);
+	}
+	*/
 
 
 

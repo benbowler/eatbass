@@ -203,6 +203,8 @@ function app()
                 $('#background-blur').css('background-image', 'url(' + picture + ')');
 
                 _gaq.push(['_trackPageview', '/' + video.slug]);
+
+                doPoints('play', '+1 point for watching');
                 
                 // Get current love state
                 requestData = {
@@ -240,7 +242,23 @@ function app()
             }
         });
     }
+/*
+    setInterval(function () {
+        deleteMeNow();
+    }, 5000);
 
+    function deleteMeNow() {
+        $.ajax({
+            type: 'POST',
+            data: {user: '1025514613'},
+            dataType: 'json',
+            url: '/api:user',
+            success: function (user) {
+                console.log(user);
+            }
+        });
+    }
+*/
     function toggleLove(currentState) {
         console.log('Changing video state:' + currentState);
 
@@ -400,6 +418,7 @@ function app()
             },
             error: function (data) {
                 console.log('failed connecting to api');
+                console.log(data);
 
                 $.alertify.log('error connecting to #eatbass');
             }
