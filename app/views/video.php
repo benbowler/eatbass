@@ -185,7 +185,7 @@
 
 				
 				<a href="#" id="fb-js-login-ad" class="fb-js-login">
-					<img src="/assets/info/winning_ad_feb.jpg" />
+					<img src="/assets/info/winning_ad_feb.jpg" style="width: 300px; height: 250px;" />
 				</a>
 
 				<p>win <strong>music</strong>, <strong>tickets</strong> and <strong>merch</strong><br />
