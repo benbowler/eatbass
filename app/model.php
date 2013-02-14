@@ -55,11 +55,11 @@ class Model
         $this->_connect();
         $this->col = $this->db->users;
 
-        $user['_id'] = $user['id'];
+        //$user['_id'] = $user['id'];
         $user['email'] = ($email['email']) ? $email['email'] : false ;
         $user['subscribed'] = false;
         //$user['fb_opengraph'] = false;
-
+        
         $this->col->update(array('_id' => $user['_id']), $user, array('upsert' => true));
         $response = $this->db->lastError();
 
@@ -94,9 +94,9 @@ class Model
                 echo "Subscribed - look for the confirmation email!\n";
             }
             */
-            $user['subscribed'] = true;
+            $update = array('$set' => array('subscribed' => true));
 
-            $this->col->update(array('_id' => $user['id']), $user);
+            $this->col->update(array('_id' => $user['id']), $update);
 
             // pass first visit value
             $user['first_visit'] = true;

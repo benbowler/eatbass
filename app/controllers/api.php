@@ -19,6 +19,11 @@ class api {
 		$this->db  = $this->m->{$this->dbname};
 	}
 
+	public function testupdate()
+	{
+
+	}
+
 	public function love()
 	{
 		$this->col = $this->db->loves;
@@ -229,55 +234,30 @@ class api {
 		    echo json_encode(array('response' => false, 'error' => $error));
 		}
 
+		$this->_give_points($_POST['user'], $points);
+
 		$this->m->close();
-		//$this->_give_points($_POST['user'], $points);
 	}
-	/* @tod: calc points on a backend process an update in js only
+	/* @tod: calc points on a backend process an update in js only */
 	private function _give_points($user_id, $points)
 	{
-		$this->_connect();
 		$this->col = $this->db->users;
 
-
-		$user = $this->col->findOne(array('id' => $user_id));
-		$user['points'] = 10;
-
-		$this->col->update(array('id' => $user_id), $user); //, array('upsert' => true));
-		
-		$response = $this->db->lastError();
-		echo json_encode($response);
-		/*
-
-
-		//die(json_encode($user));
-
-		//$user['points'] = (!$user['points']) ? 0 : $user['points'];
+		$user = $this->col->findOne(array('_id' => $user_id));
 
 		if(is_numeric($user['points'])) {
 			$total_points = $user['points'] + $points;
-			die('totpoints');
 		} else {
 			$total_points = $points;
 		}
-
-		//$user['points'] = $total_points;
-
-        ////$this->col->update(array('_id' => $user['_id']), $user, array('upsert' => true));
-        //$response = $this->db->lastError();
 
 		$update = array('$set' => array('points' => "$total_points"));
 
 		$this->col->update(array('_id' => $user_id), $update); //, array('upsert' => true));
 
 		$response = $this->db->lastError();
-
-		$user_after = (array) $this->col->findOne(array('_id' => $user_id));
-		echo(json_encode(array($user,$total_points,$user_after,$response)));
-
-		$this->m->close();
 	}
-	*/
-	/* Super unsafe without auth! 
+	/* Super unsafe without auth! */
     public function user()
     {
 		$this->col = $this->db->users;
@@ -287,8 +267,7 @@ class api {
         echo json_encode($user);
         
 		$this->m->close();
-    }
-    */
+    } 
 
 	public function userpoints()
 	{
@@ -389,7 +368,7 @@ class api {
 		return false;
 
 	}
-
+	
 	public function setopengraph()
 	{
 		if(!$_POST['user'] || !$_POST['opengraph']) {
@@ -397,14 +376,17 @@ class api {
 		}
 
 		$this->col = $this->db->users;
-
-		$update = array('opengraph' => $_POST['opengraph']);
 		
-		try {
-		   $this->col->update(array('_id' => $_POST['user']), array('$set' => $update));
-		   echo json_encode(array('response' => true));
-		} catch(MongoCursorException $e) {
-		   echo json_encode(array('response' => false));
+		$update = array('$set' => array('opengraph' => $_POST['opengraph']));
+
+		$this->col->update(array('_id' => $user_id), $update); //, array('upsert' => true));
+
+		$response = $this->db->lastError();
+
+		if($response['err'] == null) {
+			echo json_encode(array('response' => true));
+		} else {
+			echo json_encode(array('response' => false));
 		}
 
 		$this->m->close();
@@ -438,8 +420,6 @@ class api {
 	{
 		// Config
 		$userId = "eatbassnow";
-
-
 
 		echo 'Schedule<br />';
 
