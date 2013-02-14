@@ -368,7 +368,7 @@ class api {
 		return false;
 
 	}
-	
+	/*
 	public function setopengraph()
 	{
 		if(!$_POST['user'] || !$_POST['opengraph']) {
@@ -391,7 +391,7 @@ class api {
 
 		$this->m->close();
 	}
-
+*/
 	public function deleteopengraph()
 	{
 		if(!$_POST['accesstoken']) {

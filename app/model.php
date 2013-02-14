@@ -55,17 +55,26 @@ class Model
         $this->_connect();
         $this->col = $this->db->users;
 
-        //$user['_id'] = $user['id'];
+        $user['_id'] = $user['id'];
         $user['email'] = ($email['email']) ? $email['email'] : false ;
         $user['subscribed'] = false;
         //$user['fb_opengraph'] = false;
-        
-        $this->col->update(array('_id' => $user['_id']), $user, array('upsert' => true));
+
+        $existing_user = $this->col->findOne(array('_id' => $user['_id']));
+
+        if($existing_user) {
+            $user = $existing_user;
+        } else {
+            $this->col->insert($user);
+        }
+        /*
         $response = $this->db->lastError();
 
+        die(var_dump($response));
+
         if($response['updatedExisting'] === true) {
-            $user = $this->col->findOne(array('_id' => $user['id']));
-        }
+            //
+        }*/
 
         if(!$user['subscribed'] && isset($user['email'])) {
 
