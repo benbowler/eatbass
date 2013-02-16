@@ -67,15 +67,14 @@ class Model
         } else {
             $this->col->insert($user);
         }
-        /*
+
+        /* Delete
+        $this->col->remove(array('0._id' => '1025514613'));
         $response = $this->db->lastError();
 
         die(var_dump($response));
-
-        if($response['updatedExisting'] === true) {
-            //
-        }*/
-
+        */
+        
         if(!$user['subscribed'] && isset($user['email'])) {
 
             //die(var_dump($user));
