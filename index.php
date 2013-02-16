@@ -7,8 +7,10 @@ date_default_timezone_set('UTC');
 
 ini_set('display_errors', 0);
 
-// routes
 $slug = $_GET['slug'];
+
+//routes
+$slug = ($slug == 'sitemap.xml') ? 'sitemap:xml' : $slug ;
 
 if(strstr($slug, ':')) {
 	$explode = explode(':', $slug);

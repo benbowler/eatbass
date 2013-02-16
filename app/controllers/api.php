@@ -320,7 +320,7 @@ class api {
 
 		$this->col = $this->db->loves;
 
-		$videos = $this->col->find(array('user' => $_POST['user'])); //->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
+		$videos = array_reverse($this->col->find(array('user' => $_POST['user']))); //->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
 
 		foreach ($videos as $video) {
 
@@ -368,7 +368,6 @@ class api {
 		return false;
 
 	}
-	/*
 	public function setopengraph()
 	{
 		if(!$_POST['user'] || !$_POST['opengraph']) {
@@ -379,9 +378,11 @@ class api {
 		
 		$update = array('$set' => array('opengraph' => $_POST['opengraph']));
 
-		$this->col->update(array('_id' => $user_id), $update); //, array('upsert' => true));
+		$this->col->update(array('_id' => $_POST['user']), $update); //, array('upsert' => true));
 
 		$response = $this->db->lastError();
+
+		die(json_encode($response));
 
 		if($response['err'] == null) {
 			echo json_encode(array('response' => true));
@@ -391,7 +392,7 @@ class api {
 
 		$this->m->close();
 	}
-*/
+
 	public function deleteopengraph()
 	{
 		if(!$_POST['accesstoken']) {
