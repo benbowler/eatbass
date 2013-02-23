@@ -17,66 +17,81 @@ class rss {
 		$this->m   = new Mongo(getenv("PARAM3"));
 		$this->db  = $this->m->{$this->dbname};
 	}
-
+    private function view($view)
+    {
+        extract($this->data);
+        include($_SERVER['DOCUMENT_ROOT']."/app/views/$view.php");
+    }
 
 	public function daily()
 	{
+		$this->col = $this->db->videos;
 
-// Mongo
-# get the mongo db name out of the env
-$mongo_url = parse_url(getenv("PARAM3"));
-$dbname = str_replace("/", "", $mongo_url["path"]);
+		$this->data['feed_title'] = date("l") . "s hot video #eatbass";
+		$this->data['feed_description'] = date("l") . "s hot video #eatbass";
 
-# connect
-$m   = new Mongo(getenv("PARAM3"));
-$db  = $m->$dbname;
-$col = $db->videos;
+		$feed_published = strtotime("today");
+		$feed_begin = $feed_published-604800;
 
-$feed_published = date('U', strtotime("today 12:00"));
-$feed_begin = $feed_published-86400;
+		//die($feed_update . " akdhjfkjadh " . $feed_published);
 
-//die($feed_update . " akdhjfkjadh " . $feed_published);
+		$query = array('date' => array( '$gt' => new MongoDate($feed_begin), '$lt' => new MongoDate($feed_published) ) );
 
+		$this->data['videos'] = $this->col->find($query)->sort(array('ytLikes' => -1))->limit(1); //     skip(rand(-1, $col->count()-1))->getNext();
 
+		//die(var_dump($videos));
+		//echo json_encode($video);
 
-$query = array('date' => array( '$gt' => new MongoDate($feed_begin), '$lt' => new MongoDate($feed_published) ) );
+		$this->view('rss');
 
-$videos = $col->find($query)->sort(array('ytLikes' => -1))->limit(1); //     skip(rand(-1, $col->count()-1))->getNext();
+		$this->m->close();
+	}
 
-//die(var_dump($videos));
-//echo json_encode($video);
+	public function weekly()
+	{
+		$this->col = $this->db->videos;
 
-$m->close();
-?>
-<?php echo '<?xml version="1.0" encoding="UTF-8" ?>'; ?>
-<rss version="2.0">
+		$this->data['feed_title'] = "this weeks hot videos #eatbass";
+		$this->data['feed_description'] = "this weeks hot videos #eatbass";
 
-	<channel>
-	<title><?php echo date("l"); ?>s hot video #eatbass</title>
-	<description>#eatbass top track today</description>
-	<link><?php echo 'https://' . $_SERVER['SERVER_NAME'] . '/api/rss/daily.php'; ?></link>
-	<lastBuildDate><?php echo date("r"); ?></lastBuildDate>
-	<pubDate><?php echo date("r"); ?></pubDate>
+		$feed_published = strtotime("today");
+		$feed_begin = $feed_published-604800;
 
-	<?php foreach ($videos as $video) { ?>
-	<item>
-		<title><?php echo htmlspecialchars($video['title']['$t']); ?> #eatbass</title>
-		<description><![CDATA[<?php echo $video['media$group']['media$description']['$t']; ?>]]></description>
-		<media:content url="<?php echo $video['media$group']['media$thumbnail'][3]['url']; ?>"
-			xmlns:media="http://search.yahoo.com/mrss/"
-			medium="image"
-			type="image/jpg"
-			height="<?php echo $video['media$group']['media$thumbnail'][3]['height']; ?>"
-			width="<?php echo $video['media$group']['media$thumbnail'][3]['width']; ?>" />
-			<?php /* <media:title type="html"><?php echo $video['title']['$t']; ?></media:title> */ ?>
-		<link><?php echo 'https://' . $_SERVER['SERVER_NAME'] . '/' . $video['slug']; ?></link>
-		<guid isPermaLink="true"><?php echo 'http://' . $_SERVER['SERVER_NAME'] . '/' . $video['slug']; ?></guid>
-		<pubDate><?php echo date("r", $video['date']->sec); ?></pubDate>
-	</item>
-	<?php } ?>
+		//die($feed_update . " akdhjfkjadh " . $feed_published);
 
+		$query = array('date' => array( '$gt' => new MongoDate($feed_begin), '$lt' => new MongoDate($feed_published) ) );
 
-	</channel>
-</rss>
+		$this->data['videos'] = $this->col->find($query)->sort(array('ytLikes' => -1))->limit(5); //     skip(rand(-1, $col->count()-1))->getNext();
+
+		//die(var_dump($videos));
+		//echo json_encode($video);
+
+		$this->view('rss');
+
+		$m->close();
+	}
+
+	public function uploads()
+	{
+		$this->col = $this->db->videos;
+
+		$this->data['feed_title'] = "latest videos #eatbass";
+		$this->data['feed_description'] = "latest videos #eatbass";
+
+		//$feed_published = strtotime("today");
+		//$feed_begin = $feed_published-604800;
+
+		//die($feed_update . " akdhjfkjadh " . $feed_published);
+
+		$query = array('date' => array( '$gt' => new MongoDate($feed_begin), '$lt' => new MongoDate($feed_published) ) );
+
+		$this->data['videos'] = $this->col->find()->limit(10); //     skip(rand(-1, $col->count()-1))->getNext();
+
+		//die(var_dump($videos));
+		//echo json_encode($video);
+
+		$this->view('rss');
+
+		$m->close();
 	}
 }

@@ -2,9 +2,9 @@
 <rss version="2.0">
 
 	<channel>
-	<title><?php echo date("l"); ?>s hot video #eatbass</title>
-	<description>#eatbass top track today</description>
-	<link><?php echo 'https://' . $_SERVER['SERVER_NAME'] . '/api/rss/daily.php'; ?></link>
+	<title><?php echo $feed_title; ?></title>
+	<description><?php echo $feed_description; ?></description>
+	<link><?php echo 'https://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']; ?></link>
 	<lastBuildDate><?php echo date("r"); ?></lastBuildDate>
 	<pubDate><?php echo date("r"); ?></pubDate>
 

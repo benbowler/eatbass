@@ -320,7 +320,7 @@ class api {
 
 		$this->col = $this->db->loves;
 
-		$videos = array_reverse($this->col->find(array('user' => $_POST['user']))); //->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
+		$videos = array_reverse((array) $this->col->find(array('user' => $_POST['user']))); //->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
 
 		foreach ($videos as $video) {
 
@@ -454,6 +454,7 @@ class api {
 
 			foreach($subscriptions->feed->entry as $subscription) {
 
+				// Store channel
 				//$this->_store_channel($subscription);
 
 				$channelId = $subscription->{'yt$username'}->{'$t'};
@@ -487,8 +488,20 @@ class api {
 		$this->m->close();
 	}
 
-	function _store_channel($channel_id)
+	function _store_channel($subscription)
 	{
+		//die(file_get_contents("http://www.youtube.com/$channel_id"));
+		$channel_id = $subscription->{'yt$username'}->{'$t'};
+
+		$dom = new DomDocument();
+		$dom->load(file_get_contents("http://www.youtube.com/$channel_id"));
+		$finder = new DomXPath($dom);
+		$classname="yt-c3-profile-custom-url";
+		$nodes = $finder->query("//*[contains(@class, '$classname')]");
+
+		foreach ($nodes as $node) {
+			die(var_dump($node));
+		}	
 
 		// Select collection
 		//$this->col = $this->db->channels;
@@ -497,16 +510,11 @@ class api {
 
 		//$channel['_id'] = $channel;
 
-		die(var_dump($this->_api_request("https://www.googleapis.com/youtube/v3/channels?part=snippet&id={$channel_id}&key=AIzaSyDuMSI5Hv5hRdpsDUEmN8q1U2RlOy23RB4")));
-		/*
-		try {
-		  $this->col->insert($channel);
-		  echo "$this->total_channels Added {$video->title->{'$t'}}<br />";
-		} catch(MongoCursorException $e) {
-		  $this->col->update(array('_id' => $channel->_id), $video);
-		  echo "$this->total_channels Updated {$video->title->{'$t'}}<br />";
-		}
-		*/
+
+		// Get by class name: yt-c3-profile-custom-url from DOM
+
+		//die(var_dump($this->_api_request("https://www.googleapis.com/youtube/v3/channels?part=snippet&id={$channel_id}&key=AIzaSyDuMSI5Hv5hRdpsDUEmN8q1U2RlOy23RB4")));
+
 	}
 
 	function _store_videos($videos)
@@ -517,6 +525,8 @@ class api {
 			
 			foreach($videos->feed->entry as $video) {
 				if($video->{'media$group'}->{'yt$duration'}->seconds <= 600) {
+
+					$this->_store_tags($video->{'media$group'}->{"media$keywords"}->{"$t" });
 
 					$video->_id = $video->id->{'$t'};
 					$video->random = rand(0,1000);
@@ -553,6 +563,14 @@ class api {
 				$this->count++;
 				$this->total++;
 			}
+	}
+
+	function _store_tags($tags)
+	{
+		$tags = explode(',', $tags);
+		foreach ($tags as $tag) {
+			# pull wikipedia??
+		}
 	}
 
 	function _store_featured($videos)

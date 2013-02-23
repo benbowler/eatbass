@@ -15,7 +15,7 @@ class controller
         /* Do FB */
         $this->_fb();
     }
-    private function view($view, $data)
+    private function view($view)
     {
         extract($this->data);
         include("views/$view.php");
@@ -127,8 +127,8 @@ class controller
         $route = explode(":", $slug);
 
         require_once($_SERVER['DOCUMENT_ROOT'].'/app/controllers/rss.php');
-        $api = new api();
-        $api->$route[0]($route[1]);
+        $rss = new rss();
+        $rss->$route[0]($route[1]);
     }
 
     /* User Controller */
