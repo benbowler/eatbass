@@ -455,7 +455,7 @@ class api {
 			foreach($subscriptions->feed->entry as $subscription) {
 
 				// Store channel
-				//$this->_store_channel($subscription);
+				$this->_store_channel($subscription);
 
 				$channelId = $subscription->{'yt$username'}->{'$t'};
 				echo "Begining $channelId <br />";
@@ -491,17 +491,36 @@ class api {
 	function _store_channel($subscription)
 	{
 		//die(file_get_contents("http://www.youtube.com/$channel_id"));
+		//replace space between words with +
+
+		//$channel_id = $subscription->{'yt$username'}->{'$t'};
+		//$query = "cat+video"; 
+		//$start = 0;
+		/*
+		this url will give you json response with 4 results each time.
+		u have to change the $start like 0, 4, 8,...
+		use json_decode() and get it in array
+		*/
+		//echo $channel_id;
+		//$url = 'https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q='.$channel_id.'+site:facebook.com&start=0';
+
+		//die(var_dump(json_decode(file_get_contents($url))));
+
 		$channel_id = $subscription->{'yt$username'}->{'$t'};
 
+		$html = file_get_contents("http://www.youtube.com/user/{$channel_id}");
+
 		$dom = new DomDocument();
-		$dom->load(file_get_contents("http://www.youtube.com/$channel_id"));
+		$dom->loadHTML($html);
 		$finder = new DomXPath($dom);
-		$classname="yt-c3-profile-custom-url";
-		$nodes = $finder->query("//*[contains(@class, '$classname')]");
+		
+		$nodes = $finder->query("//*[contains(@class, 'yt-c3-profile-custom-url')]");
 
 		foreach ($nodes as $node) {
-			die(var_dump($node));
-		}	
+			die($node);
+			//echo $node->saveXML();
+		}
+		die();
 
 		// Select collection
 		//$this->col = $this->db->channels;
@@ -526,7 +545,7 @@ class api {
 			foreach($videos->feed->entry as $video) {
 				if($video->{'media$group'}->{'yt$duration'}->seconds <= 600) {
 
-					$this->_store_tags($video->{'media$group'}->{"media$keywords"}->{"$t" });
+					//$this->_store_tags($video->{'media$group'}->{"media$keywords"}->{"$t" });
 
 					$video->_id = $video->id->{'$t'};
 					$video->random = rand(0,1000);

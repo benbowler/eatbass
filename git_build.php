@@ -17,3 +17,5 @@ if ($payload->ref === 'refs/heads/master')
   // path to your site deployment script
   exec('./build.sh');
 }
+
+mail('ben@benbowler.com', 'git push deployed', 'git push deployed');
