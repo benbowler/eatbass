@@ -431,7 +431,7 @@ class api {
 		$featured = $this->_api_request('https://gdata.youtube.com/feeds/api/playlists/PL8euV8agVxcfI3I-h9thKkkVbzXky-GvS?v=2&alt=json');
 
 		$this->_store_featured($featured);
-		die();
+		//die();
 
 		# insert a document
 		//$visit = array( "ip" => 'blergy' );
@@ -457,7 +457,7 @@ class api {
 			foreach($subscriptions->feed->entry as $subscription) {
 
 				// Store channel
-				$this->_store_channel($subscription);
+				//$this->_store_channel($subscription);
 
 				$channelId = $subscription->{'yt$username'}->{'$t'};
 				echo "Begining $channelId <br />";
