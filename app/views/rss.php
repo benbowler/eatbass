@@ -4,7 +4,7 @@
 	<channel>
 	<title><?php echo $feed_title; ?></title>
 	<description><?php echo $feed_description; ?></description>
-	<link><?php echo 'https://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']; ?></link>
+	<link><?php echo 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?></link>
 	<lastBuildDate><?php echo date("r"); ?></lastBuildDate>
 	<pubDate><?php echo date("r"); ?></pubDate>
 
@@ -19,8 +19,8 @@
 			height="<?php echo $video['media$group']['media$thumbnail'][3]['height']; ?>"
 			width="<?php echo $video['media$group']['media$thumbnail'][3]['width']; ?>" />
 			<?php /* <media:title type="html"><?php echo $video['title']['$t']; ?></media:title> */ ?>
-		<link><?php echo 'https://' . $_SERVER['SERVER_NAME'] . '/' . $video['slug']; ?></link>
-		<guid isPermaLink="true"><?php echo 'http://' . $_SERVER['SERVER_NAME'] . '/' . $video['slug']; ?></guid>
+		<link><?php echo 'https://' . $_SERVER['HTTP_HOST'] . '/' . $video['slug']; ?></link>
+		<guid isPermaLink="true"><?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/' . $video['slug']; ?></guid>
 		<pubDate><?php echo date("r", $video['date']->sec); ?></pubDate>
 	</item>
 	<?php } ?>
