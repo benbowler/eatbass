@@ -121,7 +121,8 @@ class api {
 	{
 		$this->col = $this->db->videos;
 
-		$video = $this->col->findOne(array('featured' => true));
+		//$video = $this->col->sort(array('date' => 1))->find(array('featured' => true));
+		$video = $this->col->find(array('featured' => true))->sort(array('date' => -1))->limit(1)->getNext();
 
 		echo json_encode($video);
 
@@ -430,6 +431,7 @@ class api {
 		$featured = $this->_api_request('https://gdata.youtube.com/feeds/api/playlists/PL8euV8agVxcfI3I-h9thKkkVbzXky-GvS?v=2&alt=json');
 
 		$this->_store_featured($featured);
+		die();
 
 		# insert a document
 		//$visit = array( "ip" => 'blergy' );

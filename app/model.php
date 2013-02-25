@@ -17,8 +17,8 @@ class Model
 
         } else {
 
-            return $this->col->findOne(array('featured' => true));
-          //return $this->col->find()->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
+            
+            return $this->col->find(array('featured' => true))->sort(array('date' => -1))->limit(1)->getNext();
 
         }
 
