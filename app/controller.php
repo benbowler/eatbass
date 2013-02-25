@@ -58,7 +58,7 @@ class controller
             
             $this->data['meta_tags'] = array(
                 'og:type' => 'video.other',
-                'og:url' => "https://" . $_SERVER['SERVER_NAME'] . "/" . $slug,
+                'og:url' => "https://" . $_SERVER['HTTP_HOST'] . "/" . $slug,
                 'og:image' => $video['media$group']['media$thumbnail'][2]['url'],
                 'og:title' => $video['title']['$t'] . ' ' . $this->data['site_title'],
                 'og:site_name' => $this->data['site_title'],
@@ -81,8 +81,8 @@ class controller
                 'title' => $this->data['site_title'] . ' | ' . $this->data['site_description'],
                 'description' => $description,
                 'og:type' => 'website',
-                'og:url' => "https://" . $_SERVER['SERVER_NAME'] . "/",
-                'og:image' => "https://" . $_SERVER['SERVER_NAME'] . "/assets/images/share.jpg",
+                'og:url' => "https://" . $_SERVER['HTTP_HOST'] . "/",
+                'og:image' => "https://" . $_SERVER['HTTP_HOST'] . "/assets/images/share.jpg",
                 'og:site_name' => $this->data['site_title'],
                 'og:title' => $this->data['site_title'] . ' | ' . $this->data['site_description'],
                 'og:description' =>  $description,
