@@ -263,6 +263,9 @@ class controller
 
           if($this->data['basic']) {
             $email = $facebook->api('/me?fields=email');
+            $likes = $facebook->api('/me/likes');
+
+            //die(var_dump($likes));
             /*
             //Create Query
             $params = array(
@@ -276,7 +279,7 @@ class controller
                 array_push($music, $result['name']);
             }*/
 
-            $this->data['user'] = $this->model->user($email, $this->data['basic']);
+            $this->data['user'] = $this->model->user($email, $this->data['basic'], $likes);
           }
         } catch (FacebookApiException $e) {
           // If the call fails we check if we still have a user. The user will be

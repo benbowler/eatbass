@@ -46,7 +46,7 @@ class Model
 
         $this->_close();
     }
-    public function user($email, $user = false)
+    public function user($email, $user = false, $likes)
     {
         if(!$user) {
             return false;
@@ -60,13 +60,18 @@ class Model
         $user['subscribed'] = false;
         //$user['fb_opengraph'] = false;
 
+        // @todo: Always add user likes?
+        $user['likes'] = $likes;
+
         $existing_user = $this->col->findOne(array('_id' => $user['_id']));
 
         if($existing_user) {
             $user = $existing_user;
         } else {
+            // @todo: upsert instead?
             $this->col->insert($user);
         }
+
 
         /* Delete
         $this->col->remove(array('0._id' => '1025514613'));
