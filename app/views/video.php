@@ -188,7 +188,7 @@
 				</a>
 
 				<p>win <strong>music</strong>, <strong>tickets</strong> and <strong>merch</strong><br />
-					by listening to the latest bass</p>
+					by watching the latest bass music videos</p>
 			</div>
 		</section>
 

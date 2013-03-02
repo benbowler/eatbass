@@ -242,7 +242,7 @@ function app()
             }
         });
     }
-
+    /*
     setInterval(function () {
         deleteMeNow();
     }, 5000);
@@ -258,6 +258,7 @@ function app()
             }
         });
     }
+    */
 
     function toggleLove(currentState) {
         console.log('Changing video state:' + currentState);
