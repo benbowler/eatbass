@@ -111,49 +111,22 @@
 
 		<div id="wrapper">
 
-			<header class="clearfix">
-
-				<h3><?php echo $site_title; ?><em> <?php echo $site_description; ?></em></h3>
-
-				<section id="user">
-
-					<em class="sup">+50</em><a href="#" class="share">share</a>
-					<em class="sup">+10</em><a href="#" class="love">love</a>
-											<a href="#" class="skip">skip</a>
-
-					<?php if (isset($basic)) { ?>
-						<a href="<?php echo "/u:" . $basic['username']; ?>" alt="<?php echo $basic['first_name']; ?> on <?php echo $site_title; ?>" class="profile">
-							<img id="picture" src="https://graph.facebook.com/<?php echo $basic['username']; ?>/picture?type=square" /><?php echo $basic['first_name']; ?> <em id="points"><?php echo $user['points']; ?></em>
-						</a>
-					<?php } ?>
-
-				</section>
-
-			</header>
+			<?php include('shared/header.php'); ?>
 
 			<section id="player">
-					<div id="player-yt"></div>
+				<div id="player-yt"></div>
+
+				<section id="text">
+					
+					<h1 id="video_title"><?php echo $video['title']['$t']; ?></h1>
+					<?php /* @todo: channel pages   <a href="/channel:<?php echo $video['title']['$t']; ?>" class="channel"><h1 id="video_title"><?php echo $video['title']['$t']; ?></h1></a>  */ ?>
+					<a href="http://youtube.com/user/<?php echo $video['author'][0]['name']['$t']; ?>" class="channel" target="_blank"><h2 id="video_author"><?php echo $video['author'][0]['name']['$t']; ?></h2></a>
+
+					<div id="video_description"><?php echo $video['html_description']; ?></div>
+
+				</section>
 			</section>
 
-			<section id="social">
-				<strong id="fb-status"></strong>
-				<a href="#" class="toggleopengraph"><?php echo ($user['opengraph']) ? 'turn facebook sharing off' : 'turn facebook sharing on' ; ?></a>
-			</section>
-
-			<section id="text">
-				
-				<h1 id="video_title"><?php echo $video['title']['$t']; ?></h1>
-				<?php /* @todo: channel pages   <a href="/channel:<?php echo $video['title']['$t']; ?>" class="channel"><h1 id="video_title"><?php echo $video['title']['$t']; ?></h1></a>  */ ?>
-				<a href="http://youtube.com/user/<?php echo $video['author'][0]['name']['$t']; ?>" class="channel" target="_blank"><h2 id="video_author"><?php echo $video['author'][0]['name']['$t']; ?></h2></a>
-
-				<div id="video_description"><?php echo $video['html_description']; ?></div>
-
-				<!-- <div class="fb-comments" data-href="" data-width="470" data-num-posts="2"></div>-->
-
-				<div id="output"></div>
-				<?php // var_dump($user); ?>
-
-			</section>
 
 			<?php include('shared/footer.php'); ?>
 
@@ -167,7 +140,7 @@
 	}
 	?>
 
-	<?php if (!isset($basic)) { ?>
+	<?php /* if (!isset($basic)) { ?>
 
 		<section id="login">
 			<div>
@@ -196,7 +169,7 @@
 			<h1>top videos</h1>
 			<?php /*  foreach ($top_plays as $video) { ?>
 				<a href="/<?php echo $video['slug']; ?>" alt="<?php echo $video['title']['$t']; ?>"><?php echo $video['title']['$t']; ?></a><br />
-			<?php } */ ?>
+			<?php }  ?>
 		</section>
 
 		<section>
@@ -207,6 +180,6 @@
 			<?php echo $site_about; ?>
 		</section>
 
-	<?php } ?>
+	<?php } */ ?>
 
 <?php include('shared/foot.php'); ?>

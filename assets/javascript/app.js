@@ -111,12 +111,13 @@ function app()
         var currentState = $(".love").html();
         toggleLove(currentState);
     });
-
+/*
     $(".share").click(function (e) {
         e.preventDefault();
         // var currentState = $(".love").html();
         shareVideo();
     });
+*/
 
     $(".toggleopengraph").click(function (e) {
         e.preventDefault();
@@ -191,7 +192,7 @@ function app()
                 if($.user.logged_in) {
                     History.pushState(video, '\u25BA ' + video.title.$t + ' | ' + $.site.title, video.slug);
                 }
-                
+
                 $('#video_title').html(video.title.$t);
                 $('#video_author').html(video.author[0].name.$t);
                 $('#video_description').html(video.html_description);
@@ -205,7 +206,7 @@ function app()
                 _gaq.push(['_trackPageview', '/' + video.slug]);
 
                 doPoints('play', '+1 point for watching');
-                
+
                 // Get current love state
                 requestData = {
                     user : $.user._id,
