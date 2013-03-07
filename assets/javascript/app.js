@@ -118,12 +118,18 @@ function app()
         shareVideo();
     });
 */
-
+    $('#toggleopengraph').on('switch-change', function (e, data) {
+        var $el = $(data.el)
+            , value = data.value;
+        console.log(e, $el, value);
+    });
+/*
     $(".toggleopengraph").click(function (e) {
         e.preventDefault();
         var currentState = $(".toggleopengraph").html();
         toggleOpenGraph(currentState);
     });
+*/
 
     $(".profile").click(function (e) {
         e.preventDefault();
@@ -243,23 +249,6 @@ function app()
             }
         });
     }
-    /*
-    setInterval(function () {
-        deleteMeNow();
-    }, 5000);
-
-    function deleteMeNow() {
-        $.ajax({
-            type: 'POST',
-            data: {user: '1025514613'},
-            dataType: 'json',
-            url: '/api:user',
-            success: function (user) {
-                console.log(user);
-            }
-        });
-    }
-    */
 
     function toggleLove(currentState) {
         console.log('Changing video state:' + currentState);
@@ -303,6 +292,25 @@ function app()
 
     // Facebook Share functionality
     function shareVideo() {
+/*
+        https://graph.facebook.com/brent/feed?
+  link=https://developers.facebook.com/docs/reference/dialogs/&
+  picture=http://fbrell.com/f8.jpg&
+  name=Facebook%20Dialogs&
+  caption=Reference%20Documentation&
+  description=Using%20Dialogs%20to%20interact%20with%20users.&
+  */
+        console.log('Sharing video ' + document.URL);
+
+        var body = 'Reading JS SDK documentation';
+        FB.api('/me/feed', 'post', { message: body }, function(response) {
+          if (!response || response.error) {
+            alert('Error occured');
+          } else {
+            alert('Post ID: ' + response.id);
+          }
+        });
+        /*
         console.log('Sharing video ' + document.URL);
 
         FB.ui({
@@ -324,6 +332,7 @@ function app()
                 console.log('Share canceled');
             }
         });
+*/
     }
 
     /*

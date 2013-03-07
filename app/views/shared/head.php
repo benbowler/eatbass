@@ -7,20 +7,27 @@
 		<title><?php echo $title_tag; ?></title>
 
 		<!-- Bootstrap -->
-		<script type="text/javascript" src="assets/javascript/jquery-1.7.1.min.js"></script>
+		<!--<script type="text/javascript" src="assets/javascript/jquery-1.7.1.min.js"></script>-->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 		<script type="text/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" type="text/css" />
-		<script type="text/javascript" src="assets/javascript/bootstrapSwitch.js"></script>
 
-		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+		<script type="text/javascript" src="assets/bootstrap-switch/static/js/bootstrapSwitch.js"></script>
 
+		<!--<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css' />-->
 		<link rel="stylesheet" href="assets/stylesheets/styles.css?cache=<?php echo filemtime('assets/stylesheets/styles.css') ?>" type="text/css" />
+
+		<link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css">
 
 		<script type='text/javascript' src='assets/javascript/tubeplayer/jQuery.tubeplayer.min.js'></script>
 		<script type='text/javascript' src="assets/javascript/history.js/scripts/bundled/html4+html5/jquery.history.js"></script>
 		<script type='text/javascript' src="assets/javascript/blur.min.js"></script>
 		<script type='text/javascript' src="assets/javascript/spin.js/spin.js"></script>
 		<script type='text/javascript' src="assets/javascript/jquery.spin.js"></script>
+
+		<!--[if lte IE 7]>
+		<script type="text/javascript" src="assets/icomoon/lte-ie7.js"></script>
+		<![endif]-->
 
 		<link rel="stylesheet" type="text/css" href="assets/javascript/alertify.js/themes/alertify.core.css" />
 		<link rel="stylesheet" type="text/css" href="assets/javascript/alertify.js/themes/alertify.default.css" />

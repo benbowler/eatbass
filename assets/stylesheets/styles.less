@@ -5,10 +5,10 @@
 
 // Fonts
 
-//@import url('http://fonts.googleapis.com/css?family=Droid+Sans:400,700');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700');
 
 @import url('../icomoon/style.css');
-@import url('bootstrapSwitch.css');
+@import url('../bootstrap-switch/static/stylesheets/bootstrapSwitch.css');
 
 @import 'resets';
 
@@ -52,7 +52,6 @@ strong {
 a, a:link, a:hover, a:visited {
 	color: white;
 }
-
 
 // Layout
 
@@ -354,6 +353,9 @@ footer {
 	margin-top: 3em;
 	text-align: right;
 	a {
+		em {
+			display: none;
+		}
 		text-decoration: none;
 	}
 	a:after {
@@ -370,12 +372,6 @@ footer {
 
 .navbar {
 	margin-bottom: 0;
-	-webkit-border-bottom-right-radius: 0;
-	-webkit-border-bottom-left-radius: 0;
-	-moz-border-radius-bottomright: 0;
-	-moz-border-radius-bottomleft: 0;
-	border-bottom-right-radius: 0;
-	border-bottom-left-radius: 0;
 	#brand {
 		font-weight: bold;
 	}
@@ -387,7 +383,7 @@ footer {
 		bottom: 6px;
 		margin-right: 5px;
 	}
-	.navbar-inner {
+	.navbar-inner.header {
 	  background-color: #2c2c2c; /* fallback color, place your own */
 
 	  /* Gradients for modern browsers, replace as you see fit */
@@ -401,6 +397,21 @@ footer {
 
 	  /* IE8-9 gradient filter */
 	  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#333333', endColorstr='#222222', GradientType=0);
+
+	  	-webkit-border-bottom-right-radius: 0;
+		-webkit-border-bottom-left-radius: 0;
+		-moz-border-radius-bottomright: 0;
+		-moz-border-radius-bottomleft: 0;
+		border-bottom-right-radius: 0;
+		border-bottom-left-radius: 0;
+	}
+	.navbar-inner.footer {
+	  	-webkit-border-top-left-radius: 0;
+		-webkit-border-top-right-radius: 0;
+		-moz-border-radius-topleft: 0;
+		-moz-border-radius-topright: 0;
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
 	}
 }
 
