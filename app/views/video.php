@@ -5,12 +5,6 @@
 		<script type="text/javascript">
 		$(function () {
 
-	        $('#page-blur').blurjs({
-	            source: 'body',
-	            radius: 19,
-	            overlay: 'rgba(255,255,255,0.4)'
-	        });
-
 		    window.fbAsyncInit = function() {
 			FB.init({
 			  appId      : '<?php echo $appID; ?>', // App ID
@@ -103,35 +97,26 @@
 		});
 	  </script>
 
-	<div id="page-blur">
-
-		<div id="background-blur" style="background-image: url('<?php echo str_replace('http', 'https', $video['media$group']['media$thumbnail'][1]['url']); ?>');"></div>
-
 		<div id="notifications"></div>
 
-		<div id="wrapper">
+		<?php include('shared/header.php'); ?>
 
-			<?php include('shared/header.php'); ?>
+		<section id="player">
+			<div id="player-yt"></div>
 
-			<section id="player">
-				<div id="player-yt"></div>
+			<section id="text">
+				
+				<h1 id="video_title"><?php echo $video['title']['$t']; ?></h1>
+				<?php /* @todo: channel pages   <a href="/channel:<?php echo $video['title']['$t']; ?>" class="channel"><h1 id="video_title"><?php echo $video['title']['$t']; ?></h1></a>  */ ?>
+				<a href="http://youtube.com/user/<?php echo $video['author'][0]['name']['$t']; ?>" class="channel" target="_blank"><h2 id="video_author"><?php echo $video['author'][0]['name']['$t']; ?></h2></a>
 
-				<section id="text">
-					
-					<h1 id="video_title"><?php echo $video['title']['$t']; ?></h1>
-					<?php /* @todo: channel pages   <a href="/channel:<?php echo $video['title']['$t']; ?>" class="channel"><h1 id="video_title"><?php echo $video['title']['$t']; ?></h1></a>  */ ?>
-					<a href="http://youtube.com/user/<?php echo $video['author'][0]['name']['$t']; ?>" class="channel" target="_blank"><h2 id="video_author"><?php echo $video['author'][0]['name']['$t']; ?></h2></a>
+				<div id="video_description"><?php echo $video['html_description']; ?></div>
 
-					<div id="video_description"><?php echo $video['html_description']; ?></div>
-
-				</section>
 			</section>
+		</section>
 
 
-			<?php include('shared/footer.php'); ?>
-
-		</div>
-	</div>
+		<?php include('shared/footer.php'); ?>
 
 	<?php
 	if (isset($basic)) {
@@ -140,11 +125,10 @@
 	}
 	?>
 
-	<?php /* if (!isset($basic)) { ?>
+	<?php if (!isset($basic)) { ?>
 
 		<section id="login">
 			<div>
-				<h3><?php echo $site_title; ?><em> <?php echo $site_description; ?></em></h3>
 
 				<div id="fb-login-wrapper">
 					<div id="facebook-login-btb">
@@ -169,7 +153,7 @@
 			<h1>top videos</h1>
 			<?php /*  foreach ($top_plays as $video) { ?>
 				<a href="/<?php echo $video['slug']; ?>" alt="<?php echo $video['title']['$t']; ?>"><?php echo $video['title']['$t']; ?></a><br />
-			<?php }  ?>
+			<?php } */ ?>
 		</section>
 
 		<section>
@@ -180,6 +164,6 @@
 			<?php echo $site_about; ?>
 		</section>
 
-	<?php } */ ?>
+	<?php } ?>
 
 <?php include('shared/foot.php'); ?>

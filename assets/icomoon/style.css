@@ -27,7 +27,7 @@ Instead of a list of all class selectors,
 you can use the generic selector below, but it's slower:
 [class*="icon-"]:before {
 */
-.icon-info:before, .icon-google-plus:before, .icon-google-plus-2:before, .icon-facebook:before, .icon-twitter:before, .icon-youtube:before, .icon-html5:before, .icon-last:before, .icon-upload:before, .icon-cog:before, .icon-heart:before, .icon-soundcloud:before, .icon-tumblr:before, .icon-heart-2:before, .icon-heart-broken:before, .icon-thumbs-up:before, .icon-stats:before, .icon-sad:before, .icon-pinterest:before, .icon-bubbles:before, .icon-user:before, .icon-users:before, .icon-new-tab:before, .icon-trophy:before {
+.icon-google-plus:before, .icon-google-plus-2:before, .icon-facebook:before, .icon-twitter:before, .icon-youtube:before, .icon-html5:before, .icon-last:before, .icon-upload:before, .icon-cog:before, .icon-heart:before, .icon-soundcloud:before, .icon-tumblr:before, .icon-heart-2:before, .icon-heart-broken:before, .icon-thumbs-up:before, .icon-stats:before, .icon-pinterest:before, .icon-bubbles:before, .icon-users:before, .icon-new-tab:before, .icon-trophy:before, .icon-sad:before, .icon-play:before, .icon-help:before, .icon-info:before {
 	font-family: 'icomoon';
 	speak: none;
 	font-style: normal;
@@ -36,9 +36,6 @@ you can use the generic selector below, but it's slower:
 	text-transform: none;
 	line-height: 1;
 	-webkit-font-smoothing: antialiased;
-}
-.icon-info:before {
-	content: "\e000";
 }
 .icon-google-plus:before {
 	content: "\e003";
@@ -88,17 +85,11 @@ you can use the generic selector below, but it's slower:
 .icon-stats:before {
 	content: "\e010";
 }
-.icon-sad:before {
-	content: "\e011";
-}
 .icon-pinterest:before {
 	content: "\e012";
 }
 .icon-bubbles:before {
 	content: "\e013";
-}
-.icon-user:before {
-	content: "\e014";
 }
 .icon-users:before {
 	content: "\e015";
@@ -108,4 +99,16 @@ you can use the generic selector below, but it's slower:
 }
 .icon-trophy:before {
 	content: "\e017";
+}
+.icon-sad:before {
+	content: "\e011";
+}
+.icon-play:before {
+	content: "\e014";
+}
+.icon-help:before {
+	content: "\e018";
+}
+.icon-info:before {
+	content: "\e019";
 }

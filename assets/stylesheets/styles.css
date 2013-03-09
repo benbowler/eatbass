@@ -421,18 +421,14 @@ body > svg {
   margin: 0.6em auto;
 }
 #player {
-  overflow: hidden;
-  height: 405px;
-  width: 720px;
-  margin: 0 auto;
+  width: 100%;
+  height: 100%;
 }
 #player #player-loading {
-  height: 200px;
+  height: 100%;
 }
 #player #player-yt {
-  height: 405px;
-  width: 720px;
-  position: relative;
+  padding: 50px 0;
 }
 #text {
   padding: 4% 10%;
@@ -662,25 +658,13 @@ body > svg {
   top: 100px !important;
   background: #000000 !important;
 }
-footer {
-  margin-top: 3em;
-  text-align: right;
-}
-footer a {
-  text-decoration: none;
-}
-footer a em {
-  display: none;
-}
-footer a:after {
-  content: ' | ';
-}
-footer a:last-child:after {
-  content: '';
-}
 /* Bootstrap rules */
 .navbar {
   margin-bottom: 0;
+  font-size: 1.5em;
+}
+.navbar .container {
+  width: 98%;
 }
 .navbar #brand {
   font-weight: bold;
@@ -730,40 +714,16 @@ footer a:last-child:after {
   #wrapper {
     width: 1080px;
   }
-  #player {
-    height: 605px;
-    width: 1080px;
-  }
-  #player #player-yt {
-    height: 605px;
-    width: 1080px;
-  }
 }
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 768px) and (max-width: 979px) {
   #wrapper {
     width: 720px;
   }
-  #player {
-    height: 405px;
-    width: 720px;
-  }
-  #player #player-yt {
-    height: 405px;
-    width: 720px;
-  }
 }
 /* Landscape phone to portrait tablet */
 @media (max-width: 767px) {
   #wrapper {
-    width: 480px;
-  }
-  #player {
-    height: 266px;
-    width: 480px;
-  }
-  #player #player-yt {
-    height: 266px;
     width: 480px;
   }
   #login h3 em {
@@ -785,14 +745,6 @@ footer a:last-child:after {
     font-size: 80%;
   }
   #wrapper {
-    width: 320px;
-  }
-  #player {
-    height: 176px;
-    width: 320px;
-  }
-  #player #player-yt {
-    height: 176px;
     width: 320px;
   }
   #login > div > p {

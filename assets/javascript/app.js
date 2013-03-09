@@ -3,18 +3,17 @@
 function app()
 {
 
+
+            $("#text").fadeOut();
+
     if(!$.user.logged_in) {
         // User logged out
-
-        //doBlur('#page-blur');
 
         $.tubeplayer.defaults.afterReady = function($player){
         };
 
     } else {
         // User logged in!
-
-        doBlur('#background-blur');
 
         makeLinksExternal();
         //viewProfile();
@@ -75,7 +74,7 @@ function app()
     // Prepair video
     jQuery("#player-yt").tubeplayer({
         width: '100%', // the width of the player
-        height: '100%', // the height of the player
+        height: '90%', // the height of the player
         allowFullScreen: "true", // true by default, allow user to go full screen
         showControls: 0,
         autoPlay: true,
@@ -134,7 +133,6 @@ function app()
     $(".profile").click(function (e) {
         e.preventDefault();
 
-        doBlur('#page-blur');
         viewProfile();
     });
 
@@ -142,11 +140,6 @@ function app()
         e.preventDefault();
 
         $("#profile").fadeOut();
-        $("#background-blur").blurjs({
-            source: 'body',
-            radius: 21,
-            overlay: 'rgba(255,255,255,0)'
-        });
     });
 
     $(".add-to-page").click(function (e) {
@@ -205,9 +198,7 @@ function app()
                 makeLinksExternal();
                 $('.channel').attr('href', 'http://youtube.com/user/'+video.author[0].name.$t);
 
-                var picture = video.media$group.media$thumbnail[1].url.replace('http', 'https');
-                // console.log(picture);
-                $('#background-blur').css('background-image', 'url(' + picture + ')');
+                //var picture = video.media$group.media$thumbnail[1].url.replace('http', 'https');
 
                 _gaq.push(['_trackPageview', '/' + video.slug]);
 
@@ -581,7 +572,6 @@ function app()
     function viewProfile() {
         console.log('loading profile');
 
-        //$('#page-blur').blurjs();
         $("#profile").fadeIn();
         $("#profile").spin("yt");
 
@@ -634,24 +624,11 @@ function app()
                 $.alertify.error('error loading profile :(');
 
                 $("#profile").fadeOut();
-                $("#background-blur").blurjs({
-                    source: 'body',
-                    radius: 21,
-                    overlay: 'rgba(255,255,255,0)'
-                });
             }
         });
     }
 
     // Front end
-
-    function doBlur(elementSelector) {
-        $(elementSelector).blurjs({
-            source: 'body',
-            radius: 20,
-            overlay: 'rgba(255,255,255,0.4)'
-        });
-    }
 
     function makeLinksExternal() {
         // Make description links external

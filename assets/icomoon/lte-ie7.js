@@ -1,4 +1,4 @@
-/* Use this script if you need to support IE 7 and IE 6. */
+/* Load this script using conditional IE comments if you need to support IE 7 and IE 6. */
 
 window.onload = function() {
 	function addIcon(el, entity) {
@@ -6,7 +6,6 @@ window.onload = function() {
 		el.innerHTML = '<span style="font-family: \'icomoon\'">' + entity + '</span>' + html;
 	}
 	var icons = {
-			'icon-info' : '&#xe000;',
 			'icon-google-plus' : '&#xe003;',
 			'icon-google-plus-2' : '&#xe004;',
 			'icon-facebook' : '&#xe001;',
@@ -23,13 +22,15 @@ window.onload = function() {
 			'icon-heart-broken' : '&#xe00e;',
 			'icon-thumbs-up' : '&#xe00f;',
 			'icon-stats' : '&#xe010;',
-			'icon-sad' : '&#xe011;',
 			'icon-pinterest' : '&#xe012;',
 			'icon-bubbles' : '&#xe013;',
-			'icon-user' : '&#xe014;',
 			'icon-users' : '&#xe015;',
 			'icon-new-tab' : '&#xe016;',
-			'icon-trophy' : '&#xe017;'
+			'icon-trophy' : '&#xe017;',
+			'icon-sad' : '&#xe011;',
+			'icon-play' : '&#xe014;',
+			'icon-help' : '&#xe018;',
+			'icon-info' : '&#xe019;'
 		},
 		els = document.getElementsByTagName('*'),
 		i, attr, html, c, el;
