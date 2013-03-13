@@ -39,7 +39,7 @@
 								<li><i class="icon-share icon-white"></i> <a href="#" class="share">share</a><sup>+50</sup></li>
 								-->
 								<li><a href="#" class="skip"><i class="icon-last"></i></a></li>
-								<li><a href="#" class="love"><i class="icon-heart-2"></i></a></li>
+								<li><a href="#" class="love" data-lovestate="love"><i class="icon-heart-2"></i></a></li>
 
 							<?php if (isset($basic)) { ?>
 

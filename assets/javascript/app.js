@@ -2,9 +2,7 @@
 
 function app()
 {
-
-
-            $("#text").fadeOut();
+    $("#text").fadeOut();
 
     if(!$.user.logged_in) {
         // User logged out
@@ -74,7 +72,7 @@ function app()
     // Prepair video
     jQuery("#player-yt").tubeplayer({
         width: '100%', // the width of the player
-        height: '90%', // the height of the player
+        height: '100%', // the height of the player
         allowFullScreen: "true", // true by default, allow user to go full screen
         showControls: 0,
         autoPlay: true,
@@ -101,13 +99,13 @@ function app()
     // Triggers
     $(".skip").click(function (e) {
         e.preventDefault();
-        $(".skip").html('skipping');
+        //$(".skip").html('skipping'); @todo: spin.js?
         nextVideo();
     });
 
     $(".love").click(function (e) {
         e.preventDefault();
-        var currentState = $(".love").html();
+        var currentState = $(".love").data("lovestate");
         toggleLove(currentState);
     });
 /*
@@ -217,14 +215,16 @@ function app()
                     url: '/api:lovestate',
                     success: function (data) {
                         if(data.response === true) {
-                            $(".love").html('loved');
+                            $(".love").data('lovestate','loved');
+                            $(".love > i").removeClass("icon-heart-2 icon-heart-broken").addClass("icon-heart");
                         } else {
-                            $(".love").html('love');
+                            $(".love").data('lovestate','love');
+                            $(".love > i").removeClass("icon-heart-broken icon-heart").addClass("icon-heart-2");
                         }
                     }
                 });
 
-                $(".skip").html('skip');
+                //$(".skip").html('skip');
 
                 $("#player").spin(false);
 
@@ -249,12 +249,14 @@ function app()
             video : $.video._id
         };
 
-        if(currentState == 'love')
+        if(currentState == 'love' || currentState == 'broken')
         {
-            $(".love").html('loving');
+            $(".love").data('lovestate','loved');
+            $(".love > i").removeClass("icon-heart-2 icon-heart-broken").addClass("icon-heart");
             requestUrl = '/api:love';
         } else {
-            $(".love").html('meh');
+            $(".love").data('lovestate','broken');
+            $(".love > i").removeClass("icon-heart-2 icon-heart").addClass("icon-heart-broken");
             requestUrl = '/api:unlove';
         }
 
@@ -267,16 +269,21 @@ function app()
                 if(currentState == 'love')
                 {
                     doLoveActions('love', 'eatbass:love');
-                    $(".love").html('loved');
+                    //$(".love").html('loved');
                 } else {
 
-                    $(".love").html('love');
+                    $.alertify.error('error lovering track :(');
+
+                    $(".love").data('lovestate','love');
+                    $(".love > i").removeClass("icon-heart icon-heart-broken").addClass("icon-heart-2");
                 }
             },
             error: function (data) {
+
                 $.alertify.error('error lovering track :(');
 
-                $(".love").html('love');
+                $(".love").data('lovestate','love');
+                $(".love > i").removeClass("icon-heart icon-heart-broken").addClass("icon-heart-2");
             }
         });
     }
