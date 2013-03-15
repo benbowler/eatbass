@@ -45,15 +45,11 @@ function app()
             $.alertify.confirm( '<h3>turn facebook sharing on</h3><br /><br />this means you are sharing the videos you watch with your friends. you can turn this off now, or anytime with the controls below.', function (e) {
                 if (e) {
                     console.log('opted in to open graph ' + e);
-
-                    $(".toggleopengraph").html('turn facebook sharing off');
-                    //setValue = true;
                     setOpenGraph(true);
                 } else {
                     console.log('opted out of open graph');
 
-                    $(".toggleopengraph").html('turn facebook sharing on');
-                    //setValue = false;
+                    $('#toggleopengraph').bootstrapSwitch('setState', true);
                     setOpenGraph(false);
                 }
             });
@@ -117,7 +113,7 @@ function app()
         var currentState = $(".love").data("lovestate");
         toggleLove(currentState);*/
     });
-    
+
     $('#toggleopengraph').on('switch-change', function (e, data) {
         var $el = $(data.el)
             , value = data.value;
@@ -195,7 +191,7 @@ function app()
                 }
 
                 $('#video_title').html(video.title.$t);
-                $('#video_channel h2').html(video.author[0].name.$t);
+                $('#video_channel').html(video.author[0].name.$t);
                 $('#video_channel').attr('href', 'http://youtube.com/user/'+video.author[0].name.$t);
                 $('#video_description').html(video.html_description);
                 makeLinksExternal();
@@ -312,29 +308,6 @@ function app()
             alert('Post ID: ' + response.id);
           }
         });
-        /*
-        console.log('Sharing video ' + document.URL);
-
-        FB.ui({
-            method: 'feed',
-            name: $.video.title + ' ' + $.site.title,
-            picture: $.video.picture,
-            link: document.URL,
-            caption: 'dicover more like ' + $.video.title + ' on #eatbass and win music, merch and tickets.'
-            //message: 'message',
-            //description: 'Deskriptions'
-        },function (response) {
-            // If response is null the user canceled the dialog
-            if (response) {
-                // Send points
-                doPoints('share', '+50 point for sharing');
-
-                console.log('Shared ' + response);
-            } else {
-                console.log('Share canceled');
-            }
-        });
-*/
     }
 
     /*
