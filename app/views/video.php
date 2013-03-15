@@ -104,11 +104,11 @@
 		<section id="player">
 			<div id="player-yt"></div>
 
-			<section id="text">
+			<section id="video_info">
 				
 				<h1 id="video_title"><?php echo $video['title']['$t']; ?></h1>
 				<?php /* @todo: channel pages   <a href="/channel:<?php echo $video['title']['$t']; ?>" class="channel"><h1 id="video_title"><?php echo $video['title']['$t']; ?></h1></a>  */ ?>
-				<a href="http://youtube.com/user/<?php echo $video['author'][0]['name']['$t']; ?>" class="channel" target="_blank"><h2 id="video_author"><?php echo $video['author'][0]['name']['$t']; ?></h2></a>
+				<a href="http://youtube.com/user/<?php echo $video['author'][0]['name']['$t']; ?>" id="video_author" target="_blank"><h2><?php echo $video['author'][0]['name']['$t']; ?></h2></a>
 
 				<div id="video_description"><?php echo $video['html_description']; ?></div>
 
@@ -141,7 +141,7 @@
 				</div>
 
 				<a href="#" id="fb-js-login-ad" class="fb-js-login">
-					<img src="/assets/info/winning_ad_tid.jpg" style="width: 300px; height: 250px;" />
+					<!--<img src="/assets/info/winning_ad_tid.jpg" style="width: 300px; height: 250px;" />-->
 				</a>
 
 				<p>win <strong>music</strong>, <strong>tickets</strong> and <strong>merch</strong><br />

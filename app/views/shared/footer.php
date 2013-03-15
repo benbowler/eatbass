@@ -20,23 +20,26 @@
 
 	                    <ul class="nav pull-left">
 	                    	<?php if (isset($basic)) { ?>
-			                	<li><strong id="fb-status"></strong></li>
+			                	<li><a id="fb-status"></a></li>
 								<li>
-									<a href="#">
+									<a>
 										social sharing 
 										<div id="toggleopengraph" class="switch switch-mini" data-on="primary" data-off="info">
-										    <input type="checkbox" checked />
+										    <input type="checkbox" <?php echo ($user['opengraph']) ? '' : 'checked' ; ?> />
 										</div>
 									</a>
-									<!--<a href="#" class="toggleopengraph"><?php echo ($user['opengraph']) ? 'turn facebook sharing off' : 'turn facebook sharing on' ; ?></a></li>-->
 								</li>
 							<?php } ?>
 
 	                    	<li class="divider-vertical"></li>
+
 	                    </ul>
 
 	                    <ul class="nav pull-right">
-	                    	<li><a href="#"><i class="icon-info"></i></a></li>
+
+	                    	<li><a id="video_title"><?php echo $video['title']['$t']; ?></a></li>
+	                    	<li><a class="info"><!--<i class="icon-info"></i>--></a></li>
+	                    	<li><a id="video_channel"><?php echo $video['author'][0]['name']['$t']; ?></a></li>
 
 	                    	<li class="divider-vertical"></li>
 							<li><a href="https://facebook.com/eatbassnow" target="_blank"><i class="icon-facebook"></i><span class="hide">facebook</span></a></li>
@@ -45,7 +48,7 @@
 							<li class="divider-vertical"></li>
 	                    	<li class="dropdown">
 
-		                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+		                        <a class="dropdown-toggle" data-toggle="dropdown">
 		                        	<i class="icon-help"></i>
 		                        </a>
 		                        <ul class="dropdown-menu">
@@ -59,9 +62,6 @@
 	                        </li>
 	                    </ul>
 
-	                    <ul class="nav expand">
-	                    	<li><a href="#"><span id="video_title"><?php echo $video['title']['$t']; ?></span> </a></li>
-	                    </ul>
 	                </div>
 	              </div><!-- /navbar-inner -->
 	            </div>

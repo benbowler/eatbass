@@ -14,13 +14,8 @@ function app()
         // User logged in!
 
         makeLinksExternal();
-        //viewProfile();
 
         $.tubeplayer.defaults.afterReady = function($player){
-
-            //$("#player-loading").fadeOut();
-
-            //jQuery("#player-yt").tubeplayer("unmute");
 
             doPoints('return', '+20 for logging in today', 'come back again tomorrow for +20');
 
@@ -96,7 +91,12 @@ function app()
         mute: true
     });
 
-    // Triggers
+    /* 
+     *  Triggers
+     *
+     *  Click hover etc for all function
+     */
+
     $(".skip").click(function (e) {
         e.preventDefault();
         //$(".skip").html('skipping'); @todo: spin.js?
@@ -108,25 +108,23 @@ function app()
         var currentState = $(".love").data("lovestate");
         toggleLove(currentState);
     });
-/*
-    $(".share").click(function (e) {
+
+    $(".info").hover(function (e) {
+        console.log('expand info');
+        $("#video_info").slideToggle();
+        /*
         e.preventDefault();
-        // var currentState = $(".love").html();
-        shareVideo();
+        var currentState = $(".love").data("lovestate");
+        toggleLove(currentState);*/
     });
-*/
+    
     $('#toggleopengraph').on('switch-change', function (e, data) {
         var $el = $(data.el)
             , value = data.value;
         console.log(e, $el, value);
+
+        setOpenGraph(value);
     });
-/*
-    $(".toggleopengraph").click(function (e) {
-        e.preventDefault();
-        var currentState = $(".toggleopengraph").html();
-        toggleOpenGraph(currentState);
-    });
-*/
 
     $(".profile").click(function (e) {
         e.preventDefault();
@@ -149,6 +147,12 @@ function app()
 
         FB.ui(obj);
     });
+
+    /* 
+     *  Function
+     *
+     *  
+     */
 
     function onVideoPlay() {
         // Make description links external @todo: move after video load
@@ -191,10 +195,10 @@ function app()
                 }
 
                 $('#video_title').html(video.title.$t);
-                $('#video_author').html(video.author[0].name.$t);
+                $('#video_channel h2').html(video.author[0].name.$t);
+                $('#video_channel').attr('href', 'http://youtube.com/user/'+video.author[0].name.$t);
                 $('#video_description').html(video.html_description);
                 makeLinksExternal();
-                $('.channel').attr('href', 'http://youtube.com/user/'+video.author[0].name.$t);
 
                 //var picture = video.media$group.media$thumbnail[1].url.replace('http', 'https');
 
@@ -272,7 +276,7 @@ function app()
                     //$(".love").html('loved');
                 } else {
 
-                    $.alertify.error('error lovering track :(');
+                    $.alertify.error('error loving track :(');
 
                     $(".love").data('lovestate','love');
                     $(".love > i").removeClass("icon-heart icon-heart-broken").addClass("icon-heart-2");
@@ -280,7 +284,7 @@ function app()
             },
             error: function (data) {
 
-                $.alertify.error('error lovering track :(');
+                $.alertify.error('error loving track :(');
 
                 $(".love").data('lovestate','love');
                 $(".love > i").removeClass("icon-heart icon-heart-broken").addClass("icon-heart-2");
@@ -469,19 +473,6 @@ function app()
                 //$(".skip").html('loved');
             }*/
         });
-    }
-
-    // Open Graph
-    function toggleOpenGraph(currentState) {
-
-        if(currentState == 'turn facebook sharing off')
-        {
-            $(".toggleopengraph").html('turn facebook sharing on');
-            setOpenGraph(false);
-        } else {
-            $(".toggleopengraph").html('turn facebook sharing off');
-            setOpenGraph(true);
-        }
     }
 
     function setOpenGraph(setValue) {
