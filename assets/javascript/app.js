@@ -190,10 +190,10 @@ function app()
                     History.pushState(video, '\u25BA ' + video.title.$t + ' | ' + $.site.title, video.slug);
                 }
 
-                $('#video_title').html(video.title.$t);
-                $('#video_channel').html(video.author[0].name.$t);
-                $('#video_channel').attr('href', 'http://youtube.com/user/'+video.author[0].name.$t);
-                $('#video_description').html(video.html_description);
+                $('.video_title').html(video.title.$t);
+                $('.video_channel').html(video.author[0].name.$t);
+                $('.video_channel').attr('href', 'http://youtube.com/user/'+video.author[0].name.$t);
+                $('.video_description').html(video.html_description);
                 makeLinksExternal();
 
                 //var picture = video.media$group.media$thumbnail[1].url.replace('http', 'https');

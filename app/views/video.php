@@ -106,11 +106,10 @@
 
 			<section id="video_info">
 				
-				<h1 id="video_title"><?php echo $video['title']['$t']; ?></h1>
+				<h1 class="video_title"><?php echo $video['title']['$t']; ?></h1>
 				<?php /* @todo: channel pages   <a href="/channel:<?php echo $video['title']['$t']; ?>" class="channel"><h1 id="video_title"><?php echo $video['title']['$t']; ?></h1></a>  */ ?>
-				<a href="http://youtube.com/user/<?php echo $video['author'][0]['name']['$t']; ?>" id="video_author" target="_blank"><h2><?php echo $video['author'][0]['name']['$t']; ?></h2></a>
-
-				<div id="video_description"><?php echo $video['html_description']; ?></div>
+				<a href="http://youtube.com/user/<?php echo $video['author'][0]['name']['$t']; ?>" target="_blank"><h2 class="video_author"><?php echo $video['author'][0]['name']['$t']; ?></h2></a>
+				<div class="video_description"><?php echo $video['html_description']; ?></div>
 
 			</section>
 		</section>

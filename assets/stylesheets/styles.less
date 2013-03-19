@@ -89,6 +89,7 @@ body > svg {
 	right: 0;
 	bottom: 42px;
 	left: 0;
+	background-color: #000;
 	#player-loading {
 		height: 100%;
 		width: 100%
@@ -97,38 +98,26 @@ body > svg {
 		height: 100%;
 		width: 100%
 	}
-}
-
-#video_info {
-	padding: 4% 10%;
-	width: 80%;
-	height: 92%;
-	position: relative;
-	bottom: 100%;
-	overflow: scroll;
-	background-color: rgba(0, 0, 0, 0.8);
-	#video_title {
-		display: inline;
-		float: left;
-	}
-	#video_author {
-		display: inline;
-		float: right;
-	}
-	#video_description {
-		clear: both;
-		display: block;
-	}
-}
-
-#social {
-	display: block;
-	width: 100%;
-	text-align: center;
-	line-height: 1em;
-	font-size: 0.8em;
-	margin-top: 0.5em;
-	#fb-status {
+	#video_info {
+		padding: 4% 10%;
+		width: 80%;
+		height: 92%;
+		position: relative;
+		bottom: 100%;
+		overflow: scroll;
+		background-color: rgba(0, 0, 0, 0.8);
+		#video_title {
+			display: inline;
+			float: left;
+		}
+		#video_author {
+			display: inline;
+			float: right;
+		}
+		#video_description {
+			clear: both;
+			display: block;
+		}
 	}
 }
 
@@ -481,6 +470,11 @@ body > svg {
 	}
 	#wrapper {
 		width: 320px;
+	}
+	#brand {
+		width: 100%;
+		display: block;
+		text-align: center;
 	}
 
 	#login {

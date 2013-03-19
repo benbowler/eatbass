@@ -18,7 +18,7 @@
 	                    <?phpm */ ?>
 
 
-	                    <ul class="nav pull-left">
+	                    <ul class="nav pull-left .hidden-phone">
 	                    	<?php if (isset($basic)) { ?>
 			                	<li><a id="fb-status"></a></li>
 								<li>
@@ -37,9 +37,9 @@
 
 	                    <ul class="nav pull-right">
 
-	                    	<li><a id="video_title"><?php echo $video['title']['$t']; ?></a></li>
+	                    	<li><a class="video_title info"><?php echo $video['title']['$t']; ?></a></li>
 	                    	<li><a class="info"><!--<i class="icon-info"></i>--></a></li>
-	                    	<li><a id="video_channel"><?php echo $video['author'][0]['name']['$t']; ?></a></li>
+	                    	<li><a class="video_channel"><?php echo $video['author'][0]['name']['$t']; ?></a></li>
 
 	                    	<li class="divider-vertical"></li>
 							<li><a href="https://facebook.com/eatbassnow" target="_blank"><i class="icon-facebook"></i><span class="hide">facebook</span></a></li>
