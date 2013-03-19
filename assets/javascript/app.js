@@ -13,6 +13,29 @@ function app()
     } else {
         // User logged in!
 
+
+        // @todo: if tour == 'first'
+        var tourdata = [
+           {
+              html: "Hello World"
+           },{
+              html: "Welcome to the Tour",
+              live: 5000,
+              delayIn: 500
+           },{
+              html: "Lorem Ipsum Bla Bla",
+              element: 'h2', //use the first h2 tag as target element
+              position: 's'
+           },{
+              html: "Second List Entry",
+              element: $('li').eq(1), //use the second (starting with 0) a tag within a li tag as target element
+              position: 'e' //display the box right to the target element (east)
+          }
+        ];
+        var myTour = jTour(tourdata);
+        myTour.start(autostart: true);
+
+
         makeLinksExternal();
 
         $.tubeplayer.defaults.afterReady = function($player){

@@ -19,10 +19,10 @@
 
 		<link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css">
 
-		<script type='text/javascript' src='assets/javascript/tubeplayer/jQuery.tubeplayer.min.js'></script>
-		<script type='text/javascript' src="assets/javascript/history.js/scripts/bundled/html4+html5/jquery.history.js"></script>
-		<script type='text/javascript' src="assets/javascript/spin.js/spin.js"></script>
-		<script type='text/javascript' src="assets/javascript/jquery.spin.js"></script>
+		<script type="text/javascript" src="assets/javascript/tubeplayer/jQuery.tubeplayer.min.js"></script>
+		<script type="text/javascript" src="assets/javascript/history.js/scripts/bundled/html4+html5/jquery.history.js"></script>
+		<script type="text/javascript" src="assets/javascript/spin.js/spin.js"></script>
+		<script type="text/javascript" src="assets/javascript/jquery.spin.js"></script>
 
 		<!--[if lte IE 7]>
 		<script type="text/javascript" src="assets/icomoon/lte-ie7.js"></script>
@@ -31,6 +31,10 @@
 		<link rel="stylesheet" type="text/css" href="assets/javascript/alertify.js/themes/alertify.core.css" />
 		<link rel="stylesheet" type="text/css" href="assets/javascript/alertify.js/themes/alertify.default.css" />
 		<script type="text/javascript" src="assets/javascript/alertify.js/lib/alertify.min.js"></script>
+
+		<?php // @todo: conditional load tour plugin ?>
+		<script type="text/javascript" src="assets/jQueryTourPlugin/js/jTour.js"></script>
+		<link rel="stylesheet" src="assets/jQueryTourPlugin/css/theme1/style.css">
 
 		<?php foreach ($meta_tags as $property => $content) { ?>
 			<meta property="<?php echo $property; ?>" content="<?php echo $content; ?>" />
