@@ -25,7 +25,7 @@
 									<a>
 										social sharing 
 										<div id="toggleopengraph" class="switch switch-mini" data-on="primary" data-off="info">
-										    <input type="checkbox" <?php echo ($user['opengraph']) ? '' : 'checked' ; ?> />
+										    <input type="checkbox" <?php echo ($user['opengraph'] == "true") ? 'checked' : '' ; ?> />
 										</div>
 									</a>
 								</li>
