@@ -38,7 +38,7 @@
 	                    <ul class="nav pull-right">
 
 	                    	<li><a class="video_title info"><?php echo $video['title']['$t']; ?></a></li>
-	                    	<li><a class="info"><!--<i class="icon-info"></i>--></a></li>
+	                    	<li><a class="info"><i class="icon-info"></i></a></li>
 	                    	<li><a class="video_channel"><?php echo $video['author'][0]['name']['$t']; ?></a></li>
 
 	                    	<li class="divider-vertical"></li>

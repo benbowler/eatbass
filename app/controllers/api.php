@@ -143,7 +143,6 @@ class api {
 
 		$this->m->close();
 
-
 		/*
 		$diff = 60 * 60 * 3; //3 hours in seconds
 
@@ -170,7 +169,9 @@ class api {
 	{
 		$this->col = $this->db->videos;
 
-		$video = $this->col->find(array('_id' => $_POST['video']))->limit(1)->getNext();
+		$startDate = new MongoDate(strtotime(date("Y-m-d", mktime()) . " - 365 day"));
+
+		$video = $this->col->find(array('_id' => $_POST['video'], 'publised.$t' >= $startDate))->limit(1)->getNext();
 
 		echo $video['slug'];
 

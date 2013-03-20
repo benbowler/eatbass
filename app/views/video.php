@@ -103,17 +103,7 @@
 
 		<section id="player">
 			<div id="player-yt"></div>
-
-			<section id="video_info">
-				
-				<h1 class="video_title"><?php echo $video['title']['$t']; ?></h1>
-				<?php /* @todo: channel pages   <a href="/channel:<?php echo $video['title']['$t']; ?>" class="channel"><h1 id="video_title"><?php echo $video['title']['$t']; ?></h1></a>  */ ?>
-				<a href="http://youtube.com/user/<?php echo $video['author'][0]['name']['$t']; ?>" target="_blank"><h2 class="video_author"><?php echo $video['author'][0]['name']['$t']; ?></h2></a>
-				<div class="video_description"><?php echo $video['html_description']; ?></div>
-
-			</section>
 		</section>
-
 
 		<?php include('shared/footer.php'); ?>
 
@@ -123,6 +113,15 @@
 		include('shared/profile.php');
 	}
 	?>
+
+		<section id="video_info">
+			
+			<h1 class="video_title"><?php echo $video['title']['$t']; ?></h1>
+			<?php /* @todo: channel pages   <a href="/channel:<?php echo $video['title']['$t']; ?>" class="channel"><h1 id="video_title"><?php echo $video['title']['$t']; ?></h1></a>  */ ?>
+			<a href="http://youtube.com/user/<?php echo $video['author'][0]['name']['$t']; ?>" target="_blank"><h2 class="video_channel"><?php echo $video['author'][0]['name']['$t']; ?></h2></a>
+			<div class="video_description"><?php echo $video['html_description']; ?></div>
+
+		</section>
 
 	<?php if (!isset($basic)) { ?>
 
@@ -140,7 +139,7 @@
 				</div>
 
 				<a href="#" id="fb-js-login-ad" class="fb-js-login">
-					<!--<img src="/assets/info/winning_ad_tid.jpg" style="width: 300px; height: 250px;" />-->
+					<img src="/assets/info/winning_ad_fkof.jpg" style="width: 300px; height: 250px;" />
 				</a>
 
 				<p>win <strong>music</strong>, <strong>tickets</strong> and <strong>merch</strong><br />

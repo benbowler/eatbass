@@ -2,7 +2,6 @@
 
 function app()
 {
-    $("#text").fadeOut();
 
     if(!$.user.logged_in) {
         // User logged out
@@ -59,6 +58,7 @@ function app()
 
     }
 
+    $("#video_info").delay(5000).fadeOut();
 
     // Prepair video
     jQuery("#player-yt").tubeplayer({
@@ -107,11 +107,10 @@ function app()
 
     $(".info").hover(function (e) {
         console.log('expand info');
-        $("#video_info").slideToggle();
-        /*
-        e.preventDefault();
-        var currentState = $(".love").data("lovestate");
-        toggleLove(currentState);*/
+        $("#video_info").fadeIn();
+    });
+    $('#video_info').on("mouseleave",function(){
+        $("#video_info").fadeOut();
     });
 
     $('#toggleopengraph').on('switch-change', function (e, data) {
@@ -195,6 +194,9 @@ function app()
                 $('.video_channel').attr('href', 'http://youtube.com/user/'+video.author[0].name.$t);
                 $('.video_description').html(video.html_description);
                 makeLinksExternal();
+
+                $("#video_info").fadeIn();
+                $("#video_info").delay(5000).fadeOut();
 
                 //var picture = video.media$group.media$thumbnail[1].url.replace('http', 'https');
 

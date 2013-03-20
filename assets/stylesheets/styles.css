@@ -439,32 +439,34 @@ body > svg {
   height: 100%;
   width: 100%;
 }
-#player #video_info {
-  padding: 4% 10%;
-  width: 80%;
-  height: 92%;
-  position: relative;
-  bottom: 100%;
+#video_info {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  bottom: 42px;
+  left: 0;
+  padding: 2% 5%;
+  text-align: left;
   overflow: scroll;
   background-color: rgba(0, 0, 0, 0.8);
 }
-#player #video_info #video_title {
+#video_info .video_title {
   display: inline;
   float: left;
 }
-#player #video_info #video_author {
+#video_info .video_channel {
   display: inline;
   float: right;
 }
-#player #video_info #video_description {
+#video_info .video_description {
   clear: both;
   display: block;
 }
 #login {
   position: fixed;
-  top: 0;
+  top: 42px;
   right: 0;
-  bottom: 0;
+  bottom: 42px;
   left: 0;
   text-align: center;
   background-color: rgba(0, 0, 0, 0.8);
