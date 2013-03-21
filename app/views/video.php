@@ -30,18 +30,19 @@
 				// @todo: Check if this is needed?
 				$.alertify = alertify;
 
-				<?php if($user['_id']): ?>
+				<?php if (isset($basic)) { ?>
 
-				$.user = { 
-					_id : "<?php echo $user['_id']; ?>",
-					logged_in : <?php echo ($user) ? 'true' : 'false' ; ?>,
-					subscribed : <?php echo ($user['subscribed']) ? 'true' : 'false' ; ?>,
-					opengraph : <?php echo ($user['opengraph'] == '' || $user['opengraph'] == 'first') ? "'first'" : $user['opengraph'] ; ?>
-				};
-				<?php else: ?>
+					$.user = { 
+						_id : "<?php echo $user['_id']; ?>",
+						logged_in : <?php echo ($user) ? 'true' : 'false' ; ?>,
+						subscribed : <?php echo ($user['subscribed']) ? 'true' : 'false' ; ?>,
+						opengraph : <?php echo ($user['opengraph'] == '' || $user['opengraph'] == 'first') ? "'first'" : $user['opengraph'] ; ?>
+					};
 
-				$.user = false;
-				<?php endif; ?>
+				<?php } else { ?>
+
+					$.user = false;
+				<?php } ?>
 				$.video = { 
 					_id : "<?php echo $video['_id']; ?>",
 					slug : "<?php echo $video['slug']; ?>",
