@@ -30,7 +30,7 @@
 				// @todo: Check if this is needed?
 				$.alertify = alertify;
 
-				<?php if (isset($user['_id'])) { ?>
+				<?php if (isset($basic)) { ?>
 
 					$.user = { 
 						_id : "<?php echo $user['_id']; ?>",

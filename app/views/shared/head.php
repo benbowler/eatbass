@@ -8,7 +8,7 @@
 
 		<!-- Bootstrap -->
 		<!--<script type="text/javascript" src="assets/javascript/jquery-1.7.1.min.js"></script>-->
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 		<script type="text/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" type="text/css" />
 
@@ -17,7 +17,7 @@
 		<!--<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css' />-->
 		<link rel="stylesheet" href="assets/stylesheets/styles.css?cache=<?php echo filemtime('assets/stylesheets/styles.css') ?>" type="text/css" />
 
-		<link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css">
+		<link rel="stylesheet" href="https://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css">
 
 		<script type='text/javascript' src='assets/javascript/tubeplayer/jQuery.tubeplayer.min.js'></script>
 		<script type='text/javascript' src="assets/javascript/history.js/scripts/bundled/html4+html5/jquery.history.js"></script>
