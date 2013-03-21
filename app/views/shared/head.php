@@ -17,7 +17,7 @@
 		<!--<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css' />-->
 		<link rel="stylesheet" href="assets/stylesheets/styles.css?cache=<?php echo filemtime('assets/stylesheets/styles.css') ?>" type="text/css" />
 
-		<link rel="stylesheet" href="https://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css">
+		<!-- @todo: do we need this? include on https.. <link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css"> -->
 
 		<script type='text/javascript' src='assets/javascript/tubeplayer/jQuery.tubeplayer.min.js'></script>
 		<script type='text/javascript' src="assets/javascript/history.js/scripts/bundled/html4+html5/jquery.history.js"></script>
