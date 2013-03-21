@@ -1,0 +1,114 @@
+@font-face {
+	font-family: 'icomoon';
+	src:url('fonts/icomoon.eot');
+	src:url('fonts/icomoon.eot?#iefix') format('embedded-opentype'),
+		url('fonts/icomoon.woff') format('woff'),
+		url('fonts/icomoon.ttf') format('truetype'),
+		url('fonts/icomoon.svg#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Use the following CSS code if you want to use data attributes for inserting your icons */
+[data-icon]:before {
+	font-family: 'icomoon';
+	content: attr(data-icon);
+	speak: none;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+
+/* Use the following CSS code if you want to have a class per icon */
+/*
+Instead of a list of all class selectors,
+you can use the generic selector below, but it's slower:
+[class*="icon-"]:before {
+*/
+.icon-google-plus:before, .icon-google-plus-2:before, .icon-facebook:before, .icon-twitter:before, .icon-youtube:before, .icon-html5:before, .icon-last:before, .icon-upload:before, .icon-cog:before, .icon-heart:before, .icon-soundcloud:before, .icon-tumblr:before, .icon-heart-2:before, .icon-heart-broken:before, .icon-thumbs-up:before, .icon-stats:before, .icon-pinterest:before, .icon-bubbles:before, .icon-users:before, .icon-new-tab:before, .icon-trophy:before, .icon-sad:before, .icon-play:before, .icon-help:before, .icon-info:before {
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+.icon-google-plus:before {
+	content: "\e003";
+}
+.icon-google-plus-2:before {
+	content: "\e004";
+}
+.icon-facebook:before {
+	content: "\e001";
+}
+.icon-twitter:before {
+	content: "\e002";
+}
+.icon-youtube:before {
+	content: "\e005";
+}
+.icon-html5:before {
+	content: "\e006";
+}
+.icon-last:before {
+	content: "\e007";
+}
+.icon-upload:before {
+	content: "\e008";
+}
+.icon-cog:before {
+	content: "\e009";
+}
+.icon-heart:before {
+	content: "\e00a";
+}
+.icon-soundcloud:before {
+	content: "\e00b";
+}
+.icon-tumblr:before {
+	content: "\e00c";
+}
+.icon-heart-2:before {
+	content: "\e00d";
+}
+.icon-heart-broken:before {
+	content: "\e00e";
+}
+.icon-thumbs-up:before {
+	content: "\e00f";
+}
+.icon-stats:before {
+	content: "\e010";
+}
+.icon-pinterest:before {
+	content: "\e012";
+}
+.icon-bubbles:before {
+	content: "\e013";
+}
+.icon-users:before {
+	content: "\e015";
+}
+.icon-new-tab:before {
+	content: "\e016";
+}
+.icon-trophy:before {
+	content: "\e017";
+}
+.icon-sad:before {
+	content: "\e011";
+}
+.icon-play:before {
+	content: "\e014";
+}
+.icon-help:before {
+	content: "\e018";
+}
+.icon-info:before {
+	content: "\e019";
+}

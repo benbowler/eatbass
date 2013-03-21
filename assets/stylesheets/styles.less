@@ -5,13 +5,19 @@
 
 // Fonts
 
-//@import url('http://fonts.googleapis.com/css?family=Droid+Sans:400,700');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700');
 
+@import url('../icomoon/style.css');
+@import url('../bootstrap-switch/static/stylesheets/bootstrapSwitch.css');
 
 @import 'resets';
 
 .reset();
 .normalize();
+
+.hide {
+	display: none;
+}
 
 body {
 	// font-family: 'Droid Sans', Helvetica, sans-serif;
@@ -23,9 +29,10 @@ body {
 	margin: 0;
 	padding: 0;
 	z-index: 0;
-
+/*
 	text-shadow: 0px 0px 4px #757575;
         filter: dropshadow(color=#757575, offx=0, offy=0);
+        */
 }
 
 h1, h2, h3, h4 {
@@ -48,7 +55,6 @@ strong {
 a, a:link, a:hover, a:visited {
 	color: white;
 }
-
 
 // Layout
 
@@ -75,108 +81,44 @@ body > svg {
 	width: 720px;
 	margin: 0.6em auto;
 }
-header {
-	height: 4em;
-	h3 {
-		display: inline;
-		float: left;
-
-		font-size: 1.7em;
-		font-weight: 600;
-		em {
-			font-weight: 300;
-		}
-	}
-	#user {
-		width: 58%;
-		height: 3.4em;
-		padding-top: 0.6em;
-		float: right;
-		a {
-			text-decoration: none;
-			text-transform: lowercase;
-		}
-		a:hover {
-			text-decoration: underline;
-		}
-		em.sup {
-			display: inline;
-			float: right;
-
-			font-size: 0.5em;
-			position: relative;
-			top: 1em;
-		}
-		h4, h5, a {
-			display: inline;
-			float: right;
-
-			font-weight: 300;
-
-			font-size: 1.2em;
-			line-height: 2em;
-			padding-left: 1em;
-		}
-		.profile {
-			img {
-				height: 32px;
-				width: 32px;
-				position: relative;
-				bottom: 4px;
-				margin-right: 0.4em;
-				vertical-align: middle;
-			}
-			em {
-				display: inline;
-			}
-		}
-		.love {
-			color: #ff3300;
-		}
-		.skip {
-			color: white;
-		}
-	}
-}
 
 // Player
 #player {
-	overflow: hidden;
-	height: 405px;
-	width: 720px;
-	margin: 0 auto;
+	position: fixed;
+	top: 42px;
+	right: 0;
+	bottom: 42px;
+	left: 0;
+	background-color: #000;
 	#player-loading {
-		height: 200px;
+		height: 100%;
+		width: 100%
 	}
 	#player-yt {
-		height: 405px;
-		width: 720px;
-		position: relative;
-		//bottom: 160px;
+		height: 100%;
+		width: 100%
 	}
 }
 
-#social {
-	display: block;
-	width: 100%;
-	text-align: center;
-	line-height: 1em;
-	font-size: 0.8em;
-	margin-top: 0.5em;
-	#fb-status {
-	}
-}
-
-#text {
-	#video_title {
+#video_info {
+	position: fixed;
+	top: 50%;
+	right: 0;
+	bottom: 42px;
+	left: 0;
+	padding: 2% 5%;
+	text-align: left;
+	overflow: scroll;
+	background-color: rgba(0, 0, 0, 0.8);
+	.video_title {
 		display: inline;
 		float: left;
 	}
-	#video_author {
+	.video_channel {
 		display: inline;
 		float: right;
 	}
-	#video_description {
+	.video_description {
 		clear: both;
 		display: block;
 	}
@@ -184,11 +126,12 @@ header {
 
 #login {
 	position: fixed;
-	top: 0;
+	top: 42px;
 	right: 0;
-	bottom: 0;
+	bottom: 42px;
 	left: 0;
 	text-align: center;
+	background-color: rgba(0, 0, 0, 0.8);
 	> div {
 		width: 50%;
 		margin: 5% auto;
@@ -400,37 +343,95 @@ header {
 .alertify {
 	top: 100px !important;
 	background: #000000 !important;
+	border: 2px solid white !important;
 }
-
-footer {
-	margin-top: 3em;
-	text-align: right;
-	a {
-		text-decoration: none;
-	}
-	a:after {
-		content: ' | ';
-	}
-	a:last-child:after {
-		content: '';
+.alertify-logs {
+	bottom: 51px !important;
+	//background: #000000 !important;
+	.alertify-log {
+		border: 2px solid white;
 	}
 }
 
-// Responsiveness
+
+/* Bootstrap rules */
+
+.navbar {
+	margin-bottom: 0;
+	.container {
+		width: 98%;
+	}
+	.brand {
+	}
+	#picture {
+		width: 30px;
+		height: 30px;
+		float: left;
+		position: relative;
+		bottom: 6px;
+		margin-right: 5px;
+	}
+	/*
+	.expand {
+	    overflow:hidden;
+	    position:relative;
+
+		max-width: 52%;
+		margin: 0 auto;
+		height: 2em;
+
+	    -moz-box-sizing:border-box;
+	    -webkit-box-sizing:border-box;
+	    box-sizing:border-box;
+
+	    li {
+		    width:100%;
+	    }
+	}
+	*/
+	.navbar-inner.header {
+	  background-color: #2c2c2c; /* fallback color, place your own */
+
+	  /* Gradients for modern browsers, replace as you see fit */
+	  background-image: -moz-linear-gradient(top, #333333, #222222);
+	  background-image: -ms-linear-gradient(top, #333333, #222222);
+	  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#333333), to(#222222));
+	  background-image: -webkit-linear-gradient(top, #333333, #222222);
+	  background-image: -o-linear-gradient(top, #333333, #222222);
+	  background-image: linear-gradient(top, #333333, #222222);
+	  background-repeat: repeat-x;
+
+	  /* IE8-9 gradient filter */
+	  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#333333', endColorstr='#222222', GradientType=0);
+
+	  	-webkit-border-bottom-right-radius: 0;
+		-webkit-border-bottom-left-radius: 0;
+		-moz-border-radius-bottomright: 0;
+		-moz-border-radius-bottomleft: 0;
+		border-bottom-right-radius: 0;
+		border-bottom-left-radius: 0;
+	}
+	.navbar-inner.footer {
+		ul {
+			padding-left: 1%;
+		}
+
+	  	-webkit-border-top-left-radius: 0;
+		-webkit-border-top-right-radius: 0;
+		-moz-border-radius-topleft: 0;
+		-moz-border-radius-topright: 0;
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
+
+	}
+}
+
+/* Responsiveness */
 
 /* Large desktop */
 @media (min-width: 1200px) {
 	#wrapper {
 		width: 1080px;
-	}
-	#player {
-		height: 605px;
-		width: 1080px;
-		#player-yt {
-			height: 605px;
-			width: 1080px;
-			//bottom: 240px;
-		}
 	}
 }
  
@@ -439,56 +440,12 @@ footer {
 	#wrapper {
 		width: 720px;
 	}
-	#player {
-		height: 405px;
-		width: 720px;
-		#player-yt {
-			height: 405px;
-			width: 720px;
-			//bottom: 160px;
-		}
-	}
 }
  
 /* Landscape phone to portrait tablet */
 @media (max-width: 767px) {
 	#wrapper {
 		width: 480px;
-	}
-	#player {
-		height: 266px;
-		width: 480px;
-		#player-yt {
-			height: 266px;
-			width: 480px;
-			//bottom: 107px;
-		}
-	}
-	header {
-		height: 7.6em;
-		h3 {
-			display: block;
-			float: none;
-
-			text-align: center;
-
-			em {
-				display: block;
-			}
-		}	
-		#user {
-			width: 100%;
-			display: block;
-			height: 4em;
-			float: none;
-			em.sub {
-				display: none;
-			}
-			.profile {
-				padding-left: 0;
-				float: left;
-			}
-		}
 	}
 
 	#login {
@@ -517,37 +474,10 @@ footer {
 	#wrapper {
 		width: 320px;
 	}
-	#player {
-		height: 176px;
-		width: 320px;
-		#player-yt {
-			height: 176px;
-			width: 320px;
-			//bottom: 72px;
-		}
-	}
-	header {
-		height: 7.6em;
-		h3 {
-			display: block;
-			float: none;
-
-			text-align: center;
-
-			em {
-				display: block;
-			}
-		}	
-		#user {
-			width: 100%;
-			display: block;
-			height: 4em;
-			float: none;
-			.profile {
-				padding-left: 0;
-				float: left;
-			}
-		}
+	#brand {
+		width: 100%;
+		display: block;
+		text-align: center;
 	}
 
 	#login {

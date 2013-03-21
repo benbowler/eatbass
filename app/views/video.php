@@ -5,12 +5,6 @@
 		<script type="text/javascript">
 		$(function () {
 
-	        $('#page-blur').blurjs({
-	            source: 'body',
-	            radius: 19,
-	            overlay: 'rgba(255,255,255,0.4)'
-	        });
-
 		    window.fbAsyncInit = function() {
 			FB.init({
 			  appId      : '<?php echo $appID; ?>', // App ID
@@ -36,12 +30,18 @@
 				// @todo: Check if this is needed?
 				$.alertify = alertify;
 
+				<?php if($user['_id']): ?>
+
 				$.user = { 
 					_id : "<?php echo $user['_id']; ?>",
 					logged_in : <?php echo ($user) ? 'true' : 'false' ; ?>,
 					subscribed : <?php echo ($user['subscribed']) ? 'true' : 'false' ; ?>,
 					opengraph : <?php echo ($user['opengraph'] == '' || $user['opengraph'] == 'first') ? "'first'" : $user['opengraph'] ; ?>
 				};
+				<?php else: ?>
+
+				$.user = false;
+				<?php endif; ?>
 				$.video = { 
 					_id : "<?php echo $video['_id']; ?>",
 					slug : "<?php echo $video['slug']; ?>",
@@ -103,75 +103,36 @@
 		});
 	  </script>
 
-	<div id="page-blur">
-
-		<div id="background-blur" style="background-image: url('<?php echo str_replace('http', 'https', $video['media$group']['media$thumbnail'][1]['url']); ?>');"></div>
-
 		<div id="notifications"></div>
 
-		<div id="wrapper">
+		<?php include('shared/header.php'); ?>
 
-			<header class="clearfix">
+		<section id="player">
+			<div id="player-yt"></div>
+		</section>
 
-				<h3><?php echo $site_title; ?><em> <?php echo $site_description; ?></em></h3>
+		<?php include('shared/footer.php'); ?>
 
-				<section id="user">
-
-					<em class="sup">+50</em><a href="#" class="share">share</a>
-					<em class="sup">+10</em><a href="#" class="love">love</a>
-											<a href="#" class="skip">skip</a>
-
-					<?php if (isset($basic)) { ?>
-						<a href="<?php echo "/u:" . $basic['username']; ?>" alt="<?php echo $basic['first_name']; ?> on <?php echo $site_title; ?>" class="profile">
-							<img id="picture" src="https://graph.facebook.com/<?php echo $basic['username']; ?>/picture?type=square" /><?php echo $basic['first_name']; ?> <em id="points"><?php echo $user['points']; ?></em>
-						</a>
-					<?php } ?>
-
-				</section>
-
-			</header>
-
-			<section id="player">
-					<div id="player-yt"></div>
-			</section>
-
-			<section id="social">
-				<strong id="fb-status"></strong>
-				<a href="#" class="toggleopengraph"><?php echo ($user['opengraph']) ? 'turn facebook sharing off' : 'turn facebook sharing on' ; ?></a>
-			</section>
-
-			<section id="text">
-				
-				<h1 id="video_title"><?php echo $video['title']['$t']; ?></h1>
-				<?php /* @todo: channel pages   <a href="/channel:<?php echo $video['title']['$t']; ?>" class="channel"><h1 id="video_title"><?php echo $video['title']['$t']; ?></h1></a>  */ ?>
-				<a href="http://youtube.com/user/<?php echo $video['author'][0]['name']['$t']; ?>" class="channel" target="_blank"><h2 id="video_author"><?php echo $video['author'][0]['name']['$t']; ?></h2></a>
-
-				<div id="video_description"><?php echo $video['html_description']; ?></div>
-
-				<!-- <div class="fb-comments" data-href="" data-width="470" data-num-posts="2"></div>-->
-
-				<div id="output"></div>
-				<?php // var_dump($user); ?>
-
-			</section>
-
-			<?php include('shared/footer.php'); ?>
-
-		</div>
-	</div>
-
-	<?php
+	<?php /*
 	if (isset($basic)) {
 		// Include profile view
 		include('shared/profile.php');
 	}
-	?>
+	*/ ?>
+
+		<section id="video_info">
+			
+			<h1 class="video_title"><?php echo $video['title']['$t']; ?></h1>
+			<?php /* @todo: channel pages   <a href="/channel:<?php echo $video['title']['$t']; ?>" class="channel"><h1 id="video_title"><?php echo $video['title']['$t']; ?></h1></a>  */ ?>
+			<a href="http://youtube.com/user/<?php echo $video['author'][0]['name']['$t']; ?>" target="_blank"><h2 class="video_channel"><?php echo $video['author'][0]['name']['$t']; ?></h2></a>
+			<div class="video_description"><?php echo $video['html_description']; ?></div>
+
+		</section>
 
 	<?php if (!isset($basic)) { ?>
 
 		<section id="login">
 			<div>
-				<h3><?php echo $site_title; ?><em> <?php echo $site_description; ?></em></h3>
 
 				<div id="fb-login-wrapper">
 					<div id="facebook-login-btb">
@@ -184,9 +145,7 @@
 				</div>
 
 				<a href="#" id="fb-js-login-ad" class="fb-js-login">
-				<!--
-					<img src="/assets/info/winning_ad_tid.jpg" style="width: 300px; height: 250px;" />
-				-->
+					<img src="/assets/info/winning_ad_fkof.jpg" style="width: 300px; height: 250px;" />
 				</a>
 
 				<p>win <strong>music</strong>, <strong>tickets</strong> and <strong>merch</strong><br />
