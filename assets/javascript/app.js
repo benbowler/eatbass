@@ -127,11 +127,7 @@ function app()
         viewProfile();
     });
 
-    $(".profile-exit").click(function (e) {
-        e.preventDefault();
 
-        $("#profile").fadeOut();
-    });
 
     $(".add-to-page").click(function (e) {
         // calling the API ...
@@ -431,11 +427,8 @@ function app()
                 if(data === 0 || isNaN(data)) {
                     setTimeout(updatePoints(), 1000);
                 } else {
-                    $("#points").html(data);
-                    $("#points").fadeOut(100).fadeIn(500);
-                    //$("#points").stop().css("background-color", "#FFFF9C").animate({ backgroundColor: "#FFFFFF"}, 1500);
-                    //$(".love").html('love');
-                    //$.alertify.success('+10 points');
+                    $(".points").html(data);
+                    $(".points").fadeOut(100).fadeIn(500);
                 }
             }
             /* error updating points?
@@ -545,12 +538,14 @@ function app()
     function viewProfile() {
         console.log('loading profile');
 
-        $("#profile").fadeIn();
+        $("#profile").fadeToggle();
         $("#profile").spin("yt");
 
         requestData = {
             user : $.user._id
         };
+
+        console.log(requestData.user);
 
         $.ajax({
             type: 'POST',

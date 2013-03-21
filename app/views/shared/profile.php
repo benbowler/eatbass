@@ -1,9 +1,12 @@
 <section id="profile">
 	<div>
 		<!--<a href="#" class="play_all">play all</a>-->
-		<a href="#" class="profile-exit">exit</a>
 		<div class="profile">
-			<img id="picture" src="https://graph.facebook.com/<?php echo $basic['username']; ?>/picture?type=square" /><?php echo $basic['first_name']; ?> <em id="points"><?php echo $user['points']; ?></em>
+			<img id="picture" src="https://graph.facebook.com/<?php echo $basic['username']; ?>/picture?type=square" />
+			<?php echo $basic['first_name']; ?>
+		</div>
+		<div id="acheievements">
+			<h3><span class="points"><?php echo $user['points']; ?></span> points</h3>
 		</div>
 		<div id="profile_videos">
 

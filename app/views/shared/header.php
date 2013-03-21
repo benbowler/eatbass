@@ -45,21 +45,22 @@
 
 								<li class="divider-vertical"></li>
 
-								<li><a href="#"><?php echo $user['points']; ?> points</a></li>
+								<li><a href="#" class="profile"><span class="points"><?php echo $user['points']; ?></span> points</a></li>
 								<li class="divider-vertical"></li>
-		                        <li class="dropdown">
+		                        <li> <?php /* class="dropdown" */ ?>
 
-			                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+			                        <a href="#" class="profile">  <?php /* class="dropdown-toggle"  data-toggle="dropdown" */ ?>
 			                        	<img id="picture" src="https://graph.facebook.com/<?php echo $basic['username']; ?>/picture?type=square" />
 			                        	<?php echo $basic['first_name']; ?>
-			                        	<b class="caret"></b>
+			                        	<i class="caret"></i>
 			                        </a>
+			                        <?php /*
 			                        <ul class="dropdown-menu">
-			                          <li><a href="/user:<?php echo $basic['username']; ?>">achievements</a></li>
+			                          <li><a class="profile" href="/user:<?php echo $basic['username']; ?>">achievements</a></li>
 			                          <!--<li><a href="#">badges</a></li>-->
 			                          <li class="divider"></li>
-			                          <li><a href="/user:<?php echo $basic['username']; ?>">profile</a></li>
-			                        </ul>
+			                          <li><a class="profile" href="/user:<?php echo $basic['username']; ?>">profile</a></li>
+			                        </ul> */ ?>
 		                        </li>
 		                    <?php } else { ?>
 		                    

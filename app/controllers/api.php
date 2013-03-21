@@ -316,9 +316,14 @@ class api {
 			die('false'); //json_encode(array('response' => 'unspecified user')));
 		}
 
+		// die(var_dump($_POST['user']));
 		$this->col = $this->db->loves;
 
-		$videos = array_reverse((array) $this->col->find(array('user' => $_POST['user']))); //->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
+		$videos = $this->col->find(array('user' => $_POST['user']))->limit(50);
+		//die(var_dump($query));
+
+		//$videos = array_reverse((array)); //->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
+		//die(var_dump($videos));
 
 		foreach ($videos as $video) {
 

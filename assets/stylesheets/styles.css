@@ -578,11 +578,12 @@ body > svg {
 #profile {
   display: none;
   position: fixed;
-  top: 0;
+  top: 42px;
   right: 0;
-  bottom: 0;
+  bottom: 42px;
   left: 0;
   text-align: center;
+  background-color: rgba(0, 0, 0, 0.8);
 }
 #profile > div {
   width: 50%;
@@ -598,22 +599,12 @@ body > svg {
 		*/
 
 }
-#profile .profile-exit {
-  width: 40%;
-  padding: 0 5%;
-  float: right;
-  text-align: right;
-  display: block;
-  line-height: 1em;
-  font-size: 2em;
-}
 #profile .profile {
   width: 40%;
   padding: 0 5% 1em;
   font-size: 2em;
   float: left;
   text-align: left;
-  text-transform: lowercase;
 }
 #profile .profile img {
   height: 42px;
@@ -664,7 +655,8 @@ body > svg {
   border: 2px solid white !important;
 }
 .alertify-logs {
-  bottom: 51px !important;
+  top: 51px !important;
+  bottom: auto !important;
 }
 .alertify-logs .alertify-log {
   border: 2px solid white;
@@ -694,6 +686,15 @@ body > svg {
 }
 .navbar .container {
   width: 98%;
+}
+.navbar .nav > li > a.thin {
+  padding: 10px 4px 10px;
+}
+.navbar .nav > li > a.thin-right {
+  padding-right: 4px;
+}
+.navbar .nav > li > a.thin-left {
+  padding-left: 4px;
 }
 .navbar #picture {
   width: 30px;
@@ -725,6 +726,10 @@ body > svg {
   -moz-border-radius-bottomleft: 0;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
+}
+.navbar .navbar-inner.header .caret {
+  color: #777;
+  margin: 0.4em 0;
 }
 .navbar .navbar-inner.footer {
   -webkit-border-top-left-radius: 0;

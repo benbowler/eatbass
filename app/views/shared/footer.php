@@ -37,18 +37,20 @@
 
 	                    <ul class="nav pull-right">
 
-	                    	<li><a class="video_title info"><?php echo $video['title']['$t']; ?></a></li>
-	                    	<li><a class="info"><i class="icon-info"></i></a></li>
+	                    	<li><a class="video_title info thin-right"><?php echo $video['title']['$t']; ?></a></li>
+	                    	<li><a class="info hidden-phone thin-left"><i class="icon-info"></i></a></li>
 	                    	<li><a class="video_channel"><?php echo $video['author'][0]['name']['$t']; ?></a></li>
 
 	                    	<li class="divider-vertical"></li>
-							<li><a href="https://facebook.com/eatbassnow" target="_blank"><i class="icon-facebook"></i><span class="hide">facebook</span></a></li>
-							<li><a href="https://twitter.com/eatbassnow" target="_blank"><i class="icon-twitter"></i><span class="hide">twitter</span></a></li>
+							<!--<li><a href="https://twitter.com/eatbassnow" target="_blank"><i class="icon-google-plus"></i><span class="hide">google plus</span></a></li>-->
+							<li><a class="thin-right" href="https://facebook.com/eatbassnow" target="_blank"><i class="icon-facebook"></i><span class="hide">facebook</span></a></li>
+							<li><a class="thin" href="https://twitter.com/eatbassnow" target="_blank"><i class="icon-twitter"></i><span class="hide">twitter</span></a></li>
+							<li><a class="thin-left" href="https://twitter.com/eatbassnow" target="_blank"><i class="icon-tumblr"></i><span class="hide">tumblr</span></a></li>
 
 							<li class="divider-vertical"></li>
 	                    	<li class="dropdown">
 
-		                        <a class="dropdown-toggle" data-toggle="dropdown">
+		                        <a class="dropdown-toggle thin" data-toggle="dropdown">
 		                        	<i class="icon-help"></i>
 		                        </a>
 		                        <ul class="dropdown-menu">

@@ -42,7 +42,9 @@
 				<?php } else { ?>
 
 					$.user = false;
+
 				<?php } ?>
+
 				$.video = { 
 					_id : "<?php echo $video['_id']; ?>",
 					slug : "<?php echo $video['slug']; ?>",
@@ -114,12 +116,6 @@
 
 		<?php include('shared/footer.php'); ?>
 
-	<?php /*
-	if (isset($basic)) {
-		// Include profile view
-		include('shared/profile.php');
-	}
-	*/ ?>
 
 		<section id="video_info">
 			
@@ -130,7 +126,12 @@
 
 		</section>
 
-	<?php if (!isset($basic)) { ?>
+	<?php
+	if (isset($basic)) {
+		// Include profile view
+		include('shared/profile.php');
+
+	} else { ?>
 
 		<section id="login">
 			<div>
@@ -154,13 +155,14 @@
 			</div>
 		</section>
 
+		<!-- seo stuff -->
 		<section>
 			<h1>top videos</h1>
-			<?php /*  foreach ($top_plays as $video) { ?>
+			<?php foreach ($top_plays as $video) { ?>
 				<a href="/<?php echo $video['slug']; ?>" alt="<?php echo $video['title']['$t']; ?>"><?php echo $video['title']['$t']; ?></a><br />
-			<?php } */ ?>
+			<?php } ?>
 		</section>
-
+		<?php /*
 		<section>
 			<?php //var_dump($top_ikes); ?>
 		</section>
@@ -168,6 +170,7 @@
 		<section>
 			<?php echo $site_about; ?>
 		</section>
+		*/ ?>
 
 	<?php } ?>
 

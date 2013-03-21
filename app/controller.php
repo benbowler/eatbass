@@ -103,6 +103,7 @@ class controller
     /* User Controller */
     public function user($slug)
     {
+        die('user');
         $this->view('video', $this->data); //$this->model->get());
     }
 
