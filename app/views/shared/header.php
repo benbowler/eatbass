@@ -52,16 +52,14 @@
 			                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 			                        	<img id="picture" src="https://graph.facebook.com/<?php echo $basic['username']; ?>/picture?type=square" />
 			                        	<?php echo $basic['first_name']; ?>
-			                        	<?php /* <b class="caret"></b> */ ?>
+			                        	<b class="caret"></b>
 			                        </a>
-			                        <?php /*
 			                        <ul class="dropdown-menu">
-			                          <li><a href="#">points</a></li>
+			                          <li><a href="/user:<?php echo $basic['username']; ?>">achievements</a></li>
 			                          <!--<li><a href="#">badges</a></li>-->
 			                          <li class="divider"></li>
-			                          <li><a href="#">profile</a></li>
+			                          <li><a href="/user:<?php echo $basic['username']; ?>">profile</a></li>
 			                        </ul>
-			                        */ ?>
 		                        </li>
 		                    <?php } else { ?>
 		                    
