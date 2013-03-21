@@ -50,7 +50,7 @@
 							<li class="divider-vertical"></li>
 	                    	<li class="dropdown">
 
-		                        <a class="dropdown-toggle thin" data-toggle="dropdown">
+		                        <a class="dropdown-toggle thin-left" data-toggle="dropdown">
 		                        	<i class="icon-help"></i>
 		                        </a>
 		                        <ul class="dropdown-menu">

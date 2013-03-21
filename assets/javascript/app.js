@@ -14,26 +14,7 @@ function app()
 
 
         // @todo: if tour == 'first'
-        var tourdata = [
-           {
-              html: "Hello World"
-           },{
-              html: "Welcome to the Tour",
-              live: 5000,
-              delayIn: 500
-           },{
-              html: "Lorem Ipsum Bla Bla",
-              element: 'h2', //use the first h2 tag as target element
-              position: 's'
-           },{
-              html: "Second List Entry",
-              element: $('li').eq(1), //use the second (starting with 0) a tag within a li tag as target element
-              position: 'e' //display the box right to the target element (east)
-          }
-        ];
-        var myTour = jTour(tourdata);
-        myTour.start(autostart: true);
-
+        runTour();
 
         makeLinksExternal();
 
@@ -43,7 +24,8 @@ function app()
 
             $("#login").fadeOut();
 
-            //setTimeout(updatePoints, 1000);
+            setTimeout(updatePoints, 1000);
+
             /*
             alertify.confirm( 'invite your friends for +50 points', function (e) {
                 if (e) {
@@ -249,6 +231,13 @@ function app()
 
                 $("#player").spin(false);
 
+                if($.user.opengraph) {
+                    setTimeout(function() {
+                        $('#fb-status').html('posting watch to facebook.');
+                        doOpenGraph('video.watches');
+                    }, 500);
+                }
+
             },
             error: function (data) {
 
@@ -311,17 +300,9 @@ function app()
 
     // Facebook Share functionality
     function shareVideo() {
-/*
-        https://graph.facebook.com/brent/feed?
-  link=https://developers.facebook.com/docs/reference/dialogs/&
-  picture=http://fbrell.com/f8.jpg&
-  name=Facebook%20Dialogs&
-  caption=Reference%20Documentation&
-  description=Using%20Dialogs%20to%20interact%20with%20users.&
-  */
         console.log('Sharing video ' + document.URL);
 
-        var body = 'Reading JS SDK documentation';
+        var body = 'Loving ' + $.video['title'];
         FB.api('/me/feed', 'post', { message: body }, function(response) {
           if (!response || response.error) {
             alert('Error occured');
@@ -531,7 +512,7 @@ function app()
                     // Allow delete open graph
                     $(".delete_opengraph").click(function (e) {
                         e.preventDefault();
-                        
+
                         var actionId = $(".delete_opengraph").data('actionid');
                         deleteOpenGraph(actionId);
                     });
@@ -568,8 +549,6 @@ function app()
             user : $.user._id
         };
 
-        console.log(requestData.user);
-
         $.ajax({
             type: 'POST',
             data: requestData,
@@ -577,7 +556,7 @@ function app()
             url: '/api:profilehtml',
             success: function (data) {
 
-                console.log(data);
+                // console.log(data);
 
                 if(data === 'false') {
                     setTimeout(function () {
@@ -620,6 +599,22 @@ function app()
     }
 
     // Front end
+
+    function runTour() {
+        console.log('running tour');
+
+        var tourdata = [
+           {
+              html: "Hello World"
+           },{
+              html: "Welcome to the Tour",
+              live: 5000,
+              delayIn: 500
+           }
+        ];
+        var myTour = jTour(tourdata);
+        myTour.start();
+    }
 
     function makeLinksExternal() {
         // Make description links external
