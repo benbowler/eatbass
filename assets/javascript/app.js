@@ -235,7 +235,7 @@ function app()
                     setTimeout(function() {
                         $('#fb-status').html('posting watch to facebook.');
                         doOpenGraph('video.watches');
-                    }, 500);
+                    }, 12000);
                 }
 
             },
