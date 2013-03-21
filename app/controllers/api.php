@@ -136,22 +136,16 @@ class api {
 		if($_POST['video']) {
 			$video = $this->col->findOne(array('video' => $_POST['video']));
 		} else {
-			$video = $this->col->find()->limit(1)->skip(rand(-1, $this->col->count()-1))->getNext();
+			$startDate = new MongoDate(strtotime(date("Y-m-d", mktime()) . " - 182 day"));
+			//die(var_dump($startDate));
+			$count = $this->col->find(array('date' => array( '$gt' => $startDate ) ))->count();
+
+			$video = $this->col->find( array('date' => array( '$gt' => $startDate ) ) )->sort(array('date' => -1))->skip(rand(-1, $count-1))->getNext();
 		}
 
 		echo json_encode($video);
 
 		$this->m->close();
-
-		/*
-		$diff = 60 * 60 * 3; //3 hours in seconds
-
-		$mongotime = New Mongodate(time()-$diff);
-
-		$condition = array('time' => array('$lt'=>$mongotime) );
-
-		$result = $db->collection->find( $condition );
-		*/
 	}
 
 	public function videos()
@@ -164,19 +158,21 @@ class api {
 
 		$this->m->close();
 	}
-
+/*
 	public function next()
 	{
 		$this->col = $this->db->videos;
 
-		$startDate = new MongoDate(strtotime(date("Y-m-d", mktime()) . " - 365 day"));
+		$startDate = new MongoDate(date("Y-m-d", mktime()) . " - 365 day");
 
-		$video = $this->col->find(array('_id' => $_POST['video'], 'publised.$t' >= $startDate))->limit(1)->getNext();
+		$video = $this->col->find(array('publised.$t' >= $startDate))->sort(array('random' => 1))->limit(1)->getNext();
+		die(var_dump($video));
 
 		echo $video['slug'];
 
 		$this->m->close();
 	}
+	*/
 
 	public function points()
 	{

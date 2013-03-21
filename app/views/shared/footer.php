@@ -18,7 +18,7 @@
 	                    <?phpm */ ?>
 
 
-	                    <ul class="nav pull-left .hidden-phone">
+	                    <ul class="nav pull-left hidden-phone">
 	                    	<?php if (isset($basic)) { ?>
 			                	<li><a id="fb-status"></a></li>
 								<li>
