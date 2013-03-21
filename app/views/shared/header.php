@@ -64,6 +64,7 @@
 			                        */ ?>
 		                        </li>
 		                    <?php } else { ?>
+		                    
 		                    <?php } ?>
 		                    </ul>
 	                  </div><!-- /.nav-collapse -->

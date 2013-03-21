@@ -38,7 +38,6 @@ class controller
         }
         */
 
-
         //$this->data['profile'] = $this->model->get_profile($this->data['user']->_id, $limit);
         
         //var_dump($slug);
@@ -257,37 +256,37 @@ class controller
 
         $user_id = $facebook->getUser();
         if ($user_id) {
-        try {
-          // Fetch the viewer's basic information
-          $this->data['basic'] = $facebook->api('/me');
+            try {
+                // Fetch the viewer's basic information
+                $this->data['basic'] = $facebook->api('/me');
 
-          if($this->data['basic']) {
-            $email = $facebook->api('/me?fields=email');
-            $likes = $facebook->api('/me/likes');
+                if($this->data['basic']) {
+                    $email = $facebook->api('/me?fields=email');
+                    $likes = $facebook->api('/me/likes');
 
-            //die(var_dump($likes));
-            /*
-            //Create Query
-            $params = array(
-                'method' => 'fql.query',
-                'query' => "SELECT name FROM page WHERE page_id IN (SELECT uid, page_id, type FROM page_fan WHERE uid=me()) AND type='musician/band'",
-            );
-            //Run Query
-            $results = $facebook->api($params);
-            $music = array();
-            foreach ($results as $result) {
-                array_push($music, $result['name']);
-            }*/
+                    //die(var_dump($likes));
+                    /*
+                    //Create Query
+                    $params = array(
+                        'method' => 'fql.query',
+                        'query' => "SELECT name FROM page WHERE page_id IN (SELECT uid, page_id, type FROM page_fan WHERE uid=me()) AND type='musician/band'",
+                    );
+                    //Run Query
+                    $results = $facebook->api($params);
+                    $music = array();
+                    foreach ($results as $result) {
+                        array_push($music, $result['name']);
+                    }*/
 
-            $this->data['user'] = $this->model->user($email, $this->data['basic'], $likes);
-          }
-        } catch (FacebookApiException $e) {
-          // If the call fails we check if we still have a user. The user will be
-          // cleared if the error is because of an invalid accesstoken
-          if (!$facebook->getUser()) {
-            header('Location: '. AppInfo::getUrl($_SERVER['REQUEST_URI']));
-            exit();
-          }
+                    $this->data['user'] = $this->model->user($email, $this->data['basic'], $likes);
+                }
+            } catch (FacebookApiException $e) {
+            // If the call fails we check if we still have a user. The user will be
+            // cleared if the error is because of an invalid accesstoken
+            if (!$facebook->getUser()) {
+                header('Location: '. AppInfo::getUrl($_SERVER['REQUEST_URI']));
+                exit();
+            }
         }
 
         /*

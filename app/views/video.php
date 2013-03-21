@@ -30,12 +30,18 @@
 				// @todo: Check if this is needed?
 				$.alertify = alertify;
 
+				<?php if($user['_id']): ?>
+
 				$.user = { 
 					_id : "<?php echo $user['_id']; ?>",
 					logged_in : <?php echo ($user) ? 'true' : 'false' ; ?>,
 					subscribed : <?php echo ($user['subscribed']) ? 'true' : 'false' ; ?>,
 					opengraph : <?php echo ($user['opengraph'] == '' || $user['opengraph'] == 'first') ? "'first'" : $user['opengraph'] ; ?>
 				};
+				<?php else: ?>
+
+				$.user = false;
+				<?php endif; ?>
 				$.video = { 
 					_id : "<?php echo $video['_id']; ?>",
 					slug : "<?php echo $video['slug']; ?>",
@@ -107,12 +113,12 @@
 
 		<?php include('shared/footer.php'); ?>
 
-	<?php
+	<?php /*
 	if (isset($basic)) {
 		// Include profile view
 		include('shared/profile.php');
 	}
-	?>
+	*/ ?>
 
 		<section id="video_info">
 			
