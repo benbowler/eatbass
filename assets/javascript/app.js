@@ -527,7 +527,8 @@ function app()
           '/'+actionId,
           'delete',
           function(response) {
-            // handle the response
+            console.log(response);
+            $('#fb-status').html(actionName+' deleted from facebook.');
           }
         );
     }
