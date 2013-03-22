@@ -59,6 +59,7 @@
 									<li class="divider"></li>
 									<li><a href="/info:channels" target="_blank">channels</a></li>
 									<li><a href="/info:winning" target="_blank">winning</a></li>
+										<li><a href="http://test.skimlinks.com">Test</a></li>
 									<li><a href="/info:support" tartget="_blank">support</a></li>
 		                        </ul>
 	                        </li>
