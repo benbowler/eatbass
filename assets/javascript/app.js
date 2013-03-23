@@ -49,11 +49,12 @@ function app()
             $.alertify.confirm( '<h3>turn facebook sharing on</h3><br /><br />this means you are sharing the videos you watch with your friends. you can turn this off now, or anytime with the controls below.', function (e) {
                 if (e) {
                     console.log('opted in to open graph ' + e);
+
+                    $('#toggleopengraph').bootstrapSwitch('setState', true);
                     setOpenGraph(true);
                 } else {
                     console.log('opted out of open graph');
 
-                    $('#toggleopengraph').bootstrapSwitch('setState', true);
                     setOpenGraph(false);
                 }
             });
