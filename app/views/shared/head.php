@@ -29,7 +29,7 @@
 		<![endif]-->
 
 		<link rel="stylesheet" type="text/css" href="assets/javascript/alertify.js/themes/alertify.core.css" />
-		<link rel="stylesheet" type="text/css" href="assets/javascript/alertify.js/themes/alertify.default.css" />
+		<link rel="stylesheet" type="text/css" href="assets/javascript/alertify.js/themes/alertify.bootstrap.css" />
 		<script type="text/javascript" src="assets/javascript/alertify.js/lib/alertify.min.js"></script>
 
 		<?php // @todo: conditional load tour plugin ?>

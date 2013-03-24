@@ -43,21 +43,10 @@ function app()
         };
 
         if($.user.opengraph == 'first') {
-            setOpenGraph('first');
-
-            $.alertify.set({ labels: { ok: "ON", cancel: "OFF" } });
-            $.alertify.confirm( '<h3>turn facebook sharing on</h3><br /><br />this means you are sharing the videos you watch with your friends. you can turn this off now, or anytime with the controls below.', function (e) {
-                if (e) {
-                    console.log('opted in to open graph ' + e);
-
-                    $('#toggleopengraph').bootstrapSwitch('setState', true);
-                    setOpenGraph(true);
-                } else {
-                    console.log('opted out of open graph');
-
-                    setOpenGraph(false);
-                }
-            });
+            openGraphOptIn();
+        }
+        if($.user.emailfrequency == 'first') {
+            emailOptIn();
         }
 
         $.alertify.log('welcome to #eatbass');
@@ -448,33 +437,24 @@ function app()
         });
     }
 
-    function setOpenGraph(setValue) {
-        console.log('setting open graph preference to '+setValue);
+    /* Begin Open Graph */
 
-        requestData = {
-            user : $.user._id,
-            opengraph : setValue
-        };
+    function openGraphOptIn() {
+        setOpenGraph('first');
 
-        console.log(requestData);
+        $.alertify.set({ labels: { ok: "ON", cancel: "OFF" } });
+        $.alertify.confirm( '<h3>turn facebook sharing on</h3><br /><br />this means you are sharing the videos you watch with your friends. you can turn this off now, or anytime with the controls below.', function (e) {
+            if (e) {
+                console.log('opted in to open graph ' + e);
 
-        $.ajax({
-            type: 'POST',
-            data: requestData,
-            dataType : 'json',
-            url: '/api:setopengraph',
-            success: function (data) {
+                $('#toggleopengraph').bootstrapSwitch('setState', true);
+                setOpenGraph(true);
+            } else {
+                console.log('opted out of open graph');
 
-                $.user.opengraph = setValue;
-
-                console.log(data);
-
-            },
-            error: function (data) {
-
-                console.log(data);
-
+                setOpenGraph(false);
             }
+
         });
     }
 
@@ -532,6 +512,22 @@ function app()
             $('#fb-status').html(actionName+' deleted from facebook.');
           }
         );
+    }
+
+    /* End Open Graph */
+
+    /* Begin Email */
+
+    function emailOptIn() {
+        //setOpenGraph('first');
+
+        $.alertify.alert( '<h3>email settings</h3><br /><br />Select how often you want #eatbass updates. <div id="email_slider"></div>', function (e) {
+
+            console.log('opted in to email ' + e);
+
+            //setOpenGraph(true);
+        });
+        $( "#email_slider" ).slider();
     }
 
     // Page stuff
@@ -645,6 +641,8 @@ function app()
             window.location = url;
         }, {scope: 'email,user_likes,publish_actions'});
      }
+
+
     /*
     // Set up so we handle click on the buttons
     $('#postToWall').click(function () {
