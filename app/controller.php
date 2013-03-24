@@ -192,32 +192,6 @@ class controller
         $this->view('info', $this->data); //$this->model->get());
     }
 
-
-    // random logos
-    /*
-    public function logo($slug)
-    {
-        $this->data['slug'] = $slug;
-        $this->data['video'] = $this->model->get_video($slug);
-            
-        $this->data['meta_tags'] = array(
-            'title' => $video['title']['$t'] . ' ' . $site_title,
-            'description' => $description,
-            'og:title' => $video['title']['$t'] . ' ' . $site_title,
-            'og:type' => 'website',
-            'og:url' => $getUrl,
-            'og:image' => $video['media$group']['media$thumbnail'][2]['url'],
-            'og:site_name' => $site_title,
-            'og:description' =>  $description,
-            'fb:app_id' => $appID,
-        );
-
-        $this->data['title_tag'] = "&#9658; " . $video['title']['$t'] . ' ' . $site_title;
-
-        $this->view('logo', $this->data); //$this->model->get());
-    }
-    */
-
     public function admin()
     {
         foreach ($this->model->get_users(1000) as $user) {
