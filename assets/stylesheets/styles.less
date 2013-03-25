@@ -33,27 +33,38 @@ body {
 	text-shadow: 0px 0px 4px #757575;
         filter: dropshadow(color=#757575, offx=0, offy=0);
         */
-}
 
-h1, h2, h3, h4 {
-	padding: 0;
-	margin: 0;
-	font-size: 1.5em;
+	h1, h2, h3, h4 {
+		padding: 0;
+		margin: 0;
+		font-size: 1.5em;
 
-	line-height: 2em;
+		line-height: 2em;
 
-	font-weight: 300;
+		font-weight: 300;
+		strong {
+			font-weight: 600;
+		}
+	}
+
 	strong {
 		font-weight: 600;
 	}
+
+	a, a:link, a:hover, a:visited {
+		color: white;
+	}
 }
 
-strong {
-	font-weight: 600;
-}
-
-a, a:link, a:hover, a:visited {
-	color: white;
+body.info {
+	color: black;
+	background-color: white;
+	a > h3 {
+		color: black;
+	}
+	footer .navbar .info, footer .navbar .divider-vertical {
+		display: none;
+	}
 }
 
 // Layout

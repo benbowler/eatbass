@@ -49,4 +49,4 @@
 			</script>
 		<![endif]-->
 	</head>
-	<body>
+	<body class="<?php foreach (explode(':', $_GET['slug']) as $class) { echo $class . ' '; } ?>">

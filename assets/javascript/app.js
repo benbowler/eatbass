@@ -12,7 +12,7 @@ function app()
     } else {
         // User logged in!
         // @todo: if tour == 'first'
-        runTour();
+        //runTour();
 
         makeLinksExternal();
 
