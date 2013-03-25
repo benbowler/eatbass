@@ -147,7 +147,7 @@
 					</div>
 				</div>
 
-				<div id="fb-facepile-wrapper">
+				<div class="hidden-phone" id="fb-facepile-wrapper">
 					<iframe src="//www.facebook.com/plugins/facepile.php?href=https%3A%2F%2Fapps.facebook.com%2Featbass&amp;action&amp;size=medium&amp;max_rows=1&amp;width=300&amp;colorscheme=light&amp;appId=131097217043937" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:500px;" allowTransparency="true"></iframe>
 				</div>
 

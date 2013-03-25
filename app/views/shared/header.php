@@ -50,7 +50,7 @@
 		                        <li> <?php /* class="dropdown" */ ?>
 
 			                        <a href="#" class="profile">  <?php /* class="dropdown-toggle"  data-toggle="dropdown" */ ?>
-			                        	<img id="picture" src="https://graph.facebook.com/<?php echo $basic['username']; ?>/picture?type=square" />
+			                        	<img class="hidden-phone" id="picture" src="https://graph.facebook.com/<?php echo $basic['username']; ?>/picture?type=square" />
 			                        	<?php echo $basic['first_name']; ?>
 			                        	<i class="caret"></i>
 			                        </a>
