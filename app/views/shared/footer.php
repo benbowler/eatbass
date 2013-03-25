@@ -38,17 +38,19 @@
 	                    <ul class="nav pull-right">
 
 	                    	<li><a class="video_title info thin-right"><?php echo $video['title']['$t']; ?></a></li>
-	                    	<li><a class="info hidden-phone thin-left"><i class="icon-info"></i></a></li>
+	                    	<li><a class="info  thin-left"><i class="icon-info"></i></a></li>
 	                    	<li><a class="video_channel"><?php echo $video['author'][0]['name']['$t']; ?></a></li>
 
-	                    	<li class="divider-vertical"></li>
-							<!--<li><a href="https://twitter.com/eatbassnow" target="_blank"><i class="icon-google-plus"></i><span class="hide">google plus</span></a></li>-->
-							<li><a class="thin-right" href="https://facebook.com/eatbassnow" target="_blank"><i class="icon-facebook"></i><span class="hide">facebook</span></a></li>
-							<li><a class="thin" href="https://twitter.com/eatbassnow" target="_blank"><i class="icon-twitter"></i><span class="hide">twitter</span></a></li>
-							<li><a class="thin-left" href="https://twitter.com/eatbassnow" target="_blank"><i class="icon-tumblr"></i><span class="hide">tumblr</span></a></li>
+	                    	<li class="divider-vertical hidden-phone"></li>
 
-							<li class="divider-vertical"></li>
-	                    	<li class="dropdown">
+							<!--<li><a href="https://twitter.com/eatbassnow" target="_blank"><i class="icon-google-plus"></i><span class="hide">google plus</span></a></li>-->
+							<li class="hidden-phone"><a class="thin-right" href="https://facebook.com/eatbassnow" target="_blank"><i class="icon-facebook"></i><span class="hide">facebook</span></a></li>
+							<li class="hidden-phone"><a class="thin" href="https://twitter.com/eatbassnow" target="_blank"><i class="icon-twitter"></i><span class="hide">twitter</span></a></li>
+							<li class="hidden-phone"><a class="thin-left" href="https://twitter.com/eatbassnow" target="_blank"><i class="icon-tumblr"></i><span class="hide">tumblr</span></a></li>
+							
+
+							<li class="divider-vertical hidden-phone"></li>
+	                    	<li class="dropdown hidden-phone">
 
 		                        <a class="dropdown-toggle thin-left" data-toggle="dropdown">
 		                        	<i class="icon-help"></i>
