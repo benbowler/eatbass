@@ -11,8 +11,6 @@ function app()
 
     } else {
         // User logged in!
-
-
         // @todo: if tour == 'first'
         runTour();
 
@@ -44,9 +42,10 @@ function app()
 
         if($.user.opengraph == 'first') {
             openGraphOptIn();
-        }
-        if($.user.emailfrequency == 'first') {
-            emailOptIn();
+        } else {
+            if($.user.emailfrequency == 'first') {
+                emailOptIn();
+            }
         }
 
         $.alertify.log('welcome to #eatbass');
@@ -153,6 +152,11 @@ function app()
         $('#fb-status').html('');
         // Loading spinner
         $("#player").spin("yt");
+
+        // Try email optin on the second visit or video watch
+        if($.user.emailfrequency == 'first') {
+            emailOptIn();
+        }
 
         $.ajax({
             type: 'POST',
@@ -443,7 +447,7 @@ function app()
         setOpenGraph('first');
 
         $.alertify.set({ labels: { ok: "ON", cancel: "OFF" } });
-        $.alertify.confirm( '<h3>turn facebook sharing on</h3><br /><br />this means you are sharing the videos you watch with your friends. you can turn this off now, or anytime with the controls below.', function (e) {
+        $.alertify.confirm( '<h3>turn facebook social sharing on</h3><p>videos you watch will automatically be shared with your friends. you can turn this off now, or anytime with the controls below the video.</p>', function (e) {
             if (e) {
                 console.log('opted in to open graph ' + e);
 
@@ -455,6 +459,36 @@ function app()
                 setOpenGraph(false);
             }
 
+        });
+    }
+
+    function setOpenGraph(setValue) {
+        console.log('setting open graph preference to '+setValue);
+
+        requestData = {
+            user : $.user._id,
+            opengraph : setValue
+        };
+
+        console.log(requestData);
+
+        $.ajax({
+            type: 'POST',
+            data: requestData,
+            dataType : 'json',
+            url: '/api:setopengraph',
+            success: function (data) {
+
+                $.user.opengraph = setValue;
+
+                console.log(data);
+
+            },
+            error: function (data) {
+
+                console.log(data);
+
+            }
         });
     }
 
@@ -517,17 +551,58 @@ function app()
     /* End Open Graph */
 
     /* Begin Email */
+    //$("#email_slider").on("elementCreated", function(event){
+    //    alert('One more');
+    //});
 
     function emailOptIn() {
         //setOpenGraph('first');
+        $.alertify.set({ labels: { ok: "OK" } });
+        /*jshint multistr: true */
+        $.alertify.alert( '<h3>email frequency</h3><p>set how often you want #eatbass updates by email.</p> \
+            <select id="email_frequency"> \
+                <option>Never</option> \
+                <option>Monthly</option> \
+                <option selected>Weekly</option> \
+                <option>Daily</option> \
+            </select> \
+            ', function (e) {
 
-        $.alertify.alert( '<h3>email settings</h3><br /><br />Select how often you want #eatbass updates. <div id="email_slider"></div>', function (e) {
-
-            console.log('opted in to email ' + e);
-
-            //setOpenGraph(true);
+            setEmail($('#email_frequency').val());
         });
-        $( "#email_slider" ).slider();
+    }
+
+    function setEmail(emailFrequency) {
+        console.log('setting email frequency '+emailFrequency);
+
+        requestData = {
+            user : $.user,
+            emailfrequency : emailFrequency
+        };
+
+        console.log(requestData);
+
+        $.user.emailfrequency = emailFrequency;
+
+        $.ajax({
+            type: 'POST',
+            data: requestData,
+            dataType : 'json',
+            url: '/api:setemailfrequency',
+            success: function (data) {
+
+                console.log(data);
+
+            },
+            error: function (data) {
+
+                console.log(data);
+
+                // Ask again..
+                $.user.emailfrequency = 'first';
+
+            }
+        });
     }
 
     // Page stuff

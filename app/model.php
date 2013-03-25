@@ -78,43 +78,11 @@ class Model
         $response = $this->db->lastError();
 
         die(var_dump($response));
+
+
+        Mailchimp moved to API
         */
-        
-        if(!$user['subscribed'] && isset($user['email'])) {
 
-            //die(var_dump($user));
-            require_once 'modules/mailchimp-api-class/examples/inc/config.inc.php'; //contains apikey
-            require_once 'modules/mailchimp-api-class/examples/inc/MCAPI.class.php';
-
-            $api = new MCAPI($apikey);
-
-            $merge_vars = array('FNAME'=>$user['first_name'], 'LNAME'=>$user['last_name'], 'FREQ'=>'Weekly' 
-                             /* 'GROUPINGS'=>array(
-                                    //array('name'=>'Music:', 'groups'=>implode(',', $music)),
-                                    //array('id'=>22, 'groups'=>'Trains'),
-                                    ) */
-                                );
-
-            // By default this sends a confirmation email - you will not see new members
-            // until the link contained in it is clicked!
-            $retval = $api->listSubscribe('0f213b0888', $user['email'], $merge_vars, $email_type='html', $double_optin=false, $update_existing=true, $replace_interests=true, $send_welcome=true);
-            /*
-            if ($api->errorCode){
-                echo "Unable to load listSubscribe()!\n";
-                echo "\tCode=".$api->errorCode."\n";
-                echo "\tMsg=".$api->errorMessage."\n";
-            } else {
-                echo "Subscribed - look for the confirmation email!\n";
-            }
-            */
-            $update = array('$set' => array('subscribed' => true));
-
-            $this->col->update(array('_id' => $user['id']), $update);
-
-            // pass first visit value
-            $user['first_visit'] = true;
-
-        }
 
         return $user;
 

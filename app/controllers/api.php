@@ -227,12 +227,13 @@ class api {
 
         if(is_null($response['err'])) {
 		    echo json_encode(array('response' => true));
+
+		    // Give points only if
+			$this->_give_points($_POST['user'], $points);
 		} else {
 		    $error = (strstr($response['err'], 'duplicate')) ? 'duplicate' : 'other' ;
 		    echo json_encode(array('response' => false, 'error' => $error));
 		}
-
-		$this->_give_points($_POST['user'], $points);
 
 		$this->m->close();
 	}
@@ -385,8 +386,6 @@ class api {
 
 		$response = $this->db->lastError();
 
-		die(json_encode($response));
-
 		if($response['err'] == null) {
 			echo json_encode(array('response' => true));
 		} else {
@@ -418,6 +417,101 @@ class api {
 		curl_close($ch);
 
 		echo json_encode(array('response' => $reply));
+	}
+
+	public function setemailfrequency()
+	{
+		if(!$_POST['user'] || !$_POST['emailfrequency']) {
+			die(json_encode(array('response' => 'nopostdata')));
+		}
+
+		$user = $_POST['user'];
+
+		//die(json_encode($user));
+
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/app/modules/mailchimp-api-class/examples/inc/config.inc.php'; //contains apikey
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/app/modules/mailchimp-api-class/examples/inc/MCAPI.class.php';
+
+        $api = new MCAPI($apikey);
+
+		/*
+		$retval = $api->lists();
+		 
+		if ($api->errorCode){
+			echo "Unable to load lists()!";
+			echo "\n\tCode=".$api->errorCode;
+			echo "\n\tMsg=".$api->errorMessage."\n";
+		} else {
+			echo "Lists that matched:".$retval['total']."\n";
+			echo "Lists returned:".sizeof($retval['data'])."\n";
+			foreach ($retval['data'] as $list){
+				echo "Id = ".$list['id']." - ".$list['name']."\n";
+				echo "Web_id = ".$list['web_id']."\n";
+				echo "\tSub = ".$list['stats']['member_count'];
+				echo "\tUnsub=".$list['stats']['unsubscribe_count'];
+				echo "\tCleaned=".$list['stats']['cleaned_count']."\n";
+			}
+		}
+		*/
+
+        if($_POST['emailfrequency'] == 'Never') {
+        	// Do unsubscripe..
+
+        	$retval = $api->listUnsubscribe('0f213b0888', $user['email']);
+
+			if ($api->errorCode){
+			    echo "Unable to load listUnsubscribe()!\n";
+				echo "\tCode=".$api->errorCode."\n";
+				echo "\tMsg=".$api->errorMessage."\n";
+			} else {
+			    echo "Returned: ".$retval."\n";
+			}
+
+        } else {
+
+	        $merge_vars = array('FNAME'=>$user['first_name'], 'LNAME'=>$user['last_name'], 'FREQ'=>$_POST['emailfrequency']
+	                         /* 'GROUPINGS'=>array(
+	                                //array('name'=>'Music:', 'groups'=>implode(',', $music)),
+	                                //array('id'=>22, 'groups'=>'Trains'),
+	                                ) */
+	                            );
+
+	        // By default this sends a confirmation email - you will not see new members
+	        // until the link contained in it is clicked!
+	        $retval = $api->listSubscribe('0f213b0888', $user['email'], $merge_vars, $email_type='html', $double_optin=false, $update_existing=true, $replace_interests=true, $send_welcome=true);
+	      	
+	        if ($api->errorCode) { 
+				die(json_encode(array('response' => false, 'error' => "Mailchimp: ".$api->errorMessage)));
+			}
+	        /*
+	        if ($api->errorCode){
+	            echo "Unable to load listSubscribe()!\n";
+	            echo "\tCode=".$api->errorCode."\n";
+	            echo "\tMsg=".$api->errorMessage."\n";
+	        } else {
+	            echo "Subscribed - look for the confirmation email!\n";
+	        }
+			*/
+	    }
+
+	    // Update our records..
+		$this->col = $this->db->users;
+		
+		$update = array('$set' => array('emailfrequency' => $_POST['emailfrequency']));
+
+		$this->col->update(array('_id' => $user['_id']), $update); //, array('upsert' => true));
+
+		$response = $this->db->lastError();
+
+		//die(json_encode($response));
+
+		if($response['err'] == null) {
+			echo json_encode(array('response' => true));
+		} else {
+			echo json_encode(array('response' => false));
+		}
+
+		$this->m->close();
 	}
 
 	public function schedule() 

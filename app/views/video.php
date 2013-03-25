@@ -34,6 +34,7 @@
 
 					$.user = { 
 						_id : "<?php echo $user['_id']; ?>",
+						email: "<?php echo $user['email']; ?>",
 						logged_in : <?php echo ($user) ? 'true' : 'false' ; ?>,
 						subscribed : <?php echo ($user['subscribed']) ? 'true' : 'false' ; ?>,
 						opengraph : <?php echo ($user['opengraph'] == '' || $user['opengraph'] == 'first') ? "'first'" : $user['opengraph'] ; ?>,
@@ -137,6 +138,9 @@
 		<section id="login">
 			<div>
 
+				<p>win <strong>music</strong>, <strong>tickets</strong> and <strong>merch</strong><br />
+					by watching the latest bass music videos</p>
+
 				<div id="fb-login-wrapper">
 					<div id="facebook-login-btb">
 						<a href="#" class="fb-js-login">watch with <span>facebook</span></a>
@@ -144,15 +148,13 @@
 				</div>
 
 				<div id="fb-facepile-wrapper">
-					<iframe src="//www.facebook.com/plugins/facepile.php?href=https%3A%2F%2Fapps.facebook.com%2Featbass&amp;action&amp;size=medium&amp;max_rows=1&amp;width=300&amp;colorscheme=light&amp;appId=131097217043937" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:300px;" allowTransparency="true"></iframe>
+					<iframe src="//www.facebook.com/plugins/facepile.php?href=https%3A%2F%2Fapps.facebook.com%2Featbass&amp;action&amp;size=medium&amp;max_rows=1&amp;width=300&amp;colorscheme=light&amp;appId=131097217043937" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:500px;" allowTransparency="true"></iframe>
 				</div>
 
 				<a href="#" id="fb-js-login-ad" class="fb-js-login">
 					<img src="/assets/info/winning_ad_fkof.jpg" />
 				</a>
 
-				<p>win <strong>music</strong>, <strong>tickets</strong> and <strong>merch</strong><br />
-					by watching the latest bass music videos</p>
 			</div>
 		</section>
 
