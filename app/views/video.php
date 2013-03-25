@@ -38,7 +38,7 @@
 						logged_in : <?php echo ($user) ? 'true' : 'false' ; ?>,
 						subscribed : <?php echo ($user['subscribed']) ? 'true' : 'false' ; ?>,
 						opengraph : <?php echo ($user['opengraph'] == '' || $user['opengraph'] == 'first') ? "'first'" : $user['opengraph'] ; ?>,
-						emailfrequency : <?php echo ($user['emailfrequency'] == '' || $user['emailfrequency'] == 'first') ? "'first'" : $user['emailfrequency'] ; ?>
+						emailfrequency : "<?php echo ($user['emailfrequency'] == '' || $user['emailfrequency'] == 'first') ? 'first' : $user['emailfrequency'] ; ?>"
 					};
 
 				<?php } else { ?>
