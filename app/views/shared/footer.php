@@ -59,6 +59,8 @@
 									<li><a href="/info:privacy-policy" target="_blank">privacy policy</a></li>
 									<li><a href="/info:terms-of-service" target="_blank">terms of service</a></li>
 									<li class="divider"></li>
+									<li><a href="/info:press" target="_blank">press</a></li>
+									<li class="divider"></li>
 									<li><a href="/info:channels" target="_blank">channels</a></li>
 									<li><a href="/info:winning" target="_blank">winning</a></li>
 									<li><a href="/info:support" tartget="_blank">support</a></li>
