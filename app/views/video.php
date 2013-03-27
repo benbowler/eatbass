@@ -152,7 +152,7 @@
 				</div>
 
 				<a href="#" id="fb-js-login-ad" class="fb-js-login">
-					<img src="/assets/info/winning_ad_fkof.jpg" />
+					<img src="/assets/info/winning_ad_dnba2013.jpg" />
 				</a>
 
 			</div>

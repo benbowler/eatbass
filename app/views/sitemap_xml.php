@@ -29,6 +29,10 @@
 <?php } ?>
 
 <url>
+  <loc>http://eatbass.com/info:press</loc>
+  <priority>0.6</priority>
+</url>
+<url>
   <loc>http://eatbass.com/info:privacy-policy</loc>
   <priority>0.2</priority>
 </url>
