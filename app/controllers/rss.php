@@ -85,7 +85,7 @@ class rss {
 
 		$query = array('date' => array( '$gt' => new MongoDate($feed_begin), '$lt' => new MongoDate($feed_published) ) );
 
-		$this->data['videos'] = $this->col->find()->sort(array('date' => -1))->limit(10); //     skip(rand(-1, $col->count()-1))->getNext();
+		$this->data['videos'] = $this->col->find()->sort(array('date' => -1))->limit(100); //     skip(rand(-1, $col->count()-1))->getNext();
 
 		//die(var_dump($videos));
 		//echo json_encode($video);
