@@ -702,6 +702,9 @@ body > svg {
 .navbar .navbar-inner.footer ul {
   padding-left: 1%;
 }
+.navbar .navbar-inner.footer #fb-status {
+  font-size: 0.5em;
+}
 /* Responsiveness */
 /* Large desktop */
 @media (min-width: 1200px) {

@@ -10,6 +10,8 @@ class api {
 		$this->dbname = str_replace("/", "", $this->mongo_url["path"]);
 
 		$this->_connect();
+
+		$this->channelId = "eatbassnow";
 	}
 
 	private function _connect()
@@ -514,8 +516,134 @@ class api {
 		$this->m->close();
 	}
 
+	public function indexchannels() 
+	{
+		// Config
+		$userId = "eatbassnow";
+
+		echo 'Index Channels<br />';
+
+		$this->total_channels = 0;
+		$this->total = 0;
+
+		$startIndex = 1;
+		$totalResults = 2;
+
+		while($startIndex < $totalResults) {
+
+			// Cycle through subscriptions
+			$subscriptions = $this->_api_request("https://gdata.youtube.com/feeds/api/users/{$this->channelId}/subscriptions?v=2&alt=json&start-index=$startIndex&max-results=50");
+
+			$startIndex = $startIndex + 50;
+			$totalResults = $subscriptions->feed->{'openSearch$totalResults'}->{'$t'};
+
+			foreach($subscriptions->feed->entry as $subscription) {
+
+				// Store channel
+				$this->_store_channel($subscription);
+
+				$channelId = $subscription->{'yt$username'}->{'$t'};
+				echo "Storing $channelId <br />";
+
+				$this->total_channels++;
+			}
+
+
+		}
+
+		echo "Imported {$this->total_channels} channels.<br />";
+
+		// Close connection
+		$this->m->close();
+	}
+
+	function _store_channel($channel)
+	{
+		//die(file_get_contents("http://www.youtube.com/$channel_id"));
+		//replace space between words with +
+
+		//$channel_id = $subscription->{'yt$username'}->{'$t'};
+		//$query = "cat+video"; 
+		//$start = 0;
+		/*
+		this url will give you json response with 4 results each time.
+		u have to change the $start like 0, 4, 8,...
+		use json_decode() and get it in array
+		*/
+		//echo $channel_id;
+		//$url = 'https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q='.$channel_id.'+site:facebook.com&start=0';
+
+		//die(var_dump(json_decode(file_get_contents($url))));
+		/*
+
+		$channel_id = $subscription->{'yt$username'}->{'$t'};
+
+		$html = file_get_contents("http://www.youtube.com/user/{$channel_id}");
+
+		$dom = new DomDocument();
+		$dom->loadHTML($html);
+		$finder = new DomXPath($dom);
+		
+		$nodes = $finder->query("//*[contains(@class, 'yt-c3-profile-custom-url')]");
+
+		foreach ($nodes as $node) {
+			die($node);
+			//echo $node->saveXML();
+		}
+		die();
+
+		// Select collection
+		$this->col = $this->db->channels;
+		*/
+		
+		//die(var_dump($channel_id));
+
+		//$channel['_id'] = $channel;
+
+
+		// Get by class name: yt-c3-profile-custom-url from DOM
+
+		//die(var_dump($this->_api_request("https://www.googleapis.com/youtube/v3/channels?part=snippet&id={$channel_id}&key=AIzaSyDuMSI5Hv5hRdpsDUEmN8q1U2RlOy23RB4")));
+
+
+		die(var_dump($channel));
+
+		$channel->_id = $channel->id->{'$t'};
+		$channel->random = rand(0,1000);
+		$channel->slug = $this->_to_ascii($channel->title->{'$t'});
+
+		$channel->date = new MongoDate(strtotime($channel->published->{'$t'}));
+		$channel->updated = new MongoDate(date('U'));
+		//$channel->date = ISODate(date('U', strtotime($channel->published->{'$t'}));
+
+		include_once($_SERVER['DOCUMENT_ROOT'].'/app/modules/lib_autolink/lib_autolink.php');
+		$channel->html_description = nl2br(autolink(($channel->{'media$group'}->{'media$description'}->{'$t'})));
+
+		$channel->ytFavorites = $channel->{'yt$statistics'}->favoriteCount;
+		$channel->ytViews = $channel->{'yt$statistics'}->viewCount;
+		$channel->ytLikes = $channel->{'yt$rating'}->numLikes;
+		$channel->ytDislikes = $channel->{'yt$rating'}->numDislikes;
+
+		try {
+		  $this->col->update(array('_id' => $channel->_id), $channel, array("upsert" => true));
+			$response = $this->db->lastError();
+
+			if($response['updatedExisting'] === true) {
+		  		echo "$this->count Updated {$channel->title->{'$t'}}<br />";
+			} else {
+		  		echo "$this->count Added {$channel->title->{'$t'}}<br />";
+			}
+		} catch(MongoCursorException $e) {
+		  $this->col->update(array('_id' => $channel->_id), $channel);
+		  echo "$this->count Error {$video->title->{'$t'}} $e<br />";
+		}
+
+	}
+
 	public function schedule() 
 	{
+		$slug = $_SERVER;
+
 		// Config
 		$userId = "eatbassnow";
 
@@ -543,12 +671,15 @@ class api {
 		while($startIndex < $totalResults) {
 
 			// Cycle through subscriptions and videos
-			$subscriptions = $this->_api_request("https://gdata.youtube.com/feeds/api/users/$userId/subscriptions?v=2&alt=json&max-results=25");
+
+			//echo "si:$startIndex tr:$totalResults <br />";
+			$subscriptions = $this->_api_request("https://gdata.youtube.com/feeds/api/users/$userId/subscriptions?v=2&alt=json&start-index=$startIndex&max-results=50");
 			// var_dump($subscriptions);
 			// die();
 
-			$startIndex = $startIndex + 25;
+			$startIndex = $startIndex + 50;
 			$totalResults = $subscriptions->feed->{'openSearch$totalResults'}->{'$t'};
+
 
 			foreach($subscriptions->feed->entry as $subscription) {
 
@@ -562,6 +693,7 @@ class api {
 				$totalResults_v = 2;
 
 				$this->count_videos = 0;
+				/*
 
 				while($startIndex_v < $totalResults_v) {
 					echo $startIndex_v . '<' . $totalResults_v;
@@ -574,9 +706,11 @@ class api {
 					//////////////////////////// REENABLE VIDEOS UPDATING
 					$this->_store_videos($videos);
 				}
+				*/
+
+				$this->total_channels++;
 			}
 
-			$this->total_channels++;
 
 		}
 
@@ -584,54 +718,6 @@ class api {
 
 		// Close connection
 		$this->m->close();
-	}
-
-	function _store_channel($subscription)
-	{
-		//die(file_get_contents("http://www.youtube.com/$channel_id"));
-		//replace space between words with +
-
-		//$channel_id = $subscription->{'yt$username'}->{'$t'};
-		//$query = "cat+video"; 
-		//$start = 0;
-		/*
-		this url will give you json response with 4 results each time.
-		u have to change the $start like 0, 4, 8,...
-		use json_decode() and get it in array
-		*/
-		//echo $channel_id;
-		//$url = 'https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q='.$channel_id.'+site:facebook.com&start=0';
-
-		//die(var_dump(json_decode(file_get_contents($url))));
-
-		$channel_id = $subscription->{'yt$username'}->{'$t'};
-
-		$html = file_get_contents("http://www.youtube.com/user/{$channel_id}");
-
-		$dom = new DomDocument();
-		$dom->loadHTML($html);
-		$finder = new DomXPath($dom);
-		
-		$nodes = $finder->query("//*[contains(@class, 'yt-c3-profile-custom-url')]");
-
-		foreach ($nodes as $node) {
-			die($node);
-			//echo $node->saveXML();
-		}
-		die();
-
-		// Select collection
-		//$this->col = $this->db->channels;
-		
-		//die(var_dump($channel_id));
-
-		//$channel['_id'] = $channel;
-
-
-		// Get by class name: yt-c3-profile-custom-url from DOM
-
-		//die(var_dump($this->_api_request("https://www.googleapis.com/youtube/v3/channels?part=snippet&id={$channel_id}&key=AIzaSyDuMSI5Hv5hRdpsDUEmN8q1U2RlOy23RB4")));
-
 	}
 
 	function _store_videos($videos)
@@ -731,6 +817,12 @@ class api {
 				$this->count++;
 				$this->total++;
 			}
+	}
+
+	public function index()
+	{
+		// Index likes
+		$this->col = $this->db->users;
 	}
 /*
 	function _ifttt() {

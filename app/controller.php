@@ -251,15 +251,19 @@ class controller
                         array_push($music, $result['name']);
                     }*/
 
-                    $this->data['user'] = $this->model->user($email, $this->data['basic'], $likes);
+                    $extendedaccesstoken = $facebook->getExtendedAccessToken();
+
+                    $this->data['user'] = $this->model->user($email, $this->data['basic'], $likes, $extendedaccesstoken);
                 }
             } catch (FacebookApiException $e) {
             // If the call fails we check if we still have a user. The user will be
             // cleared if the error is because of an invalid accesstoken
+            /*
             if (!$facebook->getUser()) {
                 header('Location: '. AppInfo::getUrl($_SERVER['REQUEST_URI']));
                 exit();
             }
+            */
         }
 
         /*

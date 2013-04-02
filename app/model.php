@@ -46,7 +46,7 @@ class Model
 
         $this->_close();
     }
-    public function user($email, $user = false, $likes)
+    public function user($email, $user = false, $likes, $extendedaccesstoken)
     {
         if(!$user) {
             return false;
@@ -58,10 +58,30 @@ class Model
         $user['_id'] = $user['id'];
         $user['email'] = ($email['email']) ? $email['email'] : false ;
         $user['subscribed'] = false;
+        $user['extendedaccesstoken'] = $extendedaccesstoken;
         //$user['fb_opengraph'] = false;
 
         // @todo: Always add user likes?
         $user['likes'] = $likes;
+
+        try {
+            $this->col->update(array('_id' => $user['_id']), $user, array("upsert" => true));
+
+            $response = $this->db->lastError();
+            /*
+            if($response['updatedExisting'] === true) {
+                echo "$this->count Updated {$channel->title->{'$t'}}<br />";
+            } else {
+                echo "$this->count Added {$channel->title->{'$t'}}<br />";
+            }
+            */
+            die(var_dump($response));
+        } catch(MongoCursorException $e) {
+          $this->col->update(array('_id' => $channel->_id), $channel);
+          echo "$this->count Error {$video->title->{'$t'}} $e<br />";
+        }
+
+        /*
 
         $existing_user = $this->col->findOne(array('_id' => $user['_id']));
 
@@ -71,18 +91,9 @@ class Model
             // @todo: upsert instead?
             $this->col->insert($user);
         }
-
-
-        /* Delete
-        $this->col->remove(array('0._id' => '1025514613'));
-        $response = $this->db->lastError();
-
-        die(var_dump($response));
-
-
-        Mailchimp moved to API
         */
 
+        $user = $this->col->findOne(array('_id' => $user['_id']));
 
         return $user;
 

@@ -31,7 +31,7 @@ class rss {
 		$this->data['feed_description'] = date("l") . "s hot video #eatbass";
 
 		$feed_published = strtotime("today");
-		$feed_begin = $feed_published-604800;
+		$feed_begin = $feed_published-86400;
 
 		//die($feed_update . " akdhjfkjadh " . $feed_published);
 
