@@ -516,39 +516,41 @@ class api {
 		$this->m->close();
 	}
 
+
+
+
 	public function indexchannels() 
 	{
 		// Config
 		$userId = "eatbassnow";
+
+		$slugs = explode(':', $_SERVER['REQUEST_URI']);
+
+		$startIndex = $slugs[2];
+		$totalResults = $slugs[3];
+
 
 		echo 'Index Channels<br />';
 
 		$this->total_channels = 0;
 		$this->total = 0;
 
-		$startIndex = 1;
-		$totalResults = 2;
 
-		while($startIndex < $totalResults) {
+		$subscriptions = $this->_api_request("https://gdata.youtube.com/feeds/api/users/{$this->channelId}/subscriptions?v=2&alt=json&start-index=$startIndex&max-results=$totalResults");
 
-			// Cycle through subscriptions
-			$subscriptions = $this->_api_request("https://gdata.youtube.com/feeds/api/users/{$this->channelId}/subscriptions?v=2&alt=json&start-index=$startIndex&max-results=50");
+		//$totalResults = $subscriptions->feed->{'openSearch$totalResults'}->{'$t'};
 
-			$startIndex = $startIndex + 50;
-			$totalResults = $subscriptions->feed->{'openSearch$totalResults'}->{'$t'};
+		foreach($subscriptions->feed->entry as $subscription) {
 
-			foreach($subscriptions->feed->entry as $subscription) {
+			// Store channel
+			// $this->_store_channel($subscription);
+			// Store Videos
+			$this->_store_videos($subscription);
 
-				// Store channel
-				$this->_store_channel($subscription);
+			$channelId = $subscription->{'yt$username'}->{'$t'};
+			echo "Storing $channelId <br />";
 
-				$channelId = $subscription->{'yt$username'}->{'$t'};
-				echo "Storing $channelId <br />";
-
-				$this->total_channels++;
-			}
-
-
+			$this->total_channels++;
 		}
 
 		echo "Imported {$this->total_channels} channels.<br />";
@@ -605,7 +607,6 @@ class api {
 
 		//die(var_dump($this->_api_request("https://www.googleapis.com/youtube/v3/channels?part=snippet&id={$channel_id}&key=AIzaSyDuMSI5Hv5hRdpsDUEmN8q1U2RlOy23RB4")));
 
-
 		die(var_dump($channel));
 
 		$channel->_id = $channel->id->{'$t'};
@@ -640,132 +641,51 @@ class api {
 
 	}
 
-	public function schedule() 
-	{
-		$slug = $_SERVER;
-
-		// Config
-		$userId = "eatbassnow";
-
-		echo 'Schedule<br />';
-
-		echo "Featured videos<br />";
-
-		//echo file_get_contents('https://gdata.youtube.com/feeds/api/users/eatbassnow/playlists?v=2');
-		$featured = $this->_api_request('https://gdata.youtube.com/feeds/api/playlists/PL8euV8agVxcfI3I-h9thKkkVbzXky-GvS?v=2&alt=json');
-
-		$this->_store_featured($featured);
-		//die();
-
-		# insert a document
-		//$visit = array( "ip" => 'blergy' );
-		//$this->col->insert($visit);
-		$this->total_channels = 0;
-		$this->total = 0;
-
-		$startIndex = 1;
-		$totalResults = 2;
-
-		//$this->count = 0;
-
-		while($startIndex < $totalResults) {
-
-			// Cycle through subscriptions and videos
-
-			//echo "si:$startIndex tr:$totalResults <br />";
-			$subscriptions = $this->_api_request("https://gdata.youtube.com/feeds/api/users/$userId/subscriptions?v=2&alt=json&start-index=$startIndex&max-results=50");
-			// var_dump($subscriptions);
-			// die();
-
-			$startIndex = $startIndex + 50;
-			$totalResults = $subscriptions->feed->{'openSearch$totalResults'}->{'$t'};
-
-
-			foreach($subscriptions->feed->entry as $subscription) {
-
-				// Store channel
-				//$this->_store_channel($subscription);
-
-				$channelId = $subscription->{'yt$username'}->{'$t'};
-				echo "Begining $channelId <br />";
-
-				$startIndex_v = 1;
-				$totalResults_v = 2;
-
-				$this->count_videos = 0;
-				/*
-
-				while($startIndex_v < $totalResults_v) {
-					echo $startIndex_v . '<' . $totalResults_v;
-
-					$videos = $this->_api_request("http://gdata.youtube.com/feeds/api/users/$channelId/uploads?v=2&alt=json&start-index=$startIndex_v&max-results=50");
-
-					$startIndex_v = $startIndex_v + 50;
-					$totalResults_v = $videos->feed->{'openSearch$totalResults'}->{'$t'};
-
-					//////////////////////////// REENABLE VIDEOS UPDATING
-					$this->_store_videos($videos);
-				}
-				*/
-
-				$this->total_channels++;
-			}
-
-
-		}
-
-		echo "Total {$this->total} imported from {$this->total_channels} channels.<br />";
-
-		// Close connection
-		$this->m->close();
-	}
-
 	function _store_videos($videos)
 	{
-
 		// Select collection
 		$this->col = $this->db->videos;
-			
-			foreach($videos->feed->entry as $video) {
-				if($video->{'media$group'}->{'yt$duration'}->seconds <= 600) {
+		
+		foreach($videos->feed->entry as $video) {
+			if($video->{'media$group'}->{'yt$duration'}->seconds <= 600) {
 
-					//$this->_store_tags($video->{'media$group'}->{"media$keywords"}->{"$t" });
+				//$this->_store_tags($video->{'media$group'}->{"media$keywords"}->{"$t" });
 
-					$video->_id = $video->id->{'$t'};
-					$video->random = rand(0,1000);
-					$video->slug = $this->_to_ascii($video->title->{'$t'});
+				$video->_id = $video->id->{'$t'};
+				$video->random = rand(0,1000);
+				$video->slug = $this->_to_ascii($video->title->{'$t'});
 
-					$video->date = new MongoDate(strtotime($video->published->{'$t'}));
-					$video->updated = new MongoDate(date('U'));
-					//$video->date = ISODate(date('U', strtotime($video->published->{'$t'}));
+				$video->date = new MongoDate(strtotime($video->published->{'$t'}));
+				$video->updated = new MongoDate(date('U'));
+				//$video->date = ISODate(date('U', strtotime($video->published->{'$t'}));
 
-					include_once($_SERVER['DOCUMENT_ROOT'].'/app/modules/lib_autolink/lib_autolink.php');
-					$video->html_description = nl2br(autolink(($video->{'media$group'}->{'media$description'}->{'$t'})));
+				include_once($_SERVER['DOCUMENT_ROOT'].'/app/modules/lib_autolink/lib_autolink.php');
+				$video->html_description = nl2br(autolink(($video->{'media$group'}->{'media$description'}->{'$t'})));
 
-					$video->ytFavorites = $video->{'yt$statistics'}->favoriteCount;
-					$video->ytViews = $video->{'yt$statistics'}->viewCount;
-					$video->ytLikes = $video->{'yt$rating'}->numLikes;
-					$video->ytDislikes = $video->{'yt$rating'}->numDislikes;
+				$video->ytFavorites = $video->{'yt$statistics'}->favoriteCount;
+				$video->ytViews = $video->{'yt$statistics'}->viewCount;
+				$video->ytLikes = $video->{'yt$rating'}->numLikes;
+				$video->ytDislikes = $video->{'yt$rating'}->numDislikes;
 
-					try {
-					  $this->col->update(array('_id' => $video->_id), $video, array("upsert" => true));
-						$response = $this->db->lastError();
+				try {
+				  $this->col->update(array('_id' => $video->_id), $video, array("upsert" => true));
+					$response = $this->db->lastError();
 
-						if($response['updatedExisting'] === true) {
-					  		echo "$this->count Updated {$video->title->{'$t'}}<br />";
-						} else {
-					  		echo "$this->count Added {$video->title->{'$t'}}<br />";
-						}
-					} catch(MongoCursorException $e) {
-					  $this->col->update(array('_id' => $video->_id), $video);
-					  echo "$this->count Error {$video->title->{'$t'}} $e<br />";
+					if($response['updatedExisting'] === true) {
+				  		echo "$this->count Updated {$video->title->{'$t'}}<br />";
+					} else {
+				  		echo "$this->count Added {$video->title->{'$t'}}<br />";
 					}
-				} else {
-				  echo "$this->count Skipped {$video->title->{'$t'}} (Too long)<br />";
+				} catch(MongoCursorException $e) {
+				  $this->col->update(array('_id' => $video->_id), $video);
+				  echo "$this->count Error {$video->title->{'$t'}} $e<br />";
 				}
-				$this->count++;
-				$this->total++;
+			} else {
+			  echo "$this->count Skipped {$video->title->{'$t'}} (Too long)<br />";
 			}
+			$this->count++;
+			$this->total++;
+		}
 	}
 
 	function _store_tags($tags)
@@ -824,19 +744,6 @@ class api {
 		// Index likes
 		$this->col = $this->db->users;
 	}
-/*
-	function _ifttt() {
-		$to      = 'trip@example.com';
-$subject = 'the subject';
-$message = 'hello';
-$headers = 'From: webmaster@example.com' . "\r\n" .
-    'Reply-To: webmaster@example.com' . "\r\n" .
-    'X-Mailer: PHP/' . phpversion();
-
-mail($to, $subject, $message, $headers);
-	}
-	*/
-
 
 
 	// Functions
