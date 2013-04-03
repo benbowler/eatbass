@@ -61,8 +61,23 @@ class Model
         $user['extendedaccesstoken'] = $extendedaccesstoken;
         //$user['fb_opengraph'] = false;
 
-        // @todo: Always add user likes?
+        // Store likes and array of likes
         $user['likes'] = $likes;
+
+        $user['likesnamearray'] = array();
+        $user['likesidarray'] = array();
+
+        foreach ($likes['data'] as $like) {
+            if($like['category'] == "Musician/band" || $like['category'] == "Record label") {
+
+                array_push($user['likesnamearray'], $like['name']);
+                array_push($user['likesidarray'], $like['id']);
+            }
+        }
+
+        $user['likesnamearray'] = implode(',', $user['likesnamearray']);
+        $user['likesidarray'] = implode(',', $user['likesidarray']);
+        /*
 
         try {
             $this->col->update(array('_id' => $user['_id']), $user, array("upsert" => true));
@@ -74,26 +89,23 @@ class Model
             } else {
                 echo "$this->count Added {$channel->title->{'$t'}}<br />";
             }
-            */
             die(var_dump($response));
         } catch(MongoCursorException $e) {
           $this->col->update(array('_id' => $channel->_id), $channel);
           echo "$this->count Error {$video->title->{'$t'}} $e<br />";
         }
+        */
 
-        /*
 
         $existing_user = $this->col->findOne(array('_id' => $user['_id']));
 
         if($existing_user) {
-            $user = $existing_user;
-        } else {
-            // @todo: upsert instead?
-            $this->col->insert($user);
+            $user = array_merge($user, $existing_user);
         }
-        */
 
-        $user = $this->col->findOne(array('_id' => $user['_id']));
+        $this->col->insert($user);
+
+        //$user = $this->col->findOne(array('_id' => $user['_id']));
 
         return $user;
 
