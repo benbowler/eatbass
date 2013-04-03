@@ -545,10 +545,28 @@ class api {
 			// Store channel
 			// $this->_store_channel($subscription);
 			// Store Videos
-			$this->_store_videos($subscription);
+			//$this->_store_videos($videos);
 
 			$channelId = $subscription->{'yt$username'}->{'$t'};
 			echo "Storing $channelId <br />";
+
+
+				$startIndex_v = 1;
+                $totalResults_v = 2;
+
+                $this->count_videos = 0;
+
+                while($startIndex_v < $totalResults_v) {
+                    echo $startIndex_v . '<' . $totalResults_v;
+
+                    $videos = $this->_api_request("http://gdata.youtube.com/feeds/api/users/$channelId/uploads?v=2&alt=json&start-index=$startIndex_v&max-results=50");
+
+                    $startIndex_v = $startIndex_v + 50;
+                    $totalResults_v = $videos->feed->{'openSearch$totalResults'}->{'$t'};
+
+                    //////////////////////////// REENABLE VIDEOS UPDATING
+                    $this->_store_videos($videos);
+                }
 
 			$this->total_channels++;
 		}
