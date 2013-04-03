@@ -94,4 +94,35 @@ class rss {
 
 		$m->close();
 	}
+
+	// 
+	public function tumblr()
+	{
+		die('pain in the arse');
+
+		$this->col = $this->db->videos;
+
+		$this->data['feed_title'] = date("l") . "s hot video #eatbass";
+		$this->data['feed_description'] = date("l") . "s hot video #eatbass";
+
+		$feed_published = strtotime("today");
+		$feed_begin = $feed_published-86400;
+
+		//die($feed_update . " akdhjfkjadh " . $feed_published);
+
+		$query = array('date' => array( '$gt' => new MongoDate($feed_begin), '$lt' => new MongoDate($feed_published) ) );
+
+		$this->data['videos'] = $this->col->find($query)->sort(array('ytLikes' => -1))->limit(1); //     skip(rand(-1, $col->count()-1))->getNext();
+
+		// die(var_dump($this->data['videos']));
+
+		$this->data['videos'][0]['media$group']['media$description']['$t'] = "<img src='{$video['media$group']['media$thumbnail'][3]['url']}' /> " . $this->data['videos'][0]['media$group']['media$description']['$t']; 
+
+		//die(var_dump($videos));
+		//echo json_encode($video);
+
+		$this->view('rss');
+
+		$this->m->close();
+	}
 }
