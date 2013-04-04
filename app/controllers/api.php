@@ -529,12 +529,17 @@ class api {
 		$startIndex = $slugs[2];
 		$totalResults = $slugs[3];
 
+		echo "Featured videos<br />";
+
+		//echo file_get_contents('https://gdata.youtube.com/feeds/api/users/eatbassnow/playlists?v=2');
+		$featured = $this->_api_request('https://gdata.youtube.com/feeds/api/playlists/PL8euV8agVxcfI3I-h9thKkkVbzXky-GvS?v=2&alt=json');
+
+		$this->_store_featured($featured);
 
 		echo 'Index Channels<br />';
 
 		$this->total_channels = 0;
 		$this->total = 0;
-
 
 		$subscriptions = $this->_api_request("https://gdata.youtube.com/feeds/api/users/{$this->channelId}/subscriptions?v=2&alt=json&start-index=$startIndex&max-results=$totalResults");
 
