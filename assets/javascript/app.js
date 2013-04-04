@@ -14,7 +14,7 @@ function app()
         // @todo: if tour == 'first'
         //runTour();
 
-        makeLinksExternal();
+        processLinks();
 
         $.tubeplayer.defaults.afterReady = function($player){
 
@@ -188,7 +188,7 @@ function app()
                 $('.video_channel').html(video.author[0].name.$t);
                 $('.video_channel').attr('href', 'http://youtube.com/user/'+video.author[0].name.$t);
                 $('.video_description').html(video.html_description);
-                makeLinksExternal();
+                processLinks();
 
                 $("#video_info").fadeIn();
                 $("#video_info").delay(5000).fadeOut();
@@ -689,9 +689,12 @@ function app()
         myTour.start();
     }
 
-    function makeLinksExternal() {
+    function processLinks() {
         // Make description links external
-        $("#video_description a[href^='http://']").attr("target","_blank");
+        $(".video_description a[href^='http://']").attr("target","_blank");
+        $(".video_description a[href^='https://']").attr("target","_blank");
+
+        // @todo: search for and create buy links..
     }
 
     // Facebook
