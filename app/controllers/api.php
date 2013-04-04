@@ -548,7 +548,7 @@ class api {
 		foreach($subscriptions->feed->entry as $subscription) {
 
 			// Store channel
-			$this->_store_channel($subscription);
+			//$this->_store_channel($subscription);
 
 			$channelId = $subscription->{'yt$username'}->{'$t'};
 			echo "Storing $channelId <br />";
