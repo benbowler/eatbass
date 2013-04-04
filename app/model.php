@@ -85,10 +85,11 @@ class Model
         }
         */
 
+        $this->col = $this->db->users;
         $existing_user = $this->col->findOne(array('_id' => $user['_id']));
 
         if($existing_user) {
-            $user = array_merge($user, $existing_user);
+            $user = array_merge($existing_user, $user);
         }
 
         $this->col->insert($user);
@@ -102,20 +103,18 @@ class Model
 
     private function store_likes($user_id, $likes)
     {
-
         foreach ($likes['data'] as $like) {
             if($like['category'] == "Musician/band" || $like['category'] == "Record label") {
 
                 $this->col = $this->db->likes;
+                $like['_id'] = $like['id'];
                 $this->col->update(array('_id' => $like['id']), $like, array("upsert" => true));
 
                 $this->col = $this->db->connections;
-                $this->col->update(array('_id' => $user_id.$like['id']), array('user' => $user_id, 'like' => $like['id']), array("upsert" => true));
+                $collection_id = $user_id.$like['id'];
+                $this->col->update(array('_id' => $collection_id), array('_id' => $collection_id, 'user' => $user_id, 'like' => $like['id']), array("upsert" => true));
             }
         }
-
-        $user['likesnamearray'] = implode(',', $user['likesnamearray']);
-        $user['likesidarray'] = implode(',', $user['likesidarray']);
     }
 
     public function get_profile($user, $limit = 5)

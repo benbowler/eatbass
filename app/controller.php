@@ -237,20 +237,6 @@ class controller
                     $email = $facebook->api('/me?fields=email');
                     $likes = $facebook->api('/me/likes');
 
-                    //die(var_dump($likes));
-                    /*
-                    //Create Query
-                    $params = array(
-                        'method' => 'fql.query',
-                        'query' => "SELECT name FROM page WHERE page_id IN (SELECT uid, page_id, type FROM page_fan WHERE uid=me()) AND type='musician/band'",
-                    );
-                    //Run Query
-                    $results = $facebook->api($params);
-                    $music = array();
-                    foreach ($results as $result) {
-                        array_push($music, $result['name']);
-                    }*/
-
                     $extendedaccesstoken = $facebook->getExtendedAccessToken();
 
                     $this->data['user'] = $this->model->user($email, $this->data['basic'], $likes, $extendedaccesstoken);
@@ -264,27 +250,7 @@ class controller
                 exit();
             }
             */
-        }
-
-        /*
-        // This fetches some things that you like . 'limit=*" only returns * values.
-        // To see the format of the data you are retrieving, use the "Graph API
-        // Explorer" which is at https://developers.facebook.com/tools/explorer/
-        $likes = idx($facebook->api('/me/likes?limit=4'), 'data', array());
-
-        // This fetches 4 of your friends.
-        $friends = idx($facebook->api('/me/friends?limit=4'), 'data', array());
-
-        // And this returns 16 of your photos.
-        $photos = idx($facebook->api('/me/photos?limit=16'), 'data', array());
-
-        // Here is an example of a FQL call that fetches all of your friends that are
-        // using this app
-        $app_using_friends = $facebook->api(array(
-          'method' => 'fql.query',
-          'query' => 'SELECT uid, name FROM user WHERE uid IN(SELECT uid2 FROM friend WHERE uid1 = me()) AND is_app_user = 1'
-        ));
-        */
+            }
 
         }
 
