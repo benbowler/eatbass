@@ -244,12 +244,16 @@ body > svg {
 
 	background-color: rgba(0, 0, 0, 0.8);
 	> div {
-		width: 50%;
-		margin: 6% auto;
+		width: 75%;
+		margin: 0 auto;
+		padding-top: 2em;
+
+		height: 100%;
+		overflow: scroll;
 	}
 	.profile {
 		width: 40%;
-		padding: 0 5% 1em;
+		padding: 0 5% 1em 5%;
 
 		font-size: 2em;
 
@@ -268,13 +272,25 @@ body > svg {
 			display: inline;
 		}
 	}
+	#settings {
+		clear: both;
+		display: block;
+
+		margin: 1.5em 0;
+		padding: 0 5% 1em;
+
+		text-align: left;
+		h4 {
+			float: left;
+		}
+		#toggleopengraph {
+			margin: 1em;
+			clear: both;
+		}
+	}
 	#profile_videos {
 		width: 100%;
 		padding: 0 5%;
-
-		height: 20em;
-
-		overflow: scroll;
 
 		display: block;
 		clear: both;
@@ -289,7 +305,7 @@ body > svg {
 				font-size: 1em;
 				text-align: left;
 				a:first-child {
-					width: 47%;
+					width: 50%;
 					text-overflow: ellipsis;
 					display: inline-block;
 					overflow: hidden;
@@ -385,9 +401,6 @@ body > svg {
 	.navbar-inner.footer {
 		ul {
 			padding-left: 1%;
-		}
-		#fb-status {
-			font-size: 0.5em;
 		}
 
 	  	-webkit-border-top-left-radius: 0;

@@ -569,12 +569,15 @@ body > svg {
   background-color: rgba(0, 0, 0, 0.8);
 }
 #profile > div {
-  width: 50%;
-  margin: 6% auto;
+  width: 75%;
+  margin: 0 auto;
+  padding-top: 2em;
+  height: 100%;
+  overflow: scroll;
 }
 #profile .profile {
   width: 40%;
-  padding: 0 5% 1em;
+  padding: 0 5% 1em 5%;
   font-size: 2em;
   float: left;
   text-align: left;
@@ -590,11 +593,23 @@ body > svg {
 #profile .profile em {
   display: inline;
 }
+#profile #settings {
+  clear: both;
+  display: block;
+  margin: 1.5em 0;
+  padding: 0 5% 1em;
+  text-align: left;
+}
+#profile #settings h4 {
+  float: left;
+}
+#profile #settings #toggleopengraph {
+  margin: 1em;
+  clear: both;
+}
 #profile #profile_videos {
   width: 100%;
   padding: 0 5%;
-  height: 20em;
-  overflow: scroll;
   display: block;
   clear: both;
 }
@@ -611,7 +626,7 @@ body > svg {
   text-align: left;
 }
 #profile #profile_videos > div h4 a:first-child {
-  width: 47%;
+  width: 50%;
   text-overflow: ellipsis;
   display: inline-block;
   overflow: hidden;
@@ -701,9 +716,6 @@ body > svg {
 }
 .navbar .navbar-inner.footer ul {
   padding-left: 1%;
-}
-.navbar .navbar-inner.footer #fb-status {
-  font-size: 0.5em;
 }
 /* Responsiveness */
 /* Large desktop */

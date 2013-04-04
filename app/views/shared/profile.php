@@ -8,6 +8,23 @@
 		<div id="acheievements">
 			<h3><span class="points"><?php echo $user['points']; ?></span> points</h3>
 		</div>
+		<div id="settings">
+			<h4>social sharing</h4>
+			<div id="toggleopengraph" class="switch switch-mini" data-on="primary" data-off="info">
+				    <input type="checkbox" <?php echo ($user['opengraph'] == "true") ? 'checked' : '' ; ?> />
+				</div>
+			<!--
+			<p>videos you watch will automatically be shared with your friends.</p>
+				
+			<h3>email frequency</h3><p>set how often you want #eatbass updates by email.</p> \
+            <select id="email_frequency"> \
+                <option>Never</option> \
+                <option>Monthly</option> \
+                <option selected>Weekly</option> \
+                <option>Daily</option> \
+            </select>
+        	-->
+		</div>
 		<div id="profile_videos">
 
 			<?php /* foreach ($profile as $video): ?>

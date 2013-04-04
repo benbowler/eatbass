@@ -121,8 +121,6 @@ function app()
         viewProfile();
     });
 
-
-
     $(".add-to-page").click(function (e) {
         // calling the API ...
         var obj = {
@@ -141,7 +139,7 @@ function app()
 
     function onVideoPlay() {
         // Make description links external @todo: move after video load
-        $("#video_description a[href^='http://']").attr("target","_blank");
+        processLinks();
     }
 
     // Actions
@@ -447,7 +445,7 @@ function app()
         setOpenGraph('first');
 
         $.alertify.set({ labels: { ok: "ON", cancel: "OFF" } });
-        $.alertify.confirm( '<h3>turn facebook social sharing on</h3><p>videos you watch will automatically be shared with your friends. you can turn this off now, or anytime with the controls below the video.</p>', function (e) {
+        $.alertify.confirm( '<h3>turn facebook social sharing on</h3><p>videos you watch will automatically be shared with your friends. you can turn this off now, or anytime with the controls in your profile.</p>', function (e) {
             if (e) {
                 console.log('opted in to open graph ' + e);
 
@@ -616,7 +614,7 @@ function app()
         console.log('loading profile');
 
         $("#profile").fadeToggle();
-        $("#profile").spin("yt");
+        $("#profile_videos").spin("yt");
 
         requestData = {
             user : $.user._id
@@ -638,7 +636,7 @@ function app()
                     return;
                 }
 
-                $("#profile").spin(false);
+                $("#profile_videos").spin(false);
                 $("#profile_videos").html(data);
                 /*
 

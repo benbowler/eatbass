@@ -21,14 +21,6 @@
 	                    <ul class="nav pull-left hidden-phone">
 	                    	<?php if (isset($basic)) { ?>
 			                	<li><a id="fb-status"></a></li>
-								<li>
-									<a>
-										social sharing 
-										<div id="toggleopengraph" class="switch switch-mini" data-on="primary" data-off="info">
-										    <input type="checkbox" <?php echo ($user['opengraph'] == "true") ? 'checked' : '' ; ?> />
-										</div>
-									</a>
-								</li>
 							<?php } ?>
 
 	                    	<li class="divider-vertical"></li>
@@ -38,7 +30,7 @@
 	                    <ul class="nav pull-right">
 
 	                    	<li><a class="video_title info thin-right"><?php echo $video['title']['$t']; ?></a></li>
-	                    	<li><a class="info  thin-left"><i class="icon-info"></i></a></li>
+	                    	<li><a class="info thin-left"><i class="icon-info"></i></a></li>
 	                    	<li><a class="video_channel"><?php echo $video['author'][0]['name']['$t']; ?></a></li>
 
 	                    	<li class="divider-vertical hidden-phone"></li>
@@ -46,7 +38,7 @@
 							<!--<li><a href="https://twitter.com/eatbassnow" target="_blank"><i class="icon-google-plus"></i><span class="hide">google plus</span></a></li>-->
 							<li class="hidden-phone"><a class="thin-right" href="https://facebook.com/eatbassnow" target="_blank"><i class="icon-facebook"></i><span class="hide">facebook</span></a></li>
 							<li class="hidden-phone"><a class="thin" href="https://twitter.com/eatbassnow" target="_blank"><i class="icon-twitter"></i><span class="hide">twitter</span></a></li>
-							<li class="hidden-phone"><a class="thin-left" href="https://twitter.com/eatbassnow" target="_blank"><i class="icon-tumblr"></i><span class="hide">tumblr</span></a></li>
+							<li class="hidden-phone"><a class="thin-left" href="https://untitled.eatbass.com" target="_blank"><i class="icon-tumblr"></i><span class="hide">tumblr</span></a></li>
 							
 
 							<li class="divider-vertical hidden-phone"></li>
