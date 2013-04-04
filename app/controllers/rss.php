@@ -9,13 +9,16 @@ class rss {
 		header('Content-Type: application/rss+xml; charset=UTF-8');
 		date_default_timezone_set('UTC');
 
-		# get the mongo db name out of the env
+		// get the mongo db name out of the env
 		$this->mongo_url = parse_url(getenv("PARAM3"));
 		$this->dbname = str_replace("/", "", $this->mongo_url["path"]);
 
-		# connect
+		// connect
 		$this->m   = new Mongo(getenv("PARAM3"));
 		$this->db  = $this->m->{$this->dbname};
+
+		// default to media:content images
+		$this->data['inline_image'] = false;
 	}
     private function view($view)
     {
@@ -95,11 +98,9 @@ class rss {
 		$m->close();
 	}
 
-	// 
+	// Daily with rss
 	public function tumblr()
 	{
-		die('pain in the arse');
-
 		$this->col = $this->db->videos;
 
 		$this->data['feed_title'] = date("l") . "s hot video #eatbass";
@@ -114,12 +115,10 @@ class rss {
 
 		$this->data['videos'] = $this->col->find($query)->sort(array('ytLikes' => -1))->limit(1); //     skip(rand(-1, $col->count()-1))->getNext();
 
-		// die(var_dump($this->data['videos']));
-
-		$this->data['videos'][0]['media$group']['media$description']['$t'] = "<img src='{$video['media$group']['media$thumbnail'][3]['url']}' /> " . $this->data['videos'][0]['media$group']['media$description']['$t']; 
-
 		//die(var_dump($videos));
 		//echo json_encode($video);
+
+		$this->data['inline_image'] = true;
 
 		$this->view('rss');
 
