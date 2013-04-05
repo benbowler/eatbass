@@ -17,14 +17,8 @@
 	                    </form>
 	                    <?phpm */ ?>
 
-
 	                    <ul class="nav pull-left hidden-phone">
-	                    	<?php if (isset($basic)) { ?>
 			                	<li><a id="video_status"></a></li>
-							<?php } ?>
-
-	                    	<li class="divider-vertical"></li>
-
 	                    </ul>
 
 	                    <ul class="nav pull-right">

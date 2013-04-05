@@ -133,16 +133,43 @@ class api {
 
 	public function video()
 	{
-		$this->col = $this->db->videos;
-
 		if($_POST['video']) {
+
+			$this->col = $this->db->videos;
+
 			$video = $this->col->findOne(array('video' => $_POST['video']));
+
+		} elseif($_POST['user'] && rand(1,3) > 1) {  // && rand(1,10) > 1       1/10 show a non related video
+
+			//die(json_encode('userdetected'));
+
+			$this->col = $this->db->users_videos_connections;
+
+			$count = $this->col->find(array('user' => $_POST['user']))->count();
+			$video_id = $this->col->find()->skip(rand(-1, $count-1))->getNext();
+
+			//die(json_encode($video_id));
+
+			$this->col = $this->db->videos;
+
+			$video = $this->col->findOne(array('_id' => $video_id['video']));
+
+			//$this->col = $this->db->users_likes_connections;
+			$video['userlikes'] = $video_id['video'];
+
+			//die(json_encode($video));
+
 		} else {
+
+			$this->col = $this->db->videos;
+
+			// Fall back to random
 			$startDate = new MongoDate(strtotime(date("Y-m-d", mktime()) . " - 182 day"));
 			//die(var_dump($startDate));
 			$count = $this->col->find(array('date' => array( '$gt' => $startDate ) ))->count();
 
 			$video = $this->col->find( array('date' => array( '$gt' => $startDate ) ) )->sort(array('date' => -1))->skip(rand(-1, $count-1))->getNext();
+
 		}
 
 		echo json_encode($video);

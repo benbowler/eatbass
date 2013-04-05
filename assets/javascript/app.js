@@ -156,12 +156,24 @@ function app()
             emailOptIn();
         }
 
+        requestData = {
+            user : $.user._id
+        };
+
         $.ajax({
             type: 'POST',
             dataType: 'json',
+            data: requestData,
             url: '/api:video',
             success: function (video) {
-                console.log(video);
+                console.log('video response..');
+                //console.log(video);
+
+                if(video.userlikes) {
+                    $('#video_status').html('selected based on your Facebook likes');
+                } else {
+                    $('#video_status').html('selected randomly from #eatbass');
+                }
 
                 jQuery("#player-yt").tubeplayer("play", video.media$group.yt$videoid.$t);
 
