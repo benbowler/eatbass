@@ -799,8 +799,11 @@ class api {
 		foreach ($likes as $like) {
 			//var_dump($like);
 			$search = $this->_to_ascii($like['name']);
+			if(!strstr($search, '-')) {
+				$search = '-' . $search . '-';
+			}
 
-			echo "<strong>$search</strong> <br />";
+			echo "<strong>Building connections for $search</strong> <br />";
 			$regex = new MongoRegex("/$search/");
 
 			$this->col = $this->db->videos;
@@ -809,22 +812,25 @@ class api {
 			$video_ids = array();
 			foreach ($videos as $video) {
 				// store like to video connection
-				//$this->_store_connection('likes_videos_connections', array());
+				$this->_store_connection('likes_videos_connections', array('_id' => $like['_id'].$video['_id'], 'like' => $like['_id'], 'video' => $video['_id']));
+
 				array_push($video_ids, $video['_id']);
-				//echo $video['slug'] . "<br />";
+
+				echo 'Video: ' . $video['slug'] . "<br />";
 			}
 
-			//die()
+			//die(var_dump($video_ids));
 
-			$this->col = $this->db->connections;
-			$videos = $this->col->find(array("slug" => $regex));
+			$this->col = $this->db->users_likes_connections;
+			$users = $this->col->find(array('like' => $like['_id']));
 
-			$video_ids = array();
-			foreach ($videos as $video) {
-				// store like to video connection
-				//$this->_store_connection('likes_videos_connections', array());
-				array_push($video_ids, $video['_id']);
-				//echo $video['slug'] . "<br />";
+			foreach ($users as $user) {
+				// store user to video connection
+				foreach ($video_ids as $video_id) {
+					$this->_store_connection('users_videos_connections', array('_id' => $user['user'].$video_id, 'user' => $user['user'], 'video' => $video_id));
+				}
+				//array_push($video_ids, $video['_id']);
+				echo 'User: ' . $user['user'] . "<br />";
 			}
 		}
 
@@ -839,7 +845,7 @@ class api {
 	{
 		$this->col = $this->db->$type;
 
-		$this->col->insert($connection);
+		$this->col->insert($array);
 	}
 	/*
 	public function index()
