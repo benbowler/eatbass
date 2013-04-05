@@ -819,8 +819,6 @@ class api {
 				echo 'Video: ' . $video['slug'] . "<br />";
 			}
 
-			//die(var_dump($video_ids));
-
 			$this->col = $this->db->users_likes_connections;
 			$users = $this->col->find(array('like' => $like['_id']));
 
@@ -833,12 +831,6 @@ class api {
 				echo 'User: ' . $user['user'] . "<br />";
 			}
 		}
-
-
-		// search if title matches 
-		//$this->col = $this->db->user_video_connections;
-
-
 	}
 
 	function _store_connection($type, $array)
