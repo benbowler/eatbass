@@ -74,10 +74,10 @@ function app()
         //onSeek: function (time) {}, // after the video has been seeked to a defined point
         //onMute: stopWatchVideo, // after the player is muted
         //onUnMute: setWatchVideo, // after the player is unmuted
-        onPlayerEnded: nextVideo, // after the video completely finishes
-        onErrorNotFound: nextVideo, // if a video cant be found
-        onErrorNotEmbeddable: nextVideo, // if a video isnt embeddable
-        onErrorInvalidParameter: nextVideo, // if we've got an invalid param
+        onPlayerEnded: nextVideo(), // after the video completely finishes
+        onErrorNotFound: nextVideo(), // if a video cant be found
+        onErrorNotEmbeddable: nextVideo(), // if a video isnt embeddable
+        onErrorInvalidParameter: nextVideo(), // if we've got an invalid param
         mute: true
     });
 
@@ -169,12 +169,6 @@ function app()
                 console.log('video response..');
                 //console.log(video);
 
-                if(video.userlikes) {
-                    $('#video_status').html('selected based on your Facebook likes');
-                } else {
-                    $('#video_status').html('selected randomly from #eatbass');
-                }
-
                 jQuery("#player-yt").tubeplayer("play", video.media$group.yt$videoid.$t);
 
                 $.video = {
@@ -209,27 +203,9 @@ function app()
 
                 doPoints('play', '+1 point for watching');
 
-                // Get current love state
-                requestData = {
-                    user : $.user._id,
-                    video : $.video._id
-                };
-
-                $.ajax({
-                    type: 'POST',
-                    dataType: "json",
-                    data: requestData,
-                    url: '/api:lovestate',
-                    success: function (data) {
-                        if(data.response === true) {
-                            $(".love").data('lovestate','loved');
-                            $(".love > i").removeClass("icon-heart-2 icon-heart-broken").addClass("icon-heart");
-                        } else {
-                            $(".love").data('lovestate','love');
-                            $(".love > i").removeClass("icon-heart-broken icon-heart").addClass("icon-heart-2");
-                        }
-                    }
-                });
+                setLoveState();
+                console.log(video.userlikes);
+                //setUserLikeState(video.userlikes);
 
                 //$(".skip").html('skip');
 
@@ -239,7 +215,7 @@ function app()
                     setTimeout(function() {
                         $('#video_status').html('posting watch to facebook.');
                         doOpenGraph('video.watches');
-                    }, 12000);
+                    }, 15000);
                 }
 
             },
@@ -254,6 +230,64 @@ function app()
             }
         });
     }
+
+    function setLoveState() {
+        // Get current love state
+        requestData = {
+            user : $.user._id,
+            video : $.video._id
+        };
+
+        $.ajax({
+            type: 'POST',
+            dataType: "json",
+            data: requestData,
+            url: '/api:lovestate',
+            success: function (data) {
+                if(data.response === true) {
+                    $(".love").data('lovestate','loved');
+                    $(".love > i").removeClass("icon-heart-2 icon-heart-broken").addClass("icon-heart");
+                } else {
+                    $(".love").data('lovestate','love');
+                    $(".love > i").removeClass("icon-heart-broken icon-heart").addClass("icon-heart-2");
+                }
+            }
+        });
+    }
+    /*
+    function setUserLikeState(userLikes) {
+
+        if(userLikes) {
+            // Get current love state
+            requestData = {
+                user : $.user._id,
+                video : $.video._id
+            };
+
+            $.ajax({
+                type: 'POST',
+                dataType: "json",
+                data: requestData,
+                url: '/api:userlike',
+                success: function (data) {
+                    if(data.response === true) {
+                        $(".love").data('lovestate','loved');
+                        $(".love > i").removeClass("icon-heart-2 icon-heart-broken").addClass("icon-heart");
+                    } else {
+                        $(".love").data('lovestate','love');
+                        $(".love > i").removeClass("icon-heart-broken icon-heart").addClass("icon-heart-2");
+                    }
+                }
+            });
+
+        } else {
+            //$('#video_status').html('something you might like');
+        }
+
+    }
+    */
+
+    // Controls
 
     function toggleLove(currentState) {
         console.log('Changing video state:' + currentState);

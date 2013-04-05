@@ -143,19 +143,19 @@ class api {
 
 			//die(json_encode('userdetected'));
 
-			$this->col = $this->db->users_videos_connections;
+			$this->col = $this->db->users_videos_likes_connections;
 
 			$count = $this->col->find(array('user' => $_POST['user']))->count();
-			$video_id = $this->col->find()->skip(rand(-1, $count-1))->getNext();
+			$video_connection = $this->col->find()->skip(rand(-1, $count-1))->getNext();
 
 			//die(json_encode($video_id));
 
 			$this->col = $this->db->videos;
 
-			$video = $this->col->findOne(array('_id' => $video_id['video']));
+			$video = $this->col->findOne(array('_id' => $video_connection['video']));
 
 			//$this->col = $this->db->users_likes_connections;
-			$video['userlikes'] = $video_id['video'];
+			$video['userlikes'] = $video_connection;
 
 			//die(json_encode($video));
 
@@ -177,7 +177,8 @@ class api {
 		$this->m->close();
 	}
 
-	public function clevervideo()
+	// Find out why a user likes a certain video
+	public function userlike()
 	{
 		$_POST['user'] = '1025514613';
 
@@ -840,6 +841,7 @@ class api {
 			foreach ($videos as $video) {
 				// store like to video connection
 				$this->_store_connection('likes_videos_connections', array('_id' => $like['_id'].$video['_id'], 'like' => $like['_id'], 'video' => $video['_id']));
+				// @todo: move down to the final foreach or consider if we need them at all with the final table?
 
 				array_push($video_ids, $video['_id']);
 
@@ -850,9 +852,10 @@ class api {
 			$users = $this->col->find(array('like' => $like['_id']));
 
 			foreach ($users as $user) {
-				// store user to video connection
+				// store connections
 				foreach ($video_ids as $video_id) {
 					$this->_store_connection('users_videos_connections', array('_id' => $user['user'].$video_id, 'user' => $user['user'], 'video' => $video_id));
+					$this->_store_connection('users_videos_likes_connections', array('_id' => $user['user'].$video_id.$like['_id'], 'user' => $user['user'], 'video' => $video_id, 'like' => $like['_id']));
 				}
 				//array_push($video_ids, $video['_id']);
 				echo 'User: ' . $user['user'] . "<br />";
