@@ -20,7 +20,7 @@
 
 	                    <ul class="nav pull-left hidden-phone">
 	                    	<?php if (isset($basic)) { ?>
-			                	<li><a id="fb-status"></a></li>
+			                	<li><a id="video_status"></a></li>
 							<?php } ?>
 
 	                    	<li class="divider-vertical"></li>

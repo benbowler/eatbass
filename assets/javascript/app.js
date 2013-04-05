@@ -147,7 +147,7 @@ function app()
         console.log('loading video + next virtual page.');
         jQuery("#player-yt").tubeplayer("pause");
         // Clear fb delete option
-        $('#fb-status').html('');
+        $('#video_status').html('');
         // Loading spinner
         $("#player").spin("yt");
 
@@ -225,7 +225,7 @@ function app()
 
                 if($.user.opengraph) {
                     setTimeout(function() {
-                        $('#fb-status').html('posting watch to facebook.');
+                        $('#video_status').html('posting watch to facebook.');
                         doOpenGraph('video.watches');
                     }, 12000);
                 }
@@ -341,7 +341,7 @@ function app()
         if($.user.opengraph) {
             console.log('wait 20 seconds');
             setTimeout(function() {
-                $('#fb-status').html('posting watch to facebook.');
+                $('#video_status').html('posting watch to facebook.');
                 doOpenGraph('video.watches');
             }, 20000);
         }
@@ -356,7 +356,7 @@ function app()
         doPoints('love', '+10 point for loving');
 
         if($.user.opengraph) {
-            $('#fb-status').html('posting love to facebook.');
+            $('#video_status').html('posting love to facebook.');
             doOpenGraph('eatbass:love');
         }
     }
@@ -516,11 +516,11 @@ function app()
                 if (!response || response.error) {
                     console.log('Open Graph error occured');
                     //fbJsLogin();
-                    $('#fb-status').html('');
+                    $('#video_status').html('');
                 } else {
                     console.log('response');
                     console.log('Action was successful! Action ID: ' + response.id);
-                    $('#fb-status').html(actionName+' posted to facebook. <a href="#" data-actionid="'+response.id+'" class="delete_opengraph">delete</a>');
+                    $('#video_status').html(actionName+' posted to facebook. <a href="#" data-actionid="'+response.id+'" class="delete_opengraph">delete</a>');
 
                     // Allow delete open graph
                     $(".delete_opengraph").click(function (e) {
@@ -541,7 +541,7 @@ function app()
           'delete',
           function(response) {
             console.log(response);
-            $('#fb-status').html(actionName+' deleted from facebook.');
+            $('#video_status').html(actionName+' deleted from facebook.');
           }
         );
     }

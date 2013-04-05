@@ -110,7 +110,7 @@ class Model
                 $like['_id'] = $like['id'];
                 $this->col->update(array('_id' => $like['id']), $like, array("upsert" => true));
 
-                $this->col = $this->db->connections;
+                $this->col = $this->db->users_likes_connections;
                 $collection_id = $user_id.$like['id'];
                 $this->col->update(array('_id' => $collection_id), array('_id' => $collection_id, 'user' => $user_id, 'like' => $like['id']), array("upsert" => true));
             }

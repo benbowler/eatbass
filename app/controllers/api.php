@@ -150,6 +150,29 @@ class api {
 		$this->m->close();
 	}
 
+	public function clevervideo()
+	{
+		$_POST['user'] = '1025514613';
+
+		$this->col = $this->db->connection;
+
+		$video = $this->col->find( array('user' => array( '$gt' => $startDate ) ) )->sort(array('date' => -1))->skip(rand(-1, $count-1))->getNext();
+
+		/*
+		$this->col = $this->db->videos;
+
+		$startDate = new MongoDate(strtotime(date("Y-m-d", mktime()) . " - 182 day"));
+		//die(var_dump($startDate));
+		$count = $this->col->find(array('date' => array( '$gt' => $startDate ) ))->count();
+
+		$video = $this->col->find( array('date' => array( '$gt' => $startDate ) ) )->sort(array('date' => -1))->skip(rand(-1, $count-1))->getNext();
+
+		echo json_encode($video);
+		*/
+
+		$this->m->close();
+	}
+
 	public function videos()
 	{
 		$this->col = $this->db->videos;
@@ -665,6 +688,7 @@ class api {
 	function _store_videos($videos)
 	{
 		// Select collection
+
 		$this->col = $this->db->videos;
 		
 		foreach($videos->feed->entry as $video) {
@@ -760,12 +784,70 @@ class api {
 			}
 	}
 
+
+	function indexconnections()
+	{
+		$slugs = explode(':', $_SERVER['REQUEST_URI']);
+
+		$skip = $slugs[2];
+		$limit = $slugs[3];
+
+		$this->col = $this->db->likes;
+
+		$likes = $this->col->find()->skip($skip)->limit($limit);
+
+		foreach ($likes as $like) {
+			//var_dump($like);
+			$search = $this->_to_ascii($like['name']);
+
+			echo "<strong>$search</strong> <br />";
+			$regex = new MongoRegex("/$search/");
+
+			$this->col = $this->db->videos;
+			$videos = $this->col->find(array("slug" => $regex));
+
+			$video_ids = array();
+			foreach ($videos as $video) {
+				// store like to video connection
+				//$this->_store_connection('likes_videos_connections', array());
+				array_push($video_ids, $video['_id']);
+				//echo $video['slug'] . "<br />";
+			}
+
+			//die()
+
+			$this->col = $this->db->connections;
+			$videos = $this->col->find(array("slug" => $regex));
+
+			$video_ids = array();
+			foreach ($videos as $video) {
+				// store like to video connection
+				//$this->_store_connection('likes_videos_connections', array());
+				array_push($video_ids, $video['_id']);
+				//echo $video['slug'] . "<br />";
+			}
+		}
+
+
+		// search if title matches 
+		//$this->col = $this->db->user_video_connections;
+
+
+	}
+
+	function _store_connection($type, $array)
+	{
+		$this->col = $this->db->$type;
+
+		$this->col->insert($connection);
+	}
+	/*
 	public function index()
 	{
 		// Index likes
 		$this->col = $this->db->users;
 	}
-
+	*/
 
 	// Functions
 	function _api_request($url) {
