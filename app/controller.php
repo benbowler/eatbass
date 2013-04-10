@@ -9,7 +9,7 @@ class controller
         $this->model = new model();
 
         $this->data['site_title'] = '#eatbass'; //he($app_name);
-        $this->data['site_description'] = "bass music tv";
+        $this->data['site_description'] = "music tv";
         $this->data['site_about'] = "Watch the latest bass music news, reviews, interviews and listen to the latest tracks. Just login to watch, love and share videos with friends. Every month we offer up some music, merch or tickets and every play, love and share enters you to win so what are you waiting for? Login to watch now.";
 
         /* Do FB */
