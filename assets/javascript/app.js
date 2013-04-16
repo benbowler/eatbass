@@ -59,12 +59,12 @@ function app()
         width: '100%', // the width of the player
         height: '100%', // the height of the player
         allowFullScreen: "true", // true by default, allow user to go full screen
-        showControls: 0,
+        showControls: 1,
         autoPlay: true,
         showInfo: false,
         protocol: 'https',
-        theme: "light",
-        color: "white",
+        theme: "dark",
+        color: "red",
         modestbranding: false,
         initialVideo: $.video.ytID, // the video that is loaded into the player
         preferredQuality: "default", // preferred quality: default, small, medium, large, hd720
