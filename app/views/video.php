@@ -157,11 +157,11 @@
 					  fjs.parentNode.insertBefore(js, fjs);
 					}(document, 'script', 'facebook-jssdk'));</script>
 				</div>
+			-->
 
 				<a href="#" id="fb-js-login-ad" class="fb-js-login">
-					<img src="/assets/info/winning_ad_dnba2013.jpg" />
+					<img src="/assets/info/winning_ad_atm_cd.jpg" />
 				</a>
-				-->
 			</div>
 		</section>
 

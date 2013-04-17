@@ -17,9 +17,12 @@ class Model
 
         } else {
 
-            
-            return $this->col->find(array('featured' => true))->sort(array('date' => -1))->limit(1)->getNext();
+            // Fall back to random
+            $startDate = new MongoDate(strtotime(date("Y-m-d", mktime()) . " - 182 day"));
+            //die(var_dump($startDate));
+            $count = $this->col->find(array('date' => array( '$gt' => $startDate ) ))->count();
 
+            return $this->col->find( array('date' => array( '$gt' => $startDate ) ) )->sort(array('date' => -1))->skip(rand(-1, $count-1))->getNext();
         }
 
         $this->_close();

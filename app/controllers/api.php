@@ -180,11 +180,17 @@ class api {
 	// Find out why a user likes a certain video
 	public function userlike()
 	{
-		$_POST['user'] = '1025514613';
 
-		$this->col = $this->db->connection;
+		//die(json_encode($_POST));
+		//$_POST['user'] = '1025514613';
 
-		$video = $this->col->find( array('user' => array( '$gt' => $startDate ) ) )->sort(array('date' => -1))->skip(rand(-1, $count-1))->getNext();
+		$this->col = $this->db->likes;
+
+		$like = $this->col->findOne( array( '_id' => $_POST['like'] ) );
+
+		echo json_encode($like);
+
+		//$like = $this->col->find( array('user' => array( '$gt' => $startDate ) ) )->sort(array('date' => -1))->skip(rand(-1, $count-1))->getNext();
 
 		/*
 		$this->col = $this->db->videos;

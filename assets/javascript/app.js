@@ -7,6 +7,7 @@ function app()
         // User logged out
 
         $.tubeplayer.defaults.afterReady = function($player){
+            jQuery("#player-yt").tubeplayer("mute");
         };
 
     } else {
@@ -14,11 +15,17 @@ function app()
         // @todo: if tour == 'first'
         //runTour();
 
+
         processLinks();
 
         $.tubeplayer.defaults.afterReady = function($player){
 
+            jQuery("#player-yt").tubeplayer("unmute");
+
             doPoints('return', '+20 for logging in today', 'come back again tomorrow for +20');
+
+            // Skip right into users content
+            //nextVideo();
 
             $("#login").fadeOut();
 
@@ -31,7 +38,7 @@ function app()
 
                     inviteUsers();
                 } else {
-                    console.log('invites cancelled');
+                    // console.log('invites cancelled');
                     //after clicking Cancel
                 }
             });
@@ -67,7 +74,7 @@ function app()
         color: "red",
         modestbranding: false,
         initialVideo: $.video.ytID, // the video that is loaded into the player
-        preferredQuality: "default", // preferred quality: default, small, medium, large, hd720
+        //preferredQuality: "default", // preferred quality: default, small, medium, large, hd720
         onPlay: onVideoPlay, // after the play method is called
         //onPause: stopWatchVideo, // after the pause method is called
         //onStop: function () {}, // after the player is stopped
@@ -75,9 +82,9 @@ function app()
         //onMute: stopWatchVideo, // after the player is muted
         //onUnMute: setWatchVideo, // after the player is unmuted
         onPlayerEnded: nextVideo(), // after the video completely finishes
-        onErrorNotFound: nextVideo(), // if a video cant be found
-        onErrorNotEmbeddable: nextVideo(), // if a video isnt embeddable
-        onErrorInvalidParameter: nextVideo(), // if we've got an invalid param
+        //onErrorNotFound: nextVideo(), // if a video cant be found
+        //onErrorNotEmbeddable: nextVideo(), // if a video isnt embeddable
+        //onErrorInvalidParameter: nextVideo(), // if we've got an invalid param
         mute: true
     });
 
@@ -100,7 +107,7 @@ function app()
     });
 
     $(".info").hover(function (e) {
-        console.log('expand info');
+        // console.log('expand info');
         $("#video_info").fadeIn();
     });
     $('#video_info').on("mouseleave",function(){
@@ -110,7 +117,7 @@ function app()
     $('#toggleopengraph').on('switch-change', function (e, data) {
         var $el = $(data.el)
             , value = data.value;
-        console.log(e, $el, value);
+        // console.log(e, $el, value);
 
         setOpenGraph(value);
     });
@@ -166,8 +173,8 @@ function app()
             data: requestData,
             url: '/api:video',
             success: function (video) {
-                console.log('video response..');
-                //console.log(video);
+                // console.log('video response..');
+                // console.log(video);
 
                 jQuery("#player-yt").tubeplayer("play", video.media$group.yt$videoid.$t);
 
@@ -201,10 +208,10 @@ function app()
 
                 _gaq.push(['_trackPageview', '/' + video.slug]);
 
-                doPoints('play', '+1 point for watching');
-
                 setLoveState();
-                console.log(video.userlikes);
+                // console.log(video.userlikes);
+
+                // Show reason for likes showing...
                 //setUserLikeState(video.userlikes);
 
                 //$(".skip").html('skip');
@@ -213,6 +220,8 @@ function app()
 
                 if($.user.opengraph) {
                     setTimeout(function() {
+                        doPoints('play', '+1 point for watching');
+
                         $('#video_status').html('posting watch to facebook.');
                         doOpenGraph('video.watches');
                     }, 15000);
@@ -221,7 +230,7 @@ function app()
             },
             error: function (data) {
 
-                console.log('error'+data);
+                // console.log('error'+data);
 
                 $.alertify.error('error loading video :(');
 
@@ -261,7 +270,7 @@ function app()
             // Get current love state
             requestData = {
                 user : $.user._id,
-                video : $.video._id
+                like : userLikes.like
             };
 
             $.ajax({
@@ -270,18 +279,17 @@ function app()
                 data: requestData,
                 url: '/api:userlike',
                 success: function (data) {
-                    if(data.response === true) {
-                        $(".love").data('lovestate','loved');
-                        $(".love > i").removeClass("icon-heart-2 icon-heart-broken").addClass("icon-heart");
+                    console.log(data);
+                    if(data.name) {
+                        $('#video_status').html('selected because you like ' + data.name);
                     } else {
-                        $(".love").data('lovestate','love');
-                        $(".love > i").removeClass("icon-heart-broken icon-heart").addClass("icon-heart-2");
+                        $('#video_status').html('selected from your likes');
                     }
                 }
             });
 
         } else {
-            //$('#video_status').html('something you might like');
+            $('#video_status').html('selected at random');
         }
 
     }
@@ -290,7 +298,7 @@ function app()
     // Controls
 
     function toggleLove(currentState) {
-        console.log('Changing video state:' + currentState);
+        // console.log('Changing video state:' + currentState);
 
         requestData = {
             user : $.user._id,
@@ -338,7 +346,7 @@ function app()
 
     // Facebook Share functionality
     function shareVideo() {
-        console.log('Sharing video ' + document.URL);
+        // console.log('Sharing video ' + document.URL);
 
         var body = 'Loving ' + $.video['title'];
         FB.api('/me/feed', 'post', { message: body }, function(response) {
@@ -378,14 +386,14 @@ function app()
     // Handle open graph and points
     function doWatchActions(openGraphMethod, pointsMethod) {
         //, '+1 point for playing'));
-        console.log('doWatchActions triggered');
+        // console.log('doWatchActions triggered');
 
         // Send points
         //
         doPoints('play', '+1 point for watching');
 
         if($.user.opengraph) {
-            console.log('wait 20 seconds');
+            // console.log('wait 20 seconds');
             setTimeout(function() {
                 $('#video_status').html('posting watch to facebook.');
                 doOpenGraph('video.watches');
@@ -396,7 +404,7 @@ function app()
     // Handle open graph and points
     function doLoveActions(openGraphMethod, pointsMethod) {
         //, '+1 point for playing'));
-        console.log('doLoveActions triggered');
+        // console.log('doLoveActions triggered');
 
         // Send points
         doPoints('love', '+10 point for loving');
@@ -409,7 +417,7 @@ function app()
 
     // Internal functions
     function doPoints(apiMethod, successMessage, failMessage) {
-        console.log('registerring points: ' + apiMethod);
+        // console.log('registerring points: ' + apiMethod);
 
         requestData = {
             method : apiMethod,
@@ -417,7 +425,7 @@ function app()
             video : $.video._id
         };
 
-        console.log(requestData);
+        // console.log(requestData);
 
         $.ajax({
             type: 'POST',
@@ -426,8 +434,8 @@ function app()
             url: '/api:points',
             success: function (data) {
 
-                console.log('scored points ');
-                console.log(data);
+                // console.log('scored points ');
+                // console.log(data);
 
                 if(data.response === true) {
                     $.alertify.log(successMessage);
@@ -443,8 +451,8 @@ function app()
                 }
             },
             error: function (data) {
-                console.log('failed connecting to api');
-                console.log(data);
+                // console.log('failed connecting to api');
+                // console.log(data);
 
                 $.alertify.log('error connecting to #eatbass');
             }
@@ -452,20 +460,20 @@ function app()
     }
 
     function updatePoints() {
-        console.log('updating user points');
+        // console.log('updating user points');
 
         requestData = {
             user : $.user._id
         };
 
-        console.log('updating user points'+requestData);
+        // console.log('updating user points'+requestData);
 
         $.ajax({
             type: 'POST',
             data: requestData,
             url: '/api:userpoints',
             success: function (data) {
-                console.log(data);
+                // console.log(data);
                 if(data === 0 || isNaN(data)) {
                     setTimeout(updatePoints(), 1000);
                 } else {
@@ -493,12 +501,12 @@ function app()
         $.alertify.set({ labels: { ok: "ON", cancel: "OFF" } });
         $.alertify.confirm( '<h3>turn facebook social sharing on</h3><p>videos you watch will automatically be shared with your friends. you can turn this off now, or anytime with the controls in your profile.</p>', function (e) {
             if (e) {
-                console.log('opted in to open graph ' + e);
+                // console.log('opted in to open graph ' + e);
 
                 $('#toggleopengraph').bootstrapSwitch('setState', true);
                 setOpenGraph(true);
             } else {
-                console.log('opted out of open graph');
+                // console.log('opted out of open graph');
 
                 setOpenGraph(false);
             }
@@ -507,14 +515,14 @@ function app()
     }
 
     function setOpenGraph(setValue) {
-        console.log('setting open graph preference to '+setValue);
+        // console.log('setting open graph preference to '+setValue);
 
         requestData = {
             user : $.user._id,
             opengraph : setValue
         };
 
-        console.log(requestData);
+        // console.log(requestData);
 
         $.ajax({
             type: 'POST',
@@ -525,12 +533,12 @@ function app()
 
                 $.user.opengraph = setValue;
 
-                console.log(data);
+                // console.log(data);
 
             },
             error: function (data) {
 
-                console.log(data);
+                // console.log(data);
 
             }
         });
@@ -551,21 +559,21 @@ function app()
             actionName = "love";
         }
 
-        console.log(apiMethod);
-        console.log(openGraphRecipe);
+        // console.log(apiMethod);
+        // console.log(openGraphRecipe);
 
         // FB Open Graph Action
         FB.api('/me/'+apiMethod, 'post',
             openGraphRecipe,
             function(response) {
-                console.log(response);
+                // console.log(response);
                 if (!response || response.error) {
-                    console.log('Open Graph error occured');
+                    // console.log('Open Graph error occured');
                     //fbJsLogin();
                     $('#video_status').html('');
                 } else {
-                    console.log('response');
-                    console.log('Action was successful! Action ID: ' + response.id);
+                    // console.log('response');
+                    // console.log('Action was successful! Action ID: ' + response.id);
                     $('#video_status').html(actionName+' posted to facebook. <a href="#" data-actionid="'+response.id+'" class="delete_opengraph">delete</a>');
 
                     // Allow delete open graph
@@ -580,13 +588,13 @@ function app()
     }
 
     function deleteOpenGraph(actionId) {
-        console.log('deleting open graph action '+actionId);
+        // console.log('deleting open graph action '+actionId);
 
         FB.api(
           '/'+actionId,
           'delete',
           function(response) {
-            console.log(response);
+            // console.log(response);
             $('#video_status').html(actionName+' deleted from facebook.');
           }
         );
@@ -617,14 +625,14 @@ function app()
     }
 
     function setEmail(emailFrequency) {
-        console.log('setting email frequency '+emailFrequency);
+        // console.log('setting email frequency '+emailFrequency);
 
         requestData = {
             user : $.user,
             emailfrequency : emailFrequency
         };
 
-        console.log(requestData);
+        // console.log(requestData);
 
         $.user.emailfrequency = emailFrequency;
 
@@ -635,12 +643,12 @@ function app()
             url: '/api:setemailfrequency',
             success: function (data) {
 
-                console.log(data);
+                // console.log(data);
 
             },
             error: function (data) {
 
-                console.log(data);
+                // console.log(data);
 
                 // Ask again..
                 $.user.emailfrequency = 'first';
@@ -657,7 +665,7 @@ function app()
     //$("#profile").hide();
 
     function viewProfile() {
-        console.log('loading profile');
+        // console.log('loading profile');
 
         $("#profile").fadeToggle();
         $("#profile_videos").spin("yt");
@@ -673,7 +681,7 @@ function app()
             url: '/api:profilehtml',
             success: function (data) {
 
-                // console.log(data);
+                console.log(data);
 
                 if(data === 'false') {
                     setTimeout(function () {
@@ -684,7 +692,6 @@ function app()
 
                 $("#profile_videos").spin(false);
                 $("#profile_videos").html(data);
-                /*
 
                 data.forEach(function (videoId) {
                     console.log(videoId);
@@ -704,7 +711,6 @@ function app()
                         }
                     });
                 });
-                */
             },
             error: function (data) {
 
@@ -716,9 +722,9 @@ function app()
     }
 
     // Front end
-
+    /*
     function runTour() {
-        console.log('running tour');
+        // console.log('running tour');
 
         var tourdata = [
            {
@@ -732,6 +738,7 @@ function app()
         var myTour = jTour(tourdata);
         myTour.start();
     }
+    */
 
     function processLinks() {
         // Make description links external
@@ -740,13 +747,14 @@ function app()
 
         // @todo: search for and create buy links..
     }
+}
 
     // Facebook
 
     function logResponse(response) {
-        if (console && console.log) {
-            console.log('The response was', response);
-        }
+        // if (console && console.log) {
+            // console.log('The response was', response);
+        //}
     }
 
     // Set up so we handle click on the buttons
@@ -809,5 +817,5 @@ function app()
         });
     });
 
-*/
 }
+*/
