@@ -36,6 +36,10 @@ class controller
             die();
         }
 
+        if(!$this->data['basic']) {
+            $this->data['basic'] = false;
+        }
+
         //$this->data['profile'] = $this->model->get_profile($this->data['user']->_id, $limit);
         
         //var_dump($slug);
