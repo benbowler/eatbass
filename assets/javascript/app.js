@@ -212,6 +212,8 @@ function app()
 
                 _gaq.push(['_trackPageview', '/' + video.slug]);
 
+                $("#player").spin(false);
+
                 setLoveState();
                 // console.log(video.userlikes);
 
@@ -219,8 +221,6 @@ function app()
                 //setUserLikeState(video.userlikes);
 
                 //$(".skip").html('skip');
-
-                $("#player").spin(false);
 
                 if($.user.opengraph) {
                     setTimeout(function() {
