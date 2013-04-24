@@ -48,7 +48,7 @@ class controller
         //$this->data['top_likes'] = $this->model->get_video($slug);
 
         if($slug) {
-            $description = "{$video['title']['$t']} {$this->data['site_title']} | {$this->data['site_description']}
+            $description = "{$video['title']['$t']} {$this->data['site_title']}  {$this->data['site_description']}
 
             {$video['media$group']['media$description']['$t']}
             ";
@@ -67,7 +67,7 @@ class controller
 
             $this->data['title_tag'] = "&#9658; " . $video['title']['$t'] . ' ' . $this->data['site_title'];
         } else {
-            $description = "{$this->data['site_title']} | {$this->data['site_description']}
+            $description = "{$this->data['site_title']}  {$this->data['site_description']}
 
             watch, love and share for points
 
@@ -75,18 +75,18 @@ class controller
             ";
             
             $this->data['meta_tags'] = array(
-                'title' => $this->data['site_title'] . ' | ' . $this->data['site_description'],
+                'title' => $this->data['site_title'] . '  ' . $this->data['site_description'],
                 'description' => $description,
                 'og:type' => 'website',
                 'og:url' => "https://" . $_SERVER['HTTP_HOST'] . "/",
                 'og:image' => "https://" . $_SERVER['HTTP_HOST'] . "/assets/images/share.jpg",
                 'og:site_name' => $this->data['site_title'],
-                'og:title' => $this->data['site_title'] . ' | ' . $this->data['site_description'],
+                'og:title' => $this->data['site_title'] . '  ' . $this->data['site_description'],
                 'og:description' =>  $description,
                 'fb:app_id' => $this->data['appID'],
             );
 
-            $this->data['title_tag'] = $this->data['site_title'] . ' | ' . $this->data['site_description'];
+            $this->data['title_tag'] = $this->data['site_title'] . '  ' . $this->data['site_description'];
 
             $this->data['top_plays'] = $this->model->get_top_videos_by('ytPlays');
         }

@@ -1,3 +1,4 @@
+				
 				<div class="navbar navbar-inverse navbar-fixed-top">
 	              <div class="navbar-inner header">
 	                <div class="container">
@@ -41,7 +42,6 @@
 								<li><a href="#" class="skip"><i class="icon-last"></i></a></li>
 								<li><a href="#" class="love" data-lovestate="love"><i class="icon-heart-2"></i></a></li>
 
-							<?php if (isset($basic)) { ?>
 
 								<li class="divider-vertical"></li>
 
@@ -62,9 +62,6 @@
 			                          <li><a class="profile" href="/user:<?php echo $basic['username']; ?>">profile</a></li>
 			                        </ul> */ ?>
 		                        </li>
-		                    <?php } else { ?>
-		                    
-		                    <?php } ?>
 		                    </ul>
 	                  </div><!-- /.nav-collapse -->
 	                </div>

@@ -484,7 +484,11 @@ body > svg {
 }
 #login > div {
   width: 50%;
-  margin: 5% auto;
+  margin: 2% auto;
+}
+#login > div h1 {
+  font-size: 3.7em;
+  line-height: 1.2em;
 }
 #login > div h3 {
   font-size: 2em;

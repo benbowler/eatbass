@@ -5,16 +5,16 @@ function app()
 
     if(!$.user.logged_in) {
         // User logged out
-
-        $.tubeplayer.defaults.afterReady = function($player){
-            jQuery("#player-yt").tubeplayer("mute");
-        };
+        if($.site.slug == 'false') {
+            $.tubeplayer.defaults.afterReady = function($player){
+                jQuery("#player-yt").tubeplayer("mute");
+            };
+        }
 
     } else {
         // User logged in!
         // @todo: if tour == 'first'
         //runTour();
-
 
         processLinks();
 
@@ -23,9 +23,6 @@ function app()
             jQuery("#player-yt").tubeplayer("unmute");
 
             doPoints('return', '+20 for logging in today', 'come back again tomorrow for +20');
-
-            // Skip right into users content
-            //nextVideo();
 
             $("#login").fadeOut();
 
@@ -74,18 +71,17 @@ function app()
         color: "red",
         modestbranding: false,
         initialVideo: $.video.ytID, // the video that is loaded into the player
-        //preferredQuality: "default", // preferred quality: default, small, medium, large, hd720
+        preferredQuality: "default", // preferred quality: default, small, medium, large, hd720
         onPlay: onVideoPlay, // after the play method is called
-        //onPause: stopWatchVideo, // after the pause method is called
-        //onStop: function () {}, // after the player is stopped
-        //onSeek: function (time) {}, // after the video has been seeked to a defined point
-        //onMute: stopWatchVideo, // after the player is muted
-        //onUnMute: setWatchVideo, // after the player is unmuted
-        onPlayerEnded: nextVideo(), // after the video completely finishes
-        //onErrorNotFound: nextVideo(), // if a video cant be found
-        //onErrorNotEmbeddable: nextVideo(), // if a video isnt embeddable
-        //onErrorInvalidParameter: nextVideo(), // if we've got an invalid param
-        mute: true
+        onPause: function () {}, // after the pause method is called
+        onStop: function () {}, // after the player is stopped
+        onSeek: function () {}, // after the video has been seeked to a defined point
+        onMute: function () {}, // after the player is muted
+        onUnMute: function () {}, // after the player is unmuted
+        onPlayerEnded: function () { nextVideo(); }, // after the video completely finishes
+        onErrorNotFound: function () { nextVideo(); }, // if a video cant be found
+        onErrorNotEmbeddable: function () { nextVideo(); }, // if a video isnt embeddable
+        onErrorInvalidParameter: function(response) { console.log(response); } // if we've got an invalid param
     });
 
     /* 
@@ -147,6 +143,14 @@ function app()
     function onVideoPlay() {
         // Make description links external @todo: move after video load
         processLinks();
+    }
+
+    function processLinks() {
+        // Make description links external
+        $(".video_description a[href^='http://']").attr("target","_blank");
+        $(".video_description a[href^='https://']").attr("target","_blank");
+
+        // @todo: search for and create buy links..
     }
 
     // Actions
@@ -719,33 +723,6 @@ function app()
                 $("#profile").fadeOut();
             }
         });
-    }
-
-    // Front end
-    /*
-    function runTour() {
-        // console.log('running tour');
-
-        var tourdata = [
-           {
-              html: "Hello World"
-           },{
-              html: "Welcome to the Tour",
-              live: 5000,
-              delayIn: 500
-           }
-        ];
-        var myTour = jTour(tourdata);
-        myTour.start();
-    }
-    */
-
-    function processLinks() {
-        // Make description links external
-        $(".video_description a[href^='http://']").attr("target","_blank");
-        $(".video_description a[href^='https://']").attr("target","_blank");
-
-        // @todo: search for and create buy links..
     }
 }
 

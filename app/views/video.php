@@ -25,6 +25,7 @@
 				$.site = { 
 					title : "<?php echo $site_title; ?>",
 					description : "<?php echo $site_description; ?>",
+					slug : "<?php echo ($slug) ? $slug : 'false' ; ?>"
 				};
 
 				// @todo: Check if this is needed?
@@ -110,13 +111,26 @@
 
 		<div id="notifications"></div>
 
-		<?php include('shared/header.php'); ?>
+		<?php
+
+		if (isset($basic)) {
+			include('shared/header.php');
+		}
+
+		?>
 
 		<section id="player">
 			<div id="player-yt"></div>
 		</section>
 
-		<?php include('shared/footer.php'); ?>
+
+		<?php
+		
+		if (isset($basic)) {
+			include('shared/footer.php');
+		}
+
+		?>
 
 
 		<section id="video_info">
@@ -137,6 +151,8 @@
 
 		<section id="login">
 			<div>
+
+				<h1><strong>#eatbass</strong> music tv</h1>
 
 				<p>win <strong>music</strong>, <strong>tickets</strong> and <strong>merch</strong><br />
 					by watching the latest bass music videos</p>
@@ -165,13 +181,13 @@
 			</div>
 		</section>
 
-		<!-- seo stuff -->
-		<section>
+		<section style="display: none;">
 			<h1>top videos</h1>
 			<?php foreach ($top_plays as $video) { ?>
 				<a href="/<?php echo $video['slug']; ?>" alt="<?php echo $video['title']['$t']; ?>"><?php echo $video['title']['$t']; ?></a><br />
 			<?php } ?>
 		</section>
+
 		<?php /*
 		<section>
 			<?php //var_dump($top_ikes); ?>
