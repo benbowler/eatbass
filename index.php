@@ -5,7 +5,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/app/controller.php');
 //require_once('app/config.php');
 date_default_timezone_set('UTC');
 
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
 
 $slug = @$_GET['slug'];
 
