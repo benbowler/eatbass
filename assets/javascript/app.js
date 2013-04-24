@@ -726,30 +726,6 @@ function app()
     }
 }
 
-    // Facebook
-
-    function logResponse(response) {
-        // if (console && console.log) {
-            // console.log('The response was', response);
-        //}
-    }
-
-    // Set up so we handle click on the buttons
-    $('.fb-js-login').click(function (e) {
-        e.preventDefault();
-
-        fbJsLogin();
-    });
-
-    function fbJsLogin()
-     {
-        FB.login(function(response) {
-            var url = [location.protocol, '//', location.host, '/', $.video.slug].join(''); // , location.pathname
-            window.location = url;
-        }, {scope: 'email,user_likes,publish_actions'});
-     }
-
-
     /*
     // Set up so we handle click on the buttons
     $('#postToWall').click(function () {
