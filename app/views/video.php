@@ -175,13 +175,12 @@
 				<p>win <strong>music</strong>, <strong>tickets</strong> and <strong>merch</strong><br />
 					by watching the latest bass music videos</p>
 
-				<!--
+				
 				<div id="fb-login-wrapper">
 					<div id="facebook-login-btb">
 						<a href="#" class="fb-js-login">watch with <span>facebook</span></a>
 					</div>
 				</div>
-			-->
 			<!--
 				<div class="hidden-phone" id="fb-facepile-wrapper">
 					<div id="fb-root"></div>
@@ -194,10 +193,11 @@
 					}(document, 'script', 'facebook-jssdk'));</script>
 				</div>
 				-->
-
+				<!--
 				<a href="#" id="fb-js-login-ad" class="fb-js-login">
 					<img src="/assets/info/winning_ad_atm_cd.jpg" />
 				</a>
+			-->
 			</div>
 		</section>
 
