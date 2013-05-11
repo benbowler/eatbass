@@ -218,7 +218,7 @@ function app()
                 // console.log(video.userlikes);
 
                 // Show reason for likes showing...
-                //setUserLikeState(video.userlikes);
+                setUserLikeState(video.userlikes);
 
                 //$(".skip").html('skip');
 
@@ -226,8 +226,9 @@ function app()
                     setTimeout(function() {
                         doPoints('play', '+1 point for watching');
 
-                        $('#video_status').html('posting watch to facebook.');
-                        doOpenGraph('video.watches');
+                        // Hide open graph for demo
+                        //$('#video_status').html('posting watch to facebook.');
+                        //doOpenGraph('video.watches');
                     }, 15000);
                 }
 
@@ -267,7 +268,7 @@ function app()
             }
         });
     }
-    /*
+
     function setUserLikeState(userLikes) {
 
         if(userLikes) {
@@ -297,7 +298,6 @@ function app()
         }
 
     }
-    */
 
     // Controls
 
@@ -726,7 +726,7 @@ function app()
     }
 }
 
-    /*
+/*
     // Set up so we handle click on the buttons
     $('#postToWall').click(function () {
         FB.ui({

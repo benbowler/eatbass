@@ -5,6 +5,46 @@
 		<script type="text/javascript">
 		$(function () {
 
+			// Setup video and user objects..
+			$.site = { 
+				title : "<?php echo $site_title; ?>",
+				description : "<?php echo $site_description; ?>",
+				slug : "<?php echo ($slug) ? $slug : 'false' ; ?>"
+			};
+
+			// @todo: Check if this is needed?
+			$.alertify = alertify;
+
+			<?php if (isset($basic)) { ?>
+
+				$.user = { 
+					_id : "<?php echo $user['_id']; ?>",
+					email: "<?php echo $user['email']; ?>",
+					logged_in : <?php echo ($user) ? 'true' : 'false' ; ?>,
+					subscribed : <?php echo ($user['subscribed']) ? 'true' : 'false' ; ?>,
+					opengraph : <?php echo ($user['opengraph'] == '' || $user['opengraph'] == 'first') ? "'first'" : $user['opengraph'] ; ?>,
+					emailfrequency : "<?php echo ($user['emailfrequency'] == '' || $user['emailfrequency'] == 'first') ? 'first' : $user['emailfrequency'] ; ?>"
+				};
+
+			<?php } else { ?>
+
+				$.user = false;
+
+			<?php } ?>
+
+			$.video = { 
+				_id : "<?php echo $video['_id']; ?>",
+				slug : "<?php echo $video['slug']; ?>",
+				title : <?php echo json_encode($video['title']['$t']); ?>,
+		        author : "<?php echo $video['author'][0]['name']['$t']; ?>",
+	            description : <?php echo json_encode($video['media$group']['media$description']['$t']); ?>,
+	            html_description : <?php echo json_encode($video['html_description']); ?>,
+				picture : "<?php echo str_replace('http', 'https', $video['media$group']['media$thumbnail'][1]['url']); ?>",
+				ytID : "<?php echo $video['media$group']['yt$videoid']['$t']; ?>"
+			};
+
+
+
 		    window.fbAsyncInit = function() {
 			FB.init({
 			  appId      : '<?php echo $appID; ?>', // App ID
@@ -16,48 +56,11 @@
 
 			// @todo: remove this??
 			FB.Event.subscribe('auth.login', function(response) {
-			  window.location = window.location; //+'/<?php echo $video['slug']; ?>';
+                var url = [location.protocol, '//', location.host, '/', $.video.slug].join(''); // , location.pathname
+                window.location = url;
 			});
 
 			FB.getLoginStatus(function(response) {
-
-				// Setup video and user objects
-				$.site = { 
-					title : "<?php echo $site_title; ?>",
-					description : "<?php echo $site_description; ?>",
-					slug : "<?php echo ($slug) ? $slug : 'false' ; ?>"
-				};
-
-				// @todo: Check if this is needed?
-				$.alertify = alertify;
-
-				<?php if (isset($basic)) { ?>
-
-					$.user = { 
-						_id : "<?php echo $user['_id']; ?>",
-						email: "<?php echo $user['email']; ?>",
-						logged_in : <?php echo ($user) ? 'true' : 'false' ; ?>,
-						subscribed : <?php echo ($user['subscribed']) ? 'true' : 'false' ; ?>,
-						opengraph : <?php echo ($user['opengraph'] == '' || $user['opengraph'] == 'first') ? "'first'" : $user['opengraph'] ; ?>,
-						emailfrequency : "<?php echo ($user['emailfrequency'] == '' || $user['emailfrequency'] == 'first') ? 'first' : $user['emailfrequency'] ; ?>"
-					};
-
-				<?php } else { ?>
-
-					$.user = false;
-
-				<?php } ?>
-
-				$.video = { 
-					_id : "<?php echo $video['_id']; ?>",
-					slug : "<?php echo $video['slug']; ?>",
-					title : <?php echo json_encode($video['title']['$t']); ?>,
-			        author : "<?php echo $video['author'][0]['name']['$t']; ?>",
-		            description : <?php echo json_encode($video['media$group']['media$description']['$t']); ?>,
-		            html_description : <?php echo json_encode($video['html_description']); ?>,
-					picture : "<?php echo str_replace('http', 'https', $video['media$group']['media$thumbnail'][1]['url']); ?>",
-					ytID : "<?php echo $video['media$group']['yt$videoid']['$t']; ?>"
-				};
 
 				if (response.status === 'connected') {
 				    // the user is logged in and has authenticated your
@@ -172,12 +175,14 @@
 				<p>win <strong>music</strong>, <strong>tickets</strong> and <strong>merch</strong><br />
 					by watching the latest bass music videos</p>
 
+				<!--
 				<div id="fb-login-wrapper">
 					<div id="facebook-login-btb">
 						<a href="#" class="fb-js-login">watch with <span>facebook</span></a>
 					</div>
 				</div>
-				<!--
+			-->
+			<!--
 				<div class="hidden-phone" id="fb-facepile-wrapper">
 					<div id="fb-root"></div>
 					<script>(function(d, s, id) {

@@ -5,8 +5,17 @@
 	<title><?php echo $feed_title; ?></title>
 	<description><?php echo $feed_description; ?></description>
 	<link><?php echo 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?></link>
-	<lastBuildDate><?php echo date("r"); ?></lastBuildDate>
-	<pubDate><?php echo date("r"); ?></pubDate>
+	<?php var_dump($videos); ?>
+	<?php
+		$videos->next();
+    	$recent_video = $videos->current();
+
+    	var_dump($recent_video);
+
+    	die($recent_video['date']->sec);
+    ?>
+	<lastBuildDate><?php echo date("r", strtotime($recent_video['date']->sec)); ?></lastBuildDate>
+	<pubDate><?php echo date("r", strtotime("1293843661")); ?></pubDate>
 
 	<?php foreach ($videos as $video) { ?>
 	<item>
@@ -29,6 +38,5 @@
 		<pubDate><?php echo date("r", $video['date']->sec); ?></pubDate>
 	</item>
 	<?php } ?>
-
 	</channel>
 </rss>
