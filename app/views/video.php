@@ -172,16 +172,20 @@
 
 				<h1><strong>#eatbass</strong> music tv</h1>
 
+				<!--
 				<p>win <strong>music</strong>, <strong>tickets</strong> and <strong>merch</strong><br />
 					by watching the latest bass music videos</p>
-
+				-->
+				<p>every video you <strong>watch</strong> earns you points<br />
+					each point enters you to <strong>win</strong> our competition</p>
 				
 				<div id="fb-login-wrapper">
 					<div id="facebook-login-btb">
 						<a href="#" class="fb-js-login">watch with <span>facebook</span></a>
 					</div>
 				</div>
-			<!--
+
+			
 				<div class="hidden-phone" id="fb-facepile-wrapper">
 					<div id="fb-root"></div>
 					<script>(function(d, s, id) {
@@ -192,12 +196,10 @@
 					  fjs.parentNode.insertBefore(js, fjs);
 					}(document, 'script', 'facebook-jssdk'));</script>
 				</div>
-				-->
-				<!--
+				
 				<a href="#" id="fb-js-login-ad" class="fb-js-login">
-					<img src="/assets/info/winning_ad_atm_cd.jpg" />
+					<img src="/assets/info/winning_ad_blackmarket.jpg" />
 				</a>
-			-->
 			</div>
 		</section>
 
