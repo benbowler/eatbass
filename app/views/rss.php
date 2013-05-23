@@ -1,4 +1,4 @@
-<?php echo '<?xml version="1.0" encoding="UTF-8" ?>'; ?>
+<?php echo '<?xml version="1.0" encoding="UTF-8"'; ?>
 <rss version="2.0">
 
 	<channel>
@@ -10,12 +10,10 @@
 		$videos->next();
     	$recent_video = $videos->current();
 
-    	//var_dump($recent_video);
-
-    	//die($recent_video['date']->sec);
+    	$date = $recent_video['date'];
     ?>
-	<lastBuildDate><?php echo date("r", strtotime($recent_video['date']->sec)); ?></lastBuildDate>
-	<pubDate><?php echo date("r", strtotime("1293843661")); ?></pubDate>
+	<lastBuildDate><?php echo date("r", $date->sec); ?></lastBuildDate>
+	<pubDate><?php echo date("r", '1293843661'); ?></pubDate>
 
 	<?php foreach ($videos as $video) { ?>
 	<item>
