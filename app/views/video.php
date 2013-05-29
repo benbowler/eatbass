@@ -185,7 +185,7 @@
 					</div>
 				</div>
 
-			
+				<?php /*
 				<div class="hidden-phone" id="fb-facepile-wrapper">
 					<div id="fb-root"></div>
 					<script>(function(d, s, id) {
@@ -196,6 +196,7 @@
 					  fjs.parentNode.insertBefore(js, fjs);
 					}(document, 'script', 'facebook-jssdk'));</script>
 				</div>
+				*/ ?>
 				
 				<a href="#" id="fb-js-login-ad" class="fb-js-login">
 					<img src="/assets/info/winning_ad_blackmarket.jpg" />
