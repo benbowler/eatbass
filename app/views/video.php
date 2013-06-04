@@ -198,7 +198,7 @@
 				</div>
 				*/ ?>
 				
-				<a href="http://bit.ly/ZxWbFc">
+				<a href="http://bit.ly/ZxWbFc" target="_blank" style="margin-top: 15px;">
 					<img src="/assets/info/winning_ad_survey.jpg" />
 				</a>
 			</div>
