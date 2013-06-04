@@ -198,8 +198,8 @@
 				</div>
 				*/ ?>
 				
-				<a href="#" id="fb-js-login-ad" class="fb-js-login">
-					<img src="/assets/info/winning_ad_blackmarket.jpg" />
+				<a href="http://bit.ly/ZxWbFc">
+					<img src="/assets/info/winning_ad_survey.jpg" />
 				</a>
 			</div>
 		</section>
