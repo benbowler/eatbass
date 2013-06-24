@@ -113,9 +113,9 @@ FileETag None
 
     ###
     # Force https when needed
-    RewriteCond %{SERVER_NAME} .com
-    RewriteCond %{HTTP:X-Forwarded-Proto} ^http$
-    RewriteRule ^(.*)$ https://%{SERVER_NAME}%{REQUEST_URI} [R=301,L]
+    # RewriteCond %{SERVER_NAME} .com
+    # RewriteCond %{HTTP:X-Forwarded-Proto} ^http$
+    # RewriteRule ^(.*)$ https://%{SERVER_NAME}%{REQUEST_URI} [R=301,L]
  
     ### Canonicalize Codeigniter URLs
     # Removes trailing slashes (prevents SEO duplicate content issues)
